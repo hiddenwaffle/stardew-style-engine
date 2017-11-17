@@ -1,1 +1,1 @@
-console.log('works ' + new Date());
+console.log('works! ' + new Date());
