@@ -1,9 +1,8 @@
-// TODO: Alternative to this. Use import statement.
 declare function require(str: string): string;
 
 import temp from './temp';
 import * as PIXI from 'pixi.js';
-const ryu = require('./ryu.png'); // TODO: https://github.com/Microsoft/TypeScript-React-Starter/issues/12
+const ryu = require('./ryu.png'); // https://github.com/Microsoft/TypeScript-React-Starter/issues/12
 
 console.log('addition1: ' + temp(1, 2));
 console.log('addition2: ' + temp(3, 4));

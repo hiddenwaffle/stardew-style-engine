@@ -1,10 +1,11 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
 module.exports = {
   entry: './src/index.ts',
-  devtool: 'inline-source-map',
+  devtool: 'cheap-module-eval-source-map',
   module: {
     rules: [
       {
@@ -14,8 +15,7 @@ module.exports = {
       },
       {
         test: /\.png$/,
-        use: 'url-loader',
-        exclude: /node_modules/
+        use: 'url-loader'
       }
     ]
   },
@@ -34,6 +34,7 @@ module.exports = {
   },
   plugins: [
     new CleanWebpackPlugin(['dist']),
-    new HtmlWebpackPlugin()
+    new HtmlWebpackPlugin()//,
+    // new UglifyJsPlugin()
   ]
 }
