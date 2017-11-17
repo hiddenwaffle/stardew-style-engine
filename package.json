@@ -1,4 +1,9 @@
 {
+  "name": "simplicity",
+  "version": "0.0.1",
+  "scripts": {
+    "build": "webpack"
+  },
   "devDependencies": {
     "webpack": "^3.8.1"
   }
