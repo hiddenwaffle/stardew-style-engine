@@ -8,8 +8,13 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.tsx?$/,
+        test: /\.ts$/,
         use: 'ts-loader',
+        exclude: /node_modules/
+      },
+      {
+        test: /\.png$/,
+        use: 'url-loader',
         exclude: /node_modules/
       }
     ]
@@ -17,7 +22,6 @@ module.exports = {
   resolve: {
     extensions: [
       '.ts',
-      '.tsx',
       '.js'
     ]
   },
