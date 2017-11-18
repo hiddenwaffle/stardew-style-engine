@@ -61,3 +61,9 @@ const resizeHandler = () => {
 window.addEventListener('resize', resizeHandler, false);
 
 resizeHandler();
+
+setTimeout(() => {
+  import('./another').then((someModule) => {
+    someModule.default();
+  });
+}, 2000);
