@@ -16,23 +16,18 @@ const renderer = PIXI.autoDetectRenderer(96, 96, {
 PIXI.settings.SCALE_MODE = PIXI.SCALE_MODES.NEAREST;
 
 document.body.appendChild(renderer.view);
-var stage = new PIXI.Container();
+const stage = new PIXI.Container();
 
 const mainContainer = new PIXI.Container();
+stage.addChild(mainContainer);
 
-var img = new Image();
-img.addEventListener('load', function () {
-  var myBaseTexture = new PIXI.BaseTexture(img);
-  var texture = new PIXI.Texture(myBaseTexture);
-  PIXI.Texture.addTextureToCache(texture, 'someIdOrAnother');
-  var sprite = PIXI.Sprite.fromImage('someIdOrAnother');
-  sprite.position.x = 320 / 2;
-  sprite.position.y = 240 / 2;
-  sprite.anchor.set(0.5);
-  stage.addChild(mainContainer);
-  mainContainer.addChild(sprite);
-});
-img.src = ryu;
+const texture = PIXI.Texture.from(ryu);
+PIXI.Texture.addToCache(texture, 'cheeseburger-ryu');
+const sprite = PIXI.Sprite.fromFrame('cheeseburger-ryu');
+sprite.position.x = 320 / 2;
+sprite.position.y = 240 / 2;
+sprite.anchor.set(0.5);
+mainContainer.addChild(sprite);
 
 function bob() {
   renderer.render(stage);
