@@ -1,5 +1,7 @@
 declare function require(str: string): string;
 
+require('./main.css');
+
 import temp from './temp';
 import * as PIXI from 'pixi.js';
 const ryu = require('./ryu.png'); // https://github.com/Microsoft/TypeScript-React-Starter/issues/12
@@ -61,4 +63,4 @@ setTimeout(() => {
   import('./another').then((someModule) => {
     someModule.default();
   });
-}, 2000);
+}, 500);
