@@ -16,13 +16,6 @@ module.exports = {
       {
         test: /\.png$/,
         use: 'url-loader'
-      },
-      {
-        test: /\.css$/,
-        use: [
-          { loader: 'style-loader' },
-          { loader: 'css-loader' }
-        ]
       }
     ]
   },
@@ -42,7 +35,7 @@ module.exports = {
   plugins: [
     new CleanWebpackPlugin(['dist']),
     new HtmlWebpackPlugin({
-      title: 'Simplicity'
+      template: 'src/index.html'
     })//,
     // new UglifyJsPlugin()
   ]
