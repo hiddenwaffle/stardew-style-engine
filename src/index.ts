@@ -37,30 +37,63 @@ function bob() {
 }
 requestAnimationFrame(bob);
 
-// const logicalWidth = 320;
-// const logicalHeight = 240;
+// Resize based on: https://codepen.io/anthdeldev/pen/PGPmVm
+const dynamicResizeContainer = document.getElementById('dynamic-resize-container');
+{
+  const logicalWidth = 16;
+  const logicalHeight = 9;
+  const resizeHandler = () => {
+    const scaleFactor = Math.min(
+      window.innerWidth / logicalWidth,
+      window.innerHeight / logicalHeight
+    );
+    const newWidth = Math.ceil(logicalWidth * scaleFactor);
+    const newHeight = Math.ceil(logicalHeight * scaleFactor);
+    dynamicResizeContainer.style.width = `${newWidth}px`;
+    dynamicResizeContainer.style.height = `${newHeight}px`;
+  }
+  window.addEventListener('resize', resizeHandler, false);
+  resizeHandler();
+}
+// Resize based on: https://codepen.io/anthdeldev/pen/PGPmVm
+{
+  const logicalWidth = 17 * 32;
+  const logicalHeight = 13 * 32;
+  const resizeHandler = () => {
+    const scaleFactor = Math.min(
+      dynamicResizeContainer.clientWidth / logicalWidth,
+      dynamicResizeContainer.clientHeight / logicalHeight
+    );
+    const newWidth = Math.ceil(logicalWidth * scaleFactor);
+    const newHeight = Math.ceil(logicalHeight * scaleFactor);
+    renderer.view.style.width = `${newWidth}px`;
+    renderer.view.style.height = `${newHeight}px`;
+    renderer.resize(newWidth, newHeight);
+    mainContainer.scale.set(scaleFactor);
 
-// const resizeHandler = () => {
-//   const scaleFactor = Math.min(
-//     window.innerWidth / logicalWidth,
-//     window.innerHeight / logicalHeight
-//   );
-//   const newWidth = Math.ceil(logicalWidth * scaleFactor);
-//   const newHeight = Math.ceil(logicalHeight * scaleFactor);
+    // Scale font too.
+    const narrationContainer = document.getElementById('narration-container');
+    const fontSize = Math.ceil(8.5 * scaleFactor); // 8.5. just "looked good" in Chrome on Mac.
+    console.log('scaleFactor', scaleFactor);
+    console.log('fontSize', fontSize);
+    narrationContainer.style.fontSize = `${fontSize}px`;
+  };
+  window.addEventListener('resize', resizeHandler, false);
+  resizeHandler();
+}
 
-//   renderer.view.style.width = `${newWidth}px`;
-//   renderer.view.style.height = `${newHeight}px`;
-
-//   renderer.resize(newWidth, newHeight);
-//   mainContainer.scale.set(scaleFactor);
-// };
-
-// window.addEventListener('resize', resizeHandler, false);
-
-// resizeHandler();
+// TODO: Make better
+setTimeout(() => {
+  const dynamicResizeContainer = document.getElementById('dynamic-resize-container');
+  dynamicResizeContainer.style.visibility = 'visible';
+}, 1);
 
 setTimeout(() => {
   import('./another').then((someModule) => {
     someModule.default();
   });
+  const narrationContainer = document.getElementById('narration-container');
+  const section = document.createElement('div');
+  section.innerText = 'Lorem ipsum yadda yadda yadda';
+  narrationContainer.appendChild(section);
 }, 500);
