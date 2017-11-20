@@ -23,12 +23,13 @@ stage.addChild(mainContainer);
 
 // Render some tiles
 {
-  const grass = require('./grass01.png');
-  const texture = PIXI.Texture.from(grass);
-  PIXI.Texture.addToCache(texture, 'grass01');
+  const tag = 'grass02.png';
+  const raw = require(`@/sandbox/${tag}`); // Example Webpack resolve.alias / TypeScript compilerOptions.src
+  const texture = PIXI.Texture.from(raw);
+  PIXI.Texture.addToCache(texture, tag);
   for (let y = 0; y < (13 * 16); y += 16) {
     for (let x = 0; x < (17 * 16); x += 16) {
-      const sprite = PIXI.Sprite.fromFrame('grass01');
+      const sprite = PIXI.Sprite.fromFrame(tag);
       sprite.position.x = x;
       sprite.position.y = y;
       mainContainer.addChild(sprite);
@@ -52,6 +53,16 @@ stage.addChild(mainContainer);
   PIXI.Texture.addToCache(texture, 'player_25');
   const sprite = PIXI.Sprite.fromFrame('player_25');
   sprite.position.x = 9 * 16;
+  sprite.position.y = 6 * 16;
+  mainContainer.addChild(sprite);
+}
+// Render a 16x18 character
+{
+  const raw = require('./townfolk-f.png');
+  const texture = PIXI.Texture.from(raw);
+  PIXI.Texture.addToCache(texture, 'townfolk-f');
+  const sprite = PIXI.Sprite.fromFrame('townfolk-f');
+  sprite.position.x = 10 * 16;
   sprite.position.y = 6 * 16;
   mainContainer.addChild(sprite);
 }
