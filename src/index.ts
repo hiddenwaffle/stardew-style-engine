@@ -1,12 +1,11 @@
-declare function require(str: string): string;
+declare function require(str: string): string; // https://github.com/Microsoft/TypeScript-React-Starter/issues/12
 
-import temp from './temp';
 import * as PIXI from 'pixi.js';
-const ryu = require('./ryu.png'); // https://github.com/Microsoft/TypeScript-React-Starter/issues/12
 
-console.log('addition1: ' + temp(1, 2));
-console.log('addition2: ' + temp(3, 4));
-console.log('addition3: ' + temp(5, 6));
+const tileSize = 16;
+const fontBaseSize = 5.25; // Just "looks good" in Chrome on Mac.
+const logicalWidth = 17 * tileSize;
+const logicalHeight = 14 * tileSize;
 
 const renderer = PIXI.autoDetectRenderer(96, 96, {
   roundPixels: true,
@@ -19,17 +18,53 @@ const canvasContainer = document.querySelector('#canvas-container');
 canvasContainer.appendChild(renderer.view); // TODO: Prevent display of entire page until this is appended.
 
 const stage = new PIXI.Container();
-
 const mainContainer = new PIXI.Container();
 stage.addChild(mainContainer);
 
-const texture = PIXI.Texture.from(ryu);
-PIXI.Texture.addToCache(texture, 'cheeseburger-ryu');
-const sprite = PIXI.Sprite.fromFrame('cheeseburger-ryu');
-sprite.position.x = 320 / 2;
-sprite.position.y = 240 / 2;
-sprite.anchor.set(0.5);
-mainContainer.addChild(sprite);
+// Render some tiles
+{
+  const grass = require('./grass01.png');
+  const texture = PIXI.Texture.from(grass);
+  PIXI.Texture.addToCache(texture, 'grass01');
+  for (let y = 0; y < (13 * 16); y += 16) {
+    for (let x = 0; x < (17 * 16); x += 16) {
+      const sprite = PIXI.Sprite.fromFrame('grass01');
+      sprite.position.x = x;
+      sprite.position.y = y;
+      mainContainer.addChild(sprite);
+    }
+  }
+}
+// Render some water
+{
+  const water = require('./water3x3.png');
+  const texture = PIXI.Texture.from(water);
+  PIXI.Texture.addToCache(texture, 'water3x3');
+  const sprite = PIXI.Sprite.fromFrame('water3x3');
+  sprite.position.x = 4 * 16;
+  sprite.position.y = 4 * 16;
+  mainContainer.addChild(sprite);
+}
+// Render a character
+{
+  const player = require('./player_25.png');
+  const texture = PIXI.Texture.from(player);
+  PIXI.Texture.addToCache(texture, 'player_25');
+  const sprite = PIXI.Sprite.fromFrame('player_25');
+  sprite.position.x = 9 * 16;
+  sprite.position.y = 6 * 16;
+  mainContainer.addChild(sprite);
+}
+// Render some other characters
+{
+  const fighter = require('./fighter.png');
+  const texture = PIXI.Texture.from(fighter);
+  PIXI.Texture.addToCache(texture, 'fighter');
+  const sprite = PIXI.Sprite.fromFrame('fighter');
+  sprite.position.x = 12 * 16;
+  sprite.position.y = 3 * 16;
+  mainContainer.addChild(sprite);
+}
 
 function bob() {
   renderer.render(stage);
@@ -57,8 +92,6 @@ const dynamicResizeContainer = document.getElementById('dynamic-resize-container
 }
 // Resize based on: https://codepen.io/anthdeldev/pen/PGPmVm
 {
-  const logicalWidth = 17 * 32;
-  const logicalHeight = 13 * 32;
   const resizeHandler = () => {
     const scaleFactor = Math.min(
       dynamicResizeContainer.clientWidth / logicalWidth,
@@ -73,9 +106,7 @@ const dynamicResizeContainer = document.getElementById('dynamic-resize-container
 
     // Scale font too.
     const narrationContainer = document.getElementById('narration-container');
-    const fontSize = Math.ceil(8.5 * scaleFactor); // 8.5. just "looked good" in Chrome on Mac.
-    console.log('scaleFactor', scaleFactor);
-    console.log('fontSize', fontSize);
+    const fontSize = Math.ceil(fontBaseSize * scaleFactor);
     narrationContainer.style.fontSize = `${fontSize}px`;
   };
   window.addEventListener('resize', resizeHandler, false);
