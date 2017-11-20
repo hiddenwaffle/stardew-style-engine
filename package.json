@@ -17,6 +17,7 @@
     "webpack-dev-server": "^2.9.4"
   },
   "dependencies": {
-    "pixi.js": "^4.6.1"
+    "pixi.js": "^4.6.1",
+    "typescript-ioc": "^1.0.2"
   }
 }

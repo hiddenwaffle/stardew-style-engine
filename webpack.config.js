@@ -41,5 +41,8 @@ module.exports = {
       template: 'src/index.html'
     })//,
     // new UglifyJsPlugin()
-  ]
+  ],
+  node: {
+    fs: 'empty' // This is due to typescript-ioc calling require('fs') if not a browser.
+  }
 }
