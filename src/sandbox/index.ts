@@ -14,7 +14,7 @@ const renderer = PIXI.autoDetectRenderer(96, 96, {
 
 PIXI.settings.SCALE_MODE = PIXI.SCALE_MODES.NEAREST;
 
-const canvasContainer = document.querySelector('#canvas-container');
+const canvasContainer = document.getElementById('canvas-container');
 canvasContainer.appendChild(renderer.view); // TODO: Prevent display of entire page until this is appended.
 
 const stage = new PIXI.Container();
