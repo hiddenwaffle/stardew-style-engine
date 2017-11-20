@@ -65,6 +65,26 @@ stage.addChild(mainContainer);
   sprite.position.y = 3 * 16;
   mainContainer.addChild(sprite);
 }
+// Flowers
+{
+  const flowers = require('./flowers.png');
+  const texture = PIXI.Texture.from(flowers);
+  PIXI.Texture.addToCache(texture, 'flowers');
+  const sprite = PIXI.Sprite.fromFrame('flowers');
+  sprite.position.x = 5 * 16;
+  sprite.position.y = 11 * 16;
+  mainContainer.addChild(sprite);
+}
+// Tree
+{
+  const tree = require('./tree.png');
+  const texture = PIXI.Texture.from(tree);
+  PIXI.Texture.addToCache(texture, 'tree');
+  const sprite = PIXI.Sprite.fromFrame('tree');
+  sprite.position.x = 13 * 16;
+  sprite.position.y = 7 * 16;
+  mainContainer.addChild(sprite);
+}
 
 function bob() {
   renderer.render(stage);
