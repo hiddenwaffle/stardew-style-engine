@@ -1,1 +1,1 @@
-import './sandbox';
+import '@/sandbox';
