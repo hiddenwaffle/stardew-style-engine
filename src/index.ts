@@ -1,1 +1,2 @@
-// import '@/sandbox';
+import '@/sandbox-pixi';
+import '@/sandbox-ioc';

@@ -24,7 +24,7 @@ stage.addChild(mainContainer);
 // Render some tiles
 {
   const tag = 'grass02.png';
-  const raw = require(`@/sandbox/${tag}`); // Example Webpack resolve.alias / TypeScript compilerOptions.src
+  const raw = require(`@/sandbox-pixi/${tag}`); // Example Webpack resolve.alias / TypeScript compilerOptions.src
   const texture = PIXI.Texture.from(raw);
   PIXI.Texture.addToCache(texture, tag);
   for (let y = 0; y < (13 * 16); y += 16) {

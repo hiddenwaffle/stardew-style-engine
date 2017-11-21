@@ -1,7 +1,8 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+// const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+// const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 
 module.exports = {
   entry: './src/index.ts',
@@ -40,6 +41,7 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: 'src/index.html'
     })//,
+    // new BundleAnalyzerPlugin(),
     // new UglifyJsPlugin()
   ],
   node: {
