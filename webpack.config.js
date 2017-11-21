@@ -1,3 +1,4 @@
+const webpack = require('webpack');
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
@@ -5,7 +6,13 @@ const CleanWebpackPlugin = require('clean-webpack-plugin');
 // const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 
 module.exports = {
-  entry: './src/index.ts',
+  entry: {
+    bundle: './src/index.ts',
+    vendor: [
+      'pixi.js',
+      'typescript-ioc'
+    ]
+  },
   devtool: 'cheap-module-eval-source-map',
   module: {
     rules: [
@@ -30,13 +37,16 @@ module.exports = {
     }
   },
   output: {
-    filename: 'bundle.js',
+    filename: '[name].js',
     path: path.resolve(__dirname, 'dist')
   },
   devServer: {
     contentBase: './dist'
   },
   plugins: [
+    new webpack.optimize.CommonsChunkPlugin( {
+      name: 'vendor'
+    }),
     new CleanWebpackPlugin(['dist']),
     new HtmlWebpackPlugin({
       template: 'src/index.html'
