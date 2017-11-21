@@ -2,8 +2,6 @@ const webpack = require('webpack');
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
-// const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
-// const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 
 module.exports = {
   entry: {
@@ -13,7 +11,6 @@ module.exports = {
       'typescript-ioc'
     ]
   },
-  devtool: 'cheap-module-eval-source-map',
   module: {
     rules: [
       {
@@ -40,9 +37,6 @@ module.exports = {
     filename: '[name].js',
     path: path.resolve(__dirname, 'dist')
   },
-  devServer: {
-    contentBase: './dist'
-  },
   plugins: [
     new webpack.optimize.CommonsChunkPlugin( {
       name: 'vendor'
@@ -50,9 +44,7 @@ module.exports = {
     new CleanWebpackPlugin(['dist']),
     new HtmlWebpackPlugin({
       template: 'src/index.html'
-    })//,
-    // new BundleAnalyzerPlugin(),
-    // new UglifyJsPlugin()
+    })
   ],
   node: {
     fs: 'empty' // This is due to typescript-ioc calling require('fs') if not a browser.
