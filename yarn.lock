@@ -2,6 +2,10 @@
 # yarn lockfile v1
 
 
+"@types/howler@^2.0.5":
+  version "2.0.5"
+  resolved "https://registry.yarnpkg.com/@types/howler/-/howler-2.0.5.tgz#eb5eb99b943fe423abe3ca713163ed911e2a0d76"
+
 "@types/pixi.js@^4.6.0":
   version "4.6.0"
   resolved "https://registry.yarnpkg.com/@types/pixi.js/-/pixi.js-4.6.0.tgz#1fb2b77c63328404bf2c1f0b4fd4cfb75f6ad388"
@@ -1475,6 +1479,10 @@ hoek@2.x.x:
 hosted-git-info@^2.1.4:
   version "2.5.0"
   resolved "https://registry.yarnpkg.com/hosted-git-info/-/hosted-git-info-2.5.0.tgz#6d60e34b3abbc8313062c3b798ef8d901a07af3c"
+
+howler@^2.0.5:
+  version "2.0.5"
+  resolved "https://registry.yarnpkg.com/howler/-/howler-2.0.5.tgz#3d7979f4af0bdc1bdfd09a9ab1a502fed38aecd9"
 
 hpack.js@^2.1.6:
   version "2.1.6"

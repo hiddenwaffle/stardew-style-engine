@@ -6,6 +6,7 @@
     "dev": "webpack-dev-server --config webpack.dev.js"
   },
   "devDependencies": {
+    "@types/howler": "^2.0.5",
     "@types/pixi.js": "^4.6.0",
     "clean-webpack-plugin": "^0.1.17",
     "html-webpack-plugin": "^2.30.1",
@@ -19,6 +20,7 @@
     "webpack-merge": "^4.1.1"
   },
   "dependencies": {
+    "howler": "^2.0.5",
     "pixi.js": "^4.6.1",
     "typescript-ioc": "^1.0.2"
   }
