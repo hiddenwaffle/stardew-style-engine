@@ -21,81 +21,83 @@ const stage = new PIXI.Container();
 const mainContainer = new PIXI.Container();
 stage.addChild(mainContainer);
 
-// Render some tiles
-{
-  const tag = 'grass02.png';
-  const raw = require(`@/sandbox-pixi/${tag}`); // Example Webpack resolve.alias / TypeScript compilerOptions.src
-  const texture = PIXI.Texture.from(raw);
-  PIXI.Texture.addToCache(texture, tag);
-  for (let y = 0; y < (13 * 16); y += 16) {
-    for (let x = 0; x < (17 * 16); x += 16) {
-      const sprite = PIXI.Sprite.fromFrame(tag);
-      sprite.position.x = x;
-      sprite.position.y = y;
-      mainContainer.addChild(sprite);
-    }
-  }
-}
+// // Render some tiles
+// {
+//   const tag = 'grass02.png';
+//   const raw = require(`./images/${tag}`); // Example Webpack resolve.alias / TypeScript compilerOptions.src
+//   const texture = PIXI.Texture.from(raw);
+//   PIXI.Texture.addToCache(texture, tag);
+//   for (let y = 0; y < (13 * 16); y += 16) {
+//     for (let x = 0; x < (17 * 16); x += 16) {
+//       const sprite = PIXI.Sprite.fromFrame(tag);
+//       sprite.position.x = x;
+//       sprite.position.y = y;
+//       mainContainer.addChild(sprite);
+//     }
+//   }
+// }
 // Render some water
-{
-  const water = require('./water3x3.png');
-  const texture = PIXI.Texture.from(water);
-  PIXI.Texture.addToCache(texture, 'water3x3');
-  const sprite = PIXI.Sprite.fromFrame('water3x3');
-  sprite.position.x = 4 * 16;
-  sprite.position.y = 4 * 16;
-  mainContainer.addChild(sprite);
-}
-// Render a character
-{
-  const player = require('./player_25.png');
-  const texture = PIXI.Texture.from(player);
-  PIXI.Texture.addToCache(texture, 'player_25');
-  const sprite = PIXI.Sprite.fromFrame('player_25');
-  sprite.position.x = 9 * 16;
-  sprite.position.y = 6 * 16;
-  mainContainer.addChild(sprite);
-}
+// {
+//   const water = require('./images/water3x3.png');
+//   const texture = PIXI.Texture.from(water);
+//   PIXI.Texture.addToCache(texture, 'water3x3');
+//   const sprite = PIXI.Sprite.fromFrame('water3x3');
+//   sprite.position.x = 4 * 16;
+//   sprite.position.y = 4 * 16;
+//   mainContainer.addChild(sprite);
+// }
+// // Render a character
+// {
+//   const player = require('./images/player_25.png');
+//   const texture = PIXI.Texture.from(player);
+//   PIXI.Texture.addToCache(texture, 'player_25');
+//   const sprite = PIXI.Sprite.fromFrame('player_25');
+//   sprite.position.x = 9 * 16;
+//   sprite.position.y = 6 * 16;
+//   mainContainer.addChild(sprite);
+// }
 // Render a 16x18 character
 {
-  const raw = require('./townfolk-f.png');
-  const texture = PIXI.Texture.from(raw);
+  const img = new Image();
+  img.src = require('./townfolk-f.png');
+  const baseTexture = new PIXI.BaseTexture(img);
+  const texture = new PIXI.Texture(baseTexture);
   PIXI.Texture.addToCache(texture, 'townfolk-f');
   const sprite = PIXI.Sprite.fromFrame('townfolk-f');
   sprite.position.x = 10 * 16;
   sprite.position.y = 6 * 16;
   mainContainer.addChild(sprite);
 }
-// Render some other characters
-{
-  const fighter = require('./fighter.png');
-  const texture = PIXI.Texture.from(fighter);
-  PIXI.Texture.addToCache(texture, 'fighter');
-  const sprite = PIXI.Sprite.fromFrame('fighter');
-  sprite.position.x = 12 * 16;
-  sprite.position.y = 3 * 16;
-  mainContainer.addChild(sprite);
-}
-// Flowers
-{
-  const flowers = require('./flowers.png');
-  const texture = PIXI.Texture.from(flowers);
-  PIXI.Texture.addToCache(texture, 'flowers');
-  const sprite = PIXI.Sprite.fromFrame('flowers');
-  sprite.position.x = 5 * 16;
-  sprite.position.y = 11 * 16;
-  mainContainer.addChild(sprite);
-}
-// Tree
-{
-  const tree = require('./tree.png');
-  const texture = PIXI.Texture.from(tree);
-  PIXI.Texture.addToCache(texture, 'tree');
-  const sprite = PIXI.Sprite.fromFrame('tree');
-  sprite.position.x = 13 * 16;
-  sprite.position.y = 7 * 16;
-  mainContainer.addChild(sprite);
-}
+// // Render some other characters
+// {
+//   const fighter = require('./images/fighter.png');
+//   const texture = PIXI.Texture.from(fighter);
+//   PIXI.Texture.addToCache(texture, 'fighter');
+//   const sprite = PIXI.Sprite.fromFrame('fighter');
+//   sprite.position.x = 12 * 16;
+//   sprite.position.y = 3 * 16;
+//   mainContainer.addChild(sprite);
+// }
+// // Flowers
+// {
+//   const flowers = require('./images/flowers.png');
+//   const texture = PIXI.Texture.from(flowers);
+//   PIXI.Texture.addToCache(texture, 'flowers');
+//   const sprite = PIXI.Sprite.fromFrame('flowers');
+//   sprite.position.x = 5 * 16;
+//   sprite.position.y = 11 * 16;
+//   mainContainer.addChild(sprite);
+// }
+// // Tree
+// {
+//   const tree = require('./images/tree.png');
+//   const texture = PIXI.Texture.from(tree);
+//   PIXI.Texture.addToCache(texture, 'tree');
+//   const sprite = PIXI.Sprite.fromFrame('tree');
+//   sprite.position.x = 13 * 16;
+//   sprite.position.y = 7 * 16;
+//   mainContainer.addChild(sprite);
+// }
 
 function bob() {
   renderer.render(stage);
