@@ -21,9 +21,9 @@ const ctxScaled = canvasScaled.getContext('2d');
   const raw = require('./grass.png');
   const img = new Image();
   img.onload = () => {
-    for (let y = 0; y < 14; y++) {
+    for (let y = 0; y < 13; y++) {
       for (let x = 0; x < 17; x++) {
-        ctxBack.drawImage(img, x * 16, y * 16, 16, 16);
+        ctxBack.drawImage(img, x * tileSize, y * tileSize);
       }
     }
   };
@@ -33,7 +33,7 @@ const ctxScaled = canvasScaled.getContext('2d');
   const raw = require('./townfolk-f.png');
   const img = new Image();
   img.onload = () => {
-    ctxBack.drawImage(img, 64, 64, 16, 16);
+    ctxBack.drawImage(img, 8 * tileSize, 6 * tileSize);
   };
   img.src = raw;
 }

@@ -3,7 +3,7 @@
 // import '@/sandbox-howler';
 // import '@/sandbox-gfx';
 
-// declare function require(str: string): string; // https://github.com/Microsoft/TypeScript-React-Starter/issues/12
+declare function require(str: string): string; // https://github.com/Microsoft/TypeScript-React-Starter/issues/12
 
 const tileSize = 16;
 const fieldLogicalWidth = 17 * tileSize;
@@ -16,6 +16,27 @@ canvasBack.height = fieldLogicalHeight;
 const ctxBack = canvasBack.getContext('2d');
 const canvasScaled = <HTMLCanvasElement> document.getElementById('canvas-scaled');
 const ctxScaled = canvasScaled.getContext('2d');
+
+{
+  const raw = require('./grass.png');
+  const img = new Image();
+  img.onload = () => {
+    for (let y = 0; y < 13; y++) {
+      for (let x = 0; x < 17; x++) {
+        ctxBack.drawImage(img, x * tileSize, y * tileSize);
+      }
+    }
+  };
+  img.src = raw;
+}
+{
+  const raw = require('./townfolk-f.png');
+  const img = new Image();
+  img.onload = () => {
+    ctxBack.drawImage(img, 8 * tileSize, 6 * tileSize);
+  };
+  img.src = raw;
+}
 
 // Resize based on: https://codepen.io/anthdeldev/pen/PGPmVm
 const dynamicResizeContainer = document.getElementById('dynamic-resize-container');
