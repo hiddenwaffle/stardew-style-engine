@@ -4,6 +4,7 @@
   "scripts": {
     "build": "webpack --config webpack.prod.js",
     "dev": "webpack-dev-server --config webpack.dev.js",
+    "lint": "tslint -c tslint.json -p tsconfig.json -t verbose",
     "test": "cross-env TS_NODE_COMPILER_OPTIONS='{ \"module\": \"commonjs\" }' mocha --opts mocha.opts"
   },
   "devDependencies": {
@@ -17,6 +18,7 @@
     "mocha": "^4.0.1",
     "ts-loader": "^3.1.1",
     "ts-node": "^3.3.0",
+    "tslint": "^5.8.0",
     "typescript": "^2.6.1",
     "uglifyjs-webpack-plugin": "^1.0.1",
     "url-loader": "^0.6.2",

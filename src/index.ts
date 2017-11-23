@@ -1,9 +1,4 @@
-import {
-  Container,
-  Inject,
-  Singleton,
-  AutoWired
-} from 'typescript-ioc';
+import { AutoWired, Container, Inject, Singleton } from 'typescript-ioc';
 import Session from './session';
 
 @Singleton
