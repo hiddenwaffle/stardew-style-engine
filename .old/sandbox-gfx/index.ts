@@ -18,11 +18,22 @@ const canvasScaled = <HTMLCanvasElement> document.getElementById('canvas-scaled'
 const ctxScaled = canvasScaled.getContext('2d');
 
 {
-  const raw = require('./player_25.png');
+  const raw = require('./grass.png');
+  const img = new Image();
+  img.onload = () => {
+    for (let y = 0; y < 14; y++) {
+      for (let x = 0; x < 17; x++) {
+        ctxBack.drawImage(img, x * 16, y * 16, 16, 16);
+      }
+    }
+  };
+  img.src = raw;
+}
+{
+  const raw = require('./townfolk-f.png');
   const img = new Image();
   img.onload = () => {
     ctxBack.drawImage(img, 64, 64, 16, 16);
-    ctxScaled.drawImage(canvasBack, 0, 0, canvasScaled.width, canvasScaled.height);
   };
   img.src = raw;
 }
@@ -41,8 +52,6 @@ const dynamicResizeContainer = document.getElementById('dynamic-resize-container
     const newHeight = Math.ceil(containerLogicalHeight * scaleFactor);
     dynamicResizeContainer.style.width = `${newWidth}px`;
     dynamicResizeContainer.style.height = `${newHeight}px`;
-
-    ctxScaled.drawImage(canvasBack, 0, 0, canvasScaled.width, canvasScaled.height);
   }
   window.addEventListener('resize', resizeHandler, false);
   resizeHandler();
@@ -72,8 +81,11 @@ const dynamicResizeContainer = document.getElementById('dynamic-resize-container
   resizeHandler();
 }
 
-// TODO: Make better
-setTimeout(() => {
-  const dynamicResizeContainer = document.getElementById('dynamic-resize-container');
-  dynamicResizeContainer.style.visibility = 'visible';
-}, 1);
+dynamicResizeContainer.style.opacity = '1';
+dynamicResizeContainer.style.transition = 'opacity 0.25s ease-in';
+
+function render() {
+  ctxScaled.drawImage(canvasBack, 0, 0, canvasScaled.width, canvasScaled.height);
+  requestAnimationFrame(render);
+}
+requestAnimationFrame(render);

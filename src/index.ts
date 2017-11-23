@@ -31,8 +31,6 @@ const dynamicResizeContainer = document.getElementById('dynamic-resize-container
     const newHeight = Math.ceil(containerLogicalHeight * scaleFactor);
     dynamicResizeContainer.style.width = `${newWidth}px`;
     dynamicResizeContainer.style.height = `${newHeight}px`;
-
-    ctxScaled.drawImage(canvasBack, 0, 0, canvasScaled.width, canvasScaled.height);
   }
   window.addEventListener('resize', resizeHandler, false);
   resizeHandler();
@@ -63,4 +61,10 @@ const dynamicResizeContainer = document.getElementById('dynamic-resize-container
 }
 
 dynamicResizeContainer.style.opacity = '1';
-dynamicResizeContainer.style.transition = 'opacity 0.33s ease-in';
+dynamicResizeContainer.style.transition = 'opacity 0.25s ease-in';
+
+function render() {
+  ctxScaled.drawImage(canvasBack, 0, 0, canvasScaled.width, canvasScaled.height);
+  requestAnimationFrame(render);
+}
+requestAnimationFrame(render);
