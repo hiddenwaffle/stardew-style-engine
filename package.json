@@ -4,7 +4,7 @@
   "scripts": {
     "build": "webpack --config webpack.prod.js",
     "dev": "webpack-dev-server --config webpack.dev.js",
-    "test": "cross-env TS_NODE_COMPILER_OPTIONS='{ \"module\": \"commonjs\" }' mocha --reporter nyan -r ts-node/register src/**/*.spec.ts"
+    "test": "cross-env TS_NODE_COMPILER_OPTIONS='{ \"module\": \"commonjs\" }' mocha --opts mocha.opts"
   },
   "devDependencies": {
     "@types/chai": "^4.0.5",
