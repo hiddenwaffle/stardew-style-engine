@@ -7,7 +7,7 @@ module.exports = {
   entry: {
     bundle: './src/index.ts',
     vendor: [
-      'pixi.js',
+      'howler',
       'typescript-ioc'
     ]
   },

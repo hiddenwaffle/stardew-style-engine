@@ -7,7 +7,6 @@
   },
   "devDependencies": {
     "@types/howler": "^2.0.5",
-    "@types/pixi.js": "^4.6.0",
     "clean-webpack-plugin": "^0.1.17",
     "html-webpack-plugin": "^2.30.1",
     "ts-loader": "^3.1.1",
@@ -21,7 +20,6 @@
   },
   "dependencies": {
     "howler": "^2.0.5",
-    "pixi.js": "^4.6.1",
     "typescript-ioc": "^1.0.2"
   }
 }
