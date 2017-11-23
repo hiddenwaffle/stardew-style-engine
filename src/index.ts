@@ -1,91 +1,24 @@
-// import '@/sandbox-pixi';
-// import '@/sandbox-ioc';
-// import '@/sandbox-howler';
-// import '@/sandbox-gfx';
+import {
+  Container,
+  Inject,
+  Singleton,
+  AutoWired
+} from 'typescript-ioc';
+import Session from './session';
 
-declare function require(str: string): string; // https://github.com/Microsoft/TypeScript-React-Starter/issues/12
+@Singleton
+@AutoWired
+class EntryPoint {
+  private session: Session;
 
-const tileSize = 16;
-const fieldLogicalWidth = 17 * tileSize;
-const fieldLogicalHeight = 14 * tileSize;
-const fontBaseSize = 5.25; // Just "looks good" in Chrome on Mac.
-
-const canvasBack = <HTMLCanvasElement> document.getElementById('canvas-back');
-canvasBack.width = fieldLogicalWidth;
-canvasBack.height = fieldLogicalHeight;
-const ctxBack = canvasBack.getContext('2d');
-const canvasScaled = <HTMLCanvasElement> document.getElementById('canvas-scaled');
-const ctxScaled = canvasScaled.getContext('2d');
-
-{
-  const raw = require('./grass.png');
-  const img = new Image();
-  img.onload = () => {
-    for (let y = 0; y < 13; y++) {
-      for (let x = 0; x < 17; x++) {
-        ctxBack.drawImage(img, x * tileSize, y * tileSize);
-      }
-    }
-  };
-  img.src = raw;
-}
-{
-  const raw = require('./townfolk-f.png');
-  const img = new Image();
-  img.onload = () => {
-    ctxBack.drawImage(img, 8 * tileSize, 6 * tileSize);
-  };
-  img.src = raw;
-}
-
-// Resize based on: https://codepen.io/anthdeldev/pen/PGPmVm
-const dynamicResizeContainer = document.getElementById('dynamic-resize-container');
-{
-  const containerLogicalWidth = 16; // this is aspect ratio,
-  const containerLogicalHeight = 9; // rather than pixels.
-  const resizeHandler = () => {
-    const scaleFactor = Math.min(
-      window.innerWidth / containerLogicalWidth,
-      window.innerHeight / containerLogicalHeight
-    );
-    const newWidth = Math.ceil(containerLogicalWidth * scaleFactor);
-    const newHeight = Math.ceil(containerLogicalHeight * scaleFactor);
-    dynamicResizeContainer.style.width = `${newWidth}px`;
-    dynamicResizeContainer.style.height = `${newHeight}px`;
+  constructor(@Inject session: Session) {
+    this.session = session;
   }
-  window.addEventListener('resize', resizeHandler, false);
-  resizeHandler();
-}
-// Resize based on: https://codepen.io/anthdeldev/pen/PGPmVm
-{
-  const resizeHandler = () => {
-    const scaleFactor = Math.min(
-      dynamicResizeContainer.clientWidth / fieldLogicalWidth,
-      dynamicResizeContainer.clientHeight / fieldLogicalHeight
-    );
-    const newWidth = Math.ceil(fieldLogicalWidth * scaleFactor);
-    const newHeight = Math.ceil(fieldLogicalHeight * scaleFactor);
-    canvasScaled.width = newWidth;
-    canvasScaled.height = newHeight;
-    ctxScaled.mozImageSmoothingEnabled = false;
-    ctxScaled.webkitImageSmoothingEnabled = false;
-    // ctxScaled.msImageSmoothingEnabled = false;
-    ctxScaled.imageSmoothingEnabled = false;
 
-    // Scale font too.
-    const narrationContainer = document.getElementById('narration-container');
-    const fontSize = Math.ceil(fontBaseSize * scaleFactor);
-    narrationContainer.style.fontSize = `${fontSize}px`;
-  };
-  window.addEventListener('resize', resizeHandler, false);
-  resizeHandler();
+  start() {
+    this.session.start();
+  }
 }
 
-dynamicResizeContainer.style.opacity = '1';
-dynamicResizeContainer.style.transition = 'opacity 0.25s ease-in';
-
-function render() {
-  ctxScaled.drawImage(canvasBack, 0, 0, canvasScaled.width, canvasScaled.height);
-  requestAnimationFrame(render);
-}
-requestAnimationFrame(render);
+const entryPoint = <EntryPoint> Container.get(EntryPoint);
+entryPoint.start();
