@@ -62,8 +62,5 @@ const dynamicResizeContainer = document.getElementById('dynamic-resize-container
   resizeHandler();
 }
 
-// TODO: Make better
-setTimeout(() => {
-  const dynamicResizeContainer = document.getElementById('dynamic-resize-container');
-  dynamicResizeContainer.style.visibility = 'visible';
-  }, 1);
+dynamicResizeContainer.style.opacity = '1';
+dynamicResizeContainer.style.transition = 'opacity 0.33s ease-in';
