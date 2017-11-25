@@ -9,8 +9,8 @@
   },
   "devDependencies": {
     "@types/chai": "^4.0.5",
-    "@types/howler": "^2.0.5",
     "@types/mocha": "^2.2.44",
+    "@types/tween.js": "^16.9.0",
     "chai": "^4.1.2",
     "clean-webpack-plugin": "^0.1.17",
     "cross-env": "^5.1.1",
@@ -29,7 +29,6 @@
     "webpack-merge": "^4.1.1"
   },
   "dependencies": {
-    "howler": "^2.0.5",
-    "typescript-ioc": "^1.0.2"
+    "@tweenjs/tween.js": "^17.1.1"
   }
 }

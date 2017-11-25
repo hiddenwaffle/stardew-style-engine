@@ -1,8 +1,4 @@
-import { AutoWired, Singleton } from 'typescript-ioc';
-
-@Singleton
-@AutoWired
-export default class {
+class Timer {
   private lastStep: number;
   private _elapsed: number;
 
@@ -25,6 +21,8 @@ export default class {
     return this._elapsed;
   }
 }
+
+export default new Timer();
 
 function calculateElapsed(lastStep: number): [number, number] {
   const now = Date.now();

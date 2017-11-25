@@ -7,8 +7,7 @@ module.exports = {
   entry: {
     bundle: './src/index.ts',
     vendor: [
-      'howler',
-      'typescript-ioc'
+      '@tweenjs/tween.js'
     ]
   },
   module: {

@@ -1,4 +1,3 @@
-import { AutoWired, Singleton } from 'typescript-ioc';
 import {
   canvasBack,
   canvasScaled,
@@ -17,9 +16,7 @@ import {
 
 declare function require(str: string): string; // https://github.com/Microsoft/TypeScript-React-Starter/issues/12
 
-@Singleton
-@AutoWired
-export default class {
+class UiStructure {
   constructor() {
     canvasBack.width = FIELD_LOGICAL_WIDTH;
     canvasBack.height = FIELD_LOGICAL_HEIGHT;
@@ -115,6 +112,8 @@ export default class {
     }
   }
 }
+
+export default new UiStructure();
 
 /**
  * Determine how much to scale the given logical rectangle
