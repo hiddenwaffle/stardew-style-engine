@@ -1,6 +1,6 @@
 # Simplicity
 
-* Uses [7Soul](https://7soul.itch.io)'s RPG Graphics packs.
+* Uses DawnBringer's [DawnLike](https://opengameart.org/content/dawnlike-16x16-universal-rogue-like-tileset-v181) tile pack.
 * Also uses Antifarea's 16x18 RPG Sprites [1](https://opengameart.org/content/twelve-16x18-rpg-sprites-plus-base), [2](https://opengameart.org/content/twelve-more-16x18-rpg-character-sprites)
 
 ## Testing

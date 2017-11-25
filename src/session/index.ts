@@ -1,5 +1,11 @@
 export default class Session {
   start() {
-    console.log('in startup');
+    this.loop();
+  }
+
+  loop() {
+    requestAnimationFrame(() => {
+      this.loop();
+    });
   }
 }
