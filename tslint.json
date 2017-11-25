@@ -10,7 +10,8 @@
         "no-angle-bracket-type-assertion": false,
         "no-console": {
             "severity": "warning"
-        }
+        },
+        "variable-name": false
     },
     "rulesDirectory": []
 }

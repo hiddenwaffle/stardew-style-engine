@@ -1,4 +1,4 @@
-import { AutoWired, Singleton, Inject } from "typescript-ioc";
+import { AutoWired, Inject, Singleton } from "typescript-ioc";
 import Timer from "./timer";
 
 @Singleton
