@@ -11,7 +11,9 @@
         "no-console": {
             "severity": "warning"
         },
-        "variable-name": false
+        "variable-name": false,
+        "trailing-comma": false,
+        "ordered-imports": false
     },
     "rulesDirectory": []
 }

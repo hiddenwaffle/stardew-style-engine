@@ -1,4 +1,4 @@
-import { AutoWired, Singleton } from "typescript-ioc";
+import { AutoWired, Singleton } from 'typescript-ioc';
 
 @Singleton
 @AutoWired
