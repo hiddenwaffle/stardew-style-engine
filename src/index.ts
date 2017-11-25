@@ -1,19 +1,8 @@
 import { AutoWired, Container, Inject, Singleton } from 'typescript-ioc';
 import Session from './session';
 
-@Singleton
-@AutoWired
-class EntryPoint {
-  private session: Session;
+// Perform initialization, e.g. dependency graph wiring.
+const session = <Session> Container.get(Session);
 
-  constructor(@Inject session: Session) {
-    this.session = session;
-  }
-
-  start() {
-    this.session.start();
-  }
-}
-
-const entryPoint = <EntryPoint> Container.get(EntryPoint);
-entryPoint.start();
+// Begin start up tasks.
+session.start();
