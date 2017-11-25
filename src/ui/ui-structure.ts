@@ -79,6 +79,7 @@ class UiStructure {
     const newHeight = Math.ceil(FIELD_LOGICAL_HEIGHT * scaleFactor);
     canvasScaled.width = newWidth;
     canvasScaled.height = newHeight;
+    // Must reset these after resize: https://stackoverflow.com/a/29564875
     ctxScaled.mozImageSmoothingEnabled = false;
     ctxScaled.webkitImageSmoothingEnabled = false;
     ctxScaled.oImageSmoothingEnabled = false;
