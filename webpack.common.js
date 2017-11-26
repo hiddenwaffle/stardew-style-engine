@@ -16,14 +16,6 @@ module.exports = {
         test: /\.ts$/,
         use: 'ts-loader',
         exclude: /node_modules/
-      },
-      {
-        test: /\.png$/,
-        use: 'file-loader'
-      },
-      {
-        test: /\.wav$/, // TODO: Use m4a instead.
-        use: 'file-loader'
       }
     ]
   },
