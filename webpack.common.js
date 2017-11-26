@@ -37,12 +37,12 @@ module.exports = {
     }
   },
   output: {
-    filename: '[name].js',
+    filename: '[name].[chunkhash].js',
     path: path.resolve(__dirname, 'dist')
   },
   plugins: [
     new webpack.optimize.CommonsChunkPlugin( {
-      name: 'vendor'
+      names: ['vendor', 'manifest']
     }),
     new CleanWebpackPlugin(['dist']),
     new HtmlWebpackPlugin({
