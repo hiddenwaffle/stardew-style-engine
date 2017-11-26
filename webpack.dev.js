@@ -18,7 +18,7 @@ module.exports = merge(common, {
         use: fileLoaderConfig
       },
       {
-        test: /\.wav$/, // TODO: Use m4a or webm instead.
+        test: /\.webm$/,
         use: fileLoaderConfig
       }
     ]

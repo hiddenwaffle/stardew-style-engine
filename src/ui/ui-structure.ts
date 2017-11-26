@@ -14,7 +14,9 @@ import {
   TILE_SIZE
 } from 'src/constants';
 
-declare function require(str: string): string; // https://github.com/Microsoft/TypeScript-React-Starter/issues/12
+// TODO: Remove these two images.
+import grass from './grass.png';
+import townfolkF from './townfolk-f.png';
 
 class UiStructure {
   constructor() {
@@ -96,7 +98,6 @@ class UiStructure {
 
   private factorStuffOutOfThis() {
     {
-      const raw = require('./grass.png');
       const img = new Image();
       img.onload = () => {
         for (let y = 0; y < 13; y++) {
@@ -105,15 +106,14 @@ class UiStructure {
           }
         }
       };
-      img.src = raw;
+      img.src = grass;
     }
     {
-      const raw = require('./townfolk-f.png');
       const img = new Image();
       img.onload = () => {
         ctxBack.drawImage(img, 8 * TILE_SIZE, 6 * TILE_SIZE);
       };
-      img.src = raw;
+      img.src = townfolkF;
     }
   }
 }

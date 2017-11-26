@@ -1,5 +1,6 @@
 import uiStructure from 'src/ui/ui-structure';
 import world from 'src/domain/world';
+import main from 'src/external/main';
 import timer from './timer';
 
 class Session {
@@ -10,23 +11,25 @@ class Session {
     world.start()
     uiStructure.start();
     timer.start(this.stepAll.bind(this));
+    main.start();
   }
 
   /**
    * Reverse order of start().
    */
   stop() {
+    main.stop();
     timer.stop();
     uiStructure.stop();
     world.stop();
   }
 
   /**
-   * Same order as start(), except for the timer because
-   * that is what calls thie method in the first place.
+   * The order here is to perform logic before rendering.
    */
   private stepAll() {
     world.step();
+    main.step();
     uiStructure.step();
   }
 }
