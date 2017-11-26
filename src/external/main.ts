@@ -6,8 +6,9 @@ class Main {
   }
 
   start() {
-    import('./map/test01.json').then((obj) => {
+    import('./map/test01.map.json').then((obj) => {
       console.log('MAP LOADED: ', obj);
+      console.log(obj.height);
     });
   }
 

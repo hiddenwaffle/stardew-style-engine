@@ -1,22 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.0" tiledversion="1.0.3" orientation="orthogonal" renderorder="right-down" width="20" height="19" tilewidth="16" tileheight="16" nextobjectid="17">
  <tileset firstgid="1" name="Floor" tilewidth="16" tileheight="16" tilecount="819" columns="21">
-  <image source="../original/DawnLike/Objects/Floor.png" width="336" height="624"/>
+  <image source="../DawnLike/Objects/Floor.png" width="336" height="624"/>
  </tileset>
  <tileset firstgid="820" name="Wall" tilewidth="16" tileheight="16" tilecount="1020" columns="20">
-  <image source="../original/DawnLike/Objects/Wall.png" width="320" height="816"/>
+  <image source="../DawnLike/Objects/Wall.png" width="320" height="816"/>
  </tileset>
  <tileset firstgid="1840" name="Ground0" tilewidth="16" tileheight="16" tilecount="56" columns="8">
-  <image source="../original/DawnLike/Objects/Ground0.png" width="128" height="112"/>
+  <image source="../DawnLike/Objects/Ground0.png" width="128" height="112"/>
  </tileset>
  <tileset firstgid="1896" name="Tree1" tilewidth="16" tileheight="16" tilecount="432" columns="12">
-  <image source="../original/DawnLike/Objects/Tree1.png" width="192" height="576"/>
+  <image source="../DawnLike/Objects/Tree1.png" width="192" height="576"/>
  </tileset>
  <tileset firstgid="2328" name="Door0" tilewidth="16" tileheight="16" tilecount="48" columns="8">
-  <image source="../original/DawnLike/Objects/Door0.png" width="128" height="96"/>
+  <image source="../DawnLike/Objects/Door0.png" width="128" height="96"/>
  </tileset>
  <tileset firstgid="2376" name="Scroll" tilewidth="16" tileheight="16" tilecount="48" columns="8">
-  <image source="../original/DawnLike/Items/Scroll.png" width="128" height="96"/>
+  <image source="../DawnLike/Items/Scroll.png" width="128" height="96"/>
+ </tileset>
+ <tileset firstgid="2424" name="Pit0" tilewidth="16" tileheight="16" tilecount="256" columns="8">
+  <image source="../DawnLike/Objects/Pit0.png" width="128" height="512"/>
  </tileset>
  <layer name="grass" width="20" height="19">
   <data encoding="csv">
@@ -37,8 +40,8 @@
 156,156,156,156,156,156,156,156,156,156,156,156,156,156,156,156,156,156,156,156,
 156,156,156,156,156,156,156,156,156,156,156,156,156,156,156,156,156,156,156,156,
 156,156,156,156,156,156,156,156,156,156,156,156,156,156,156,156,156,156,156,156,
-32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,
-32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32
+2553,2553,2553,2553,2553,2553,2553,2553,2553,2553,2553,2553,2553,2553,2553,2553,2553,2553,2553,2553,
+2545,2545,2545,2545,2545,2545,2545,2545,2545,2545,2545,2545,2545,2545,2545,2545,2545,2545,2545,2545
 </data>
  </layer>
  <layer name="vegetation" width="20" height="19">
@@ -176,7 +179,7 @@
   </object>
   <object id="15" name="water" x="1.33333" y="272.667" width="318.667" height="30.6667"/>
  </objectgroup>
- <layer name="collision" width="20" height="19" opacity="0.5">
+ <layer name="collision" width="20" height="19" visible="0" opacity="0.5">
   <data encoding="csv">
 0,0,0,0,0,0,0,0,0,835,0,835,835,835,835,835,835,835,835,835,
 0,0,0,0,0,0,0,0,0,0,0,835,835,835,835,835,835,835,835,835,
