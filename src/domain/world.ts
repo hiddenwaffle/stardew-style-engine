@@ -4,7 +4,7 @@ import GameState from './game-state';
 
 class World {
   constructor(
-    private gameState: GameState
+    readonly gameState: GameState
   ) {
     //
   }
