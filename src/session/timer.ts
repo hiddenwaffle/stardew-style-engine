@@ -1,20 +1,26 @@
 class Timer {
   private lastStep: number;
   private _elapsed: number;
+  private currentRequest: number;
 
   constructor() {
     this.lastStep = Date.now();
     this._elapsed = 1;
+    this.currentRequest = 0;
   }
 
   start(runEachFrame: () => void) {
     this.lastStep = Date.now();
     const step = () => {
-      requestAnimationFrame(step);
+      this.currentRequest = requestAnimationFrame(step);
       [this.lastStep, this._elapsed] = calculateElapsed(this.lastStep);
       runEachFrame();
     };
     step();
+  }
+
+  stop() {
+    cancelAnimationFrame(this.currentRequest);
   }
 
   get elapsed() {

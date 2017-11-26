@@ -43,6 +43,10 @@ class UiStructure {
     );
   }
 
+  stop() {
+    // Currently does nothing.
+  }
+
   /**
    * First scale the container, then the container's contents.
    */
