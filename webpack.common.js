@@ -48,8 +48,5 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: 'src/ui/index.html'
     })
-  ],
-  node: {
-    fs: 'empty' // This is due to typescript-ioc calling require('fs') if not a browser.
-  }
+  ]
 }
