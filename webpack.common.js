@@ -19,11 +19,11 @@ module.exports = {
       },
       {
         test: /\.png$/,
-        use: 'url-loader'
+        use: 'file-loader'
       },
       {
         test: /\.wav$/, // TODO: Use m4a instead.
-        use: 'url-loader'
+        use: 'file-loader'
       }
     ]
   },
