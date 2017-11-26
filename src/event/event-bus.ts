@@ -3,21 +3,19 @@ export enum EventType {
 }
 
 export abstract class AbstractEvent {
-  abstract getType():EventType
+  abstract getType(): EventType;
 }
 
-export interface EventHandler<T extends AbstractEvent> {
-  (event: T):void;
-}
+type EventHandler<T extends AbstractEvent> = (event: T) => void;
 
 export class EventBus {
-  private handlersByType:Map<EventType, EventHandler<AbstractEvent>[]>;
+  private handlersByType: Map<EventType, Array<EventHandler<AbstractEvent>>>;
 
   constructor() {
-      this.handlersByType = new Map<EventType, EventHandler<AbstractEvent>[]>();
+      this.handlersByType = new Map<EventType, Array<EventHandler<AbstractEvent>>>();
   }
 
-  register(type:EventType, handler:EventHandler<AbstractEvent>) {
+  register(type: EventType, handler: EventHandler<AbstractEvent>) {
       if (!type) {
           // TODO: something
       }
@@ -26,7 +24,7 @@ export class EventBus {
           // TODO: something
       }
 
-      let handlers:EventHandler<AbstractEvent>[] = this.handlersByType.get(type);
+      let handlers: Array<EventHandler<AbstractEvent>> = this.handlersByType.get(type);
       if (handlers === undefined) {
           handlers = [];
           this.handlersByType.set(type, handlers);
@@ -39,10 +37,10 @@ export class EventBus {
   // TODO: unregister(). And remove the map key if zero handlers left for it.
 
   // TODO: Prevent infinite fire()?
-  fire(event:AbstractEvent) {
-      let handlers = this.handlersByType.get(event.getType());
+  fire(event: AbstractEvent) {
+      const handlers = this.handlersByType.get(event.getType());
       if (handlers !== undefined) {
-          for (let handler of handlers) {
+          for (const handler of handlers) {
               handler(event);
           }
       }

@@ -8,7 +8,7 @@ class Session {
    * Reverse order of stop().
    */
   start() {
-    world.start()
+    world.start();
     uiStructure.start();
     timer.start(this.stepAll.bind(this));
     main.start();

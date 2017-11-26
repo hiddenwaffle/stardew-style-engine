@@ -3,7 +3,7 @@ import GameState from 'src/domain/game-state';
 
 class Persistence {
   load(): GameState {
-    let base64 = localStorage.getItem(SAVE_KEY);
+    const base64 = localStorage.getItem(SAVE_KEY);
     let gameState: GameState;
     if (base64) {
       const json = atob(base64);
