@@ -1,7 +1,6 @@
 import {
   canvasBack,
   canvasScaled,
-  ctxBack,
   ctxScaled,
   dynamicResizeContainer
 } from './elements';
@@ -10,13 +9,8 @@ import {
   CONTAINER_ASPECT_WIDTH,
   FIELD_LOGICAL_HEIGHT,
   FIELD_LOGICAL_WIDTH,
-  FONT_BASE_SIZE,
-  TILE_SIZE
+  FONT_BASE_SIZE
 } from 'src/constants';
-
-// TODO: Remove these two images.
-import grass from './grass.png';
-import townfolkF from './townfolk-f.png';
 
 class UiStructure {
   constructor() {
@@ -25,8 +19,6 @@ class UiStructure {
   }
 
   start() {
-    this.factorStuffOutOfThis(); // TODO: Move this to the the renderer's source.
-
     window.addEventListener('resize', this.resizeHandler.bind(this), false);
     this.resizeHandler();
 
@@ -94,27 +86,6 @@ class UiStructure {
     const narrationContainer = document.getElementById('narration-container');
     const fontSize = Math.ceil(FONT_BASE_SIZE * scaleFactor);
     narrationContainer.style.fontSize = `${fontSize}px`;
-  }
-
-  private factorStuffOutOfThis() {
-    {
-      const img = new Image();
-      img.onload = () => {
-        for (let y = 0; y < 13; y++) {
-          for (let x = 0; x < 17; x++) {
-            ctxBack.drawImage(img, x * TILE_SIZE, y * TILE_SIZE);
-          }
-        }
-      };
-      img.src = grass;
-    }
-    {
-      const img = new Image();
-      img.onload = () => {
-        ctxBack.drawImage(img, 8 * TILE_SIZE, 6 * TILE_SIZE);
-      };
-      img.src = townfolkF;
-    }
   }
 }
 
