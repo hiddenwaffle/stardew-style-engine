@@ -15,11 +15,22 @@ class ObjectLayer {
   }
 }
 
+class Tileset {
+  readonly firstgid: number;
+  readonly image: string;
+
+  constructor(firstgid: number, image: string) {
+    this.firstgid = firstgid;
+    this.image = image;
+  }
+}
+
 export default class {
   private readonly width: number;
   private readonly height: number;
   private readonly tileLayers: TileLayer[];
   private readonly objectLayers: ObjectLayer[];
+  private readonly tilesets: Tileset[];
 
   constructor(
     private mapPath: string,
@@ -42,6 +53,10 @@ export default class {
       }
     });
 
-    console.log(this.mapPath, this.width, this.height, this.tileLayers, this.objectLayers);
+    this.tilesets = [];
+    rawMap.tilesets.forEach((rawTileset: any) => {
+      const tileset = new Tileset(rawTileset.firstgid, rawTileset.image);
+      this.tilesets.push(tileset);
+    });
   }
 }
