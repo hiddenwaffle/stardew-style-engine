@@ -2,7 +2,7 @@
   "name": "simplicity",
   "version": "0.0.1",
   "scripts": {
-    "build": "webpack --config webpack.prod.js",
+    "build": "cross-env NODE_ENV=production webpack -p --config webpack.prod.js",
     "dev": "webpack-dev-server --config webpack.dev.js",
     "lint": "tslint -c tslint.json -p tsconfig.json -t verbose",
     "test": "cross-env TS_NODE_COMPILER_OPTIONS='{ \"module\": \"commonjs\" }' mocha --opts mocha.opts"

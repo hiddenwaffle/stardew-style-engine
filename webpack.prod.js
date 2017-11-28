@@ -1,31 +1,11 @@
 const webpack = require('webpack');
-const path = require('path');
 const merge = require('webpack-merge');
 const common = require('./webpack.common.js');
 
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
-const fileLoaderConfig = {
-  loader: 'file-loader',
-  options: {
-    name: '[hash].[ext]'
-  }
-};
-
 module.exports = merge(common, {
-  module: {
-    rules: [
-      {
-        test: /\.png$/,
-        use: fileLoaderConfig
-      },
-      {
-        test: /\.webm$/,
-        use: fileLoaderConfig
-      }
-    ]
-  },
   plugins: [
     new BundleAnalyzerPlugin({
       analyzerMode: 'static',

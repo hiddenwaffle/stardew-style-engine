@@ -1,14 +1,11 @@
-// declare function require(str: string): any; // https://github.com/Microsoft/TypeScript-React-Starter/issues/12
-
 class Main {
   constructor() {
     //
   }
 
   start() {
-    import('./map/test01.map.json').then((obj) => {
-      console.log('MAP LOADED: ', obj);
-      console.log(obj.height);
+    import('src/external/map/test01').then((bob) => {
+      bob.default();
     });
   }
 
