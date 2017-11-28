@@ -80,7 +80,7 @@ class Keyboard {
   }
 
   private eventToState(event: KeyboardEvent, state: State) {
-    let key = this.keyCodeToKey(event.keyCode);
+    const key = this.keyCodeToKey(event.keyCode);
     this.keyToState(key, state, event);
   }
 

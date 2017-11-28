@@ -10,8 +10,8 @@ export default () => {
     const request = new XMLHttpRequest();
     request.responseType = 'json';
     request.onload = () => {
-      const map = new GameMap(mapPath, request.response);
-      mapManager.set(mapPath, map);
+      const loadedMap = new GameMap(mapPath, request.response);
+      mapManager.set(mapPath, loadedMap);
     };
     request.open('GET', mapPath);
     request.send();

@@ -13,7 +13,7 @@ class Render {
 
   constructor() {
     this.tmp1Loaded = false;
-    this.tmp2Loaded =false;
+    this.tmp2Loaded = false;
   }
 
   start() {

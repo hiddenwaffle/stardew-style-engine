@@ -18,27 +18,27 @@ class ObjectLayer {
 export default class {
   private readonly width: number;
   private readonly height: number;
-  private readonly tileLayers: Array<TileLayer>;
-  private readonly objectLayers: Array<ObjectLayer>;
+  private readonly tileLayers: TileLayer[];
+  private readonly objectLayers: ObjectLayer[];
 
   constructor(
     private mapPath: string,
-    raw: any
+    rawMap: any
   ) {
-    this.width = raw.width;
-    this.height = raw.height;
+    this.width = rawMap.width;
+    this.height = rawMap.height;
 
     this.tileLayers = [];
     this.objectLayers = [];
-    raw.layers.forEach((raw: any) => {
-      if (raw.type === 'tilelayer') {
-        const tileLayer = new TileLayer(raw);
+    rawMap.layers.forEach((rawLayer: any) => {
+      if (rawLayer.type === 'tilelayer') {
+        const tileLayer = new TileLayer(rawLayer);
         this.tileLayers.push(tileLayer);
-      } else if (raw.type === 'objectgroup') {
-        const objectLayer = new ObjectLayer(raw);
+      } else if (rawLayer.type === 'objectgroup') {
+        const objectLayer = new ObjectLayer(rawLayer);
         this.objectLayers.push(objectLayer);
       } else {
-        throw new Error(`Unknown layer type: ${raw.type}`); // TODO: Something else.
+        throw new Error(`Unknown layer type: ${rawLayer.type}`); // TODO: Something else.
       }
     });
 
