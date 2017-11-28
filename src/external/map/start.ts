@@ -1,6 +1,6 @@
 import GameMap from 'src/domain/map';
 import mapManager from 'src/session/map-manager';
-import mapPath from './test01.map.json';
+import mapPath from './start.map.json';
 
 export default () => {
   const map = mapManager.get(mapPath);

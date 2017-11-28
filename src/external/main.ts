@@ -4,7 +4,7 @@ class Main {
   }
 
   start() {
-    import('src/external/map/test01').then((bob) => {
+    import('src/external/map/start').then((bob) => {
       bob.default();
     });
   }
