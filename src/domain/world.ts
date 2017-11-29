@@ -1,6 +1,5 @@
 import persistence from 'src/session/persistence';
-import GameState from './game-state';
-// import Avatar from './avatar';
+import GameState from './game-state/game-state';
 
 class World {
   constructor(
@@ -10,11 +9,11 @@ class World {
   }
 
   start() {
-    // this.avatar.start();
+    //
   }
 
   step() {
-    // this.avatar.step();
+    //
   }
 
   stop() {

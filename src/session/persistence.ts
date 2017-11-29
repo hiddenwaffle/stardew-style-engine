@@ -1,5 +1,5 @@
 import { SAVE_KEY } from 'src/constants';
-import GameState from 'src/domain/game-state';
+import GameState from 'src/domain/game-state/game-state';
 
 class Persistence {
   load(): GameState {
