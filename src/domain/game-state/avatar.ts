@@ -1,5 +1,5 @@
 export default class {
-  mapId: string;
+  mapId: string; // TODO: Use function and replacer to pull? (https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify)
   x: number;
   y: number;
 

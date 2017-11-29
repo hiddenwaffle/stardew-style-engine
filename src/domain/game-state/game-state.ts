@@ -1,7 +1,6 @@
 import Avatar from './avatar';
 
 export default class {
-  readonly version: number;
   readonly avatar: Avatar;
 
   constructor(obj?: any) {

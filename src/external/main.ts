@@ -1,6 +1,5 @@
 import GameMap from 'src/domain/map';
 import mapManager from 'src/session/map-manager';
-import startMapPath from './map/start.map.json';
 
 class Main {
   constructor() {
@@ -8,7 +7,7 @@ class Main {
   }
 
   start() {
-    mapManager.switchTo(startMapPath);
+    mapManager.switchTo('start');
   }
 
   step() {

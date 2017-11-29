@@ -81,6 +81,7 @@ class TileManager {
     img.onload = () => {
       this.cache.set(filename, img);
     };
+    // TODO: Handle errors
     img.src = location;
   }
 }
