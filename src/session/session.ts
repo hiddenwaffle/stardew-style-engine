@@ -4,6 +4,7 @@ import render from 'src/render/render';
 import main from 'src/external/main';
 import keyboard from 'src/input/keyboard';
 import timer from './timer';
+import persistence from './persistence';
 
 class Session {
   /**
@@ -16,12 +17,14 @@ class Session {
     main.start();
     render.start();
     keyboard.start();
+    persistence.start();
   }
 
   /**
    * Reverse order of start().
    */
   stop() {
+    persistence.stop();
     keyboard.stop();
     render.stop();
     main.stop();

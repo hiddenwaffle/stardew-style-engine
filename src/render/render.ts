@@ -1,12 +1,8 @@
-import mapManager from 'src/session/map-manager';
+import world from 'src/domain/world';
 import imageManager from 'src/session/image-manager';
 import { ctxBack } from 'src/ui/elements';
 import { TILE_SIZE } from 'src/constants';
 import { Tileset } from 'src/domain/map';
-
-// TODO: Remove these two images.
-import grass from './grass.png';
-import townfolkF from './townfolk-f.png';
 
 function determineImageAndCoordinate(tilesets: Tileset[], tile: number): [HTMLImageElement, number, number] {
   let img: HTMLImageElement = null;
@@ -33,7 +29,7 @@ class Render {
   }
 
   step() {
-    const { currentMap } = mapManager;
+    const { currentMap } = world;
     if (currentMap) {
       for (const tileLayer of currentMap.tileLayers) {
         // TODO: Use player x, y coordinates to determine start and end ranges.

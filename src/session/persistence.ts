@@ -1,22 +1,32 @@
+import world from 'src/domain/world';
+import SaveState from './save-state';
 import { SAVE_KEY } from 'src/constants';
-import GameState from 'src/domain/game-state/game-state';
 
 class Persistence {
-  load(): GameState {
+  start() {
+    this.load();
+  }
+
+  stop() {
+    this.save();
+  }
+
+  load() {
     const base64 = localStorage.getItem(SAVE_KEY);
-    let gameState: GameState;
     if (base64) {
       const json = atob(base64);
       const obj = JSON.parse(json);
-      gameState = new GameState(obj);
+      const saveState = new SaveState(obj);
+      world.applySave(saveState);
     } else {
-      gameState = new GameState();
+      const saveState = new SaveState({});
+      world.applySave(saveState);
     }
-    return gameState;
   }
 
-  save(gameState: GameState) {
-    const json = JSON.stringify(gameState);
+  save() {
+    const saveState = world.extractSave();
+    const json = JSON.stringify(saveState);
     const base64 = btoa(json);
     localStorage.setItem(SAVE_KEY, base64);
   }
