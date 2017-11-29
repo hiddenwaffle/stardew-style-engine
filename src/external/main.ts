@@ -1,12 +1,14 @@
+import GameMap from 'src/domain/map';
+import mapManager from 'src/session/map-manager';
+import startMapPath from './map/start.map.json';
+
 class Main {
   constructor() {
     //
   }
 
   start() {
-    import('src/external/map/start').then((bob) => {
-      bob.default();
-    });
+    mapManager.switchTo(startMapPath);
   }
 
   step() {

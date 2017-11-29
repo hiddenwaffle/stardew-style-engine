@@ -1,36 +1,51 @@
+import imageManager from 'src/session/image-manager';
 
 class TileLayer {
   readonly name: string;
+  readonly x: number;
+  readonly y: number;
+  readonly width: number;
+  readonly height: number;
+  readonly tiles: number[];
 
-  constructor(raw: any) {
-    this.name = raw.name;
+  constructor(rawTileLayer: any) {
+    this.name = rawTileLayer.name;
+    this.x = rawTileLayer.x;
+    this.y = rawTileLayer.y;
+    this.width = rawTileLayer.width;
+    this.height = rawTileLayer.height;
+    this.tiles = rawTileLayer.data;
   }
 }
 
 class ObjectLayer {
   readonly name: string;
 
-  constructor(raw: any) {
-    this.name = raw.name;
+  constructor(rawObjectLayer: any) {
+    this.name = rawObjectLayer.name;
   }
 }
 
-class Tileset {
+export class Tileset {
   readonly firstgid: number;
+  readonly tilecount: number;
+  readonly columns: number;
   readonly image: string;
 
-  constructor(firstgid: number, image: string) {
-    this.firstgid = firstgid;
-    this.image = image;
+  constructor(rawTileset: any) {
+    this.firstgid = rawTileset.firstgid;
+    this.tilecount = rawTileset.tilecount;
+    this.columns = rawTileset.columns;
+    this.image = rawTileset.image;
   }
 }
 
 export default class {
-  private readonly width: number;
-  private readonly height: number;
-  private readonly tileLayers: TileLayer[];
-  private readonly objectLayers: ObjectLayer[];
-  private readonly tilesets: Tileset[];
+  readonly width: number;
+  readonly height: number;
+  readonly tileLayers: TileLayer[];
+  readonly objectLayers: ObjectLayer[];
+  readonly tilesets: Tileset[];
 
   constructor(
     private mapPath: string,
@@ -43,8 +58,12 @@ export default class {
     this.objectLayers = [];
     rawMap.layers.forEach((rawLayer: any) => {
       if (rawLayer.type === 'tilelayer') {
-        const tileLayer = new TileLayer(rawLayer);
-        this.tileLayers.push(tileLayer);
+        if (rawLayer.name === 'collision') {
+          // TODO: Something with the collision layer.
+        } else {
+          const tileLayer = new TileLayer(rawLayer);
+          this.tileLayers.push(tileLayer);
+        }
       } else if (rawLayer.type === 'objectgroup') {
         const objectLayer = new ObjectLayer(rawLayer);
         this.objectLayers.push(objectLayer);
@@ -55,8 +74,9 @@ export default class {
 
     this.tilesets = [];
     rawMap.tilesets.forEach((rawTileset: any) => {
-      const tileset = new Tileset(rawTileset.firstgid, rawTileset.image);
+      const tileset = new Tileset(rawTileset);
       this.tilesets.push(tileset);
+      imageManager.prepare(tileset.image);
     });
   }
 }
