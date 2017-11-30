@@ -1,4 +1,4 @@
-import world from 'src/domain/world';
+import mapManager from 'src/session/map-manager';
 import imageManager from 'src/session/image-manager';
 import { ctxBack } from 'src/ui/elements';
 import { TILE_SIZE } from 'src/constants';
@@ -29,7 +29,7 @@ class Render {
   }
 
   step() {
-    const { currentMap } = world;
+    const { currentMap } = mapManager;
     if (currentMap) {
       for (const tileLayer of currentMap.tileLayers) {
         // TODO: Use player x, y coordinates to determine start and end ranges.

@@ -7,7 +7,7 @@ class Main {
   }
 
   start() {
-    mapManager.switchTo('start');
+    //
   }
 
   step() {

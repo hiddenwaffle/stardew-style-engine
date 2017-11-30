@@ -48,6 +48,7 @@ export default class {
   readonly tilesets: Tileset[];
 
   constructor(
+    readonly id: string,
     private mapPath: string,
     rawMap: any
   ) {

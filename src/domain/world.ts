@@ -1,13 +1,11 @@
 import Avatar from './avatar';
-import GameMap from 'src/domain/map';
-import SaveState from 'src/session/save-state';
+import GameMap from './map';
+import mapManager from 'src/session/map-manager';
 
 class World {
-  currentMap: GameMap;
   private readonly avatar: Avatar;
 
   constructor() {
-    this.currentMap = null;
     this.avatar = new Avatar();
   }
 
@@ -23,15 +21,21 @@ class World {
     //
   }
 
-  applySave(saveState: SaveState) {
-    this.avatar.applySave(saveState.avatar);
+  applySave(rawObj: any) {
+    console.log('localstorage => world.applySave()', JSON.stringify(rawObj));
+    if (rawObj) {
+      mapManager.switchTo(rawObj.currentMapId);
+      this.avatar.applySave(rawObj.avatarState);
+    }
   }
 
-  extractSave(): SaveState {
-    const saveState = new SaveState({
-      avatar: this.avatar.extractSave()
-    });
-    return saveState;
+  extractSave(): any {
+    const rawObj = {
+      currentMapId: mapManager.currentMapId,
+      avatarState: this.avatar.extractSave()
+    };
+    console.log('world.extractSave() => localStorage', JSON.stringify(rawObj));
+    return rawObj;
   }
 }
 

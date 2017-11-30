@@ -1,25 +1,24 @@
-import { AvatarState } from 'src/session/save-state';
-
 export default class {
   x: number;
   y: number;
 
-  constructor(obj?: any) {
-    if (obj) {
-      this.x = Number.parseInt(obj.x, 10);
-      this.y = Number.parseInt(obj.y, 10)
-    } else {
-      this.x = 1234;
-      this.y = 4321;
+  constructor() {
+    // this.x = 0;
+    // this.y = 0;
+  }
+
+  applySave(rawObj: any) {
+    if (rawObj) {
+      this.x = rawObj.x;
+      this.y = rawObj.y;
     }
   }
 
-  applySave(avatarState: AvatarState) {
+  extractSave(): any {
     // TODO: Do it
-  }
-
-  extractSave(): AvatarState {
-    // TODO: Do it
-    return new AvatarState();
+    return {
+      x: this.x,
+      y: this.y
+    };
   }
 }

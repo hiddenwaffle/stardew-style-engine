@@ -1,6 +1,9 @@
 import world from 'src/domain/world';
-import SaveState from './save-state';
 import { SAVE_KEY } from 'src/constants';
+
+function loadFromLocalStorage(): string {
+  return localStorage.getItem(SAVE_KEY);
+}
 
 class Persistence {
   start() {
@@ -11,22 +14,27 @@ class Persistence {
     this.save();
   }
 
+  /**
+   * Reverse steps of save(), but also ensures save file exists.
+   */
   load() {
-    const base64 = localStorage.getItem(SAVE_KEY);
-    if (base64) {
-      const json = atob(base64);
-      const obj = JSON.parse(json);
-      const saveState = new SaveState(obj);
-      world.applySave(saveState);
-    } else {
-      const saveState = new SaveState({});
-      world.applySave(saveState);
+    let base64 = loadFromLocalStorage();
+    if (!base64) {
+      // Create a save with the pristine world, then load it.
+      this.save();
+      base64 = loadFromLocalStorage();
     }
+    const json = atob(base64);
+    const rawObj = JSON.parse(json);
+    world.applySave(rawObj);
   }
 
+  /**
+   * Reverse steps of load().
+   */
   save() {
-    const saveState = world.extractSave();
-    const json = JSON.stringify(saveState);
+    const rawObj = world.extractSave();
+    const json = JSON.stringify(rawObj);
     const base64 = btoa(json);
     localStorage.setItem(SAVE_KEY, base64);
   }
