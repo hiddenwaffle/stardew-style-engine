@@ -20,17 +20,20 @@ class Controller {
 
     const speed = Math.floor(timer.elapsed * pixelsPerSecond);
 
+    let dx = 0;
+    let dy = 0;
+
     if (keyboard.isDown(Key.Up)) {
-      avatar.y -= speed;
+      dy -= speed;
     }
     if (keyboard.isDown(Key.Down)) {
-      avatar.y += speed;
+      dy += speed;
     }
     if (keyboard.isDown(Key.Left)) {
-      avatar.x -= speed;
+      dx -= speed;
     }
     if (keyboard.isDown(Key.Right)) {
-      avatar.x += speed;
+      dx += speed;
     }
 
     if (mouse.isDownAndUnhandled(Button.Left)) {
@@ -43,6 +46,9 @@ class Controller {
     if (mouse.areBothButtonsDownOrHandled()) {
       console.log('double');
     }
+
+    avatar.x += dx;
+    avatar.y += dy;
   }
 
   /**
