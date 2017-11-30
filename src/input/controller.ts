@@ -37,14 +37,14 @@ class Controller {
     }
 
     if (mouse.isDownAndUnhandled(Button.Left)) {
-      console.log('left mouse button down');
+      console.log('left mouse button down', mouse.canvasX, mouse.canvasY);
     }
     if (mouse.isDownAndUnhandled(Button.Right)) {
-      console.log('right mouse button down');
+      console.log('right mouse button down', mouse.canvasX, mouse.canvasY);
     }
 
     if (mouse.areBothButtonsDownOrHandled()) {
-      console.log('double');
+      console.log('double', mouse.canvasX, mouse.canvasY);
     }
 
     avatar.x += dx;

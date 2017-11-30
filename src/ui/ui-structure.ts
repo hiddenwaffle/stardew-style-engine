@@ -88,7 +88,6 @@ class UiStructure {
     canvasScaled.width = newWidth;
     canvasScaled.height = newHeight;
     // Must reset these after resize: https://stackoverflow.com/a/29564875
-    ctxScaled.mozImageSmoothingEnabled = false;
     ctxScaled.webkitImageSmoothingEnabled = false;
     ctxScaled.oImageSmoothingEnabled = false;
     ctxScaled.imageSmoothingEnabled = false;

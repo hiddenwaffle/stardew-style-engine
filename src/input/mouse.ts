@@ -1,3 +1,5 @@
+import { canvasScaled } from 'src/ui/elements';
+
 export const enum Button {
   Left,
   Right
@@ -28,13 +30,13 @@ class Mouse {
   }
 
   start() {
-    window.addEventListener('mousedown', (event) => {
+    canvasScaled.addEventListener('mousedown', (event) => {
       this.eventToState(event, State.Down);
     });
-    window.addEventListener('mouseup', (event) => {
+    canvasScaled.addEventListener('mouseup', (event) => {
       this.eventToState(event, State.Up);
     });
-    window.addEventListener('mousemove', (event) => {
+    canvasScaled.addEventListener('mousemove', (event) => {
       [this._canvasX, this._canvasY] = getRelativeCoords(event);
     });
     // Prevent "stuck" button if held down and window loses focus.
@@ -72,8 +74,10 @@ class Mouse {
   }
 
   areBothButtonsDownOrHandled(): boolean {
-    return ([State.Down, State.Handling].indexOf(this.buttonState.get(Button.Left)) > -1) &&
-           ([State.Down, State.Handling].indexOf(this.buttonState.get(Button.Right)) > -1);
+    const leftState = this.buttonState.get(Button.Left);
+    const rightState = this.buttonState.get(Button.Right);
+    return (leftState  === State.Down || leftState  === State.Handling) &&
+           (rightState === State.Down || rightState === State.Handling);
   }
 
   /**
@@ -88,6 +92,14 @@ class Mouse {
       }
     });
     return anyKeyDown;
+  }
+
+  get canvasX(): number {
+    return this._canvasX;
+  }
+
+  get canvasY(): number {
+    return this._canvasY;
   }
 
   private eventToState(event: MouseEvent, state: State) {
