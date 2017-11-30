@@ -2,7 +2,7 @@ import mapManager from 'src/session/map-manager';
 import imageManager from 'src/session/image-manager';
 import { ctxBack } from 'src/ui/elements';
 import { TILE_SIZE } from 'src/constants';
-import { Tileset } from 'src/domain/map';
+import { Tileset } from 'src/domain/game-map';
 
 function determineImageAndCoordinate(tilesets: Tileset[], tile: number): [HTMLImageElement, number, number] {
   let img: HTMLImageElement = null;

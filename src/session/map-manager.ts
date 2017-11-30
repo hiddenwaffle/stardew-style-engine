@@ -1,4 +1,4 @@
-import GameMap from 'src/domain/map';
+import GameMap from 'src/domain/game-map';
 
 import start from 'src/external/map/start.map.json';
 // TODO: More maps

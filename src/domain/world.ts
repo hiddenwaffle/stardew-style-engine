@@ -1,5 +1,5 @@
 import Avatar from './avatar';
-import GameMap from './map';
+import GameMap from './game-map';
 import mapManager from 'src/session/map-manager';
 
 class World {

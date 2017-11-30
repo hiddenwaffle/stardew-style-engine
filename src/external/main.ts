@@ -1,4 +1,4 @@
-import GameMap from 'src/domain/map';
+import GameMap from 'src/domain/game-map';
 import mapManager from 'src/session/map-manager';
 
 class Main {
