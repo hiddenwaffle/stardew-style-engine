@@ -1,8 +1,9 @@
 import {
+  dynamicResizeContainer,
   canvasBack,
   canvasScaled,
   ctxScaled,
-  dynamicResizeContainer
+  narrationContainer
 } from './elements';
 import {
   CONTAINER_ASPECT_HEIGHT,
@@ -92,7 +93,6 @@ class UiStructure {
     ctxScaled.oImageSmoothingEnabled = false;
     ctxScaled.imageSmoothingEnabled = false;
 
-    const narrationContainer = document.getElementById('narration-container');
     const fontSize = Math.ceil(FONT_BASE_SIZE * scaleFactor);
     narrationContainer.style.fontSize = `${fontSize}px`;
   }
