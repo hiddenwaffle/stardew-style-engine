@@ -19,6 +19,10 @@ class UiStructure {
   }
 
   start() {
+    canvasScaled.oncontextmenu = (event) => {
+      event.preventDefault();
+    };
+
     window.addEventListener('resize', this.resizeHandler.bind(this), false);
     this.resizeHandler();
 
