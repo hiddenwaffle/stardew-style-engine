@@ -39,6 +39,10 @@ class Controller {
     if (mouse.isDownAndUnhandled(Button.Right)) {
       console.log('right mouse button down');
     }
+
+    if (mouse.areBothButtonsDownOrHandled()) {
+      console.log('double');
+    }
   }
 
   /**

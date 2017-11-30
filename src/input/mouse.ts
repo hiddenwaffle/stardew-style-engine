@@ -9,11 +9,22 @@ const enum State {
   Handling
 }
 
+/**
+ * https://stackoverflow.com/a/12114213
+ */
+function getRelativeCoords(event: MouseEvent) {
+  return [ event.offsetX || event.layerX, event.offsetY || event.layerY ];
+}
+
 class Mouse {
   private buttonState: Map<Button, State>;
+  private _canvasX: number;
+  private _canvasY: number;
 
   constructor() {
     this.buttonState = new Map();
+    this._canvasX = 0;
+    this._canvasY = 0;
   }
 
   start() {
@@ -22,6 +33,9 @@ class Mouse {
     });
     window.addEventListener('mouseup', (event) => {
       this.eventToState(event, State.Up);
+    });
+    window.addEventListener('mousemove', (event) => {
+      [this._canvasX, this._canvasY] = getRelativeCoords(event);
     });
     // Prevent "stuck" button if held down and window loses focus.
     window.onblur = () => {
@@ -55,6 +69,11 @@ class Mouse {
     } else {
       return false;
     }
+  }
+
+  areBothButtonsDownOrHandled(): boolean {
+    return ([State.Down, State.Handling].indexOf(this.buttonState.get(Button.Left)) > -1) &&
+           ([State.Down, State.Handling].indexOf(this.buttonState.get(Button.Right)) > -1);
   }
 
   /**
