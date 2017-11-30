@@ -2,7 +2,7 @@ import uiStructure from 'src/ui/ui-structure';
 import world from 'src/domain/world';
 import render from 'src/render/render';
 import main from 'src/external/main';
-import keyboard from 'src/input/keyboard';
+import controller from 'src/input/controller';
 import timer from './timer';
 import persistence from './persistence';
 
@@ -16,7 +16,7 @@ class Session {
     timer.start(this.stepAll.bind(this));
     main.start();
     render.start();
-    keyboard.start();
+    controller.start();
     persistence.start();
   }
 
@@ -25,7 +25,7 @@ class Session {
    */
   stop() {
     persistence.stop();
-    keyboard.stop();
+    controller.stop();
     render.stop();
     main.stop();
     timer.stop();
@@ -37,7 +37,7 @@ class Session {
    * The order here is to perform logic before rendering.
    */
   private stepAll() {
-    keyboard.step();
+    controller.step();
     world.step();
     main.step();
     uiStructure.step();

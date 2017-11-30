@@ -1,11 +1,6 @@
-export default class {
+class Avatar {
   x: number;
   y: number;
-
-  constructor() {
-    // this.x = 0;
-    // this.y = 0;
-  }
 
   applySave(rawObj: any) {
     if (rawObj) {
@@ -15,10 +10,12 @@ export default class {
   }
 
   extractSave(): any {
-    // TODO: Do it
+    // Default position is (0, 0):
     return {
-      x: this.x,
-      y: this.y
+      x: this.x ? this.x : 0,
+      y: this.y ? this.y : 0
     };
   }
 }
+
+export default new Avatar();

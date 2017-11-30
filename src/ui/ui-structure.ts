@@ -28,6 +28,12 @@ class UiStructure {
   }
 
   step() {
+    ctxScaled.clearRect(
+      0,
+      0,
+      canvasScaled.width,
+      canvasScaled.height
+    );
     ctxScaled.drawImage(
       canvasBack,
       0,
