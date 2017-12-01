@@ -1,7 +1,7 @@
 import avatar from 'src/domain/avatar';
 import timer from 'src/session/timer';
 import keyboard, { Key } from './keyboard';
-import mouse, { Button } from './mouse';
+import mouse from './mouse';
 
 const pixelsPerSecond = 100 / 1000;
 
@@ -16,7 +16,6 @@ class Controller {
 
   step() {
     keyboard.step();
-    mouse.step();
 
     const speed = Math.floor(timer.elapsed * pixelsPerSecond);
 
@@ -36,17 +35,6 @@ class Controller {
       dx += speed;
     }
 
-    if (mouse.isDownAndUnhandled(Button.Left)) {
-      console.log('left mouse button down', mouse.canvasX, mouse.canvasY);
-    }
-    if (mouse.isDownAndUnhandled(Button.Right)) {
-      console.log('right mouse button down', mouse.canvasX, mouse.canvasY);
-    }
-
-    if (mouse.areBothButtonsDownOrHandled()) {
-      console.log('double', mouse.canvasX, mouse.canvasY);
-    }
-
     avatar.x += dx;
     avatar.y += dy;
   }
@@ -55,7 +43,6 @@ class Controller {
    * Reverse order of start().
    */
   stop() {
-    mouse.stop();
     keyboard.stop();
   }
 }
