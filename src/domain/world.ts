@@ -19,7 +19,7 @@ export default class {
     this.entities.forEach((entity) => {
       // entity.x += Math.floor((entity.dxIntended * timer.elapsed) / 11);
       // entity.y += Math.floor((entity.dyIntended * timer.elapsed) / 11);
-      const speed = 100; // Pixels per second
+      const speed = 300; // Pixels per second
       const secondsPast = timer.elapsed / 1000;
       const final = speed * secondsPast;
       entity.x += entity.dxIntended * final;

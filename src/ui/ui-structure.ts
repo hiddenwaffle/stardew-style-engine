@@ -1,6 +1,7 @@
 import {
   dynamicResizeContainer,
   canvasBack,
+  ctxBack,
   canvasScaled,
   ctxScaled,
   narrationContainer
@@ -88,10 +89,13 @@ class UiStructure {
     const newHeight = Math.ceil(FIELD_LOGICAL_HEIGHT * scaleFactor);
     canvasScaled.width = newWidth;
     canvasScaled.height = newHeight;
-    // Must reset these after resize: https://stackoverflow.com/a/29564875
-    ctxScaled.webkitImageSmoothingEnabled = false;
-    ctxScaled.oImageSmoothingEnabled = false;
-    ctxScaled.imageSmoothingEnabled = false;
+    // Must reset after resize: https://stackoverflow.com/a/29564875
+    // Setting for backbuffer too just because we need to at some point.
+    [ctxBack, ctxScaled].forEach((ctx) => {
+      ctx.webkitImageSmoothingEnabled = false;
+      ctx.oImageSmoothingEnabled = false;
+      ctx.imageSmoothingEnabled = false;
+    });
 
     const fontSize = Math.ceil(FONT_BASE_SIZE * scaleFactor);
     narrationContainer.style.fontSize = `${fontSize}px`;

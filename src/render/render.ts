@@ -5,7 +5,8 @@ import {
   canvasBack
 } from 'src/ui/elements';
 import {
-  TILE_SIZE,
+  ORIGINAL_TILE_SIZE,
+  TARGET_TILE_SIZE,
   FIELD_WIDTH,
   FIELD_HEIGHT
 } from 'src/constants';
@@ -18,8 +19,8 @@ function determineImageAndCoordinate(tilesets: Tileset[], tile: number): [HTMLIm
   for (const tileset of tilesets) {
     if (tile >= tileset.firstgid && tile < tileset.firstgid + tileset.tilecount) {
       img = imageLoader.get(tileset.image);
-      x = TILE_SIZE * ((tile - tileset.firstgid) % tileset.columns);
-      y = TILE_SIZE * (Math.floor((tile - tileset.firstgid) / tileset.columns));
+      x = ORIGINAL_TILE_SIZE * ((tile - tileset.firstgid) % tileset.columns);
+      y = ORIGINAL_TILE_SIZE * (Math.floor((tile - tileset.firstgid) / tileset.columns));
       break;
     }
   }
@@ -51,11 +52,11 @@ class Render {
 
               // Use player x, y coordinates in offset calculation.
               // TODO: LOL organize these equations better.
-              const offsetAvatarAtCenterX = Math.floor(FIELD_WIDTH * TILE_SIZE / 2 - player.x);
-              const offsetAvatarAtCenterY = Math.floor(FIELD_HEIGHT * TILE_SIZE / 2 - player.y);
+              const offsetAvatarAtCenterX = Math.floor(FIELD_WIDTH * TARGET_TILE_SIZE / 2 - player.x);
+              const offsetAvatarAtCenterY = Math.floor(FIELD_HEIGHT * TARGET_TILE_SIZE / 2 - player.y);
 
-              const destinationX = currentX * TILE_SIZE + offsetAvatarAtCenterX;
-              const destinationY = currentY * TILE_SIZE + offsetAvatarAtCenterY;
+              const destinationX = currentX * TARGET_TILE_SIZE + offsetAvatarAtCenterX;
+              const destinationY = currentY * TARGET_TILE_SIZE + offsetAvatarAtCenterY;
               // TODO: Check clipping
 
               const [img, sourceX, sourceY] = determineImageAndCoordinate(
@@ -68,12 +69,12 @@ class Render {
                   img,
                   sourceX,
                   sourceY,
-                  TILE_SIZE,
-                  TILE_SIZE,
+                  ORIGINAL_TILE_SIZE,
+                  ORIGINAL_TILE_SIZE,
                   destinationX,
                   destinationY,
-                  TILE_SIZE,
-                  TILE_SIZE
+                  TARGET_TILE_SIZE,
+                  TARGET_TILE_SIZE
                 );
               }
             }
