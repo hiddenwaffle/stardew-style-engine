@@ -1,4 +1,4 @@
-import gameMaster from 'src/game-master';
+import gameMaster from 'src/game-master/game-master';
 import timer from 'src/session/timer';
 import keyboard, { Key } from './keyboard';
 import mouse from './mouse';

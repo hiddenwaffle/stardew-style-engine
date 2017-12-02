@@ -1,7 +1,7 @@
 import World from 'src/domain/world';
 import StaticMap from 'src/domain/static-map';
 import Player from 'src/domain/player';
-import gameMaster from 'src/game-master';
+import gameMaster from 'src/game-master/game-master';
 import mapLoader from './map-loader';
 import imageLoader from './image-loader';
 import {
