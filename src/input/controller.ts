@@ -1,4 +1,4 @@
-import player from 'src/domain/player';
+import stageManager from 'src/session/stage-manager';
 import timer from 'src/session/timer';
 import keyboard, { Key } from './keyboard';
 import mouse from './mouse';
@@ -31,8 +31,7 @@ class Controller {
       dx += 1;
     }
 
-    // console.log('TODO: player.dxIntended = dx');
-    // console.log('TODO: player.dyIntended = dy');
+    stageManager.setIntendedDirection(dx, dy);
   }
 
   /**

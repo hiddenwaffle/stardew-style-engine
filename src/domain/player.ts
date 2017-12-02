@@ -10,8 +10,12 @@ export default class {
     this.entity = new Entity();
   }
 
+  setIntendedDirection(dxIntended: number, dyIntended: number) {
+    this.entity.setIntendedDirection(dxIntended, dyIntended);
+  }
+
   applySave(save: SavePlayer) {
-    //
+    this.entity.applySave(save.entity);
   }
 
   extractSave(): SavePlayer {
@@ -20,7 +24,11 @@ export default class {
     );
   }
 
-  // TODO: Remove these
-  get x() { return 10; }
-  get y() { return 5; }
+  get x() {
+    return this.entity.x;
+  }
+
+  get y() {
+    return this.entity.y;
+  }
 }

@@ -51,8 +51,8 @@ class Render {
 
               // Use player x, y coordinates in offset calculation.
               // TODO: LOL organize these equations better.
-              const offsetAvatarAtCenterX = Math.ceil(FIELD_WIDTH * TILE_SIZE) / 2 - player.x;
-              const offsetAvatarAtCenterY = Math.ceil(FIELD_HEIGHT * TILE_SIZE) / 2 - player.y;
+              const offsetAvatarAtCenterX = Math.floor(FIELD_WIDTH * TILE_SIZE / 2 - player.x);
+              const offsetAvatarAtCenterY = Math.floor(FIELD_HEIGHT * TILE_SIZE / 2 - player.y);
 
               const destinationX = currentX * TILE_SIZE + offsetAvatarAtCenterX;
               const destinationY = currentY * TILE_SIZE + offsetAvatarAtCenterY;

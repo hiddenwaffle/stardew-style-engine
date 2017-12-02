@@ -8,12 +8,22 @@ export default class {
   dyIntended: number;
   velocity: number;
 
-  constructor(save?: SaveEntity) {
-    if (save) {
-      //
-    } else {
-      //
-    }
+  constructor() {
+    this.x = 0;
+    this.y = 0;
+    this.dxIntended = 0;
+    this.dyIntended = 0;
+    this.velocity = 0;
+  }
+
+  setIntendedDirection(dxIntended: number, dyIntended: number) {
+    this.dxIntended = dxIntended;
+    this.dyIntended = dyIntended;
+  }
+
+  applySave(save: SaveEntity) {
+    this.x = save.x;
+    this.y = save.y;
   }
 
   extractSave(): SaveEntity {

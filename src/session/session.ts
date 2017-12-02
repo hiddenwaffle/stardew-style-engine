@@ -32,6 +32,7 @@ class Session {
    */
   private stepAll() {
     controller.step();
+    stageManager.step();
     uiStructure.step();
     render.step();
   }

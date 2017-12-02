@@ -33,6 +33,12 @@ class StageManager {
     this.applySave(save);
   }
 
+  step() {
+    if (this._world) {
+      this._world.step();
+    }
+  }
+
   stop() {
     // CRITICAL: Prevent attempting to save while still initializing.
     if (this.state === State.Ready) {
@@ -60,6 +66,12 @@ class StageManager {
         // TODO: Handle error
       });
     });
+  }
+
+  setIntendedDirection(dx: number, dy: number) {
+    if (this._world) {
+      this._world.setIntendedDirection(dx, dy);
+    }
   }
 
   get world() {
