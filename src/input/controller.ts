@@ -1,4 +1,4 @@
-import stageManager from 'src/session/stage-manager';
+import gameMaster from 'src/game-master';
 import timer from 'src/session/timer';
 import keyboard, { Key } from './keyboard';
 import mouse from './mouse';
@@ -31,7 +31,7 @@ class Controller {
       dx += 1;
     }
 
-    stageManager.setIntendedDirection(dx, dy);
+    gameMaster.setPlayerIntendedDirection(dx, dy);
   }
 
   /**

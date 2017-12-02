@@ -1,6 +1,7 @@
 import World from 'src/domain/world';
 import StaticMap from 'src/domain/static-map';
 import Player from 'src/domain/player';
+import gameMaster from 'src/game-master';
 import mapLoader from './map-loader';
 import imageLoader from './image-loader';
 import {
@@ -34,9 +35,7 @@ class StageManager {
   }
 
   step() {
-    if (this._world) {
-      this._world.step();
-    }
+    gameMaster.advance(this._world);
   }
 
   stop() {
@@ -66,12 +65,6 @@ class StageManager {
         // TODO: Handle error
       });
     });
-  }
-
-  setIntendedDirection(dx: number, dy: number) {
-    if (this._world) {
-      this._world.setIntendedDirection(dx, dy);
-    }
   }
 
   get world() {

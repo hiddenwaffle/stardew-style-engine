@@ -16,11 +16,6 @@ export default class {
     this.velocity = 0;
   }
 
-  setIntendedDirection(dxIntended: number, dyIntended: number) {
-    this.dxIntended = dxIntended;
-    this.dyIntended = dyIntended;
-  }
-
   applySave(save: SaveEntity) {
     this.x = save.x;
     this.y = save.y;

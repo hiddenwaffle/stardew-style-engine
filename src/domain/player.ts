@@ -10,10 +10,6 @@ export default class {
     this.entity = new Entity();
   }
 
-  setIntendedDirection(dxIntended: number, dyIntended: number) {
-    this.entity.setIntendedDirection(dxIntended, dyIntended);
-  }
-
   applySave(save: SavePlayer) {
     this.entity.applySave(save.entity);
   }
