@@ -1,5 +1,3 @@
-import GameMap from 'src/domain/game-map';
-
 class Main {
   constructor() {
     //

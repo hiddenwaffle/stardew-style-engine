@@ -1,3 +1,5 @@
+import { SaveEntity } from 'src/session/save';
+
 export default class {
   name: string;
   x: number;
@@ -5,4 +7,16 @@ export default class {
   dxIntended: number;
   dyIntended: number;
   velocity: number;
+
+  constructor(save?: SaveEntity) {
+    if (save) {
+      //
+    } else {
+      //
+    }
+  }
+
+  extractSave(): SaveEntity {
+    return new SaveEntity(this.x, this.y);
+  }
 }

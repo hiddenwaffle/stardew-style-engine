@@ -1,19 +1,26 @@
-import { SavePlayer } from 'src/session/save';
+import {
+  SavePlayer
+} from 'src/session/save';
 import Entity from './entity';
 
 export default class {
   entity: Entity;
 
-  constructor(save: SavePlayer) {
-    console.log('TODO: save.x');
-    console.log('TODO: save.y');
+  constructor() {
+    this.entity = new Entity();
   }
 
-  get x(): number {
-    return 3;
+  applySave(save: SavePlayer) {
+    //
   }
 
-  get y(): number {
-    return 7;
+  extractSave(): SavePlayer {
+    return new SavePlayer(
+      this.entity.extractSave()
+    );
   }
+
+  // TODO: Remove these
+  get x() { return 10; }
+  get y() { return 5; }
 }

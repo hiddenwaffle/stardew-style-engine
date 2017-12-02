@@ -39,49 +39,51 @@ class Render {
     ctxBack.clearRect(0, 0, canvasBack.width, canvasBack.height);
     const { world } = stageManager;
     if (world) {
-      const { gameMap, player } = world;
-      for (const tileLayer of gameMap.tileLayers) {
-        // TODO: Use player x, y coordinates to determine start and end ranges.
-        let currentX = 0;
-        let currentY = 0;
-        for (const tile of tileLayer.tiles) {
-          if (tile !== 0) {
-            // TODO: Use tileLayer.x, tileLayer.y (offsets?) in offset calculation.
+      const { staticMap, player } = world;
+      if (staticMap) {
+        for (const tileLayer of staticMap.tileLayers) {
+          // TODO: Use player x, y coordinates to determine start and end ranges.
+          let currentX = 0;
+          let currentY = 0;
+          for (const tile of tileLayer.tiles) {
+            if (tile !== 0) {
+              // TODO: Use tileLayer.x, tileLayer.y (offsets?) in offset calculation.
 
-            // Use player x, y coordinates in offset calculation.
-            // TODO: LOL organize these equations better.
-            const offsetAvatarAtCenterX = Math.ceil(FIELD_WIDTH * TILE_SIZE) / 2 - player.x;
-            const offsetAvatarAtCenterY = Math.ceil(FIELD_HEIGHT * TILE_SIZE) / 2 - player.y;
+              // Use player x, y coordinates in offset calculation.
+              // TODO: LOL organize these equations better.
+              const offsetAvatarAtCenterX = Math.ceil(FIELD_WIDTH * TILE_SIZE) / 2 - player.x;
+              const offsetAvatarAtCenterY = Math.ceil(FIELD_HEIGHT * TILE_SIZE) / 2 - player.y;
 
-            const destinationX = currentX * TILE_SIZE + offsetAvatarAtCenterX;
-            const destinationY = currentY * TILE_SIZE + offsetAvatarAtCenterY;
-            // TODO: Check clipping
+              const destinationX = currentX * TILE_SIZE + offsetAvatarAtCenterX;
+              const destinationY = currentY * TILE_SIZE + offsetAvatarAtCenterY;
+              // TODO: Check clipping
 
-            const [img, sourceX, sourceY] = determineImageAndCoordinate(
-              gameMap.tilesets,
-              tile
-            );
-
-            if (img) {
-              ctxBack.drawImage(
-                img,
-                sourceX,
-                sourceY,
-                TILE_SIZE,
-                TILE_SIZE,
-                destinationX,
-                destinationY,
-                TILE_SIZE,
-                TILE_SIZE
+              const [img, sourceX, sourceY] = determineImageAndCoordinate(
+                staticMap.tilesets,
+                tile
               );
-            }
-          }
 
-          // Advance to next tile position
-          currentX += 1;
-          if (currentX >= tileLayer.width) {
-            currentX = 0;
-            currentY += 1;
+              if (img) {
+                ctxBack.drawImage(
+                  img,
+                  sourceX,
+                  sourceY,
+                  TILE_SIZE,
+                  TILE_SIZE,
+                  destinationX,
+                  destinationY,
+                  TILE_SIZE,
+                  TILE_SIZE
+                );
+              }
+            }
+
+            // Advance to next tile position
+            currentX += 1;
+            if (currentX >= tileLayer.width) {
+              currentX = 0;
+              currentY += 1;
+            }
           }
         }
       }

@@ -1,10 +1,10 @@
 export default class {
-  name: string;
-  x: number;
-  y: number;
-  width: number;
-  height: number;
-  tiles: number[];
+  readonly name: string;
+  readonly x: number;
+  readonly y: number;
+  readonly width: number;
+  readonly height: number;
+  readonly tiles: number[];
 
   constructor(rawLayer: any) {
     this.name = rawLayer.name;

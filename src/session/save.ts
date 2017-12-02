@@ -1,24 +1,35 @@
-import World from 'src/domain/world';
-import Player from 'src/domain/player';
-
-export class SavePlayer {
+export class SaveEntity {
   x: number;
   y: number;
 
-  constructor(player: Player) {
-    console.log('TODO: this.x = player.x;');
-    console.log('TODO: this.y = player.y;');
+  constructor(x: number, y: number) {
+    this.x = x;
+    this.y = y;
+  }
+}
+
+export class SaveStaticMap {
+  mapId: string
+
+  constructor(mapId: string) {
+    this.mapId = mapId;
+  }
+}
+
+export class SavePlayer {
+  entity: SaveEntity;
+
+  constructor(entity: SaveEntity) {
+    this.entity = entity;
   }
 }
 
 export class Save {
-  mapId: string;
+  staticMap: SaveStaticMap;
   player: SavePlayer;
 
-  constructor(world: World) {
-    if (world) {
-      this.mapId = world.gameMap.id;
-      this.player = new SavePlayer(world.player);
-    }
+  constructor(staticMap: SaveStaticMap, player: SavePlayer) {
+    this.staticMap = staticMap;
+    this.player = player;
   }
 }

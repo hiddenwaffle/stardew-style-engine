@@ -1,6 +1,5 @@
-import world from 'src/domain/world';
+import World from 'src/domain/world';
 import { SAVE_KEY } from 'src/constants';
-import stageManager from './stage-manager';
 import { Save } from './save';
 
 function loadFromLocalStorage(): string {
@@ -8,36 +7,33 @@ function loadFromLocalStorage(): string {
 }
 
 class Persistence {
-  start() {
-    this.load();
-  }
-
-  stop() {
-    this.save();
-  }
-
   /**
    * Reverse steps of save(), but also ensures save file exists.
    */
-  load() {
+  load(): Save {
     let base64 = loadFromLocalStorage();
     if (!base64) {
-      // Create a save with the pristine world, then load it.
-      this.save();
+      // Persist a pristine world and then load it back in.
+      const world = new World();
+      this.save(world.extractSave());
       base64 = loadFromLocalStorage();
     }
     const json = atob(base64);
-    const save = <Save> JSON.parse(json);
-    stageManager.applySave(save);
+    return <Save> JSON.parse(json);
   }
 
   /**
    * Reverse steps of load().
    */
-  save() {
-    const save = stageManager.extractSave();
-    const json = JSON.stringify(save);
-    const base64 = btoa(json);
+  save(save: Save) {
+    let base64: string;
+    if (save) {
+      const json = JSON.stringify(save);
+      base64 = btoa(json);
+    } else {
+      const json = JSON.stringify({});
+      base64 = btoa(json);
+    }
     localStorage.setItem(SAVE_KEY, base64);
   }
 }

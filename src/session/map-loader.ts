@@ -1,9 +1,9 @@
-import GameMap from 'src/domain/game-map';
+import StaticMap from 'src/domain/static-map';
 
 import start from 'src/external/map/start.map.json';
 // TODO: More maps
 
-class MapManager {
+class MapLoader {
   private readonly rawMaps: Map<string, any>;
   private readonly paths: Map<string, string>;
 
@@ -22,7 +22,7 @@ class MapManager {
         resolve(rawMap);
       } else {
         fetch(path).then((response) => {
-          console.log(mapId, path, response);
+          console.log('map-loader', mapId, path, response);
           return response.json();
         }).then((fetchedRawMap: any) => {
           this.rawMaps.set(path, rawMap);
@@ -33,4 +33,4 @@ class MapManager {
   }
 }
 
-export default new MapManager();
+export default new MapLoader();

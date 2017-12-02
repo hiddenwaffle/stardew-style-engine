@@ -2,7 +2,7 @@ import uiStructure from 'src/ui/ui-structure';
 import render from 'src/render/render';
 import controller from 'src/input/controller';
 import timer from './timer';
-import persistence from './persistence';
+import stageManager from './stage-manager';
 
 class Session {
   /**
@@ -13,14 +13,14 @@ class Session {
     timer.start(this.stepAll.bind(this));
     render.start();
     controller.start();
-    persistence.start();
+    stageManager.start();
   }
 
   /**
    * Reverse order of start().
    */
   stop() {
-    persistence.stop();
+    stageManager.stop();
     controller.stop();
     render.stop();
     timer.stop();
