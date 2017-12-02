@@ -3,7 +3,7 @@
  * To delegate non-TS imports: https://stackoverflow.com/a/42702089
  */
 
-declare module '*.map.json' {
+declare module '*.json' {
   const content: string;
   export default content;
 }
