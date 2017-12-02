@@ -7,12 +7,15 @@ import {
   Save,
   SavePlayer
 } from './save';
+import environment from './environment';
 
 class StageManager {
   private _world: World;
 
   applySave(save: Save) {
-    console.log('localstorage => StageManager#applySave()', JSON.stringify(save));
+    if (environment.development) {
+      console.log('localstorage => StageManager#applySave()', JSON.stringify(save));
+    }
 
     // TODO: Remove this
     if (!save.mapId) {
@@ -30,7 +33,9 @@ class StageManager {
 
   extractSave(): Save {
     const save = new Save(this._world);
-    console.log('StageManager#extractSave() => localStorage', JSON.stringify(save));
+    if (environment.development) {
+      console.log('StageManager#extractSave() => localStorage', JSON.stringify(save));
+    }
     return save;
   }
 
