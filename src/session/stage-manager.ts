@@ -82,7 +82,6 @@ class StageManager {
     this._world = new World();
     this._world.applySave(save);
 
-    console.log('test', this._world.staticMap);
     this.loadMap(this._world.staticMap.id).then((staticMap) => {
       // Persistent values have been applied and ready for extraction when necessary.
       this.state = State.Ready;

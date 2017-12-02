@@ -22,7 +22,6 @@ class MapLoader {
         resolve(rawMap);
       } else {
         fetch(path).then((response) => {
-          console.log('map-loader', mapId, path, response);
           return response.json();
         }).then((fetchedRawMap: any) => {
           this.rawMaps.set(path, rawMap);
