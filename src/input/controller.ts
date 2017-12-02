@@ -1,9 +1,7 @@
-import avatar from 'src/domain/avatar';
+import player from 'src/domain/player';
 import timer from 'src/session/timer';
 import keyboard, { Key } from './keyboard';
 import mouse from './mouse';
-
-const pixelsPerSecond = 100 / 1000;
 
 class Controller {
   /**
@@ -17,26 +15,24 @@ class Controller {
   step() {
     keyboard.step();
 
-    const speed = Math.floor(timer.elapsed * pixelsPerSecond);
-
     let dx = 0;
     let dy = 0;
 
     if (keyboard.isDown(Key.Up)) {
-      dy -= speed;
+      dy -= 1;
     }
     if (keyboard.isDown(Key.Down)) {
-      dy += speed;
+      dy += 1;
     }
     if (keyboard.isDown(Key.Left)) {
-      dx -= speed;
+      dx -= 1;
     }
     if (keyboard.isDown(Key.Right)) {
-      dx += speed;
+      dx += 1;
     }
 
-    avatar.x += dx;
-    avatar.y += dy;
+    // console.log('TODO: player.dxIntended = dx');
+    // console.log('TODO: player.dyIntended = dy');
   }
 
   /**

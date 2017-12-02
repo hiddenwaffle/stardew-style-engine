@@ -1,5 +1,7 @@
 import world from 'src/domain/world';
 import { SAVE_KEY } from 'src/constants';
+import stageManager from './stage-manager';
+import { Save } from './save';
 
 function loadFromLocalStorage(): string {
   return localStorage.getItem(SAVE_KEY);
@@ -25,16 +27,16 @@ class Persistence {
       base64 = loadFromLocalStorage();
     }
     const json = atob(base64);
-    const rawObj = JSON.parse(json);
-    world.applySave(rawObj);
+    const save = <Save> JSON.parse(json);
+    stageManager.applySave(save);
   }
 
   /**
    * Reverse steps of load().
    */
   save() {
-    const rawObj = world.extractSave();
-    const json = JSON.stringify(rawObj);
+    const save = stageManager.extractSave();
+    const json = JSON.stringify(save);
     const base64 = btoa(json);
     localStorage.setItem(SAVE_KEY, base64);
   }

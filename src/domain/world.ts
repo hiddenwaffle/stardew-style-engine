@@ -1,36 +1,13 @@
-import avatar from './avatar';
+import { Save } from 'src/session/save';
+import Player from './player';
 import GameMap from './game-map';
-import mapManager from 'src/session/map-manager';
 
-class World {
-  start() {
-    //
-  }
+export default class {
+  player: Player;
+  gameMap: GameMap;
 
-  step() {
-    //
-  }
-
-  stop() {
-    //
-  }
-
-  applySave(rawObj: any) {
-    console.log('localstorage => world.applySave()', JSON.stringify(rawObj));
-    if (rawObj) {
-      mapManager.switchTo(rawObj.currentMapId);
-      avatar.applySave(rawObj.avatarState);
-    }
-  }
-
-  extractSave(): any {
-    const rawObj = {
-      currentMapId: mapManager.currentMapId,
-      avatarState: avatar.extractSave()
-    };
-    console.log('world.extractSave() => localStorage', JSON.stringify(rawObj));
-    return rawObj;
+  constructor(gameMap: GameMap, save: Save) {
+    this.gameMap = gameMap;
+    this.player = new Player(save.player);
   }
 }
-
-export default new World();

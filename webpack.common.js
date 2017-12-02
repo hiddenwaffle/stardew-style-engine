@@ -33,6 +33,7 @@ module.exports = {
         use: fileLoaderConfig
       },
       {
+        // Lazy load *.map.json files instead of inlining them.
         test: /\.map\.json$/,
         use: fileLoaderConfig
       }

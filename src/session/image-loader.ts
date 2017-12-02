@@ -29,45 +29,49 @@ function onlyFilename(path: string) {
 
 class TileManager {
   private readonly cache: Map<string, HTMLImageElement>;
-  private readonly locationMap: Map<string, string>;
+  private readonly paths: Map<string, string>;
 
   constructor() {
     this.cache = new Map();
 
-    this.locationMap = new Map();
-    this.locationMap.set('Decor0.png',  decor0);
-    this.locationMap.set('Decor1.png',  decor1);
-    this.locationMap.set('Door0.png',   door0);
-    this.locationMap.set('Door1.png',   door1);
-    this.locationMap.set('Effect0.png', effect0);
-    this.locationMap.set('Effect1.png', effect1);
-    this.locationMap.set('Fence.png',   fence);
-    this.locationMap.set('Floor.png',   floor);
-    this.locationMap.set('Ground0.png', ground0);
-    this.locationMap.set('Ground1.png', ground1);
-    this.locationMap.set('Hill0.png',   hill0);
-    this.locationMap.set('Hill1.png',   hill1);
-    this.locationMap.set('Map0.png',    map0);
-    this.locationMap.set('Map1.png',    map1);
-    this.locationMap.set('Ore0.png',    ore0);
-    this.locationMap.set('Ore1.png',    ore1);
-    this.locationMap.set('Pit0.png',    pit0);
-    this.locationMap.set('Pit1.png',    pit1);
-    this.locationMap.set('Tile.png',    tile);
-    this.locationMap.set('Trap0.png',   trap0);
-    this.locationMap.set('Trap1.png',   trap1);
-    this.locationMap.set('Tree0.png',   tree0);
-    this.locationMap.set('Tree1.png',   tree1);
-    this.locationMap.set('Wall.png',    wall);
+    this.paths = new Map();
+    this.paths.set('Decor0.png',  decor0);
+    this.paths.set('Decor1.png',  decor1);
+    this.paths.set('Door0.png',   door0);
+    this.paths.set('Door1.png',   door1);
+    this.paths.set('Effect0.png', effect0);
+    this.paths.set('Effect1.png', effect1);
+    this.paths.set('Fence.png',   fence);
+    this.paths.set('Floor.png',   floor);
+    this.paths.set('Ground0.png', ground0);
+    this.paths.set('Ground1.png', ground1);
+    this.paths.set('Hill0.png',   hill0);
+    this.paths.set('Hill1.png',   hill1);
+    this.paths.set('Map0.png',    map0);
+    this.paths.set('Map1.png',    map1);
+    this.paths.set('Ore0.png',    ore0);
+    this.paths.set('Ore1.png',    ore1);
+    this.paths.set('Pit0.png',    pit0);
+    this.paths.set('Pit1.png',    pit1);
+    this.paths.set('Tile.png',    tile);
+    this.paths.set('Trap0.png',   trap0);
+    this.paths.set('Trap1.png',   trap1);
+    this.paths.set('Tree0.png',   tree0);
+    this.paths.set('Tree1.png',   tree1);
+    this.paths.set('Wall.png',    wall);
   }
 
   prepare(rawImagePath: string) {
     const filename = onlyFilename(rawImagePath);
-    const location = this.locationMap.get(filename);
-    if (location) {
-      this.retrieve(filename, location);
+    if (this.cache.has(filename)) {
+      // Nothing to do
     } else {
-      console.log('TileManager#constructor() location not found for:', filename);
+      const path = this.paths.get(filename);
+      if (path) {
+        this.retrieve(filename, path);
+      } else {
+        console.log('TileManager#constructor() path not found for:', filename);
+      }
     }
   }
 
@@ -76,13 +80,13 @@ class TileManager {
     return this.cache.get(filename);
   }
 
-  private retrieve(filename: string, location: string) {
+  private retrieve(filename: string, path: string) {
     const img = <HTMLImageElement> document.createElement('img');
     img.onload = () => {
       this.cache.set(filename, img);
     };
     // TODO: Handle errors
-    img.src = location;
+    img.src = path;
   }
 }
 

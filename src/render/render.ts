@@ -1,5 +1,5 @@
-import mapManager from 'src/session/map-manager';
-import imageManager from 'src/session/image-manager';
+import stageManager from 'src/session/stage-manager';
+import imageLoader from 'src/session/image-loader';
 import {
   ctxBack,
   canvasBack
@@ -9,8 +9,7 @@ import {
   FIELD_WIDTH,
   FIELD_HEIGHT
 } from 'src/constants';
-import { Tileset } from 'src/domain/game-map';
-import avatar from 'src/domain/avatar';
+import Tileset from 'src/domain/tileset';
 
 function determineImageAndCoordinate(tilesets: Tileset[], tile: number): [HTMLImageElement, number, number] {
   let img: HTMLImageElement = null;
@@ -18,7 +17,7 @@ function determineImageAndCoordinate(tilesets: Tileset[], tile: number): [HTMLIm
   let y = 0;
   for (const tileset of tilesets) {
     if (tile >= tileset.firstgid && tile < tileset.firstgid + tileset.tilecount) {
-      img = imageManager.get(tileset.image);
+      img = imageLoader.get(tileset.image);
       x = TILE_SIZE * ((tile - tileset.firstgid) % tileset.columns);
       y = TILE_SIZE * (Math.floor((tile - tileset.firstgid) / tileset.columns));
       break;
@@ -38,9 +37,10 @@ class Render {
 
   step() {
     ctxBack.clearRect(0, 0, canvasBack.width, canvasBack.height);
-    const { currentMap } = mapManager;
-    if (currentMap) {
-      for (const tileLayer of currentMap.tileLayers) {
+    const { world } = stageManager;
+    if (world) {
+      const { gameMap, player } = world;
+      for (const tileLayer of gameMap.tileLayers) {
         // TODO: Use player x, y coordinates to determine start and end ranges.
         let currentX = 0;
         let currentY = 0;
@@ -50,15 +50,15 @@ class Render {
 
             // Use player x, y coordinates in offset calculation.
             // TODO: LOL organize these equations better.
-            const offsetAvatarAtCenterX = Math.ceil(FIELD_WIDTH * TILE_SIZE) / 2 - avatar.x;
-            const offsetAvatarAtCenterY = Math.ceil(FIELD_HEIGHT * TILE_SIZE) / 2 - avatar.y;
+            const offsetAvatarAtCenterX = Math.ceil(FIELD_WIDTH * TILE_SIZE) / 2 - player.x;
+            const offsetAvatarAtCenterY = Math.ceil(FIELD_HEIGHT * TILE_SIZE) / 2 - player.y;
 
             const destinationX = currentX * TILE_SIZE + offsetAvatarAtCenterX;
             const destinationY = currentY * TILE_SIZE + offsetAvatarAtCenterY;
             // TODO: Check clipping
 
             const [img, sourceX, sourceY] = determineImageAndCoordinate(
-              currentMap.tilesets,
+              gameMap.tilesets,
               tile
             );
 
