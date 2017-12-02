@@ -24,7 +24,7 @@ export class SavePlayer {
   }
 }
 
-export class Save {
+export class SaveWorld {
   staticMap: SaveStaticMap;
   player: SavePlayer;
 

@@ -1,4 +1,3 @@
-import stageManager from 'src/session/stage-manager';
 import imageLoader from 'src/session/image-loader';
 import {
   ctxBack,
@@ -11,6 +10,7 @@ import {
   FIELD_HEIGHT
 } from 'src/constants';
 import Tileset from 'src/domain/tileset';
+import World from 'src/domain/world';
 
 function determineImageAndCoordinate(tilesets: Tileset[], tile: number): [HTMLImageElement, number, number] {
   let img: HTMLImageElement = null;
@@ -36,9 +36,8 @@ class Render {
     //
   }
 
-  step() {
+  step(world: World) {
     ctxBack.clearRect(0, 0, canvasBack.width, canvasBack.height);
-    const { world } = stageManager;
     if (world) {
       const { staticMap, player } = world;
       if (staticMap) {

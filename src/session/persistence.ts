@@ -1,6 +1,6 @@
 import World from 'src/domain/world';
 import { SAVE_KEY } from 'src/constants';
-import { Save } from './save';
+import { SaveWorld } from './save';
 
 function loadFromLocalStorage(): string {
   return localStorage.getItem(SAVE_KEY);
@@ -10,7 +10,7 @@ class Persistence {
   /**
    * Reverse steps of save(), but also ensures save file exists.
    */
-  load(): Save {
+  load(): SaveWorld {
     let base64 = loadFromLocalStorage();
     if (!base64) {
       // Persist a pristine world and then load it back in.
@@ -19,13 +19,13 @@ class Persistence {
       base64 = loadFromLocalStorage();
     }
     const json = atob(base64);
-    return <Save> JSON.parse(json);
+    return <SaveWorld> JSON.parse(json);
   }
 
   /**
    * Reverse steps of load().
    */
-  save(save: Save) {
+  save(save: SaveWorld) {
     let base64: string;
     if (save) {
       const json = JSON.stringify(save);

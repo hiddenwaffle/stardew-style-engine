@@ -2,10 +2,11 @@ import World from 'src/domain/world';
 import StaticMap from 'src/domain/static-map';
 import Player from 'src/domain/player';
 import gameMaster from 'src/game-master/game-master';
+import render from 'src/render/render';
 import mapLoader from './map-loader';
 import imageLoader from './image-loader';
 import {
-  Save,
+  SaveWorld,
   SavePlayer
 } from './save';
 import environment from './environment';
@@ -32,13 +33,16 @@ class StageManager {
       console.log('localstorage => StageManager#applySave()', JSON.stringify(save));
     }
     this.applySave(save);
+    render.start();
   }
 
   step() {
     gameMaster.advance(this._world);
+    render.step(this._world);
   }
 
   stop() {
+    render.stop();
     // CRITICAL: Prevent attempting to save while still initializing.
     if (this.state === State.Ready) {
       const save = this.extractSave();
@@ -67,11 +71,7 @@ class StageManager {
     });
   }
 
-  get world() {
-    return this._world;
-  }
-
-  private applySave(save: Save) {
+  private applySave(save: SaveWorld) {
     this._world = new World();
     this._world.applySave(save);
 
@@ -81,7 +81,7 @@ class StageManager {
     });
   }
 
-  private extractSave(): Save {
+  private extractSave(): SaveWorld {
     const save = this._world.extractSave();
     return save;
   }

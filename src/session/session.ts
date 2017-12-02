@@ -1,5 +1,4 @@
 import uiStructure from 'src/ui/ui-structure';
-import render from 'src/render/render';
 import controller from 'src/input/controller';
 import timer from './timer';
 import stageManager from './stage-manager';
@@ -11,7 +10,6 @@ class Session {
   start() {
     uiStructure.start();
     timer.start(this.stepAll.bind(this));
-    render.start();
     controller.start();
     stageManager.start();
   }
@@ -22,7 +20,6 @@ class Session {
   stop() {
     stageManager.stop();
     controller.stop();
-    render.stop();
     timer.stop();
     uiStructure.stop();
   }
@@ -34,7 +31,6 @@ class Session {
     controller.step();
     stageManager.step();
     uiStructure.step();
-    render.step();
   }
 }
 
