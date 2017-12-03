@@ -19,11 +19,11 @@ const enum State {
 }
 
 class StageManager {
-  private _world: World;
+  private world: World;
   private state: State;
 
   constructor() {
-    this._world = null;
+    this.world = null;
     this.state = State.Initializing;
   }
 
@@ -37,8 +37,8 @@ class StageManager {
   }
 
   step() {
-    gameMaster.advance(this._world);
-    render.step(this._world);
+    gameMaster.advance(this.world);
+    render.step(this.world);
   }
 
   stop() {
@@ -60,7 +60,7 @@ class StageManager {
   loadMap(mapId: string): Promise<StaticMap> {
     return new Promise<StaticMap>((resolve, reject) => {
       return mapLoader.fetch(mapId).then((rawMap: any) => {
-        const staticMap = this._world.staticMap;
+        const staticMap = this.world.staticMap;
         staticMap.fillInDetails(rawMap);
         staticMap.tilesets.forEach((tileset) => {
           imageLoader.prepare(tileset.image);
@@ -72,17 +72,17 @@ class StageManager {
   }
 
   private applySave(save: SaveWorld) {
-    this._world = new World();
-    this._world.applySave(save);
+    this.world = new World();
+    this.world.applySave(save);
 
-    this.loadMap(this._world.staticMap.id).then((staticMap) => {
+    this.loadMap(this.world.staticMap.id).then((staticMap) => {
       // Persistent values have been applied and ready for extraction when necessary.
       this.state = State.Ready;
     });
   }
 
   private extractSave(): SaveWorld {
-    const save = this._world.extractSave();
+    const save = this.world.extractSave();
     return save;
   }
 }
