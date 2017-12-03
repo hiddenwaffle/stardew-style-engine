@@ -47,21 +47,25 @@ class Render {
           let currentY = 0;
           for (const tile of tileLayer.tiles) {
             if (tile !== 0) {
-              // TODO: Use tileLayer.x, tileLayer.y (offsets?) in offset calculation.
-
-              // Use player x, y coordinates in offset calculation.
-              // TODO: LOL organize these equations better.
-              const offsetAvatarAtCenterX = Math.floor(FIELD_WIDTH * TARGET_TILE_SIZE / 2 - player.x);
-              const offsetAvatarAtCenterY = Math.floor(FIELD_HEIGHT * TARGET_TILE_SIZE / 2 - player.y);
-
-              const destinationX = currentX * TARGET_TILE_SIZE + offsetAvatarAtCenterX;
-              const destinationY = currentY * TARGET_TILE_SIZE + offsetAvatarAtCenterY;
-              // TODO: Check clipping
-
               const [img, sourceX, sourceY] = determineImageAndCoordinate(
                 staticMap.tilesets,
                 tile
               );
+              // Scale by the size of tiles
+              let destinationX = currentX * TARGET_TILE_SIZE;
+              let destinationY = currentY * TARGET_TILE_SIZE;
+
+              // Offset by the position of the player, scaled by the size of tiles
+              destinationX -= player.x * TARGET_TILE_SIZE;
+              destinationY -= player.y * TARGET_TILE_SIZE;
+
+              // Offset so that the player is in the center of the screen
+              destinationX += (FIELD_WIDTH * TARGET_TILE_SIZE) / 2;
+              destinationY += (FIELD_HEIGHT * TARGET_TILE_SIZE) / 2;
+
+              // Convert to integers
+              destinationX = Math.floor(destinationX);
+              destinationY = Math.floor(destinationY);
 
               if (img) {
                 ctxBack.drawImage(
@@ -86,6 +90,39 @@ class Render {
             }
           }
         }
+
+        world.entities.forEach((entity) => {
+          const img = imageLoader.get('antifarea');
+          if (img) {
+            // Scale by the size of tiles
+            let destinationX = entity.x * TARGET_TILE_SIZE;
+            let destinationY = entity.y * TARGET_TILE_SIZE;
+
+            // Offset by the position of the player, scaled by the size of tiles
+            destinationX -= (player.x * TARGET_TILE_SIZE);
+            destinationY -= (player.y * TARGET_TILE_SIZE);
+
+            // Offset so that the player is in the center of the screen
+            destinationX += (FIELD_WIDTH * TARGET_TILE_SIZE) / 2;
+            destinationY += (FIELD_HEIGHT * TARGET_TILE_SIZE) / 2;
+
+            // Convert to integers
+            destinationX = Math.floor(destinationX);
+            destinationY = Math.floor(destinationY);
+
+            ctxBack.drawImage(
+              img,
+              0 * 18,
+              44 * 20,
+              ORIGINAL_TILE_SIZE + 2,
+              ORIGINAL_TILE_SIZE + 4,
+              destinationX,
+              destinationY,
+              TARGET_TILE_SIZE + 8,
+              TARGET_TILE_SIZE + 16
+            );
+          }
+        });
       }
     }
   }

@@ -23,11 +23,13 @@ import tree0    from 'src/external/DawnLike/Objects/Tree0.png';
 import tree1    from 'src/external/DawnLike/Objects/Tree1.png';
 import wall     from 'src/external/DawnLike/Objects/Wall.png';
 
+import antifarea from 'src/external/antifarea_18x20chars.png';
+
 function onlyFilename(path: string) {
   return path.replace(/.*\//, '');
 }
 
-class TileManager {
+class ImageLoader {
   private readonly cache: Map<string, HTMLImageElement>;
   private readonly paths: Map<string, string>;
 
@@ -59,6 +61,8 @@ class TileManager {
     this.paths.set('Tree0.png',   tree0);
     this.paths.set('Tree1.png',   tree1);
     this.paths.set('Wall.png',    wall);
+
+    this.paths.set('antifarea',   antifarea);
   }
 
   prepare(rawImagePath: string) {
@@ -90,4 +94,4 @@ class TileManager {
   }
 }
 
-export default new TileManager();
+export default new ImageLoader();

@@ -20,7 +20,7 @@ class GameMaster {
     world.player.entity.dyIntended = this.dyIntended;
 
     world.entities.forEach((entity) => {
-      const speed = 300; // Pixels per second
+      const speed = 5; // pixels per millisecond? shrug
       const secondsPast = timer.elapsed / 1000;
       const final = speed * secondsPast;
       entity.x += entity.dxIntended * final;
