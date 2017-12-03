@@ -30,7 +30,7 @@ class StageManager {
   start() {
     const save = persistence.load();
     if (environment.development) {
-      console.log('localstorage => StageManager#applySave()', JSON.stringify(save));
+      console.log('localstorage => StageManager#start()', JSON.stringify(save));
     }
     this.applySave(save);
     render.start();
@@ -47,12 +47,12 @@ class StageManager {
     if (this.state === State.Ready) {
       const save = this.extractSave();
       if (environment.development) {
-        console.log('StageManager#extractSave() => localStorage', JSON.stringify(save));
+        console.log('StageManager#stop() => localStorage', JSON.stringify(save));
       }
       persistence.save(save);
     } else {
       if (environment.development) {
-        console.log('StageManager#extractSave(): World is not initialized; skipping persist.');
+        console.log('StageManager#stop(): World is not initialized; skipping persist.');
       }
     }
   }
