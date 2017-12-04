@@ -21,6 +21,6 @@ export const CONTAINER_ASPECT_HEIGHT = 9;
 /**
  * Just "looks good" in Chrome on Mac.
  */
-export const FONT_BASE_SIZE = 21;
+export const FONT_BASE_SIZE = 5.25 * UPSCALE;
 
 export const SAVE_KEY = 'simplicity';
