@@ -119,14 +119,14 @@ class Render {
 
             ctxBack.drawImage(
               img,
-              0 * 18,
-              44 * 20,
+              0 * originalTileWidth,
+              44 * originalTileHeight,
               originalTileWidth,
               originalTileHeight,
               destinationX,
               destinationY,
               targetTileWidth,
-              TARGET_FIELD_TILE_SIZE + 16
+              targetTileHeight
             );
           }
         });
