@@ -7,7 +7,8 @@ import {
   ORIGINAL_FIELD_TILE_SIZE,
   TARGET_FIELD_TILE_SIZE,
   FIELD_WIDTH,
-  FIELD_HEIGHT
+  FIELD_HEIGHT,
+  UPSCALE
 } from 'src/constants';
 import Tileset from 'src/domain/tileset';
 import World from 'src/domain/world';
@@ -55,7 +56,7 @@ class Render {
               let destinationX = currentX * TARGET_FIELD_TILE_SIZE;
               let destinationY = currentY * TARGET_FIELD_TILE_SIZE;
 
-              // Offset by the position of the player, scaled by the size of tiles
+              // Offset by the position of the player, scaled by the size of field tiles
               destinationX -= player.x * TARGET_FIELD_TILE_SIZE;
               destinationY -= player.y * TARGET_FIELD_TILE_SIZE;
 
@@ -93,12 +94,18 @@ class Render {
 
         world.entities.forEach((entity) => {
           const img = imageLoader.get('antifarea');
+
+          const originalTileWidth = 18
+          const originalTileHeight = 20
+          const targetTileWidth = originalTileWidth * UPSCALE;
+          const targetTileHeight = originalTileHeight * UPSCALE;
+
           if (img) {
             // Scale by the size of tiles
             let destinationX = entity.x * TARGET_FIELD_TILE_SIZE;
             let destinationY = entity.y * TARGET_FIELD_TILE_SIZE;
 
-            // Offset by the position of the player, scaled by the size of tiles
+            // Offset by the position of the player, scaled by the size of field tiles
             destinationX -= (player.x * TARGET_FIELD_TILE_SIZE);
             destinationY -= (player.y * TARGET_FIELD_TILE_SIZE);
 
@@ -114,11 +121,11 @@ class Render {
               img,
               0 * 18,
               44 * 20,
-              ORIGINAL_FIELD_TILE_SIZE + 2,
-              ORIGINAL_FIELD_TILE_SIZE + 4,
+              originalTileWidth,
+              originalTileHeight,
               destinationX,
               destinationY,
-              TARGET_FIELD_TILE_SIZE + 8,
+              targetTileWidth,
               TARGET_FIELD_TILE_SIZE + 16
             );
           }
