@@ -4,8 +4,8 @@ import {
   canvasBack
 } from 'src/ui/elements';
 import {
-  ORIGINAL_TILE_SIZE,
-  TARGET_TILE_SIZE,
+  ORIGINAL_FIELD_TILE_SIZE,
+  TARGET_FIELD_TILE_SIZE,
   FIELD_WIDTH,
   FIELD_HEIGHT
 } from 'src/constants';
@@ -19,8 +19,8 @@ function determineImageAndCoordinate(tilesets: Tileset[], tile: number): [HTMLIm
   for (const tileset of tilesets) {
     if (tile >= tileset.firstgid && tile < tileset.firstgid + tileset.tilecount) {
       img = imageLoader.get(tileset.image);
-      x = ORIGINAL_TILE_SIZE * ((tile - tileset.firstgid) % tileset.columns);
-      y = ORIGINAL_TILE_SIZE * (Math.floor((tile - tileset.firstgid) / tileset.columns));
+      x = ORIGINAL_FIELD_TILE_SIZE * ((tile - tileset.firstgid) % tileset.columns);
+      y = ORIGINAL_FIELD_TILE_SIZE * (Math.floor((tile - tileset.firstgid) / tileset.columns));
       break;
     }
   }
@@ -52,16 +52,16 @@ class Render {
                 tile
               );
               // Scale by the size of tiles
-              let destinationX = currentX * TARGET_TILE_SIZE;
-              let destinationY = currentY * TARGET_TILE_SIZE;
+              let destinationX = currentX * TARGET_FIELD_TILE_SIZE;
+              let destinationY = currentY * TARGET_FIELD_TILE_SIZE;
 
               // Offset by the position of the player, scaled by the size of tiles
-              destinationX -= player.x * TARGET_TILE_SIZE;
-              destinationY -= player.y * TARGET_TILE_SIZE;
+              destinationX -= player.x * TARGET_FIELD_TILE_SIZE;
+              destinationY -= player.y * TARGET_FIELD_TILE_SIZE;
 
               // Offset so that the player is in the center of the screen
-              destinationX += (FIELD_WIDTH * TARGET_TILE_SIZE) / 2;
-              destinationY += (FIELD_HEIGHT * TARGET_TILE_SIZE) / 2;
+              destinationX += (FIELD_WIDTH * TARGET_FIELD_TILE_SIZE) / 2;
+              destinationY += (FIELD_HEIGHT * TARGET_FIELD_TILE_SIZE) / 2;
 
               // Convert to integers
               destinationX = Math.floor(destinationX);
@@ -72,12 +72,12 @@ class Render {
                   img,
                   sourceX,
                   sourceY,
-                  ORIGINAL_TILE_SIZE,
-                  ORIGINAL_TILE_SIZE,
+                  ORIGINAL_FIELD_TILE_SIZE,
+                  ORIGINAL_FIELD_TILE_SIZE,
                   destinationX,
                   destinationY,
-                  TARGET_TILE_SIZE,
-                  TARGET_TILE_SIZE
+                  TARGET_FIELD_TILE_SIZE,
+                  TARGET_FIELD_TILE_SIZE
                 );
               }
             }
@@ -95,16 +95,16 @@ class Render {
           const img = imageLoader.get('antifarea');
           if (img) {
             // Scale by the size of tiles
-            let destinationX = entity.x * TARGET_TILE_SIZE;
-            let destinationY = entity.y * TARGET_TILE_SIZE;
+            let destinationX = entity.x * TARGET_FIELD_TILE_SIZE;
+            let destinationY = entity.y * TARGET_FIELD_TILE_SIZE;
 
             // Offset by the position of the player, scaled by the size of tiles
-            destinationX -= (player.x * TARGET_TILE_SIZE);
-            destinationY -= (player.y * TARGET_TILE_SIZE);
+            destinationX -= (player.x * TARGET_FIELD_TILE_SIZE);
+            destinationY -= (player.y * TARGET_FIELD_TILE_SIZE);
 
             // Offset so that the player is in the center of the screen
-            destinationX += (FIELD_WIDTH * TARGET_TILE_SIZE) / 2;
-            destinationY += (FIELD_HEIGHT * TARGET_TILE_SIZE) / 2;
+            destinationX += (FIELD_WIDTH * TARGET_FIELD_TILE_SIZE) / 2;
+            destinationY += (FIELD_HEIGHT * TARGET_FIELD_TILE_SIZE) / 2;
 
             // Convert to integers
             destinationX = Math.floor(destinationX);
@@ -114,12 +114,12 @@ class Render {
               img,
               0 * 18,
               44 * 20,
-              ORIGINAL_TILE_SIZE + 2,
-              ORIGINAL_TILE_SIZE + 4,
+              ORIGINAL_FIELD_TILE_SIZE + 2,
+              ORIGINAL_FIELD_TILE_SIZE + 4,
               destinationX,
               destinationY,
-              TARGET_TILE_SIZE + 8,
-              TARGET_TILE_SIZE + 16
+              TARGET_FIELD_TILE_SIZE + 8,
+              TARGET_FIELD_TILE_SIZE + 16
             );
           }
         });
