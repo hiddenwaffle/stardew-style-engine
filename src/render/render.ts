@@ -1,10 +1,10 @@
-import imageLoader from 'src/session/image-loader';
+import { Sheet, default as imageLoader } from 'src/session/image-loader';
 import {
   ctxBack,
   canvasBack
 } from 'src/ui/elements';
 import {
-  ORIGINAL_FIELD_TILE_SIZE,
+  DEFAULT_FIELD_TILE_SIZE,
   TARGET_FIELD_TILE_SIZE,
   FIELD_WIDTH,
   FIELD_HEIGHT,
@@ -13,19 +13,19 @@ import {
 import Tileset from 'src/domain/tileset';
 import World from 'src/domain/world';
 
-function determineImageAndCoordinate(tilesets: Tileset[], tile: number): [HTMLImageElement, number, number] {
-  let img: HTMLImageElement = null;
+function determineImageAndCoordinate(tilesets: Tileset[], tile: number): [Sheet, number, number] {
+  let sheet: Sheet = null;
   let x = 0;
   let y = 0;
   for (const tileset of tilesets) {
     if (tile >= tileset.firstgid && tile < tileset.firstgid + tileset.tilecount) {
-      img = imageLoader.get(tileset.image);
-      x = ORIGINAL_FIELD_TILE_SIZE * ((tile - tileset.firstgid) % tileset.columns);
-      y = ORIGINAL_FIELD_TILE_SIZE * (Math.floor((tile - tileset.firstgid) / tileset.columns));
+      sheet = imageLoader.get(tileset.image);
+      x = DEFAULT_FIELD_TILE_SIZE * ((tile - tileset.firstgid) % tileset.columns);
+      y = DEFAULT_FIELD_TILE_SIZE * (Math.floor((tile - tileset.firstgid) / tileset.columns));
       break;
     }
   }
-  return [img, x, y];
+  return [sheet, x, y];
 }
 
 class Render {
@@ -48,33 +48,32 @@ class Render {
           let currentY = 0;
           for (const tile of tileLayer.tiles) {
             if (tile !== 0) {
-              const [img, sourceX, sourceY] = determineImageAndCoordinate(
+              const [sheet, sourceX, sourceY] = determineImageAndCoordinate(
                 staticMap.tilesets,
                 tile
               );
-              // Scale by the size of tiles
-              let destinationX = currentX * TARGET_FIELD_TILE_SIZE;
-              let destinationY = currentY * TARGET_FIELD_TILE_SIZE;
+              if (sheet) {
+                // Offset all by the size of tiles
+                let destinationX = currentX * TARGET_FIELD_TILE_SIZE;
+                let destinationY = currentY * TARGET_FIELD_TILE_SIZE;
 
-              // Offset by the position of the player, scaled by the size of field tiles
-              destinationX -= player.x * TARGET_FIELD_TILE_SIZE;
-              destinationY -= player.y * TARGET_FIELD_TILE_SIZE;
+                // Offset by the position of the player, scaled by the size of field tiles
+                destinationX -= player.x * TARGET_FIELD_TILE_SIZE;
+                destinationY -= player.y * TARGET_FIELD_TILE_SIZE;
 
-              // Offset so that the player is in the center of the screen
-              destinationX += (FIELD_WIDTH * TARGET_FIELD_TILE_SIZE) / 2;
-              destinationY += (FIELD_HEIGHT * TARGET_FIELD_TILE_SIZE) / 2;
+                // Offset so that the player is in the center of the screen
+                destinationX += (FIELD_WIDTH * TARGET_FIELD_TILE_SIZE) / 2;
+                destinationY += (FIELD_HEIGHT * TARGET_FIELD_TILE_SIZE) / 2;
 
-              // Convert to integers
-              destinationX = Math.floor(destinationX);
-              destinationY = Math.floor(destinationY);
-
-              if (img) {
+                // Convert to integers
+                destinationX = Math.floor(destinationX);
+                destinationY = Math.floor(destinationY);
                 ctxBack.drawImage(
-                  img,
+                  sheet.image,
                   sourceX,
                   sourceY,
-                  ORIGINAL_FIELD_TILE_SIZE,
-                  ORIGINAL_FIELD_TILE_SIZE,
+                  DEFAULT_FIELD_TILE_SIZE,
+                  DEFAULT_FIELD_TILE_SIZE,
                   destinationX,
                   destinationY,
                   TARGET_FIELD_TILE_SIZE,
@@ -93,15 +92,14 @@ class Render {
         }
 
         world.entities.forEach((entity) => {
-          const img = imageLoader.get('antifarea');
+          const sheet = imageLoader.get('antifarea');
+          if (sheet) {
+            const originalTileWidth = sheet.config.tileWidth;
+            const originalTileHeight = sheet.config.tileHeight;
+            const targetTileWidth = originalTileWidth * UPSCALE;
+            const targetTileHeight = originalTileHeight * UPSCALE;
 
-          const originalTileWidth = 18
-          const originalTileHeight = 20
-          const targetTileWidth = originalTileWidth * UPSCALE;
-          const targetTileHeight = originalTileHeight * UPSCALE;
-
-          if (img) {
-            // Scale by the size of tiles
+            // Offset all by the size of tiles
             let destinationX = entity.x * TARGET_FIELD_TILE_SIZE;
             let destinationY = entity.y * TARGET_FIELD_TILE_SIZE;
 
@@ -118,7 +116,7 @@ class Render {
             destinationY = Math.floor(destinationY);
 
             ctxBack.drawImage(
-              img,
+              sheet.image,
               0 * originalTileWidth,
               44 * originalTileHeight,
               originalTileWidth,

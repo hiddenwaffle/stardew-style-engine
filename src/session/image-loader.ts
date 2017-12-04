@@ -1,3 +1,5 @@
+import { DEFAULT_FIELD_TILE_SIZE } from 'src/constants';
+
 import decor0   from 'src/external/DawnLike/Objects/Decor0.png';
 import decor1   from 'src/external/DawnLike/Objects/Decor1.png';
 import door0    from 'src/external/DawnLike/Objects/Door0.png';
@@ -29,48 +31,78 @@ function onlyFilename(path: string) {
   return path.replace(/.*\//, '');
 }
 
+export class SheetConfig {
+  readonly path: string;
+  readonly tileWidth: number;
+  readonly tileHeight: number;
+
+  constructor(path: string, tileWidth: number, tileHeight: number) {
+    this.path = path;
+    this.tileWidth = tileWidth;
+    this.tileHeight = tileHeight;
+  }
+}
+
+function genConfig(
+  path: string,
+  tileWidth: number = DEFAULT_FIELD_TILE_SIZE,
+  tileHeight: number = DEFAULT_FIELD_TILE_SIZE
+) {
+  return new SheetConfig(path, tileWidth, tileHeight);
+}
+
+export class Sheet {
+  readonly config: SheetConfig;
+  readonly image: HTMLImageElement;
+
+  constructor(config: SheetConfig, image: HTMLImageElement) {
+    this.config = config;
+    this.image = image;
+  }
+}
+
 class ImageLoader {
-  private readonly cache: Map<string, HTMLImageElement>;
-  private readonly paths: Map<string, string>;
+  private readonly sheets: Map<string, Sheet>;
+  private readonly configs: Map<string, SheetConfig>;
 
   constructor() {
-    this.cache = new Map();
+    this.sheets = new Map();
 
-    this.paths = new Map();
-    this.paths.set('Decor0.png',  decor0);
-    this.paths.set('Decor1.png',  decor1);
-    this.paths.set('Door0.png',   door0);
-    this.paths.set('Door1.png',   door1);
-    this.paths.set('Effect0.png', effect0);
-    this.paths.set('Effect1.png', effect1);
-    this.paths.set('Fence.png',   fence);
-    this.paths.set('Floor.png',   floor);
-    this.paths.set('Ground0.png', ground0);
-    this.paths.set('Ground1.png', ground1);
-    this.paths.set('Hill0.png',   hill0);
-    this.paths.set('Hill1.png',   hill1);
-    this.paths.set('Map0.png',    map0);
-    this.paths.set('Map1.png',    map1);
-    this.paths.set('Ore0.png',    ore0);
-    this.paths.set('Ore1.png',    ore1);
-    this.paths.set('Pit0.png',    pit0);
-    this.paths.set('Pit1.png',    pit1);
-    this.paths.set('Tile.png',    tile);
-    this.paths.set('Trap0.png',   trap0);
-    this.paths.set('Trap1.png',   trap1);
-    this.paths.set('Tree0.png',   tree0);
-    this.paths.set('Tree1.png',   tree1);
-    this.paths.set('Wall.png',    wall);
+    this.configs = new Map();
+    this.configs.set('Decor0.png',  genConfig(decor0));
+    this.configs.set('Decor1.png',  genConfig(decor1));
+    this.configs.set('Door0.png',   genConfig(door0));
+    this.configs.set('Door1.png',   genConfig(door1));
+    this.configs.set('Effect0.png', genConfig(effect0));
+    this.configs.set('Effect1.png', genConfig(effect1));
+    this.configs.set('Fence.png',   genConfig(fence));
+    this.configs.set('Floor.png',   genConfig(floor));
+    this.configs.set('Ground0.png', genConfig(ground0));
+    this.configs.set('Ground1.png', genConfig(ground1));
+    this.configs.set('Hill0.png',   genConfig(hill0));
+    this.configs.set('Hill1.png',   genConfig(hill1));
+    this.configs.set('Map0.png',    genConfig(map0));
+    this.configs.set('Map1.png',    genConfig(map1));
+    this.configs.set('Ore0.png',    genConfig(ore0));
+    this.configs.set('Ore1.png',    genConfig(ore1));
+    this.configs.set('Pit0.png',    genConfig(pit0));
+    this.configs.set('Pit1.png',    genConfig(pit1));
+    this.configs.set('Tile.png',    genConfig(tile));
+    this.configs.set('Trap0.png',   genConfig(trap0));
+    this.configs.set('Trap1.png',   genConfig(trap1));
+    this.configs.set('Tree0.png',   genConfig(tree0));
+    this.configs.set('Tree1.png',   genConfig(tree1));
+    this.configs.set('Wall.png',    genConfig(wall));
 
-    this.paths.set('antifarea',   antifarea);
+    this.configs.set('antifarea',   genConfig(antifarea, 18, 20));
   }
 
   prepare(rawImagePath: string) {
     const filename = onlyFilename(rawImagePath);
-    if (this.cache.has(filename)) {
+    if (this.sheets.has(filename)) {
       // Nothing to do
     } else {
-      const path = this.paths.get(filename);
+      const path = this.configs.get(filename);
       if (path) {
         this.retrieve(filename, path);
       } else {
@@ -79,18 +111,19 @@ class ImageLoader {
     }
   }
 
-  get(rawImagePath: string): HTMLImageElement {
+  get(rawImagePath: string): Sheet {
     const filename = onlyFilename(rawImagePath);
-    return this.cache.get(filename);
+    return this.sheets.get(filename);
   }
 
-  private retrieve(filename: string, path: string) {
-    const img = <HTMLImageElement> document.createElement('img');
-    img.onload = () => {
-      this.cache.set(filename, img);
+  private retrieve(filename: string, config: SheetConfig) {
+    const image = <HTMLImageElement> document.createElement('img');
+    image.onload = () => {
+      const sheet = new Sheet(config, image);
+      this.sheets.set(filename, sheet);
     };
     // TODO: Handle errors
-    img.src = path;
+    image.src = config.path;
   }
 }
 

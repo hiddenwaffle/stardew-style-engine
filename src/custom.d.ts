@@ -9,11 +9,11 @@ declare module '*.json' {
 }
 
 declare module '*.png' {
-  const content: any;
+  const content: string;
   export default content;
 }
 
 declare module '*.webm' {
-  const content: any;
+  const content: string;
   export default content;
 }
