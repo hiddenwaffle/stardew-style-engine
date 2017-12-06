@@ -17,12 +17,14 @@ export default class {
   applySave(save: SaveWorld) {
     this.player.applySave(save.player);
     this.staticMap.applySave(save.staticMap);
+
+    // TODO: Remove this?
     this.entities.push(this.player.entity);
 
     // TODO: Remove this
     const other = new Entity();
-    other.x = 100;
-    other.y = 100;
+    other.x = 350;
+    other.y = 375;
     other.name = 'other';
     this.entities.push(other);
   }

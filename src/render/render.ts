@@ -110,6 +110,10 @@ class Render {
             let destinationX = entity.x - player.x;
             let destinationY = entity.y - player.y;
 
+            // Offset so that it centers horizontally and aligns to the bottom
+            destinationX -= targetTileWidth / 2;
+            destinationY -= targetTileHeight;
+
             // Offset so that the player is in the center of the screen
             destinationX += (FIELD_WIDTH * TARGET_FIELD_TILE_SIZE) / 2;
             destinationY += (FIELD_HEIGHT * TARGET_FIELD_TILE_SIZE) / 2;
