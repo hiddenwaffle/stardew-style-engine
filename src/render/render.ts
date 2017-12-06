@@ -104,6 +104,7 @@ class Render {
           return a.y - b.y;
         });
 
+        // Entity coordinates are already upscaled
         world.entities.forEach((entity) => {
           const sheet = imageLoader.get('antifarea');
           if (sheet) {
