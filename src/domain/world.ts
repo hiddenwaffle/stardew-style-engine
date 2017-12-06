@@ -21,8 +21,8 @@ export default class {
 
     // TODO: Remove this
     const other = new Entity();
-    other.x = 10;
-    other.y = 10;
+    other.x = 100;
+    other.y = 100;
     other.name = 'other';
     this.entities.push(other);
   }

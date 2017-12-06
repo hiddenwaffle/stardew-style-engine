@@ -55,8 +55,10 @@ class Render {
                 tile
               );
               if (sheet) {
-                const originalTileWidth = DEFAULT_FIELD_TILE_SIZE;
-                const originalTileHeight = DEFAULT_FIELD_TILE_SIZE;
+                const originalTileWidth = sheet.config.tileWidth;
+                const originalTileHeight = sheet.config.tileHeight;
+                const targetTileWidth = originalTileWidth * UPSCALE;
+                const targetTileHeight = originalTileHeight * UPSCALE;
 
                 // Offset all by the size of tiles
                 let destinationX = currentX * TARGET_FIELD_TILE_SIZE;
@@ -78,9 +80,13 @@ class Render {
                   originalTileHeight,
                   destinationX,
                   destinationY,
-                  TARGET_FIELD_TILE_SIZE,
-                  TARGET_FIELD_TILE_SIZE
+                  targetTileWidth,
+                  targetTileHeight
                 );
+
+                // TODO: Remove this debug
+                ctxBack.strokeStyle = 'pink';
+                ctxBack.strokeRect(destinationX, destinationY, TARGET_FIELD_TILE_SIZE, TARGET_FIELD_TILE_SIZE);
               }
             }
 
@@ -119,6 +125,10 @@ class Render {
               targetTileWidth,
               targetTileHeight
             );
+
+            // TODO: Remove this debug
+            ctxBack.strokeStyle = 'yellow';
+            ctxBack.strokeRect(destinationX, destinationY, targetTileWidth, targetTileHeight);
           }
         });
       }
