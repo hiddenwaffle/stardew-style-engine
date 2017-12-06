@@ -4,6 +4,7 @@ import {
   canvasBack
 } from 'src/ui/elements';
 import {
+  DEFAULT_FIELD_TILE_SIZE,
   TARGET_FIELD_TILE_SIZE,
   FIELD_WIDTH,
   FIELD_HEIGHT,
@@ -54,6 +55,9 @@ class Render {
                 tile
               );
               if (sheet) {
+                const originalTileWidth = DEFAULT_FIELD_TILE_SIZE;
+                const originalTileHeight = DEFAULT_FIELD_TILE_SIZE;
+
                 // Offset all by the size of tiles
                 let destinationX = currentX * TARGET_FIELD_TILE_SIZE;
                 let destinationY = currentY * TARGET_FIELD_TILE_SIZE;
@@ -70,8 +74,8 @@ class Render {
                   sheet.image,
                   sourceX,
                   sourceY,
-                  TARGET_FIELD_TILE_SIZE,
-                  TARGET_FIELD_TILE_SIZE,
+                  originalTileWidth,
+                  originalTileHeight,
                   destinationX,
                   destinationY,
                   TARGET_FIELD_TILE_SIZE,
