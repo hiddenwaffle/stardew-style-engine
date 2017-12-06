@@ -99,6 +99,11 @@ class Render {
           }
         }
 
+        // TODO: Use insertion sort instead of default sort?
+        world.entities.sort((a, b) => {
+          return a.y - b.y;
+        });
+
         world.entities.forEach((entity) => {
           const sheet = imageLoader.get('antifarea');
           if (sheet) {
