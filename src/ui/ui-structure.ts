@@ -10,15 +10,15 @@ import {
 import {
   CONTAINER_ASPECT_HEIGHT,
   CONTAINER_ASPECT_WIDTH,
-  FIELD_LOGICAL_HEIGHT,
-  FIELD_LOGICAL_WIDTH,
+  FIELD_TARGET_HEIGHT,
+  FIELD_TARGET_WIDTH,
   FONT_BASE_SIZE
 } from 'src/constants';
 
 class UiStructure {
   constructor() {
-    canvasBack.width = FIELD_LOGICAL_WIDTH;
-    canvasBack.height = FIELD_LOGICAL_HEIGHT;
+    canvasBack.width = FIELD_TARGET_WIDTH;
+    canvasBack.height = FIELD_TARGET_HEIGHT;
   }
 
   start() {
@@ -69,8 +69,8 @@ class UiStructure {
     const containerContentsScaleFactor = calculateScaleFactor(
       dynamicResizeContainer.clientWidth,
       dynamicResizeContainer.clientHeight,
-      FIELD_LOGICAL_WIDTH,
-      FIELD_LOGICAL_HEIGHT
+      FIELD_TARGET_WIDTH,
+      FIELD_TARGET_HEIGHT
     );
     this.scaleContainerContents(containerContentsScaleFactor);
   }
@@ -86,8 +86,8 @@ class UiStructure {
    * Currently the contents are the render field and narration.
    */
   private scaleContainerContents(scaleFactor: number) {
-    const newWidth = Math.ceil(FIELD_LOGICAL_WIDTH * scaleFactor);
-    const newHeight = Math.ceil(FIELD_LOGICAL_HEIGHT * scaleFactor);
+    const newWidth = Math.ceil(FIELD_TARGET_WIDTH * scaleFactor);
+    const newHeight = Math.ceil(FIELD_TARGET_HEIGHT * scaleFactor);
     canvasScaled.width = newWidth;
     canvasScaled.height = newHeight;
     // Must reset after resize: https://stackoverflow.com/a/29564875

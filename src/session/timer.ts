@@ -11,12 +11,12 @@ class Timer {
 
   start(runEachFrame: () => void) {
     this.lastStep = Date.now();
-    const step = () => {
+    const step = (now: number) => {
       this.currentRequest = requestAnimationFrame(step);
-      [this.lastStep, this._elapsed] = calculateElapsed(this.lastStep);
+      [this.lastStep, this._elapsed] = calculateElapsed(now, this.lastStep);
       runEachFrame();
     };
-    step();
+    requestAnimationFrame(step);
   }
 
   stop() {
@@ -30,8 +30,7 @@ class Timer {
 
 export default new Timer();
 
-function calculateElapsed(lastStep: number): [number, number] {
-  const now = Date.now();
+function calculateElapsed(now: number, lastStep: number): [number, number] {
   let elapsed = now - lastStep;
   if (elapsed > 100) {
     elapsed = 100; // Enforce speed limit.

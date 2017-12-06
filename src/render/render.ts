@@ -5,8 +5,8 @@ import {
 } from 'src/ui/elements';
 import {
   TARGET_FIELD_TILE_SIZE,
-  FIELD_LOGICAL_WIDTH,
-  FIELD_LOGICAL_HEIGHT,
+  FIELD_TARGET_WIDTH,
+  FIELD_TARGET_HEIGHT,
   UPSCALE
 } from 'src/constants';
 import Tileset from 'src/domain/tileset';
@@ -68,8 +68,8 @@ class Render {
                 destinationY -= player.y;
 
                 // Offset so that the player is in the center of the screen
-                destinationX += FIELD_LOGICAL_WIDTH / 2;
-                destinationY += FIELD_LOGICAL_HEIGHT / 2;
+                destinationX += FIELD_TARGET_WIDTH / 2;
+                destinationY += FIELD_TARGET_HEIGHT / 2;
 
                 ctxBack.drawImage(
                   sheet.image,
@@ -120,8 +120,8 @@ class Render {
             destinationY -= targetTileHeight;
 
             // Offset so that the player is in the center of the screen
-            destinationX += FIELD_LOGICAL_WIDTH / 2;
-            destinationY += FIELD_LOGICAL_HEIGHT / 2;
+            destinationX += FIELD_TARGET_WIDTH / 2;
+            destinationY += FIELD_TARGET_HEIGHT / 2;
 
             ctxBack.drawImage(
               sheet.image,
