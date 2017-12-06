@@ -1,4 +1,5 @@
 import {
+  body,
   dynamicResizeContainer,
   canvasBack,
   ctxBack,
@@ -21,7 +22,7 @@ class UiStructure {
   }
 
   start() {
-    canvasScaled.oncontextmenu = (event) => {
+    body.oncontextmenu = (event) => {
       event.preventDefault();
     };
 

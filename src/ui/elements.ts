@@ -1,3 +1,5 @@
+export const body = <HTMLBodyElement> document.querySelector('body');
+
 export const dynamicResizeContainer = <HTMLDivElement> document.getElementById('dynamic-resize-container');
 
 export const canvasBack = <HTMLCanvasElement> document.getElementById('canvas-back');
