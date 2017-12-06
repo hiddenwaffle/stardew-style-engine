@@ -1,5 +1,6 @@
 import World from 'src/domain/world';
 import timer from 'src/session/timer';
+import { UPSCALE } from 'src/constants';
 
 class GameMaster {
   /**
@@ -20,7 +21,7 @@ class GameMaster {
     world.player.entity.dyIntended = this.dyIntended;
 
     world.entities.forEach((entity) => {
-      const speed = 5; // pixels per millisecond? shrug
+      const speed = 90 * UPSCALE; // pixels per millisecond?
       const secondsPast = timer.elapsed / 1000;
       const final = speed * secondsPast;
       entity.x += entity.dxIntended * final;

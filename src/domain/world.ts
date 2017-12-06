@@ -18,6 +18,13 @@ export default class {
     this.player.applySave(save.player);
     this.staticMap.applySave(save.staticMap);
     this.entities.push(this.player.entity);
+
+    // TODO: Remove this
+    const other = new Entity();
+    other.x = 10;
+    other.y = 10;
+    other.name = 'other';
+    this.entities.push(other);
   }
 
   extractSave(): SaveWorld {

@@ -58,16 +58,13 @@ class Render {
                 let destinationY = currentY * TARGET_FIELD_TILE_SIZE;
 
                 // Offset by the position of the player, scaled by the size of field tiles
-                destinationX -= player.x * TARGET_FIELD_TILE_SIZE;
-                destinationY -= player.y * TARGET_FIELD_TILE_SIZE;
+                destinationX -= player.x;
+                destinationY -= player.y;
 
                 // Offset so that the player is in the center of the screen
                 destinationX += (FIELD_WIDTH * TARGET_FIELD_TILE_SIZE) / 2;
                 destinationY += (FIELD_HEIGHT * TARGET_FIELD_TILE_SIZE) / 2;
 
-                // Convert to integers
-                destinationX = Math.floor(destinationX);
-                destinationY = Math.floor(destinationY);
                 ctxBack.drawImage(
                   sheet.image,
                   sourceX,
@@ -99,21 +96,12 @@ class Render {
             const targetTileWidth = originalTileWidth * UPSCALE;
             const targetTileHeight = originalTileHeight * UPSCALE;
 
-            // Offset all by the size of tiles
-            let destinationX = entity.x * TARGET_FIELD_TILE_SIZE;
-            let destinationY = entity.y * TARGET_FIELD_TILE_SIZE;
-
-            // Offset by the position of the player, scaled by the size of field tiles
-            destinationX -= (player.x * TARGET_FIELD_TILE_SIZE);
-            destinationY -= (player.y * TARGET_FIELD_TILE_SIZE);
+            let destinationX = entity.x - player.x;
+            let destinationY = entity.y - player.y;
 
             // Offset so that the player is in the center of the screen
             destinationX += (FIELD_WIDTH * TARGET_FIELD_TILE_SIZE) / 2;
             destinationY += (FIELD_HEIGHT * TARGET_FIELD_TILE_SIZE) / 2;
-
-            // Convert to integers
-            destinationX = Math.floor(destinationX);
-            destinationY = Math.floor(destinationY);
 
             ctxBack.drawImage(
               sheet.image,
