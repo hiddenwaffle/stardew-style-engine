@@ -4,10 +4,9 @@ import {
   canvasBack
 } from 'src/ui/elements';
 import {
-  DEFAULT_FIELD_TILE_SIZE,
   TARGET_FIELD_TILE_SIZE,
-  FIELD_WIDTH,
-  FIELD_HEIGHT,
+  FIELD_LOGICAL_WIDTH,
+  FIELD_LOGICAL_HEIGHT,
   UPSCALE
 } from 'src/constants';
 import Tileset from 'src/domain/tileset';
@@ -69,8 +68,8 @@ class Render {
                 destinationY -= player.y;
 
                 // Offset so that the player is in the center of the screen
-                destinationX += (FIELD_WIDTH * TARGET_FIELD_TILE_SIZE) / 2;
-                destinationY += (FIELD_HEIGHT * TARGET_FIELD_TILE_SIZE) / 2;
+                destinationX += FIELD_LOGICAL_WIDTH / 2;
+                destinationY += FIELD_LOGICAL_HEIGHT / 2;
 
                 ctxBack.drawImage(
                   sheet.image,
@@ -121,8 +120,8 @@ class Render {
             destinationY -= targetTileHeight;
 
             // Offset so that the player is in the center of the screen
-            destinationX += (FIELD_WIDTH * TARGET_FIELD_TILE_SIZE) / 2;
-            destinationY += (FIELD_HEIGHT * TARGET_FIELD_TILE_SIZE) / 2;
+            destinationX += FIELD_LOGICAL_WIDTH / 2;
+            destinationY += FIELD_LOGICAL_HEIGHT / 2;
 
             ctxBack.drawImage(
               sheet.image,
