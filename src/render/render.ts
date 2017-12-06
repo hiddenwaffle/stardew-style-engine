@@ -4,7 +4,6 @@ import {
   canvasBack
 } from 'src/ui/elements';
 import {
-  DEFAULT_FIELD_TILE_SIZE,
   TARGET_FIELD_TILE_SIZE,
   FIELD_WIDTH,
   FIELD_HEIGHT,
@@ -20,8 +19,10 @@ function determineImageAndCoordinate(tilesets: Tileset[], tile: number): [Sheet,
   for (const tileset of tilesets) {
     if (tile >= tileset.firstgid && tile < tileset.firstgid + tileset.tilecount) {
       sheet = imageLoader.get(tileset.image);
-      x = DEFAULT_FIELD_TILE_SIZE * ((tile - tileset.firstgid) % tileset.columns);
-      y = DEFAULT_FIELD_TILE_SIZE * (Math.floor((tile - tileset.firstgid) / tileset.columns));
+      if (sheet) {
+        x = sheet.config.tileWidth * ((tile - tileset.firstgid) % tileset.columns);
+        y = sheet.config.tileHeight * (Math.floor((tile - tileset.firstgid) / tileset.columns));
+      }
       break;
     }
   }
@@ -69,8 +70,8 @@ class Render {
                   sheet.image,
                   sourceX,
                   sourceY,
-                  DEFAULT_FIELD_TILE_SIZE,
-                  DEFAULT_FIELD_TILE_SIZE,
+                  TARGET_FIELD_TILE_SIZE,
+                  TARGET_FIELD_TILE_SIZE,
                   destinationX,
                   destinationY,
                   TARGET_FIELD_TILE_SIZE,
