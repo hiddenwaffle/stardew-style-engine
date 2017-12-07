@@ -1,5 +1,6 @@
 import { SaveStaticMap } from 'src/session/save';
 import TileLayer from './tile-layer';
+import CollisionLayer from './collision-layer';
 import Tileset from './tileset';
 import Entity from './entity';
 
@@ -8,6 +9,7 @@ export default class {
   width: number;
   height: number;
   tileLayers: TileLayer[];
+  collisionLayers: CollisionLayer[];
   tilesets: Tileset[];
 
   constructor() {
@@ -17,6 +19,7 @@ export default class {
     this.width = 0;
     this.height = 0;
     this.tileLayers = [];
+    this.collisionLayers = [];
     this.tilesets = [];
   }
 
@@ -27,9 +30,14 @@ export default class {
     this.tilesets = [];
 
     rawMap.layers.forEach((layer: any) => {
-      if (layer.type === 'tilelayer' && layer.name !== 'collision') {
+      if (layer.type === 'tilelayer' && !layer.name.startsWith('@')) {
         const tileLayer = new TileLayer(layer);
         this.tileLayers.push(tileLayer);
+      } else if (layer.name.startsWith('@collision'))  {
+        const collisionLayer = new CollisionLayer(layer);
+        this.collisionLayers.push(collisionLayer);
+      } else if (layer.name.startsWith('@entity')) {
+        //
       }
       // TODO: Do something else with the other layer types/names
     });
