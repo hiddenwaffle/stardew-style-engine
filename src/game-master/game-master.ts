@@ -1,7 +1,11 @@
 import Entity from 'src/domain/entity';
 import World from 'src/domain/world';
+import CollisionLayer from 'src/domain/collision-layer';
 import timer from 'src/session/timer';
-import { UPSCALE } from 'src/constants';
+import {
+  TARGET_FIELD_TILE_SIZE,
+  UPSCALE
+} from 'src/constants';
 
 class GameMaster {
   /**
@@ -40,22 +44,44 @@ class GameMaster {
 
   private checkCollision(world: World, entity: Entity, dx: number, dy: number) {
     let solidCollision = false;
-    let xprojected = entity.x + dx;
-    let yprojected = entity.y + dy;
+    let solidCollisionLayer = null;
+    const xprojected = entity.x + dx;
+    const yprojected = entity.y + dy;
+    const xprojectedTile = Math.floor(xprojected / TARGET_FIELD_TILE_SIZE);
+    const yprojectedTile = Math.floor(yprojected / TARGET_FIELD_TILE_SIZE);
 
-    world.staticMap.collisionLayers.forEach((layer) => {
-      const xtile = Math.floor(xprojected / 64);
-      const ytile = Math.floor(yprojected / 64);
-      const index = xtile + (ytile * layer.width);
+    for (const layer of world.staticMap.collisionLayers) {
+      const index = xprojectedTile + (yprojectedTile * layer.width);
       const value = layer.tiles[index];
       if (value !== 0) {
-        if (!layer.passthrough) {
+        if (layer.passthrough) {
+          console.log('i do not block you');
+        } else {
+          console.log('i block you');
           solidCollision = true;
+          solidCollisionLayer = layer;
+          break;
         }
       }
-    });
+    };
     if (solidCollision) {
-      console.log('i block you');
+      // Allow the entity to "slide" against the collision tile (when attmpting to move diagonally).
+      const xcurrentTile = Math.floor(entity.x / TARGET_FIELD_TILE_SIZE);
+      const ycurrentTile = Math.floor(entity.y / TARGET_FIELD_TILE_SIZE);
+      if (dx !== 0) {
+        const index = xprojectedTile + (ycurrentTile * solidCollisionLayer.width);
+        const value = solidCollisionLayer.tiles[index];
+        if (value === 0) {
+          entity.x = xprojected;
+        }
+      }
+      if (dy !== 0) {
+        const index = xcurrentTile + (yprojectedTile * solidCollisionLayer.width);
+        const value = solidCollisionLayer.tiles[index];
+        if (value === 0) {
+          entity.y = yprojected;
+        }
+      }
     } else {
       entity.x = xprojected;
       entity.y = yprojected;
