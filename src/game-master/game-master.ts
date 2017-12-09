@@ -7,6 +7,8 @@ import {
   UPSCALE
 } from 'src/constants';
 
+import script from './script';
+
 class GameMaster {
   /**
    * Horizontal direction that the player wants to move.
@@ -68,10 +70,11 @@ class GameMaster {
         const index = xprojectedTile + (yprojectedTile * layer.width);
         const value = layer.tiles[index];
         if (value !== 0) {
+          script.call(layer.once);
+          script.call(layer.repeatedly);
           if (layer.passthrough) {
-            console.log('i do not block you');
+            //
           } else {
-            console.log('i block you');
             solidCollision = true;
 
             // Allow the entity to "slide" against the collision tile (when attmpting to move diagonally).
