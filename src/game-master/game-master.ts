@@ -6,7 +6,6 @@ import {
   TARGET_FIELD_TILE_SIZE,
   UPSCALE
 } from 'src/constants';
-
 import script from './script';
 
 class GameMaster {
