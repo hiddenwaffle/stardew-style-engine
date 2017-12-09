@@ -210,9 +210,9 @@
  </layer>
  <layer name="@collision-fire" width="20" height="19" opacity="0.5">
   <properties>
-   <property name="once" value="global#sayOuch"/>
+   <property name="once" value="global.sayOuch"/>
    <property name="passthrough" type="bool" value="true"/>
-   <property name="repeatedly" value="global#fire"/>
+   <property name="repeatedly" value="global.fire"/>
   </properties>
   <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,

@@ -95,9 +95,9 @@
          "opacity":0.5,
          "properties":
             {
-             "once":"global#sayOuch",
+             "once":"global.sayOuch",
              "passthrough":true,
-             "repeatedly":"global#fire"
+             "repeatedly":"global.fire"
             },
          "propertytypes":
             {

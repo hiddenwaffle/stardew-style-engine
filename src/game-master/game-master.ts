@@ -70,8 +70,8 @@ class GameMaster {
         const index = xprojectedTile + (yprojectedTile * layer.width);
         const value = layer.tiles[index];
         if (value !== 0) {
-          script.call(layer.once);
-          script.call(layer.repeatedly);
+          script.execute(layer.once);
+          script.execute(layer.repeatedly);
           if (layer.passthrough) {
             //
           } else {
