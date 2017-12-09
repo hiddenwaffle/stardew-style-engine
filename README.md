@@ -10,17 +10,3 @@
 
 ## Integration Testing
 * Need a test that ensures that save file won't get corrupted if exiting while still initializing.
-
-## Resource requesting and caching
-* Enter point in gameplay where the resource *is known to be needed at some point*
-* See if resource is already cached
-** If not already cached
-*** Fire async request for uncached map, image, etc
-*** Go about business (optional)
-* Enter point in gameplay where the resource *is needed immediately*
-* See if resource has been pulled into the cache
-** If not yet cached
-*** Pause the game timer
-*** Signal an event that means 'loading' - perhaps an array of requests?
-*** Wait for the array of requests to complete
-* Use the resource
