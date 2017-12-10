@@ -161,7 +161,7 @@ function walk(world: World, entity: Entity, speed: number) {
         continue;
       }
 
-      const index = convertIndexToXY(xtileToCheck, ytileToCheck, layer.width);
+      const index = convertXYToIndex(xtileToCheck, ytileToCheck, layer.width);
       const value = layer.tiles[index];
 
       // Collision possible only if the tile value is a positive number.
@@ -212,6 +212,6 @@ function intersect(
   );
 }
 
-function convertIndexToXY(x: number, y: number, width: number) {
+function convertXYToIndex(x: number, y: number, width: number) {
   return x + (y * width);
 }
