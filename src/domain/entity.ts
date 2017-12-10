@@ -12,8 +12,8 @@ export default class {
   boundingHeight: number;
 
   constructor() {
-    this.x = 0;
-    this.y = 0;
+    this.x = 100;
+    this.y = 100;
     this.dxIntended = 0;
     this.dyIntended = 0;
     this.velocity = 0;

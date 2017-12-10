@@ -141,7 +141,7 @@ class Render {
 
             // TODO: Remove this debug
             ctxBack.strokeStyle = 'cyan';
-            const destinationX4 = destinationX - entity.boundingWidth  / 2;
+            const destinationX4 = destinationX - entity.boundingWidth / 2;
             const destinationY4 = destinationY - entity.boundingHeight;
             const destination5X = destinationX4 + FIELD_TARGET_WIDTH  / 2;
             const destination5Y = destinationY4 + FIELD_TARGET_HEIGHT / 2;
