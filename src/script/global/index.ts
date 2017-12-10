@@ -2,11 +2,11 @@ import { ScriptHandler, ScriptNamespace } from 'src/script/script-namespace';
 
 const global = new ScriptNamespace();
 
-global.addHandler('sayOuch', () => {
+global.setHandler('sayOuch', () => {
   console.log('"ouch"');
 });
 
-global.addHandler('fire', () => {
+global.setHandler('fire', () => {
   console.log('The fire burns you for 50 damage.');
 });
 

@@ -9,13 +9,13 @@ export class ScriptNamespace {
     this.namespaces = new Map();
   }
 
-  addHandler(name: string, handler: ScriptHandler) {
+  setHandler(name: string, handler: ScriptHandler) {
     if (name && name.length > 0 && handler) {
       this.handlers.set(name, handler);
     }
   }
 
-  addNamespace(name: string, namespace: ScriptNamespace) {
+  setNamespace(name: string, namespace: ScriptNamespace) {
     if (name && name.length > 0 && namespace) {
       this.namespaces.set(name, namespace);
     }

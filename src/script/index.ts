@@ -6,7 +6,7 @@ class Script {
 
   constructor() {
     this.root = new ScriptNamespace();
-    this.root.addNamespace('global', global);
+    this.root.setNamespace('global', global);
   }
 
   execute(name: string) {
