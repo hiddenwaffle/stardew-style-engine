@@ -112,16 +112,16 @@ class Render {
             const targetTileWidth = originalTileWidth * UPSCALE;
             const targetTileHeight = originalTileHeight * UPSCALE;
 
-            let destinationX = entity.x - player.x;
-            let destinationY = entity.y - player.y;
+            const destinationX = entity.x - player.x;
+            const destinationY = entity.y - player.y;
 
             // Offset so that it centers horizontally and aligns to the bottom
-            destinationX -= targetTileWidth / 2;
-            destinationY -= targetTileHeight;
+            const destination2X = destinationX - targetTileWidth / 2;
+            const destination2Y = destinationY - targetTileHeight;
 
             // Offset so that the player is in the center of the screen
-            destinationX += FIELD_TARGET_WIDTH / 2;
-            destinationY += FIELD_TARGET_HEIGHT / 2;
+            const destination3X = destination2X + FIELD_TARGET_WIDTH  / 2;
+            const destination3Y = destination2Y + FIELD_TARGET_HEIGHT / 2;
 
             ctxBack.drawImage(
               sheet.image,
@@ -129,15 +129,23 @@ class Render {
               44 * originalTileHeight,
               originalTileWidth,
               originalTileHeight,
-              destinationX,
-              destinationY,
+              destination3X,
+              destination3Y,
               targetTileWidth,
               targetTileHeight
             );
 
             // TODO: Remove this debug
             ctxBack.strokeStyle = 'yellow';
-            ctxBack.strokeRect(destinationX, destinationY, targetTileWidth, targetTileHeight);
+            ctxBack.strokeRect(destination3X, destination3Y, targetTileWidth, targetTileHeight);
+
+            // TODO: Remove this debug
+            ctxBack.strokeStyle = 'cyan';
+            const destinationX4 = destinationX - entity.boundingWidth  / 2;
+            const destinationY4 = destinationY - entity.boundingHeight;
+            const destination5X = destinationX4 + FIELD_TARGET_WIDTH  / 2;
+            const destination5Y = destinationY4 + FIELD_TARGET_HEIGHT / 2;
+            ctxBack.strokeRect(destination5X, destination5Y, entity.boundingWidth, entity.boundingHeight);
           }
         });
       }

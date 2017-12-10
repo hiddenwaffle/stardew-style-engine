@@ -1,3 +1,4 @@
+import { DEFAULT_FIELD_TILE_SIZE, UPSCALE } from 'src/constants';
 import { SaveEntity } from 'src/session/save';
 
 export default class {
@@ -7,6 +8,8 @@ export default class {
   dxIntended: number;
   dyIntended: number;
   velocity: number;
+  boundingWidth: number;
+  boundingHeight: number;
 
   constructor() {
     this.x = 0;
@@ -14,6 +17,8 @@ export default class {
     this.dxIntended = 0;
     this.dyIntended = 0;
     this.velocity = 0;
+    this.boundingWidth  = (DEFAULT_FIELD_TILE_SIZE - 1) * UPSCALE;
+    this.boundingHeight = (DEFAULT_FIELD_TILE_SIZE - 1) * UPSCALE;
   }
 
   applySave(save: SaveEntity) {
