@@ -23,24 +23,45 @@ export class ScriptNamespace {
 
   /**
    * If there is only one remaining element in the given path,
-   * it must be the handler's name so find and call it.
+   * it must be the actual call.
    * Otherwise, delegate the rest of the path to a sub-namespace.
    */
   execute(path: string[]) {
     if (path) {
       if (path.length === 1) {
-        const handlerName = path.shift();
+        const callStr = path.shift();
+        const [handlerName, args] = parseCallStr(callStr);
         const handler = this.handlers.get(handlerName);
         if (handler) {
-          handler();
+          handler.apply(handler, args);
+        } else {
+          console.warn(`Handler not found: ${handler}. Args: ${args}`);
         }
       } else if (path.length > 1) {
         const namespaceName = path.shift();
         const namespace = this.namespaces.get(namespaceName);
         if (namespace) {
           namespace.execute(path);
+        } else {
+          console.warn(`Namespace not found: ${namespaceName}`);
         }
       }
     }
+  }
+}
+
+/**
+ * Expects calls to be formatted like:
+ * fire 100 50
+ * Where "fire" is the handler name, 100 is the first argument,
+ * and 50 is the second argument.
+ */
+function parseCallStr(call: string): [string, string[]] {
+  const args = call.split(' ');
+  if (args.length >= 1) {
+    const handlerName = args.shift();
+    return [handlerName, args];
+  } else {
+    return ['', []];
   }
 }

@@ -97,7 +97,7 @@
             {
              "once":"global.sayOuch",
              "passthrough":true,
-             "repeatedly":"global.fire"
+             "repeatedly":"global.fire 100 51"
             },
          "propertytypes":
             {
@@ -124,8 +124,8 @@
                  "type":"",
                  "visible":true,
                  "width":16,
-                 "x":226.666666666667,
-                 "y":154.333333333333
+                 "x":226.667,
+                 "y":154.333
                 }],
          "opacity":1,
          "type":"objectgroup",

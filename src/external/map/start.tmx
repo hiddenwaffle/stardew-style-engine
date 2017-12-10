@@ -212,7 +212,7 @@
   <properties>
    <property name="once" value="global.sayOuch"/>
    <property name="passthrough" type="bool" value="true"/>
-   <property name="repeatedly" value="global.fire"/>
+   <property name="repeatedly" value="global.fire 100 51"/>
   </properties>
   <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
