@@ -1,4 +1,4 @@
-import { ScriptHandler, ScriptNamespace } from 'src/game-master/script/script-namespace';
+import { ScriptHandler, ScriptNamespace } from 'src/script/script-namespace';
 
 const global = new ScriptNamespace();
 
