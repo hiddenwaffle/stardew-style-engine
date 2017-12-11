@@ -224,16 +224,16 @@ function calculatePush(
   const xhalfsize2 = (right2  - left2) / 2;
   const yhalfsize2 = (bottom2 - top2)  / 2;
 
-  const xmidpoint1 = left1 + xhalfsize1;
-  const ymidpoint1 = top1  + yhalfsize1;
-  const xmidpoint2 = left2 + xhalfsize2;
-  const ymidpoint2 = top2  + yhalfsize2;
+  const xcenter1 = left1 + xhalfsize1;
+  const ycenter1 = top1  + yhalfsize1;
+  const xcenter2 = left2 + xhalfsize2;
+  const ycenter2 = top2  + yhalfsize2;
 
-  const xdelta = Math.abs(xmidpoint1 - xmidpoint2);
-  const ydelta = Math.abs(ymidpoint1 - ymidpoint2);
+  const xdelta = xcenter1 - xcenter2;
+  const ydelta = ycenter1 - ycenter2;
 
-  const xintersect = xdelta - (xhalfsize1 + xhalfsize2);
-  const yintersect = ydelta - (yhalfsize1 + yhalfsize2);
+  const xintersect = Math.abs(xdelta) - (xhalfsize1 + xhalfsize2);
+  const yintersect = Math.abs(ydelta) - (yhalfsize1 + yhalfsize2);
 
   let xoff = 0;
   let yoff = 0;
@@ -246,7 +246,6 @@ function calculatePush(
       yoff = ydelta > 0 ? -yintersect : yintersect;
     }
   }
-
   return [xoff, yoff];
 }
 
