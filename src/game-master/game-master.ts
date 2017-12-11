@@ -241,10 +241,11 @@ function calculatePush(
   // Yet another intersection check (TODO: Refactor so this is the only one?)
   if (xintersect < 0 && yintersect < 0) {
     if (xintersect > yintersect) {
-      xoff = xdelta > 0 ? xintersect : -xintersect;
+      xoff = xdelta > 0 ? -xintersect : xintersect;
     } else {
       yoff = ydelta > 0 ? -yintersect : yintersect;
     }
+    // debugger;
   }
   return [xoff, yoff];
 }
