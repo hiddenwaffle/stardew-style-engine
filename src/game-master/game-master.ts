@@ -173,7 +173,7 @@ function walk(world: World, entity: Entity, speed: number) {
       const leftTile   =  xtileToCheck      * TARGET_FIELD_TILE_SIZE;
       const rightTile  = (xtileToCheck + 1) * TARGET_FIELD_TILE_SIZE;
       const topTile    =  ytileToCheck      * TARGET_FIELD_TILE_SIZE;
-      const bottomTile = (ytileToCheck + 1) * TARGET_FIELD_TILE_SIZE
+      const bottomTile = (ytileToCheck + 1) * TARGET_FIELD_TILE_SIZE;
 
       const intersected = intersect(
         left, right, top, bottom,
