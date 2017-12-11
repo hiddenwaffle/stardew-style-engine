@@ -122,23 +122,21 @@ function walk(world: World, entity: Entity, speed: number) {
   const top     = entity.y - entity.boundingHeight;
   const bottom  = entity.y;
 
-  const xcurrentTile = Math.floor(entity.x / TARGET_FIELD_TILE_SIZE);
-  const ycurrentTile = Math.floor(entity.y / TARGET_FIELD_TILE_SIZE);
-  // const xprojected = entity.x + dxAttempted;
-  // const yprojected = entity.y + dyAttempted;
-  // const xprojectedTile = Math.floor(xprojected / TARGET_FIELD_TILE_SIZE);
-  // const yprojectedTile = Math.floor(yprojected / TARGET_FIELD_TILE_SIZE);
+  const xprojected = entity.x + dxAttempted;
+  const yprojected = entity.y + dyAttempted;
+  const xprojectedTile = Math.floor(xprojected / TARGET_FIELD_TILE_SIZE);
+  const yprojectedTile = Math.floor(yprojected / TARGET_FIELD_TILE_SIZE);
 
   const tilesToCheck = [
-    [xcurrentTile - 1, ycurrentTile - 1], // Top Left
-    [xcurrentTile,     ycurrentTile - 1], // Top Middle
-    [xcurrentTile + 1, ycurrentTile - 1], // Top Right
-    [xcurrentTile - 1, ycurrentTile    ], // Middle Left
-    [xcurrentTile    , ycurrentTile    ], // Middle
-    [xcurrentTile + 1, ycurrentTile    ], // Middle Right
-    [xcurrentTile - 1, ycurrentTile + 1], // Bottom Left
-    [xcurrentTile    , ycurrentTile + 1], // Bottom Middle
-    [xcurrentTile + 1, ycurrentTile + 1]  // Bottom Right
+    [xprojectedTile - 1, yprojectedTile - 1], // Top Left
+    [xprojectedTile,     yprojectedTile - 1], // Top Middle
+    [xprojectedTile + 1, yprojectedTile - 1], // Top Right
+    [xprojectedTile - 1, yprojectedTile    ], // Middle Left
+    [xprojectedTile    , yprojectedTile    ], // Middle
+    [xprojectedTile + 1, yprojectedTile    ], // Middle Right
+    [xprojectedTile - 1, yprojectedTile + 1], // Bottom Left
+    [xprojectedTile    , yprojectedTile + 1], // Bottom Middle
+    [xprojectedTile + 1, yprojectedTile + 1]  // Bottom Right
   ];
 
   // TODO: Handle map boundaries
