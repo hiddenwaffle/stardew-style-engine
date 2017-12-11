@@ -38,71 +38,6 @@ class GameMaster {
     this.dxIntended = dxIntended;
     this.dyIntended = dyIntended;
   }
-
-  // private checkCollision(world: World, entity: Entity, dx: number, dy: number) {
-  //   let solidCollision = false;
-  //   let solidCollisionXValue = 0;
-  //   let solidCollisionYValue = 0;
-
-  //   const xprojected = entity.x + dx;
-  //   const yprojected = entity.y + dy;
-  //   const xprojectedTile = Math.floor(xprojected / TARGET_FIELD_TILE_SIZE);
-  //   const yprojectedTile = Math.floor(yprojected / TARGET_FIELD_TILE_SIZE);
-
-  //   const pushingAgainstLeftOrRightOfMap = xprojectedTile < 0 || xprojectedTile >= world.staticMap.width;
-  //   const pushingAgainstTopOrBottomOfMap = yprojectedTile < 0 || yprojectedTile >= world.staticMap.height;
-
-  //   if (pushingAgainstLeftOrRightOfMap || pushingAgainstTopOrBottomOfMap) {
-  //     solidCollision = true;
-  //     if (pushingAgainstLeftOrRightOfMap) {
-  //       solidCollisionXValue = 1;
-  //     }
-  //     if (pushingAgainstTopOrBottomOfMap) {
-  //       solidCollisionYValue = 1;
-  //     }
-  //   } else {
-  //     for (const layer of world.staticMap.collisionLayers) {
-  //       const index = xprojectedTile + (yprojectedTile * layer.width);
-  //       const value = layer.tiles[index];
-  //       if (value !== 0) {
-  //         script.execute(layer.once);
-  //         script.execute(layer.repeatedly);
-  //         if (layer.passthrough) {
-  //           //
-  //         } else {
-  //           solidCollision = true;
-
-  //           // Allow the entity to "slide" against the collision tile (when attmpting to move diagonally).
-  //           const xcurrentTile = Math.floor(entity.x / TARGET_FIELD_TILE_SIZE);
-  //           const ycurrentTile = Math.floor(entity.y / TARGET_FIELD_TILE_SIZE);
-  //           if (dx !== 0) {
-  //             const index = xprojectedTile + (ycurrentTile * layer.width);
-  //             solidCollisionXValue = layer.tiles[index];
-  //           }
-  //           if (dy !== 0) {
-  //             const index = xcurrentTile + (yprojectedTile * layer.width);
-  //             solidCollisionYValue = layer.tiles[index];
-  //           }
-
-  //           break;
-  //         }
-  //       }
-  //     };
-  //   }
-
-  //   if (solidCollision) {
-  //     if (solidCollisionXValue === 0) {
-  //       entity.x = xprojected;
-  //     }
-  //     if (solidCollisionYValue === 0) {
-  //       entity.y = yprojected;
-  //     }
-  //   } else {
-  //     // TODO: Align sides together so the entity doesn't pass through
-  //     entity.x = xprojected;
-  //     entity.y = yprojected;
-  //   }
-  // }
 }
 
 export default new GameMaster();
@@ -242,10 +177,12 @@ function calculatePush(
   if (xintersect < 0 && yintersect < 0) {
     if (xintersect > yintersect) {
       xoff = xdelta > 0 ? -xintersect : xintersect;
-    } else {
+    } else if (xintersect < yintersect) {
       yoff = ydelta > 0 ? -yintersect : yintersect;
+    } else { // xintersect === yinteresect.
+      // NOTE: Needed to catch this case to prevent getting stuck on
+      // two rectangles right next to each other (like how the tiles are)
     }
-    // debugger;
   }
   return [xoff, yoff];
 }
