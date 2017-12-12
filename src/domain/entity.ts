@@ -1,4 +1,7 @@
-import { DEFAULT_FIELD_TILE_SIZE, UPSCALE } from 'src/constants';
+import {
+  TARGET_FIELD_TILE_SIZE,
+  UPSCALE
+} from 'src/constants';
 import { SaveEntity } from 'src/session/save';
 
 export default class {
@@ -7,7 +10,7 @@ export default class {
   y: number;
   dxIntended: number;
   dyIntended: number;
-  velocity: number;
+  speed: number;
   boundingWidth: number;
   boundingHeight: number;
 
@@ -16,9 +19,9 @@ export default class {
     this.y = 100;
     this.dxIntended = 0;
     this.dyIntended = 0;
-    this.velocity = 0;
-    this.boundingWidth  = (DEFAULT_FIELD_TILE_SIZE - 1) * UPSCALE;
-    this.boundingHeight = (DEFAULT_FIELD_TILE_SIZE - 1) * UPSCALE;
+    this.speed = 90 * UPSCALE; // TODO: Variable speed entities
+    this.boundingWidth  = TARGET_FIELD_TILE_SIZE - 4;
+    this.boundingHeight = TARGET_FIELD_TILE_SIZE - 4;
   }
 
   applySave(save: SaveEntity) {

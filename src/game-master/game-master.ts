@@ -27,10 +27,7 @@ class GameMaster {
     world.player.entity.dyIntended = this.dyIntended;
 
     world.entities.forEach((entity) => {
-      const speed = 90 * UPSCALE; // pixels per millisecond?
-      const secondsPast = timer.elapsed / 1000;
-      const final = speed * secondsPast;
-      walk(world, entity, final);
+      walk(world, entity);
     })
   }
 
@@ -42,7 +39,10 @@ class GameMaster {
 
 export default new GameMaster();
 
-function walk(world: World, entity: Entity, speed: number) {
+function walk(world: World, entity: Entity) {
+  const secondsPast = timer.elapsed / 1000;
+  const speed = entity.speed * secondsPast;
+
   entity.x += entity.dxIntended * speed;
   entity.y += entity.dyIntended * speed;
 
