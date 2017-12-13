@@ -34,7 +34,7 @@ export default (world: World, entity: Entity) => {
 
   const solidTilesAroundEntity = [
     [false, false, false], // [0][0]  [0][1]  [0][2]
-    [false, false, false], // [1][0]  [1][1]  [1][2]
+    [false, false, false], // [1][0]  [1][1]* [1][2]   *entity is in the center at [1][1]
     [false, false, false]  // [2][0]  [2][1]  [2][2]
   ];
 
@@ -112,12 +112,30 @@ export default (world: World, entity: Entity) => {
   const solidCollisionOccurred = (xpush !== 0 && ypush === 0) || (xpush === 0 && ypush !== 0);
 
   if (solidCollisionOccurred && isCardinal(entity.direction)) {
-    // Attempt assisted-slide, if entity is towards either 1/3 of the tile's edge.
+    // Attempt assisted-slide, if entity is towards the edge of an "end tile".
     console.log('---------------');
     console.log(solidTilesAroundEntity[0]);
     console.log(solidTilesAroundEntity[1]);
     console.log(solidTilesAroundEntity[2]);
-    console.log(xTile, yTile);
+    console.log(xTile, yTile, xpush, ypush);
+    console.log(entity.x, xTile * TARGET_FIELD_TILE_SIZE, (xTile + 1) * TARGET_FIELD_TILE_SIZE);
+
+    const xPercentOnCurrentTile = (entity.x - xTile * TARGET_FIELD_TILE_SIZE) / TARGET_FIELD_TILE_SIZE;
+    const yPercentOnCurrentTile = (entity.y - yTile * TARGET_FIELD_TILE_SIZE) / TARGET_FIELD_TILE_SIZE;
+
+    if (entity.direction === Direction.Up) {
+      if (solidTilesAroundEntity[0][1] === false) {
+        if (xPercentOnCurrentTile < 0.5) {
+          xpush =  Math.abs(ypush);
+        } else {
+          xpush = -Math.abs(ypush);
+        }
+      } else if (solidTilesAroundEntity[0][0] === false && xPercentOnCurrentTile < 0.25) {
+        xpush = -Math.abs(ypush);
+      } else if (solidTilesAroundEntity[0][2] === false && xPercentOnCurrentTile > 0.75) {
+        xpush =  Math.abs(ypush);
+      }
+    }
   }
 
   entity.x = xprojected + xpush;
