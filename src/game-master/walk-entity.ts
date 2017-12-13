@@ -101,7 +101,7 @@ export default (world: World, entity: Entity) => {
     }
   }
 
-  const solidCollisionOccurred = (xpush !== 0 && ypush === 0) || (xpush === 0 && ypush !== 0)
+  const solidCollisionOccurred = (xpush !== 0 && ypush === 0) || (xpush === 0 && ypush !== 0);
 
   if (solidCollisionOccurred && isCardinal(entity.direction)) {
     // Attempt assisted-slide, if entity is towards either 1/3 of the tile's edge.
