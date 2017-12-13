@@ -162,11 +162,6 @@ function calculatePush(
     }
   }
 
-  // HACK: If moving downwards, gives it just a little bit more of a push
-  // upwards to get the entity's y onto the tile directly above rather than
-  // sitting on the very top of the solid tile that initiated the push.
-  if (ypush < 0) ypush -= 1;
-
   return [xpush, ypush];
 }
 
