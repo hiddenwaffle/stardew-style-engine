@@ -145,7 +145,10 @@ class Render {
             const destinationY4 = destinationY - entity.boundingHeight;
             const destination5X = destinationX4 + FIELD_TARGET_WIDTH  / 2;
             const destination5Y = destinationY4 + FIELD_TARGET_HEIGHT / 2;
-            ctxBack.strokeRect(destination5X, destination5Y, entity.boundingWidth, entity.boundingHeight);
+            ctxBack.strokeRect(
+              destination5X, destination5Y,
+              entity.boundingWidth, entity.boundingHeight + 1 // Notice the +1 (see collision response code)
+            );
           }
         });
       }

@@ -78,7 +78,7 @@ export default (world: World, entity: Entity) => {
       const left    = xprojected - entity.boundingWidth / 2;
       const right   = xprojected + entity.boundingWidth / 2;
       const top     = yprojected - entity.boundingHeight;
-      const bottom  = yprojected;
+      const bottom  = yprojected + 1; // +1 to prevent entity's y to be on a solid tile directly below the entity.
 
       // Convert tile to upscaled pixel space.
       const leftTile   =  xTileToCheck      * TARGET_FIELD_TILE_SIZE;
