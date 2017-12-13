@@ -136,6 +136,20 @@ export default (world: World, entity: Entity) => {
         xpush =  Math.abs(ypush);
       }
     }
+
+    if (entity.direction === Direction.Down) {
+      if (solidTilesAroundEntity[2][1] === false) {
+        if (xPercentOnCurrentTile < 0.5) {
+          xpush =  Math.abs(ypush);
+        } else {
+          xpush = -Math.abs(ypush);
+        }
+      } else if (solidTilesAroundEntity[2][0] === false && xPercentOnCurrentTile < 0.25) {
+        xpush = -Math.abs(ypush);
+      } else if (solidTilesAroundEntity[2][2] === false && xPercentOnCurrentTile > 0.75) {
+        xpush =  Math.abs(ypush);
+      }
+    }
   }
 
   entity.x = xprojected + xpush;
