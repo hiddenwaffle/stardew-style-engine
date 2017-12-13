@@ -146,7 +146,7 @@ export default (world: World, entity: Entity) => {
         } else {
           xpush = -Math.abs(ypush);
         }
-      } else if (solidTilesAroundEntity[2][0] === false && xPercentOnCurrentTile < 0.) {
+      } else if (solidTilesAroundEntity[2][0] === false && xPercentOnCurrentTile < 0.4) {
         xpush = -Math.abs(ypush);
       } else if (solidTilesAroundEntity[2][2] === false && xPercentOnCurrentTile > 0.6) {
         xpush =  Math.abs(ypush);
