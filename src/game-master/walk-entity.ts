@@ -68,7 +68,6 @@ export default (world: World, entity: Entity) => {
       }
 
       if (!layer.passthrough) {
-        /// STAE = Solid Tiles Around Entity
         const staeCol = (xTileToCheck - xTile) + 1;
         const staeRow = (yTileToCheck - yTile) + 1;
         solidTilesAroundEntity[staeRow][staeCol] = true;
@@ -196,9 +195,10 @@ function attemptAssistedSlide(
   // console.log(solidTilesAroundEntity[0]);
   // console.log(solidTilesAroundEntity[1]);
   // console.log(solidTilesAroundEntity[2]);
-  // console.log(xTile, yTile);
-  // console.log(entity.x, xTile * TARGET_FIELD_TILE_SIZE, (xTile + 1) * TARGET_FIELD_TILE_SIZE);
-  // console.log(xPercentOnCurrentTile, yPercentOnCurrentTile);
+  // console.log('xTile, yTile', xTile, yTile);
+  // console.log(x, xTile * TARGET_FIELD_TILE_SIZE, (xTile + 1) * TARGET_FIELD_TILE_SIZE);
+  // console.log(y, yTile * TARGET_FIELD_TILE_SIZE, (yTile + 1) * TARGET_FIELD_TILE_SIZE);
+  // console.log('xpct, ypct', xPercentOnCurrentTile, yPercentOnCurrentTile);
 
   if (direction === Direction.Up) {
     if (solidTilesAroundEntity[0][1] === false) {
