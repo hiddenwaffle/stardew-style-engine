@@ -174,6 +174,13 @@ function convertXYToIndex(x: number, y: number, width: number): number {
 
 /**
  * Attempt assisted-slide, if entity is towards the edge of an "end tile".
+ *
+ * The idea and calculations below are to see if the entity's position relative
+ * to the tile that is blocking it is leaning one way or another.
+ * If so, see if the tiles beyond that direction are free. If they are,
+ * "slide" the entity toward that direction.
+ *
+ * This will cause the entity to "round around the corner" of a solid tile.
  */
 function attemptAssistedSlide(
   direction: Direction,
