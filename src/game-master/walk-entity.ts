@@ -225,15 +225,15 @@ function attemptAssistedSlide(
       xpush =  Math.abs(ypush);
     }
   } else if (direction === Direction.Left) {
-    if (solidTilesAroundEntity[0][0] === false && yPercentOnCurrentTile < 0.65) {
+    if (solidTilesAroundEntity[0][0] === false && yPercentOnCurrentTile < 0.85) {
       ypush = -Math.abs(xpush);
-    } else if (solidTilesAroundEntity[1][0] === false && yPercentOnCurrentTile > 0.35) {
+    } else if (solidTilesAroundEntity[1][0] === false && yPercentOnCurrentTile > 0.15) {
       ypush =  Math.abs(xpush);
     }
   } else if (direction === Direction.Right) {
-    if (solidTilesAroundEntity[0][2] === false && yPercentOnCurrentTile < 0.65) {
+    if (solidTilesAroundEntity[0][2] === false && yPercentOnCurrentTile < 0.85) {
       ypush = -Math.abs(xpush);
-    } else if (solidTilesAroundEntity[1][2] === false && yPercentOnCurrentTile > 0.35) {
+    } else if (solidTilesAroundEntity[1][2] === false && yPercentOnCurrentTile > 0.15) {
       ypush =  Math.abs(xpush);
     }
   }
