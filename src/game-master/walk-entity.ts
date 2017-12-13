@@ -154,17 +154,17 @@ export default (world: World, entity: Entity) => {
     }
 
     if (entity.direction === Direction.Left) {
-      if (solidTilesAroundEntity[0][0] === false && yPercentOnCurrentTile < 0.6) {
+      if (solidTilesAroundEntity[0][0] === false && yPercentOnCurrentTile < 0.65) {
         ypush = -Math.abs(xpush);
-      } else if (solidTilesAroundEntity[1][0] === false && yPercentOnCurrentTile > 0.4) {
+      } else if (solidTilesAroundEntity[1][0] === false && yPercentOnCurrentTile > 0.35) {
         ypush =  Math.abs(xpush);
       }
     }
 
     if (entity.direction === Direction.Right) {
-      if (solidTilesAroundEntity[0][2] === false && yPercentOnCurrentTile < 0.6) {
+      if (solidTilesAroundEntity[0][2] === false && yPercentOnCurrentTile < 0.65) {
         ypush = -Math.abs(xpush);
-      } else if (solidTilesAroundEntity[1][2] === false && yPercentOnCurrentTile > 0.4) {
+      } else if (solidTilesAroundEntity[1][2] === false && yPercentOnCurrentTile > 0.35) {
         ypush =  Math.abs(xpush);
       }
     }
