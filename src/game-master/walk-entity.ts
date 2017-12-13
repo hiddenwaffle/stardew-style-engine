@@ -112,62 +112,16 @@ export default (world: World, entity: Entity) => {
   const solidCollisionOccurred = (xpush !== 0 && ypush === 0) || (xpush === 0 && ypush !== 0);
 
   if (solidCollisionOccurred && isCardinal(entity.direction)) {
-    // Attempt assisted-slide, if entity is towards the edge of an "end tile".
-
-    const xPercentOnCurrentTile = (entity.x - xTile * TARGET_FIELD_TILE_SIZE) / TARGET_FIELD_TILE_SIZE;
-    const yPercentOnCurrentTile = (entity.y - yTile * TARGET_FIELD_TILE_SIZE) / TARGET_FIELD_TILE_SIZE;
-
-    // console.log('---------------');
-    // console.log(solidTilesAroundEntity[0]);
-    // console.log(solidTilesAroundEntity[1]);
-    // console.log(solidTilesAroundEntity[2]);
-    // console.log(xTile, yTile);
-    // console.log(entity.x, xTile * TARGET_FIELD_TILE_SIZE, (xTile + 1) * TARGET_FIELD_TILE_SIZE);
-    // console.log(xPercentOnCurrentTile, yPercentOnCurrentTile);
-
-    if (entity.direction === Direction.Up) {
-      if (solidTilesAroundEntity[0][1] === false) {
-        if (xPercentOnCurrentTile < 0.5) {
-          xpush =  Math.abs(ypush);
-        } else {
-          xpush = -Math.abs(ypush);
-        }
-      } else if (solidTilesAroundEntity[0][0] === false && xPercentOnCurrentTile < 0.4) {
-        xpush = -Math.abs(ypush);
-      } else if (solidTilesAroundEntity[0][2] === false && xPercentOnCurrentTile > 0.6) {
-        xpush =  Math.abs(ypush);
-      }
-    }
-
-    if (entity.direction === Direction.Down) {
-      if (solidTilesAroundEntity[2][1] === false) {
-        if (xPercentOnCurrentTile < 0.5) {
-          xpush =  Math.abs(ypush);
-        } else {
-          xpush = -Math.abs(ypush);
-        }
-      } else if (solidTilesAroundEntity[2][0] === false && xPercentOnCurrentTile < 0.4) {
-        xpush = -Math.abs(ypush);
-      } else if (solidTilesAroundEntity[2][2] === false && xPercentOnCurrentTile > 0.6) {
-        xpush =  Math.abs(ypush);
-      }
-    }
-
-    if (entity.direction === Direction.Left) {
-      if (solidTilesAroundEntity[0][0] === false && yPercentOnCurrentTile < 0.65) {
-        ypush = -Math.abs(xpush);
-      } else if (solidTilesAroundEntity[1][0] === false && yPercentOnCurrentTile > 0.35) {
-        ypush =  Math.abs(xpush);
-      }
-    }
-
-    if (entity.direction === Direction.Right) {
-      if (solidTilesAroundEntity[0][2] === false && yPercentOnCurrentTile < 0.65) {
-        ypush = -Math.abs(xpush);
-      } else if (solidTilesAroundEntity[1][2] === false && yPercentOnCurrentTile > 0.35) {
-        ypush =  Math.abs(xpush);
-      }
-    }
+    [xpush, ypush] = attemptAssistedSlide(
+      entity.direction,
+      entity.x,
+      entity.y,
+      xTile,
+      yTile,
+      solidTilesAroundEntity,
+      xpush,
+      ypush
+    );
   }
 
   entity.x = xprojected + xpush;
@@ -217,4 +171,72 @@ function calculatePush(
 
 function convertXYToIndex(x: number, y: number, width: number): number {
   return x + (y * width);
+}
+
+/**
+ * Attempt assisted-slide, if entity is towards the edge of an "end tile".
+ */
+function attemptAssistedSlide(
+  direction: Direction,
+  x: number,
+  y: number,
+  xTile: number,
+  yTile: number,
+  solidTilesAroundEntity: boolean[][],
+  xpushOriginal: number,
+  ypushOriginal: number
+): [number, number] {
+  let xpush = xpushOriginal;
+  let ypush = ypushOriginal;
+
+  const xPercentOnCurrentTile = (x - xTile * TARGET_FIELD_TILE_SIZE) / TARGET_FIELD_TILE_SIZE;
+  const yPercentOnCurrentTile = (y - yTile * TARGET_FIELD_TILE_SIZE) / TARGET_FIELD_TILE_SIZE;
+
+  // console.log('---------------');
+  // console.log(solidTilesAroundEntity[0]);
+  // console.log(solidTilesAroundEntity[1]);
+  // console.log(solidTilesAroundEntity[2]);
+  // console.log(xTile, yTile);
+  // console.log(entity.x, xTile * TARGET_FIELD_TILE_SIZE, (xTile + 1) * TARGET_FIELD_TILE_SIZE);
+  // console.log(xPercentOnCurrentTile, yPercentOnCurrentTile);
+
+  if (direction === Direction.Up) {
+    if (solidTilesAroundEntity[0][1] === false) {
+      if (xPercentOnCurrentTile < 0.5) {
+        xpush =  Math.abs(ypush);
+      } else {
+        xpush = -Math.abs(ypush);
+      }
+    } else if (solidTilesAroundEntity[0][0] === false && xPercentOnCurrentTile < 0.4) {
+      xpush = -Math.abs(ypush);
+    } else if (solidTilesAroundEntity[0][2] === false && xPercentOnCurrentTile > 0.6) {
+      xpush =  Math.abs(ypush);
+    }
+  } else if (direction === Direction.Down) {
+    if (solidTilesAroundEntity[2][1] === false) {
+      if (xPercentOnCurrentTile < 0.5) {
+        xpush =  Math.abs(ypush);
+      } else {
+        xpush = -Math.abs(ypush);
+      }
+    } else if (solidTilesAroundEntity[2][0] === false && xPercentOnCurrentTile < 0.4) {
+      xpush = -Math.abs(ypush);
+    } else if (solidTilesAroundEntity[2][2] === false && xPercentOnCurrentTile > 0.6) {
+      xpush =  Math.abs(ypush);
+    }
+  } else if (direction === Direction.Left) {
+    if (solidTilesAroundEntity[0][0] === false && yPercentOnCurrentTile < 0.65) {
+      ypush = -Math.abs(xpush);
+    } else if (solidTilesAroundEntity[1][0] === false && yPercentOnCurrentTile > 0.35) {
+      ypush =  Math.abs(xpush);
+    }
+  } else if (direction === Direction.Right) {
+    if (solidTilesAroundEntity[0][2] === false && yPercentOnCurrentTile < 0.65) {
+      ypush = -Math.abs(xpush);
+    } else if (solidTilesAroundEntity[1][2] === false && yPercentOnCurrentTile > 0.35) {
+      ypush =  Math.abs(xpush);
+    }
+  }
+
+  return [xpush, ypush];
 }
