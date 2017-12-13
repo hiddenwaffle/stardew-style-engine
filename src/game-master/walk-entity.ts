@@ -32,10 +32,11 @@ export default (world: World, entity: Entity) => {
     [xTile + 1, yTile + 1]  // Bottom Right   8
   ];
 
-  let canAssistedSlideUp = true;
-  let canAssistedSlideDown = true;
-  let canAssistedSlideLeft = true;
-  let canAssistedSlideRight = true;
+  const solidTilesAroundEntity = [
+    [false, false, false], // [0][0]  [0][1]  [0][2]
+    [false, false, false], // [1][0]  [1][1]  [1][2]
+    [false, false, false]  // [2][0]  [2][1]  [2][2]
+  ];
 
   let xpush = 0;
   let ypush = 0;
@@ -64,6 +65,13 @@ export default (world: World, entity: Entity) => {
       // Collision possible only if the tile value is a positive number.
       if (tileValue <= 0) {
         continue;
+      }
+
+      if (!layer.passthrough) {
+        /// STAE = Solid Tiles Around Entity
+        const staeCol = (xTileToCheck - xTile) + 1;
+        const staeRow = (yTileToCheck - yTile) + 1;
+        solidTilesAroundEntity[staeRow][staeCol] = true;
       }
 
       // Calculate bounding box -- center x to middle and y to bottom.
@@ -105,7 +113,11 @@ export default (world: World, entity: Entity) => {
 
   if (solidCollisionOccurred && isCardinal(entity.direction)) {
     // Attempt assisted-slide, if entity is towards either 1/3 of the tile's edge.
-    console.log('Can slide?');
+    console.log('---------------');
+    console.log(solidTilesAroundEntity[0]);
+    console.log(solidTilesAroundEntity[1]);
+    console.log(solidTilesAroundEntity[2]);
+    console.log(xTile, yTile);
   }
 
   entity.x = xprojected + xpush;
@@ -149,9 +161,15 @@ function calculatePush(
       // two rectangles right next to each other (like how the tiles are)
     }
   }
+
+  // HACK: If moving downwards, gives it just a little bit more of a push
+  // upwards to get the entity's y onto the tile directly above rather than
+  // sitting on the very top of the solid tile that initiated the push.
+  if (ypush < 0) ypush -= 1;
+
   return [xpush, ypush];
 }
 
-function convertXYToIndex(x: number, y: number, width: number) {
+function convertXYToIndex(x: number, y: number, width: number): number {
   return x + (y * width);
 }
