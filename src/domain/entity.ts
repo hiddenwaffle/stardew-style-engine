@@ -3,6 +3,10 @@ import {
   UPSCALE
 } from 'src/constants';
 import { SaveEntity } from 'src/session/save';
+import {
+  Direction,
+  determineDirection
+} from './direction';
 
 export default class {
   name: string;
@@ -22,6 +26,10 @@ export default class {
     this.speed = 90 * UPSCALE; // TODO: Variable speed entities
     this.boundingWidth  = TARGET_FIELD_TILE_SIZE - 4;
     this.boundingHeight = TARGET_FIELD_TILE_SIZE - 4;
+  }
+
+  get direction(): Direction {
+    return determineDirection(this.dxIntended, this.dyIntended);
   }
 
   applySave(save: SaveEntity) {

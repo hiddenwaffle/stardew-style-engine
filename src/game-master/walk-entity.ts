@@ -1,3 +1,4 @@
+import { Direction } from 'src/domain/direction';
 import World from 'src/domain/world';
 import Entity from 'src/domain/entity';
 import timer from 'src/session/timer';
@@ -13,31 +14,20 @@ export default (world: World, entity: Entity) => {
   entity.x += entity.dxIntended * speed;
   entity.y += entity.dyIntended * speed;
 
-  // // Skip if entity is not even attempting to move.
-  // if (dxAttempted === 0 && dyAttempted === 0) {
-  //   return;
-  // }
-
   const xTile = Math.floor(entity.x / TARGET_FIELD_TILE_SIZE);
   const yTile = Math.floor(entity.y / TARGET_FIELD_TILE_SIZE);
 
   const tilesToCheck = [
-    [xTile - 1, yTile - 1], // Top Left
-    [xTile,     yTile - 1], // Top Middle
-    [xTile + 1, yTile - 1], // Top Right
-    [xTile - 1, yTile    ], // Middle Left
-    [xTile    , yTile    ], // Middle
-    [xTile + 1, yTile    ], // Middle Right
-    [xTile - 1, yTile + 1], // Bottom Left
-    [xTile    , yTile + 1], // Bottom Middle
-    [xTile + 1, yTile + 1]  // Bottom Right
+    [xTile - 1, yTile - 1], // Top Left       0
+    [xTile,     yTile - 1], // Top Middle     1
+    [xTile + 1, yTile - 1], // Top Right      2
+    [xTile - 1, yTile    ], // Middle Left    3
+    [xTile    , yTile    ], // Middle         4
+    [xTile + 1, yTile    ], // Middle Right   5
+    [xTile - 1, yTile + 1], // Bottom Left    6
+    [xTile    , yTile + 1], // Bottom Middle  7
+    [xTile + 1, yTile + 1]  // Bottom Right   8
   ];
-
-  // TODO: Handle map boundaries
-  // // For map boundaries, consider tile coordinates of < 0 or === width/length to be solid.
-  // if (xtileToCheck < 0 || xtileToCheck >= layer.width ||
-  //     ytileToCheck < 0 || ytileToCheck >= layer.height) {
-  // value = 1337;
 
   for (const layer of world.staticMap.collisionLayers) {
     const tileIntersected = false;
@@ -96,7 +86,9 @@ export default (world: World, entity: Entity) => {
     }
   }
 
-  // TODO: If solid collision and moving non-diagonal and if 'sliding' should be applied.
+  if (entity.direction !== Direction.None) {
+    console.log(entity.direction);
+  }
 }
 
 /**
