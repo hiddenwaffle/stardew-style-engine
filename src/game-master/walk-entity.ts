@@ -115,20 +115,20 @@ function calculatePush(
   const xintersect = Math.abs(xdelta) - (xhalfsize1 + xhalfsize2);
   const yintersect = Math.abs(ydelta) - (yhalfsize1 + yhalfsize2);
 
-  let xoff = 0;
-  let yoff = 0;
+  let xpush = 0;
+  let ypush = 0;
 
   if (xintersect < 0 && yintersect < 0) {
     if (xintersect > yintersect) {
-      xoff = xdelta > 0 ? -xintersect : xintersect;
+      xpush = xdelta > 0 ? -xintersect : xintersect;
     } else if (xintersect < yintersect) {
-      yoff = ydelta > 0 ? -yintersect : yintersect;
+      ypush = ydelta > 0 ? -yintersect : yintersect;
     } else { // Remaining case is: xintersect === yinteresect.
       // NOTE: Needed to catch this case to prevent getting stuck on
       // two rectangles right next to each other (like how the tiles are)
     }
   }
-  return [xoff, yoff];
+  return [xpush, ypush];
 }
 
 function convertXYToIndex(x: number, y: number, width: number) {
