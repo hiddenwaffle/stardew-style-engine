@@ -29,6 +29,9 @@ export default (world: World, entity: Entity) => {
     [xTile + 1, yTile + 1]  // Bottom Right   8
   ];
 
+  let xpush = 0;
+  let ypush = 0;
+
   for (const layer of world.staticMap.collisionLayers) {
     const tileIntersected = false;
     for (const tileToCheck of tilesToCheck) {
@@ -68,19 +71,23 @@ export default (world: World, entity: Entity) => {
       const bottomTile = (yTileToCheck + 1) * TARGET_FIELD_TILE_SIZE;
 
       // Move the entity out of a solid tile.
-      const [xpush, ypush] = calculatePush(
+      const [xExpectedPush, yExpectedPush] = calculatePush(
         left, right, top, bottom,
         leftTile, rightTile, topTile, bottomTile
       );
-      const overlapped = xpush !== 0 || ypush !== 0;
+      const overlapped = xExpectedPush !== 0 || yExpectedPush !== 0;
       if (overlapped) {
         if (!isAWallTile) {
           // TODO: Queue scripts, if any.
           console.log(layer.name);
         }
         if (!layer.passthrough) {
-          entity.x += xpush;
-          entity.y += ypush;
+          if (Math.abs(xExpectedPush) > Math.abs(xpush)) {
+            xpush = xExpectedPush;
+          }
+          if (Math.abs(yExpectedPush) > Math.abs(ypush)) {
+            ypush = yExpectedPush;
+          }
         }
       }
     }
@@ -89,6 +96,9 @@ export default (world: World, entity: Entity) => {
   if (entity.direction !== Direction.None) {
     console.log(entity.direction);
   }
+
+  entity.x += xpush;
+  entity.y += ypush;
 }
 
 /**
