@@ -1,3 +1,4 @@
+import environment from 'src/session/environment';
 import { Sheet, default as imageLoader } from 'src/session/image-loader';
 import {
   ctxBack,
@@ -85,7 +86,11 @@ class Render {
 
                 // TODO: Remove this debug
                 ctxBack.strokeStyle = 'pink';
-                ctxBack.strokeRect(destinationX, destinationY, TARGET_FIELD_TILE_SIZE, TARGET_FIELD_TILE_SIZE);
+                debugStrokeRect(
+                  ctxBack,
+                  destinationX, destinationY,
+                  TARGET_FIELD_TILE_SIZE, TARGET_FIELD_TILE_SIZE
+                );
               }
             }
 
@@ -137,7 +142,11 @@ class Render {
 
             // TODO: Remove this debug
             ctxBack.strokeStyle = 'yellow';
-            ctxBack.strokeRect(destination3X, destination3Y, targetTileWidth, targetTileHeight);
+            debugStrokeRect(
+              ctxBack,
+              destination3X, destination3Y,
+              targetTileWidth, targetTileHeight
+            );
 
             // TODO: Remove this debug
             ctxBack.strokeStyle = 'cyan';
@@ -145,7 +154,8 @@ class Render {
             const destinationY4 = destinationY - entity.boundingHeight;
             const destination5X = destinationX4 + FIELD_TARGET_WIDTH  / 2;
             const destination5Y = destinationY4 + FIELD_TARGET_HEIGHT / 2;
-            ctxBack.strokeRect(
+            debugStrokeRect(
+              ctxBack,
               destination5X, destination5Y,
               entity.boundingWidth, entity.boundingHeight + 1 // Notice the +1 (see collision response code)
             );
@@ -157,3 +167,12 @@ class Render {
 }
 
 export default new Render();
+
+/**
+ * Draws a box only if in development mode.
+ */
+function debugStrokeRect(ctx: CanvasRenderingContext2D, x: number, y: number, w: number, h: number) {
+  if (environment.development) {
+    ctx.strokeRect(x, y, w, h);
+  }
+}
