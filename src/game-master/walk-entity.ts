@@ -49,16 +49,16 @@ export default (world: World, entity: Entity) => {
 
       // TODO: Adjust for layers with offsets.
 
-      // Determine if tile is a collision tile, and if that tile is a tile or a wall.
-      let isAWallTile;
+      // Determine if collision is an actual tile, or a map boundary.
+      let tileToCheckIsAMapBoundary;
       let tileValue = -1;
       if (xTileToCheck < 0 || xTileToCheck >= world.staticMap.width ||
           yTileToCheck < 0 || yTileToCheck >= world.staticMap.height) {
-        isAWallTile = true;
+        tileToCheckIsAMapBoundary = true;
         tileValue = 1337; // arbitrary
       } else {
         const index = convertXYToIndex(xTileToCheck, yTileToCheck, layer.width);
-        isAWallTile = false;
+        tileToCheckIsAMapBoundary = false;
         tileValue = layer.tiles[index];
       }
 
@@ -93,7 +93,7 @@ export default (world: World, entity: Entity) => {
       );
       const overlapped = xExpectedPush !== 0 || yExpectedPush !== 0;
       if (overlapped) {
-        if (!isAWallTile) {
+        if (!tileToCheckIsAMapBoundary) {
           // TODO: Queue scripts, if any.
           // console.log(layer.name);
         }
