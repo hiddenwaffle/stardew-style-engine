@@ -14,8 +14,8 @@ export default (world: World, entity: Entity) => {
   const secondsPast = timer.elapsed / 1000;
   const speed = entity.speed * secondsPast;
 
-  entity.x += entity.dxIntended * speed;
-  entity.y += entity.dyIntended * speed;
+  const xprojected = entity.x + entity.dxIntended * speed;
+  const yprojected = entity.y + entity.dyIntended * speed;
 
   const xTile = Math.floor(entity.x / TARGET_FIELD_TILE_SIZE);
   const yTile = Math.floor(entity.y / TARGET_FIELD_TILE_SIZE);
@@ -67,10 +67,10 @@ export default (world: World, entity: Entity) => {
       }
 
       // Calculate bounding box -- center x to middle and y to bottom.
-      const left    = entity.x - entity.boundingWidth / 2;
-      const right   = entity.x + entity.boundingWidth / 2;
-      const top     = entity.y - entity.boundingHeight;
-      const bottom  = entity.y;
+      const left    = xprojected - entity.boundingWidth / 2;
+      const right   = xprojected + entity.boundingWidth / 2;
+      const top     = yprojected - entity.boundingHeight;
+      const bottom  = yprojected;
 
       // Convert tile to upscaled pixel space.
       const leftTile   =  xTileToCheck      * TARGET_FIELD_TILE_SIZE;
@@ -108,8 +108,8 @@ export default (world: World, entity: Entity) => {
     console.log('Can slide?');
   }
 
-  entity.x += xpush;
-  entity.y += ypush;
+  entity.x = xprojected + xpush;
+  entity.y = yprojected + ypush;
 }
 
 /**
