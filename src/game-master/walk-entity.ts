@@ -1,4 +1,7 @@
-import { Direction } from 'src/domain/direction';
+import {
+  Direction,
+  isCardinal
+} from 'src/domain/direction';
 import World from 'src/domain/world';
 import Entity from 'src/domain/entity';
 import timer from 'src/session/timer';
@@ -28,6 +31,11 @@ export default (world: World, entity: Entity) => {
     [xTile    , yTile + 1], // Bottom Middle  7
     [xTile + 1, yTile + 1]  // Bottom Right   8
   ];
+
+  let canAssistedSlideUp = true;
+  let canAssistedSlideDown = true;
+  let canAssistedSlideLeft = true;
+  let canAssistedSlideRight = true;
 
   let xpush = 0;
   let ypush = 0;
@@ -79,7 +87,7 @@ export default (world: World, entity: Entity) => {
       if (overlapped) {
         if (!isAWallTile) {
           // TODO: Queue scripts, if any.
-          console.log(layer.name);
+          // console.log(layer.name);
         }
         if (!layer.passthrough) {
           if (Math.abs(xExpectedPush) > Math.abs(xpush)) {
@@ -93,8 +101,11 @@ export default (world: World, entity: Entity) => {
     }
   }
 
-  if (entity.direction !== Direction.None) {
-    console.log(entity.direction);
+  const solidCollisionOccurred = (xpush !== 0 && ypush === 0) || (xpush === 0 && ypush !== 0)
+
+  if (solidCollisionOccurred && isCardinal(entity.direction)) {
+    // Attempt assisted-slide, if entity is towards either 1/3 of the tile's edge.
+    console.log('Can slide?');
   }
 
   entity.x += xpush;

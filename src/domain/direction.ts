@@ -37,3 +37,10 @@ export function determineDirection(dx: number, dy: number): Direction {
     }
   }
 }
+
+export function isCardinal(direction: Direction) {
+  return [Direction.Up,
+          Direction.Down,
+          Direction.Left,
+          Direction.Right].includes(direction);
+}
