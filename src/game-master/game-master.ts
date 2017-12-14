@@ -21,8 +21,9 @@ class GameMaster {
     world.player.entity.dyIntended = this.dyIntended;
 
     world.entities.forEach((entity) => {
-      walkEntity(world, entity);
-    })
+      const scriptBatch = walkEntity(world, entity);
+      scriptBatch.execute();
+    });
   }
 
   setPlayerIntendedDirection(dxIntended: number, dyIntended: number) {

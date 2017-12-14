@@ -5,12 +5,12 @@ import {
 import World from 'src/domain/world';
 import Entity from 'src/domain/entity';
 import timer from 'src/session/timer';
-import script from 'src/script';
 import {
   TARGET_FIELD_TILE_SIZE
 } from 'src/constants';
+import ScriptBatch from './script-batch';
 
-export default (world: World, entity: Entity) => {
+export default (world: World, entity: Entity): ScriptBatch => {
   const secondsPast = timer.elapsed / 1000;
   const speed = entity.speed * secondsPast;
 
@@ -40,6 +40,7 @@ export default (world: World, entity: Entity) => {
 
   let xpush = 0;
   let ypush = 0;
+  let scriptBatch = new ScriptBatch();
 
   for (const layer of world.staticMap.collisionLayers) {
     const tileIntersected = false;
@@ -94,7 +95,8 @@ export default (world: World, entity: Entity) => {
       if (overlapped) {
         if (!tileToCheckIsAMapBoundary) {
           // TODO: Queue scripts, if any.
-          // console.log(layer.name);
+          scriptBatch.add(layer.once);
+          scriptBatch.add(layer.repeatedly);
         }
         if (!layer.passthrough) {
           if (Math.abs(xExpectedPush) > Math.abs(xpush)) {
@@ -125,6 +127,8 @@ export default (world: World, entity: Entity) => {
 
   entity.x = xprojected + xpush;
   entity.y = yprojected + ypush;
+
+  return scriptBatch;
 }
 
 /**
