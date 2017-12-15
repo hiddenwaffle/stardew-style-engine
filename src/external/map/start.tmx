@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" tiledversion="1.0.3" orientation="orthogonal" renderorder="right-down" width="20" height="19" tilewidth="16" tileheight="16" nextobjectid="29">
+<map version="1.0" tiledversion="1.0.3" orientation="orthogonal" renderorder="right-down" width="20" height="19" tilewidth="16" tileheight="16" nextobjectid="47">
  <tileset firstgid="1" name="Floor" tilewidth="16" tileheight="16" tilecount="819" columns="21">
   <image source="../DawnLike/Objects/Floor.png" width="336" height="624"/>
  </tileset>
@@ -266,4 +266,5 @@
  <objectgroup name="@entity">
   <object id="26" name="scary-skull" gid="2864" x="226.667" y="154.333" width="16" height="16"/>
  </objectgroup>
+ <objectgroup name="@entrance"/>
 </map>
