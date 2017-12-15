@@ -1,3 +1,5 @@
+import World from 'src/domain/world';
+
 export type ScriptHandler = (...args: any[]) => void;
 
 export class ScriptNamespace {
@@ -26,14 +28,14 @@ export class ScriptNamespace {
    * it must be the actual call.
    * Otherwise, delegate the rest of the path to a sub-namespace.
    */
-  execute(path: string[]) {
+  execute(path: string[], world: World) {
     if (path) {
       if (path.length === 1) {
         const callStr = path.shift();
         const [handlerName, args] = parseCallStr(callStr);
         const handler = this.handlers.get(handlerName);
         if (handler) {
-          handler.apply(handler, args);
+          handler.apply(handler, [...args, world]);
         } else {
           console.warn(`Handler not found: ${handler}. Args: ${args}`);
         }
@@ -41,7 +43,7 @@ export class ScriptNamespace {
         const namespaceName = path.shift();
         const namespace = this.namespaces.get(namespaceName);
         if (namespace) {
-          namespace.execute(path);
+          namespace.execute(path, world);
         } else {
           console.warn(`Namespace not found: ${namespaceName}`);
         }

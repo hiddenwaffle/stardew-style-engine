@@ -1,4 +1,5 @@
 import script from 'src/script';
+import World from 'src/domain/world';
 
 export class ScriptCall {
   private readonly name: string;
@@ -11,9 +12,9 @@ export class ScriptCall {
     this.secondaryEntityId = secondaryEntityId;
   }
 
-  execute() {
+  execute(world: World) {
     // TODO: Use primaryEntityId and secondaryEntityId
-    script.execute(this.name);
+    script.execute(this.name, world);
   }
 
   /**
@@ -32,9 +33,9 @@ export class ScriptCallBatch {
     this.scriptCalls = new Map();
   }
 
-  execute() {
+  execute(world: World) {
     for (const [ key, scriptCall ] of Array.from(this.scriptCalls)) {
-      scriptCall.execute();
+      scriptCall.execute(world);
     }
   }
 

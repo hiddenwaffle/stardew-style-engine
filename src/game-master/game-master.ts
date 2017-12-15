@@ -22,7 +22,7 @@ class GameMaster {
 
     world.entities.forEach((entity) => {
       const scriptBatch = walkEntity(world, entity);
-      scriptBatch.execute();
+      scriptBatch.execute(world);
     });
   }
 
