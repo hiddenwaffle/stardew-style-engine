@@ -5,12 +5,12 @@ import StaticMap from './static-map';
 
 export default class {
   player: Player;
-  entities: Entity[];
+  entities: Map<number, Entity>;
   staticMap: StaticMap;
 
   constructor() {
     this.player = new Player();
-    this.entities = [];
+    this.entities = new Map();
     this.staticMap = new StaticMap();
   }
 
@@ -19,14 +19,14 @@ export default class {
     this.staticMap.applySave(save.staticMap);
 
     // TODO: Remove this?
-    this.entities.push(this.player.entity);
+    this.addEntity(this.player.entity);
 
     // TODO: Remove this
     const other = new Entity();
     other.x = 350;
     other.y = 375;
     other.name = 'other';
-    this.entities.push(other);
+    this.addEntity(other);
   }
 
   extractSave(): SaveWorld {
@@ -34,5 +34,19 @@ export default class {
       this.staticMap.extractSave(),
       this.player.extractSave()
     );
+  }
+
+  /**
+   * Ensures that the entity added to the map has a unique ID.
+   */
+  private addEntity(entity: Entity) {
+    while (true) {
+      if (this.entities.has(entity.id)) {
+        entity.calculateId();
+      } else {
+        break;
+      }
+    }
+    this.entities.set(entity.id, entity);
   }
 }

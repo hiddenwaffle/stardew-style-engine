@@ -190,7 +190,8 @@
    <properties>
     <property name="once" value="global.sayOuch"/>
     <property name="passthrough" type="bool" value="true"/>
-    <property name="repeatedly 500" value="global.fire 100 51"/>
+    <property name="repeatedly" value="global.fire 100 51"/>
+    <property name="repeatedlyDelay" type="int" value="1000"/>
    </properties>
    <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,

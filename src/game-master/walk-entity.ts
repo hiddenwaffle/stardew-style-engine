@@ -8,9 +8,12 @@ import timer from 'src/session/timer';
 import {
   TARGET_FIELD_TILE_SIZE
 } from 'src/constants';
-import ScriptBatch from './script-batch';
+import {
+  ScriptCall,
+  ScriptCallBatch
+} from './script-call';
 
-export default (world: World, entity: Entity): ScriptBatch => {
+export default (world: World, entity: Entity): ScriptCallBatch => {
   const secondsPast = timer.elapsed / 1000;
   const speed = entity.speed * secondsPast;
 
@@ -40,7 +43,7 @@ export default (world: World, entity: Entity): ScriptBatch => {
 
   let xpush = 0;
   let ypush = 0;
-  let scriptBatch = new ScriptBatch();
+  let scriptCallBatch = new ScriptCallBatch();
 
   for (const layer of world.staticMap.collisionLayers) {
     const tileIntersected = false;
@@ -102,9 +105,13 @@ export default (world: World, entity: Entity): ScriptBatch => {
           }
         }
         if (!tileToCheckIsAMapBoundary) {
-          // TODO: Queue scripts, if any.
-          scriptBatch.addOnce(layer.once);
-          scriptBatch.addRepeatedly(layer.repeatedly);
+          if (layer.once) {
+            // TODO: Check if ran on previous frame.
+            scriptCallBatch.add(new ScriptCall(layer.once, entity.id));
+          }
+          if (layer.repeatedly) {
+            scriptCallBatch.add(new ScriptCall(layer.repeatedly, entity.id));
+          }
         }
       }
     }
@@ -128,7 +135,7 @@ export default (world: World, entity: Entity): ScriptBatch => {
   entity.x = xprojected + xpush;
   entity.y = yprojected + ypush;
 
-  return scriptBatch;
+  return scriptCallBatch;
 }
 
 /**

@@ -9,6 +9,7 @@ import {
 } from './direction';
 
 export default class {
+  private _id: number;
   name: string;
   x: number;
   y: number;
@@ -19,6 +20,7 @@ export default class {
   boundingHeight: number;
 
   constructor() {
+    this.calculateId();
     this.x = 100;
     this.y = 100;
     this.dxIntended = 0;
@@ -26,6 +28,18 @@ export default class {
     this.speed = 90 * UPSCALE; // TODO: Variable speed entities
     this.boundingWidth  = TARGET_FIELD_TILE_SIZE - 4;
     this.boundingHeight = TARGET_FIELD_TILE_SIZE - 4;
+  }
+
+  /**
+   * If called outside of this class, it should be only in the
+   * unlikely event that the ID was already taken.
+   */
+  calculateId() {
+    this._id = Math.floor(Math.random() * Number.MAX_SAFE_INTEGER);
+  }
+
+  get id(): number {
+    return this._id;
   }
 
   get direction(): Direction {

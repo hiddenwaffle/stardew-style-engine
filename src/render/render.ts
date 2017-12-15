@@ -103,13 +103,16 @@ class Render {
           }
         }
 
-        // TODO: Use insertion sort instead of default sort?
-        world.entities.sort((a, b) => {
+        const entityArray = Array.from(world.entities).map(([id, entity]) => {
+          return entity;
+        });
+
+        entityArray.sort((a, b) => {
           return a.y - b.y;
         });
 
         // Entity coordinates are already upscaled
-        world.entities.forEach((entity) => {
+        entityArray.forEach((entity) => {
           const sheet = imageLoader.get('antifarea');
           if (sheet) {
             const originalTileWidth = sheet.config.tileWidth;

@@ -88,13 +88,15 @@
                     {
                      "once":"global.sayOuch",
                      "passthrough":true,
-                     "repeatedly 500":"global.fire 100 51"
+                     "repeatedly":"global.fire 100 51",
+                     "repeatedlyDelay":1000
                     },
                  "propertytypes":
                     {
                      "once":"string",
                      "passthrough":"bool",
-                     "repeatedly 500":"string"
+                     "repeatedly":"string",
+                     "repeatedlyDelay":"int"
                     },
                  "type":"tilelayer",
                  "visible":true,
