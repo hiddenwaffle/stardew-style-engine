@@ -6,23 +6,17 @@ export class ScriptCallContext {
   readonly primaryEntityId: number;
   readonly secondaryEntityId: number;
   readonly tileLayerName: string;
-  readonly xtile: number;
-  readonly ytile: number;
 
   constructor(
     world: World,
     primaryEntityId: number,
     secondaryEntityId: number,
-    tileLayerName: string,
-    xtile: number,
-    ytile: number
+    tileLayerName: string
   ) {
     this.world = world;
     this.primaryEntityId = primaryEntityId;
     this.secondaryEntityId = secondaryEntityId;
     this.tileLayerName = tileLayerName;
-    this.xtile = xtile;
-    this.ytile = ytile;
   }
 }
 
@@ -31,23 +25,17 @@ export class ScriptCall {
   private readonly primaryEntityId: number;
   private readonly secondaryEntityId: number;
   readonly tileLayerName: string;
-  readonly xtile: number;
-  readonly ytile: number;
 
   constructor(
     name: string,
     primaryEntityId?: number,
     secondaryEntityId?: number,
-    tileLayerName?: string,
-    xtile?: number,
-    ytile?: number
+    tileLayerName?: string
   ) {
     this.name = name;
     this.primaryEntityId = primaryEntityId || null;
     this.secondaryEntityId = secondaryEntityId || null;
     this.tileLayerName = tileLayerName || null;
-    this.xtile = xtile || null;
-    this.ytile = ytile || null;
   }
 
   execute(world: World) {
@@ -55,9 +43,7 @@ export class ScriptCall {
       world,
       this.primaryEntityId,
       this.secondaryEntityId,
-      this.tileLayerName,
-      this.xtile,
-      this.ytile
+      this.tileLayerName
     );
     script.execute(this.name, ctx);
   }
