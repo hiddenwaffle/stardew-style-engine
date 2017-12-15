@@ -105,6 +105,7 @@ export default (world: World, entity: Entity): WalkResult => {
           }
         }
         if (!tileToCheckIsAMapBoundary) {
+          walkResult.addCollisionTileLayer(layer.name);
           if (layer.call) {
             const call = new ScriptCall(
               layer.call,
@@ -115,12 +116,17 @@ export default (world: World, entity: Entity): WalkResult => {
             if (entity.tryScriptCall(call, layer.callInterval)) {
               walkResult.addCall(call);
             }
-            // TODO: Somehow track entity ID so it knows when the entity has left (per layer).
           }
+        } else {
+          // TODO: Maybe here is where it checks for map boundary transition to another map?
         }
       }
     }
   }
+
+  // If the entity moved out of a layer on which the entity
+  // had an active call timer, cancel that timer.
+  entity.clearCallTimersNotInLayers(walkResult.collisionTileLayers);
 
   const solidCollisionOccurred = (xpush !== 0 && ypush === 0) || (xpush === 0 && ypush !== 0);
 

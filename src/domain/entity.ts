@@ -31,6 +31,14 @@ class CallTimer {
     }
     return expired;
   }
+
+  get tileLayerName(): string {
+    if (this.call && this.call.tileLayerName) {
+      return this.call.tileLayerName;
+    } else {
+      return null;
+    }
+  }
 }
 
 export default class {
@@ -58,15 +66,28 @@ export default class {
   }
 
   clearExpiredCallTimers() {
-    const expiredCalls: string[] = [];
-    for (const [call, callTimer] of Array.from(this.callTimers)) {
+    const keys: string[] = [];
+    for (const [key, callTimer] of Array.from(this.callTimers)) {
       const expired = callTimer.advance();
       if (expired) {
-        expiredCalls.push(call);
+        keys.push(key);
       }
     }
-    for (const expiredCall of expiredCalls) {
-      this.callTimers.delete(expiredCall);
+    for (const key of keys) {
+      this.callTimers.delete(key);
+    }
+  }
+
+  clearCallTimersNotInLayers(layers: string[]) {
+    const keys: string[] = [];
+    for (const [key, callTimer] of Array.from(this.callTimers)) {
+      const notFound = !layers.includes(callTimer.tileLayerName);
+      if (notFound) {
+        keys.push(key);
+      }
+    }
+    for (const key of keys) {
+      this.callTimers.delete(key);
     }
   }
 

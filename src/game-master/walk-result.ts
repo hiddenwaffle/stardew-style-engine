@@ -6,9 +6,11 @@ import {
 
 export default class {
   private readonly calls: ScriptCallBatch;
+  readonly collisionTileLayers: string[];
 
   constructor() {
     this.calls = new ScriptCallBatch();
+    this.collisionTileLayers = [];
   }
 
   addCall(call: ScriptCall) {
@@ -17,5 +19,9 @@ export default class {
 
   executeCalls(world: World) {
     this.calls.execute(world);
+  }
+
+  addCollisionTileLayer(tileLayerName: string) {
+    this.collisionTileLayers.push(tileLayerName);
   }
 }

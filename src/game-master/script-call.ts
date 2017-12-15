@@ -77,4 +77,16 @@ export class ScriptCallBatch {
   add(scriptCall: ScriptCall) {
     this.scriptCalls.set(scriptCall.key, scriptCall);
   }
+
+  removeByTileLayerName(tileLayerName: string) {
+    const keysToRemove: string[] = [];
+    for (const [key, scriptCall] of Array.from(this.scriptCalls)) {
+      if (scriptCall.tileLayerName === tileLayerName) {
+        keysToRemove.push(key);
+      }
+    }
+    for (const keyToRemove of keysToRemove) {
+      this.scriptCalls.delete(keyToRemove);
+    }
+  }
 }
