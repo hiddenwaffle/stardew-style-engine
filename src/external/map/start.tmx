@@ -185,15 +185,14 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
- <group name="collision" opacity="0.48">
-  <layer name="@collision-fire" width="20" height="19">
-   <properties>
-    <property name="once" value="global.sayOuch"/>
-    <property name="passthrough" type="bool" value="true"/>
-    <property name="repeatedly" value="global.fire 100 51"/>
-    <property name="repeatedlyDelay" type="int" value="1000"/>
-   </properties>
-   <data encoding="csv">
+ <layer name="@collision-fire" width="20" height="19" opacity="0.46">
+  <properties>
+   <property name="once" value="global.sayOuch"/>
+   <property name="passthrough" type="bool" value="true"/>
+   <property name="repeatedly" value="global.fire 100 51"/>
+   <property name="repeatedlyDelay" type="int" value="1000"/>
+  </properties>
+  <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -214,9 +213,9 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
-  </layer>
-  <layer name="@collision-orange-tree" width="20" height="19">
-   <data encoding="csv">
+ </layer>
+ <layer name="@collision-orange-tree" width="20" height="19" opacity="0.48">
+  <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,36,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -237,9 +236,9 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
-  </layer>
-  <layer name="@collision" width="20" height="19">
-   <data encoding="csv">
+ </layer>
+ <layer name="@collision" width="20" height="19" opacity="0.5">
+  <data encoding="csv">
 0,0,0,0,0,0,0,0,0,835,0,835,835,835,835,835,835,835,835,835,
 0,0,0,0,0,0,0,0,0,0,0,835,835,835,835,835,835,835,835,835,
 0,0,0,835,835,835,0,0,835,0,0,835,835,835,835,835,835,835,835,835,
@@ -260,8 +259,7 @@
 17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,
 17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17
 </data>
-  </layer>
- </group>
+ </layer>
  <objectgroup name="@entity">
   <object id="26" name="scary-skull" gid="2864" x="226.667" y="154.333" width="16" height="16"/>
  </objectgroup>
