@@ -22,8 +22,8 @@ class GameMaster {
 
     world.entities.forEach((entity) => {
       entity.clearExpiredCallTimers();
-      const scriptBatch = walkEntity(world, entity);
-      scriptBatch.execute(world);
+      const walkResult = walkEntity(world, entity);
+      walkResult.executeCalls(world);
     });
   }
 

@@ -9,11 +9,11 @@ import {
   TARGET_FIELD_TILE_SIZE
 } from 'src/constants';
 import {
-  ScriptCall,
-  ScriptCallBatch
+  ScriptCall
 } from './script-call';
+import WalkResult from './walk-result';
 
-export default (world: World, entity: Entity): ScriptCallBatch => {
+export default (world: World, entity: Entity): WalkResult => {
   const secondsPast = timer.elapsed / 1000;
   const speed = entity.speed * secondsPast;
 
@@ -43,7 +43,7 @@ export default (world: World, entity: Entity): ScriptCallBatch => {
 
   let xpush = 0;
   let ypush = 0;
-  let scriptCallBatch = new ScriptCallBatch();
+  let walkResult = new WalkResult();
 
   for (const layer of world.staticMap.collisionLayers) {
     const tileIntersected = false;
@@ -113,7 +113,7 @@ export default (world: World, entity: Entity): ScriptCallBatch => {
               layer.name
             );
             if (entity.tryScriptCall(call, layer.callInterval)) {
-              scriptCallBatch.add(call);
+              walkResult.addCall(call);
             }
             // TODO: Somehow track entity ID so it knows when the entity has left (per layer).
           }
@@ -140,7 +140,7 @@ export default (world: World, entity: Entity): ScriptCallBatch => {
   entity.x = xprojected + xpush;
   entity.y = yprojected + ypush;
 
-  return scriptCallBatch;
+  return walkResult;
 }
 
 /**
