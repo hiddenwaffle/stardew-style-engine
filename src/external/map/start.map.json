@@ -84,17 +84,15 @@
          "opacity":0.46000000834465,
          "properties":
             {
-             "once":"global.sayOuch",
-             "passthrough":true,
-             "repeatedly":"global.fire 100 51",
-             "repeatedlyDelay":1000
+             "call":"global.fire 100 51",
+             "callInterval":1000,
+             "passthrough":true
             },
          "propertytypes":
             {
-             "once":"string",
-             "passthrough":"bool",
-             "repeatedly":"string",
-             "repeatedlyDelay":"int"
+             "call":"string",
+             "callInterval":"int",
+             "passthrough":"bool"
             },
          "type":"tilelayer",
          "visible":true,

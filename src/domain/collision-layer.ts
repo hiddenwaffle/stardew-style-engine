@@ -1,19 +1,15 @@
 import TileLayer from './tile-layer';
 
 export default class extends TileLayer {
-  readonly once: string;
-  readonly repeatedly: string;
-  readonly repeatedlyDelay: number;
+  readonly call: string;
+  readonly callInterval: number;
   readonly passthrough: boolean;
 
   constructor(rawLayer: any) {
     super(rawLayer);
     if (rawLayer.properties) {
-      this.once = rawLayer.properties.once;
-
-      this.repeatedly = rawLayer.properties.repeatedly;
-      this.repeatedlyDelay = rawLayer.properties.releatedlyDelay;
-
+      this.call = rawLayer.properties.call;
+      this.callInterval = rawLayer.properties.callInterval;
       this.passthrough = rawLayer.properties.passthrough;
     }
   }

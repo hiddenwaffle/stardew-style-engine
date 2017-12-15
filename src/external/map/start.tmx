@@ -187,10 +187,9 @@
  </layer>
  <layer name="@collision-fire" width="20" height="19" opacity="0.46">
   <properties>
-   <property name="once" value="global.sayOuch"/>
+   <property name="call" value="global.fire 100 51"/>
+   <property name="callInterval" type="int" value="1000"/>
    <property name="passthrough" type="bool" value="true"/>
-   <property name="repeatedly" value="global.fire 100 51"/>
-   <property name="repeatedlyDelay" type="int" value="1000"/>
   </properties>
   <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,

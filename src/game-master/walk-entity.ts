@@ -105,12 +105,8 @@ export default (world: World, entity: Entity): ScriptCallBatch => {
           }
         }
         if (!tileToCheckIsAMapBoundary) {
-          if (layer.once) {
-            // TODO: Check if ran on previous frame.
-            scriptCallBatch.add(new ScriptCall(layer.once, entity.id));
-          }
-          if (layer.repeatedly) {
-            scriptCallBatch.add(new ScriptCall(layer.repeatedly, entity.id));
+          if (layer.call) {
+            scriptCallBatch.add(new ScriptCall(layer.call, entity.id));
           }
         }
       }
