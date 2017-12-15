@@ -76,12 +76,12 @@ export default class {
    * the given script with parameters and context.
    */
   tryScriptCall(call: ScriptCall, interval: number): boolean {
-    let allowCall = false;
+    let alreadyScheduledToBeCalled = false;
     if (!this.callTimers.has(call.key)) {
       this.callTimers.set(call.key, new CallTimer(call, interval));
-      allowCall = true;
+      alreadyScheduledToBeCalled = true;
     }
-    return allowCall;
+    return alreadyScheduledToBeCalled;
   }
 
   get id(): number {
