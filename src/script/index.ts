@@ -1,4 +1,4 @@
-import World from 'src/domain/world';
+import { ScriptCallContext } from 'src/game-master/script-call';
 import { ScriptHandler, ScriptNamespace } from './script-namespace';
 import global from './global';
 
@@ -10,10 +10,10 @@ class Script {
     this.root.setNamespace('global', global);
   }
 
-  execute(name: string, world: World) {
+  execute(name: string, ctx: ScriptCallContext) {
     if (name) {
       const path = name.split('.');
-      this.root.execute(path, world);
+      this.root.execute(path, ctx);
     }
   }
 }

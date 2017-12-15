@@ -1,4 +1,4 @@
-import World from 'src/domain/world';
+import { ScriptCallContext } from 'src/game-master/script-call';
 
 export type ScriptHandler = (...args: any[]) => void;
 
@@ -28,14 +28,14 @@ export class ScriptNamespace {
    * it must be the actual call.
    * Otherwise, delegate the rest of the path to a sub-namespace.
    */
-  execute(path: string[], world: World) {
+  execute(path: string[], ctx: ScriptCallContext) {
     if (path) {
       if (path.length === 1) {
         const callStr = path.shift();
         const [handlerName, args] = parseCallStr(callStr);
         const handler = this.handlers.get(handlerName);
         if (handler) {
-          handler.apply(handler, [...args, world]);
+          handler.apply(handler, [...args, ctx]);
         } else {
           console.warn(`Handler not found: ${handler}. Args: ${args}`);
         }
@@ -43,7 +43,7 @@ export class ScriptNamespace {
         const namespaceName = path.shift();
         const namespace = this.namespaces.get(namespaceName);
         if (namespace) {
-          namespace.execute(path, world);
+          namespace.execute(path, ctx);
         } else {
           console.warn(`Namespace not found: ${namespaceName}`);
         }

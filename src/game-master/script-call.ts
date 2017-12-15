@@ -1,6 +1,18 @@
 import script from 'src/script';
 import World from 'src/domain/world';
 
+export class ScriptCallContext {
+  readonly world: World;
+  readonly primaryEntityId: number;
+  readonly secondaryEntityId: number;
+
+  constructor(world: World, primaryEntityId: number, secondaryEntityId: number) {
+    this.world = world;
+    this.primaryEntityId = primaryEntityId;
+    this.secondaryEntityId = secondaryEntityId;
+  }
+}
+
 export class ScriptCall {
   private readonly name: string;
   private readonly primaryEntityId: number;
@@ -8,13 +20,17 @@ export class ScriptCall {
 
   constructor(name: string, primaryEntityId?: number, secondaryEntityId?: number) {
     this.name = name;
-    this.primaryEntityId = primaryEntityId;
-    this.secondaryEntityId = secondaryEntityId;
+    this.primaryEntityId = primaryEntityId || null;
+    this.secondaryEntityId = secondaryEntityId || null;
   }
 
   execute(world: World) {
-    // TODO: Use primaryEntityId and secondaryEntityId
-    script.execute(this.name, world);
+    const ctx = new ScriptCallContext(
+      world,
+      this.primaryEntityId,
+      this.secondaryEntityId
+    );
+    script.execute(this.name, ctx);
   }
 
   /**
