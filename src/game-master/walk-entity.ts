@@ -115,6 +115,7 @@ export default (world: World, entity: Entity): ScriptCallBatch => {
             if (entity.tryScriptCall(call, layer.callInterval)) {
               scriptCallBatch.add(call);
             }
+            // TODO: Somehow track entity ID so it knows when the entity has left (per layer).
           }
         }
       }

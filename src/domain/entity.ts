@@ -70,6 +70,11 @@ export default class {
     }
   }
 
+  /**
+   * Rather than running the call right away, this uses the call's
+   * key to see if the entity is already in the process of running
+   * the given script with parameters and context.
+   */
   tryScriptCall(call: ScriptCall, interval: number): boolean {
     let allowCall = false;
     if (!this.callTimers.has(call.key)) {
