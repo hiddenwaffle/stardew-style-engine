@@ -57,7 +57,7 @@ export default class {
     this.callTimers = new Map();
   }
 
-  advance() {
+  clearExpiredCallTimers() {
     const expiredCalls: string[] = [];
     for (const [call, callTimer] of Array.from(this.callTimers)) {
       const expired = callTimer.advance();
