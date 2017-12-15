@@ -30,16 +30,7 @@ export default class {
     this.tilesets = [];
 
     rawMap.layers.forEach((layer: any) => {
-      if (layer.type === 'tilelayer' && !layer.name.startsWith('@')) {
-        const tileLayer = new TileLayer(layer);
-        this.tileLayers.push(tileLayer);
-      } else if (layer.name.startsWith('@collision'))  {
-        const collisionLayer = new CollisionLayer(layer);
-        this.collisionLayers.push(collisionLayer);
-      } else if (layer.name.startsWith('@entity')) {
-        //
-      }
-      // TODO: Do something else with the other layer types/names
+      this.parseAndAddLayers(layer);
     });
 
     rawMap.tilesets.forEach((rawTileset: any) => {
@@ -56,4 +47,21 @@ export default class {
     // These are static so there is not much to save.
     return new SaveStaticMap(this.id);
   }
+
+  private parseAndAddLayers(layer: any) {
+    if (layer.type === 'tilelayer' && !layer.name.startsWith('@')) {
+      const tileLayer = new TileLayer(layer);
+      this.tileLayers.push(tileLayer);
+    } else if (layer.type === 'group') {
+      layer.layers.forEach((sublayer: any) => {
+        this.parseAndAddLayers(sublayer);
+      });
+    } else if (layer.name.startsWith('@entity')) {
+      //
+    } else if (layer.name.startsWith('@collision'))  {
+      const collisionLayer = new CollisionLayer(layer);
+      this.collisionLayers.push(collisionLayer);
+    }
+    // TODO: Do something else with the other layer types/names
+  };
 }
