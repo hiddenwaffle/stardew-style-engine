@@ -3,10 +3,34 @@ import {
   UPSCALE
 } from 'src/constants';
 import { SaveEntity } from 'src/session/save';
+import timer from 'src/session/timer';
 import {
   Direction,
   determineDirection
 } from './direction';
+
+class CallTimer {
+  private readonly call: string;
+  private readonly interval: number;
+  private currentInterval: number;
+
+  constructor(call: string, interval: number) {
+    this.call = call;
+    this.currentInterval = this.interval = interval;
+  }
+
+  advance(): boolean {
+    let expired;
+    this.currentInterval -= timer.elapsed;
+    if (this.currentInterval <= 0) {
+      this.currentInterval = this.interval + this.currentInterval;
+      expired = true;
+    } else {
+      expired = false;
+    }
+    return expired;
+  }
+}
 
 export default class {
   private _id: number;
@@ -18,6 +42,7 @@ export default class {
   speed: number;
   boundingWidth: number;
   boundingHeight: number;
+  callTimers: Map<string, CallTimer>;
 
   constructor() {
     this.calculateId();
@@ -28,6 +53,33 @@ export default class {
     this.speed = 90 * UPSCALE; // TODO: Variable speed entities
     this.boundingWidth  = TARGET_FIELD_TILE_SIZE - 4;
     this.boundingHeight = TARGET_FIELD_TILE_SIZE - 4;
+    this.callTimers = new Map();
+  }
+
+  advance() {
+    const expiredCalls: string[] = [];
+    for (const [call, callTimer] of Array.from(this.callTimers)) {
+      const expired = callTimer.advance();
+      if (expired) {
+        expiredCalls.push(call);
+      }
+    }
+    for (const expiredCall of expiredCalls) {
+      this.callTimers.delete(expiredCall);
+    }
+  }
+
+  tryScriptCall(call: string, interval: number): boolean {
+    let allowCall = false;
+    if (!this.callTimers.has(call)) {
+      this.callTimers.set(call, new CallTimer(call, interval));
+      allowCall = true;
+    }
+    return allowCall;
+  }
+
+  get id(): number {
+    return this._id;
   }
 
   /**
@@ -36,10 +88,6 @@ export default class {
    */
   calculateId() {
     this._id = Math.floor(Math.random() * Number.MAX_SAFE_INTEGER);
-  }
-
-  get id(): number {
-    return this._id;
   }
 
   get direction(): Direction {

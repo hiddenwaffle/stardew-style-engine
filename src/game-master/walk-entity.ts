@@ -106,7 +106,9 @@ export default (world: World, entity: Entity): ScriptCallBatch => {
         }
         if (!tileToCheckIsAMapBoundary) {
           if (layer.call) {
-            scriptCallBatch.add(new ScriptCall(layer.call, entity.id));
+            if (entity.tryScriptCall(layer.call, layer.callInterval)) {
+              scriptCallBatch.add(new ScriptCall(layer.call, entity.id));
+            }
           }
         }
       }

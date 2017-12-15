@@ -21,6 +21,7 @@ class GameMaster {
     world.player.entity.dyIntended = this.dyIntended;
 
     world.entities.forEach((entity) => {
+      entity.advance();
       const scriptBatch = walkEntity(world, entity);
       scriptBatch.execute(world);
     });
