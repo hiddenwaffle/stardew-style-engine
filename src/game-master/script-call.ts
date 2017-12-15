@@ -50,7 +50,7 @@ export class ScriptCallBatch {
   }
 
   execute(world: World) {
-    for (const [ key, scriptCall ] of Array.from(this.scriptCalls)) {
+    for (const [key, scriptCall] of Array.from(this.scriptCalls)) {
       scriptCall.execute(world);
     }
   }
