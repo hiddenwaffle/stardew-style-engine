@@ -3,6 +3,7 @@ import {
   UPSCALE
 } from 'src/constants';
 import { SaveEntity } from 'src/session/save';
+import { ScriptCall } from 'src/game-master/script-call';
 import timer from 'src/session/timer';
 import {
   Direction,
@@ -10,11 +11,11 @@ import {
 } from './direction';
 
 class CallTimer {
-  private readonly call: string;
+  private readonly call: ScriptCall;
   private readonly interval: number;
   private currentInterval: number;
 
-  constructor(call: string, interval: number) {
+  constructor(call: ScriptCall, interval: number) {
     this.call = call;
     this.currentInterval = this.interval = interval;
   }
@@ -69,10 +70,10 @@ export default class {
     }
   }
 
-  tryScriptCall(call: string, interval: number): boolean {
+  tryScriptCall(call: ScriptCall, interval: number): boolean {
     let allowCall = false;
-    if (!this.callTimers.has(call)) {
-      this.callTimers.set(call, new CallTimer(call, interval));
+    if (!this.callTimers.has(call.key)) {
+      this.callTimers.set(call.key, new CallTimer(call, interval));
       allowCall = true;
     }
     return allowCall;

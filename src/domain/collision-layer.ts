@@ -9,7 +9,11 @@ export default class extends TileLayer {
     super(rawLayer);
     if (rawLayer.properties) {
       this.call = rawLayer.properties.call;
-      this.callInterval = rawLayer.properties.callInterval;
+      if (rawLayer.properties.callInterval) {
+        this.callInterval = rawLayer.properties.callInterval;
+      } else {
+        this.callInterval = Number.MAX_SAFE_INTEGER; // It gets called once, in practice.
+      }
       this.passthrough = rawLayer.properties.passthrough;
     }
   }
