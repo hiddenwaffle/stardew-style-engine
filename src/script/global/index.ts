@@ -10,9 +10,9 @@ global.setHandler('sayOuch', () => {
 global.setHandler('fire', (val1: string, val2: string, ctx: ScriptCallContext) => {
   const total = parseInt(val1) + parseInt(val2);
   console.log(
-    `fire() val1: ${val1} val2: ${val2} ` +
-    `entity count: ${ctx.world.entities.size} ` +
-    `Entity IDs ${ctx.primaryEntityId} ${ctx.secondaryEntityId}` +
+    `fire() val1: ${val1} val2: ${val2}, ` +
+    `entity count: ${ctx.world.entities.size}, ` +
+    `Primary: ${ctx.primaryEntityId}, Secondary: ${ctx.secondaryEntityId}, ` +
     `Tile Layer: ${ctx.tileLayerName}`
   );
 });
