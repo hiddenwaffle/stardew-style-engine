@@ -64,11 +64,14 @@ export class ScriptCall {
 
   /**
    * A composite key that allows script batches to contain only one
-   * instance of a call between an entity and zero to one other entity or tile.
+   * instance of a call between an entity and zero to one other entity or tile layer.
+   *
+   * Notice that it does not use xtile and ytile because a collision layer
+   * is supposed to represent a single "thing" rather than tiles of "things".
    */
   get key() {
     return `${this.name}|${this.primaryEntityId}|${this.secondaryEntityId}` +
-           `${this.tileLayerName}|${this.xtile}|${this.ytile}`;
+           `${this.tileLayerName}`;
   }
 }
 
