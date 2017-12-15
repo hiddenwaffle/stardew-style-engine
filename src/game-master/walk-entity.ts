@@ -93,11 +93,6 @@ export default (world: World, entity: Entity): ScriptBatch => {
       );
       const overlapped = xExpectedPush !== 0 || yExpectedPush !== 0;
       if (overlapped) {
-        if (!tileToCheckIsAMapBoundary) {
-          // TODO: Queue scripts, if any.
-          scriptBatch.add(layer.once);
-          scriptBatch.add(layer.repeatedly);
-        }
         if (!layer.passthrough) {
           if (Math.abs(xExpectedPush) > Math.abs(xpush)) {
             xpush = xExpectedPush;
@@ -105,6 +100,11 @@ export default (world: World, entity: Entity): ScriptBatch => {
           if (Math.abs(yExpectedPush) > Math.abs(ypush)) {
             ypush = yExpectedPush;
           }
+        }
+        if (!tileToCheckIsAMapBoundary) {
+          // TODO: Queue scripts, if any.
+          scriptBatch.addOnce(layer.once);
+          scriptBatch.addRepeatedly(layer.repeatedly);
         }
       }
     }

@@ -13,7 +13,11 @@ export default class {
     }
   }
 
-  add(scriptName: string) {
+  addOnce(scriptName: string) {
+    this.scriptNames.add(scriptName);
+  }
+
+  addRepeatedly(scriptName: string) {
     this.scriptNames.add(scriptName);
   }
 }
