@@ -64,7 +64,7 @@ export class ScriptCall {
 
   /**
    * A composite key that allows script batches to contain only one
-   * instance of a call between an entity and zero to one other entity.
+   * instance of a call between an entity and zero to one other entity or tile.
    */
   get key() {
     return `${this.name}|${this.primaryEntityId}|${this.secondaryEntityId}` +

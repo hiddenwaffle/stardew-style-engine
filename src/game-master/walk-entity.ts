@@ -111,8 +111,8 @@ export default (world: World, entity: Entity): ScriptCallBatch => {
               entity.id,
               null,
               layer.name,
-              xTile,
-              yTile
+              xTileToCheck,
+              yTileToCheck
             );
             if (entity.tryScriptCall(call, layer.callInterval)) {
               scriptCallBatch.add(call);
