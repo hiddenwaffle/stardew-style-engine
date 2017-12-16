@@ -16,17 +16,9 @@ export default class {
 
   applySave(save: SaveWorld) {
     this.player.applySave(save.player);
-    this.staticMap.applySave(save.staticMap);
 
-    // TODO: Remove this?
+    // TODO: Is this the right place for it?
     this.addEntity(this.player.entity);
-
-    // TODO: Remove this
-    const other = new Entity();
-    other.x = 350;
-    other.y = 375;
-    other.name = 'other';
-    this.addEntity(other);
   }
 
   extractSave(): SaveWorld {

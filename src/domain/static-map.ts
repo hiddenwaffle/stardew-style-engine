@@ -3,6 +3,7 @@ import TileLayer from './tile-layer';
 import CollisionLayer from './collision-layer';
 import Tileset from './tileset';
 import Entity from './entity';
+import MapEntrance from './map-entrance';
 
 export default class {
   id: string;
@@ -11,6 +12,7 @@ export default class {
   tileLayers: TileLayer[];
   collisionLayers: CollisionLayer[];
   tilesets: Tileset[];
+  entrances: MapEntrance[];
 
   constructor() {
     // The default starting map
@@ -21,13 +23,13 @@ export default class {
     this.tileLayers = [];
     this.collisionLayers = [];
     this.tilesets = [];
+    this.entrances = [];
   }
 
-  fillInDetails(rawMap: any) {
+  clearAndFill(mapId: string, rawMap: any) {
+    this.id = mapId;
     this.width = rawMap.width;
     this.height = rawMap.height;
-    this.tileLayers = [];
-    this.tilesets = [];
 
     rawMap.layers.forEach((layer: any) => {
       this.parseAndAddLayers(layer);
@@ -37,10 +39,6 @@ export default class {
       const tileset = new Tileset(rawTileset);
       this.tilesets.push(tileset);
     });
-  }
-
-  applySave(save: SaveStaticMap) {
-    this.id = save.mapId;
   }
 
   extractSave(): SaveStaticMap {
@@ -61,7 +59,20 @@ export default class {
     } else if (layer.name.startsWith('@collision'))  {
       const collisionLayer = new CollisionLayer(layer);
       this.collisionLayers.push(collisionLayer);
+    } else if (layer.name === '@entrance') {
+      this.parseAndAddEntrance(layer);
     }
     // TODO: Do something else with the other layer types/names
   };
+
+  private parseAndAddEntrance(layer: any) {
+    if (!layer.objects) {
+      return;
+    }
+
+    for (const object of layer.objects) {
+      const entrance = new MapEntrance(object);
+      this.entrances.push(entrance);
+    }
+  }
 }

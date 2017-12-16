@@ -24,7 +24,15 @@ export default class {
     return this.entity.x;
   }
 
+  set x(x: number) {
+    this.entity.x = x;
+  }
+
   get y() {
     return this.entity.y;
+  }
+
+  set y(y: number) {
+    this.entity.y = y;
   }
 }

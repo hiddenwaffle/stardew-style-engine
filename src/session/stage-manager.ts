@@ -62,12 +62,12 @@ class StageManager {
   loadMap(mapId: string): Promise<StaticMap> {
     return new Promise<StaticMap>((resolve, reject) => {
       return mapLoader.fetch(mapId).then((rawMap: any) => {
-        const staticMap = this.world.staticMap;
-        staticMap.fillInDetails(rawMap);
-        staticMap.tilesets.forEach((tileset) => {
+        this.world.staticMap = new StaticMap();
+        this.world.staticMap.clearAndFill(mapId, rawMap);
+        this.world.staticMap.tilesets.forEach((tileset) => {
           imageLoader.prepare(tileset.image);
         });
-        resolve(staticMap);
+        resolve(this.world.staticMap);
         // TODO: Handle error
       });
     });
@@ -77,6 +77,7 @@ class StageManager {
     this.world = new World();
     this.world.applySave(save);
 
+    // TODO: Mirrors switch-map.ts
     this.loadMap(this.world.staticMap.id).then((staticMap) => {
       // Persistent values have been applied and ready for extraction when necessary.
       this.state = State.Ready;

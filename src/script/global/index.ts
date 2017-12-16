@@ -1,8 +1,6 @@
 import { ScriptCallContext } from 'src/game-master/script-call';
 import { ScriptHandler, ScriptNamespace } from 'src/script/script-namespace';
-
-// TODO: Replace this with sending an event?
-import stageManager from 'src/session/stage-manager';
+import switchMap from './switch-map';
 
 const global = new ScriptNamespace();
 
@@ -21,8 +19,7 @@ global.setHandler('fire', (val1: string, val2: string, ctx: ScriptCallContext) =
 });
 
 global.setHandler('switchMap', (mapName: string, entrance: string, ctx: ScriptCallContext) => {
-  console.log('switchMap', mapName, entrance);
-  stageManager.loadMap(mapName);
+  switchMap(mapName, entrance, ctx.world);
 });
 
 export default global;
