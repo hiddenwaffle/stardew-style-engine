@@ -134,7 +134,7 @@
   <object id="2" name="right" gid="844" x="384" y="137.667" width="16" height="16"/>
   <object id="3" name="left" gid="844" x="15.3333" y="137.333" width="16" height="16"/>
  </objectgroup>
- <objectgroup name="@entity-exits">
+ <objectgroup name="@exits">
   <object id="4" name="example-portal-out-1" gid="844" x="63.6667" y="80.6667" width="16" height="16">
    <properties>
     <property name="call" value="global.switchMap start center"/>

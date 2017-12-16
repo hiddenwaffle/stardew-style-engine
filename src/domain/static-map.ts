@@ -1,6 +1,7 @@
 import { SaveStaticMap } from 'src/session/save';
 import TileLayer from './tile-layer';
 import CollisionLayer from './collision-layer';
+import ObjectLayer from './object-layer';
 import Tileset from './tileset';
 import Entity from './entity';
 import MapEntrance from './map-entrance';
@@ -11,6 +12,7 @@ export default class {
   height: number;
   tileLayers: TileLayer[];
   collisionLayers: CollisionLayer[];
+  objectLayers: ObjectLayer[];
   tilesets: Tileset[];
   entrances: MapEntrance[];
 
@@ -22,6 +24,7 @@ export default class {
     this.height = 0;
     this.tileLayers = [];
     this.collisionLayers = [];
+    this.objectLayers = [];
     this.tilesets = [];
     this.entrances = [];
   }
@@ -51,23 +54,42 @@ export default class {
   }
 
   private parseAndAddLayers(layer: any) {
-    if (layer.type === 'tilelayer' && !layer.name.startsWith('@')) {
+    switch (layer.type) {
+      case 'tilelayer':
+        this.parseAndAddTileLayer(layer);
+        break;
+      case 'objectgroup':
+        this.parseAndAddObjectGroupLayer(layer);
+        break;
+      case 'group':
+        this.parseAndAddGroupLayer(layer);
+        break;
+      // TODO: Do something else with the other layer types/names
+      default:
+        console.warn(`Unknown layer type ${layer.type}`);
+        break;
+    }
+  };
+
+  private parseAndAddTileLayer(layer: any) {
+    if (layer.name.startsWith('@collision')) {
+      this.parseAndAddCollisionLayer(layer);
+    } else {
       const tileLayer = new TileLayer(layer);
       this.tileLayers.push(tileLayer);
-    } else if (layer.type === 'group') {
-      layer.layers.forEach((sublayer: any) => {
-        this.parseAndAddLayers(sublayer);
-      });
-    } else if (layer.name.startsWith('@entity')) {
-      //
-    } else if (layer.name.startsWith('@collision'))  {
-      const collisionLayer = new CollisionLayer(layer);
-      this.collisionLayers.push(collisionLayer);
-    } else if (layer.name === '@entrances') {
+    }
+  }
+
+  private parseAndAddCollisionLayer(layer: any) {
+    const collisionLayer = new CollisionLayer(layer);
+    this.collisionLayers.push(collisionLayer);
+  }
+
+  private parseAndAddObjectGroupLayer(layer: any) {
+    if (layer.name === '@entrances') {
       this.parseAndAddEntrance(layer);
     }
-    // TODO: Do something else with the other layer types/names
-  };
+  }
 
   private parseAndAddEntrance(layer: any) {
     if (!layer.objects) {
@@ -78,5 +100,11 @@ export default class {
       const entrance = new MapEntrance(object);
       this.entrances.push(entrance);
     }
+  }
+
+  private parseAndAddGroupLayer(layer: any) {
+    layer.layers.forEach((sublayer: any) => {
+      this.parseAndAddLayers(sublayer);
+    });
   }
 }
