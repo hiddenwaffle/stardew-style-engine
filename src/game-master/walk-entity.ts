@@ -127,6 +127,7 @@ export default (world: World, entity: Entity): WalkResult => {
   // If the entity moved out of a layer on which the entity
   // had an active call timer, cancel that timer.
   entity.clearCallTimersNotInLayers(walkResult.collisionTileLayers);
+  // TODO: entity.clearCallTimersNotInObjects(walkResult.collisionObjects); // <--- would this work?
 
   const solidCollisionOccurred = (xpush !== 0 && ypush === 0) || (xpush === 0 && ypush !== 0);
 
