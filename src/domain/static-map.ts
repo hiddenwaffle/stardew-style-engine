@@ -1,20 +1,22 @@
 import { SaveStaticMap } from 'src/session/save';
 import TileLayer from './tile-layer';
 import CollisionLayer from './collision-layer';
-import ObjectLayer from './object-layer';
 import Tileset from './tileset';
 import Entity from './entity';
 import MapEntrance from './map-entrance';
+import ObjectHint from './object-hint';
 
 export default class {
   id: string;
   width: number;
   height: number;
+
   tileLayers: TileLayer[];
   collisionLayers: CollisionLayer[];
-  objectLayers: ObjectLayer[];
-  tilesets: Tileset[];
   entrances: MapEntrance[];
+  objectHints: ObjectHint[];
+
+  tilesets: Tileset[];
 
   constructor() {
     // The default starting map
@@ -24,9 +26,9 @@ export default class {
     this.height = 0;
     this.tileLayers = [];
     this.collisionLayers = [];
-    this.objectLayers = [];
-    this.tilesets = [];
     this.entrances = [];
+    this.objectHints = [];
+    this.tilesets = [];
   }
 
   applySave(save: SaveStaticMap) {
@@ -86,19 +88,31 @@ export default class {
   }
 
   private parseAndAddObjectGroupLayer(layer: any) {
-    if (layer.name === '@entrances') {
-      this.parseAndAddEntrance(layer);
+    switch (layer.name) {
+      case '@entrances':
+        this.parseAndAddEntrance(layer);
+        break;
+      default:
+        this.parseAndAddObjectHints(layer);
+        break;
     }
   }
 
   private parseAndAddEntrance(layer: any) {
-    if (!layer.objects) {
-      return;
+    if (layer.objects) {
+      for (const object of layer.objects) {
+        const entrance = new MapEntrance(object);
+        this.entrances.push(entrance);
+      }
     }
+  }
 
-    for (const object of layer.objects) {
-      const entrance = new MapEntrance(object);
-      this.entrances.push(entrance);
+  private parseAndAddObjectHints(layer: any) {
+    if (layer.objects) {
+      for (const object of layer.objects) {
+        const hint = new ObjectHint(object);
+        this.objectHints.push(hint);
+      }
     }
   }
 

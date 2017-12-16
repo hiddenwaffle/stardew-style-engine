@@ -6,12 +6,12 @@ export default class {
   readonly height: number;
   readonly tiles: number[];
 
-  constructor(rawLayer: any) {
-    this.name = rawLayer.name;
-    this.x = rawLayer.x;
-    this.y = rawLayer.y;
-    this.width = rawLayer.width;
-    this.height = rawLayer.height;
-    this.tiles = rawLayer.data;
+  constructor(layer: any) {
+    this.name = layer.name;
+    this.x = layer.x;
+    this.y = layer.y;
+    this.width = layer.width;
+    this.height = layer.height;
+    this.tiles = layer.data;
   }
 }

@@ -6,6 +6,7 @@ export default class {
   readonly y: number;
 
   /**
+   * (See object-hint.ts)
    * x needs to be aligned to the center,
    * y is already aligned to the bottom.
    */

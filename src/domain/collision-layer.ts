@@ -8,13 +8,14 @@ export default class extends TileLayer {
   constructor(rawLayer: any) {
     super(rawLayer);
     if (rawLayer.properties) {
+      // TODO: This mirrors object-hint.ts
       this.call = rawLayer.properties.call;
       if (rawLayer.properties.callInterval) {
         this.callInterval = rawLayer.properties.callInterval;
       } else {
         this.callInterval = Number.MAX_SAFE_INTEGER; // It gets called once, in practice.
       }
-      this.passthrough = rawLayer.properties.passthrough;
+      this.passthrough = rawLayer.properties.passthrough || false;
     }
   }
 }
