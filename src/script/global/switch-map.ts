@@ -5,14 +5,9 @@ import stageManager from 'src/session/stage-manager';
 // TODO: Mirrors stage-manager.applySave()
 export default (mapName: string, entranceName: string, world: World) => {
   stageManager.loadMap(mapName).then((staticMap: StaticMap) => {
-    let entrance;
-    if (!entranceName) {
-      entrance = staticMap.entrances[0];
-    } else {
-      entrance = staticMap.entrances.find((entrance) => {
-        return entrance.name === entranceName;
-      });
-    }
+    const entrance = staticMap.entrances.find((entrance) => {
+      return entrance.name === entranceName;
+    });
 
     if (entrance) {
       world.player.x = entrance.x;
