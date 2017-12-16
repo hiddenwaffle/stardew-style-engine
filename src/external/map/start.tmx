@@ -289,7 +289,7 @@
 17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17
 </data>
  </layer>
- <objectgroup name="@entity">
+ <objectgroup name="skulls">
   <object id="26" name="scary-skull" gid="2864" x="226.667" y="154.333" width="16" height="16"/>
  </objectgroup>
  <objectgroup name="@entrances">
