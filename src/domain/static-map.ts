@@ -63,7 +63,7 @@ export default class {
     } else if (layer.name.startsWith('@collision'))  {
       const collisionLayer = new CollisionLayer(layer);
       this.collisionLayers.push(collisionLayer);
-    } else if (layer.name === '@entrance') {
+    } else if (layer.name === '@entrances') {
       this.parseAndAddEntrance(layer);
     }
     // TODO: Do something else with the other layer types/names

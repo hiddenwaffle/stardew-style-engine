@@ -76,7 +76,7 @@
         }, 
         {
          "draworder":"topdown",
-         "name":"@entrance",
+         "name":"@entrances",
          "objects":[
                 {
                  "gid":844,
@@ -122,7 +122,7 @@
         }, 
         {
          "draworder":"topdown",
-         "name":"@entity",
+         "name":"@entity-exits",
          "objects":[
                 {
                  "gid":844,
