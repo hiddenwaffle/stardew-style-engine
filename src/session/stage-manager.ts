@@ -11,6 +11,7 @@ import {
 } from './save';
 import environment from './environment';
 import persistence from './persistence';
+import placeEntities from './place-entities';
 
 const enum State {
   Initializing,
@@ -67,6 +68,7 @@ class StageManager {
         this.world.staticMap.tilesets.forEach((tileset) => {
           imageLoader.prepare(tileset.image);
         });
+        placeEntities(this.world);
         resolve(this.world.staticMap);
         // TODO: Handle error
       });

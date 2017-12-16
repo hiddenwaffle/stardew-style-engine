@@ -290,7 +290,11 @@
 </data>
  </layer>
  <objectgroup name="skulls">
-  <object id="26" name="scary-skull" gid="2864" x="226.667" y="154.333" width="16" height="16"/>
+  <object id="26" name="scary-skull" gid="2864" x="226.667" y="154.333" width="16" height="16">
+   <properties>
+    <property name="call" value="global.sayOuch"/>
+   </properties>
+  </object>
  </objectgroup>
  <objectgroup name="@entrances">
   <object id="47" name="center" gid="844" x="111" y="107" width="16" height="16"/>
