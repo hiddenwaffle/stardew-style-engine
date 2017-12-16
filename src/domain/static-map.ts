@@ -35,7 +35,7 @@ export default class {
     this.id = save.mapId;
   }
 
-  clearAndFill(mapId: string, rawMap: any) {
+  fill(mapId: string, rawMap: any) {
     this.id = mapId;
     this.width = rawMap.width;
     this.height = rawMap.height;

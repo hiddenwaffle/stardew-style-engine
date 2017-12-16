@@ -63,7 +63,7 @@ class StageManager {
     return new Promise<StaticMap>((resolve, reject) => {
       return mapLoader.fetch(mapId).then((rawMap: any) => {
         this.world.staticMap = new StaticMap();
-        this.world.staticMap.clearAndFill(mapId, rawMap);
+        this.world.staticMap.fill(mapId, rawMap);
         this.world.staticMap.tilesets.forEach((tileset) => {
           imageLoader.prepare(tileset.image);
         });
