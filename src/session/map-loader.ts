@@ -26,7 +26,7 @@ class MapLoader {
         fetch(path).then((response) => {
           return response.json();
         }).then((fetchedRawMap: any) => {
-          this.rawMaps.set(path, rawMap);
+          this.rawMaps.set(path, fetchedRawMap);
           resolve(fetchedRawMap);
         }); // TODO: Handle error?
       }
