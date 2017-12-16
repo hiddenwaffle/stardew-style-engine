@@ -1,6 +1,7 @@
 import StaticMap from 'src/domain/static-map';
 
-import start from 'src/external/map/start.map.json';
+import start  from 'src/external/map/start.map.json';
+import town   from 'src/external/map/town.map.json';
 // TODO: More maps
 
 class MapLoader {
@@ -12,6 +13,7 @@ class MapLoader {
 
     this.paths = new Map();
     this.paths.set('start', start);
+    this.paths.set('town', town);
   }
 
   fetch(mapId: string): Promise<any> {

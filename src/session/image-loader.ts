@@ -1,5 +1,7 @@
 import { DEFAULT_FIELD_TILE_SIZE } from 'src/constants';
 
+import scroll   from 'src/external/DawnLike/Items/Scroll.png';
+
 import decor0   from 'src/external/DawnLike/Objects/Decor0.png';
 import decor1   from 'src/external/DawnLike/Objects/Decor1.png';
 import door0    from 'src/external/DawnLike/Objects/Door0.png';
@@ -69,6 +71,7 @@ class ImageLoader {
     this.sheets = new Map();
 
     this.configs = new Map();
+    this.configs.set('Scroll.png',  genConfig(scroll));
     this.configs.set('Decor0.png',  genConfig(decor0));
     this.configs.set('Decor1.png',  genConfig(decor1));
     this.configs.set('Door0.png',   genConfig(door0));
