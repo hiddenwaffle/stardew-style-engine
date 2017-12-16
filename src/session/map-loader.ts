@@ -1,5 +1,3 @@
-import StaticMap from 'src/domain/static-map';
-
 import start  from 'src/external/map/start.map.json';
 import town   from 'src/external/map/town.map.json';
 // TODO: More maps
