@@ -175,7 +175,7 @@
         }, 
         {
          "draworder":"topdown",
-         "name":"@entrance",
+         "name":"@entrances",
          "objects":[
                 {
                  "gid":844,

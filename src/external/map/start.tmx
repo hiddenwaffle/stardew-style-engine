@@ -292,7 +292,7 @@
  <objectgroup name="@entity">
   <object id="26" name="scary-skull" gid="2864" x="226.667" y="154.333" width="16" height="16"/>
  </objectgroup>
- <objectgroup name="@entrance">
+ <objectgroup name="@entrances">
   <object id="47" name="center" gid="844" x="111" y="107" width="16" height="16"/>
  </objectgroup>
 </map>
