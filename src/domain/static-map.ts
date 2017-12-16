@@ -26,6 +26,10 @@ export default class {
     this.entrances = [];
   }
 
+  applySave(save: SaveStaticMap) {
+    this.id = save.mapId;
+  }
+
   clearAndFill(mapId: string, rawMap: any) {
     this.id = mapId;
     this.width = rawMap.width;

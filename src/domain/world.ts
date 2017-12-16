@@ -16,6 +16,7 @@ export default class {
 
   applySave(save: SaveWorld) {
     this.player.applySave(save.player);
+    this.staticMap.applySave(save.staticMap);
 
     // TODO: Is this the right place for it?
     this.addEntity(this.player.entity);
