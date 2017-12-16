@@ -61,6 +61,7 @@ class StageManager {
   }
 
   loadMap(mapId: string): Promise<StaticMap> {
+    this.world.clearEntities();
     return new Promise<StaticMap>((resolve, reject) => {
       return mapLoader.fetch(mapId).then((rawMap: any) => {
         this.world.staticMap = new StaticMap();

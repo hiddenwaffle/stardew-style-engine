@@ -103,17 +103,14 @@ class Render {
           }
         }
 
-        const entityArray = Array.from(world.entities).map(([id, entity]) => {
-          return entity;
-        });
-
-        entityArray.sort((a, b) => {
-          return a.y - b.y;
-        });
+        const entities = world.entitiesSortedByY();
 
         // Entity coordinates are already upscaled
-        entityArray.forEach((entity) => {
-          const sheet = imageLoader.get('antifarea');
+        entities.forEach((entity) => {
+          const [sheet, sourceX, sourceY] = determineImageAndCoordinate(
+            staticMap.tilesets,
+            entity.defaultTile
+          );
           if (sheet) {
             const originalTileWidth = sheet.config.tileWidth;
             const originalTileHeight = sheet.config.tileHeight;
@@ -133,8 +130,8 @@ class Render {
 
             ctxBack.drawImage(
               sheet.image,
-              0 * originalTileWidth,
-              44 * originalTileHeight,
+              sourceX,
+              sourceY,
               originalTileWidth,
               originalTileHeight,
               destination3X,

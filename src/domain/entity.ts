@@ -52,6 +52,7 @@ export default class {
   boundingWidth: number;
   boundingHeight: number;
   callTimers: Map<string, CallTimer>;
+  defaultTile: number;
 
   constructor() {
     this.calculateId();
@@ -63,6 +64,7 @@ export default class {
     this.boundingWidth  = TARGET_FIELD_TILE_SIZE - 4;
     this.boundingHeight = TARGET_FIELD_TILE_SIZE - 4;
     this.callTimers = new Map();
+    this.defaultTile = 2000; // TODO: Set this back to zero once player animations are set.
   }
 
   clearExpiredCallTimers() {

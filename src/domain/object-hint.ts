@@ -9,6 +9,7 @@ export default class {
   readonly call: string;
   readonly callInterval: number;
   readonly solid: boolean;
+  readonly defaultTile: number;
 
   constructor(object: any) {
     this.name = object.name;
@@ -31,6 +32,7 @@ export default class {
       }
 
       this.solid = object.properties.solid || false;
+      this.defaultTile = object.gid;
     }
   }
 }
