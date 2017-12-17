@@ -41,7 +41,7 @@ export default (world: World) => {
         }
       }
     }
-    entity.clearCallTimersNotInObjects(collisionSecondaryEntityIds);
+    entity.clearCallTimersNotInSecondaryEntityIds(collisionSecondaryEntityIds);
   }
 }
 

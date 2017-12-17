@@ -84,11 +84,11 @@ export default class {
     }
   }
 
-  clearCallTimersNotInLayers(layers: string[]) {
+  clearCallTimersNotInLayersNames(layerNames: string[]) {
     const keys: string[] = [];
     for (const [key, callTimer] of Array.from(this.callTimers)) {
       if (callTimer.tileLayerName) {
-        const notFound = !layers.includes(callTimer.tileLayerName);
+        const notFound = !layerNames.includes(callTimer.tileLayerName);
         if (notFound) {
           keys.push(key);
         }
@@ -99,7 +99,7 @@ export default class {
     }
   }
 
-  clearCallTimersNotInObjects(collisionSecondaryEntityIds: number[]) {
+  clearCallTimersNotInSecondaryEntityIds(collisionSecondaryEntityIds: number[]) {
     const keys: string[] = [];
     for (const [key, callTimer] of Array.from(this.callTimers)) {
       if (callTimer.secondaryEntityId) {
