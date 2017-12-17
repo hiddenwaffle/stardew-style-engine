@@ -17,6 +17,7 @@ export default (world: World) => {
     entity.entityToEntityCollisionCallInterval = objectHint.callInterval;
     entity.defaultTile = objectHint.defaultTile;
     entity.hidden = objectHint.hidden;
+    entity.pushable = objectHint.pushable;
 
     world.addEntity(entity);
   }

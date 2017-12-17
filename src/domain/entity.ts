@@ -56,6 +56,7 @@ export default class {
   callTimers: Map<string, CallTimer>;
   defaultTile: number;
   hidden: boolean;
+  pushable: boolean;
 
   constructor() {
     this.calculateId();
@@ -71,6 +72,7 @@ export default class {
     this.callTimers = new Map();
     this.defaultTile = 2000; // TODO: Set this back to zero once player animations are set.
     this.hidden = false;
+    this.pushable = false;
   }
 
   clearExpiredCallTimers() {

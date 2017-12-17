@@ -96,7 +96,7 @@ export default (world: World, entity: Entity): WalkResult => {
       );
       const overlapped = xExpectedPush !== 0 || yExpectedPush !== 0;
       if (overlapped) {
-        if (!layer.passthrough) {
+        if (!layer.passthrough && entity.pushable) {
           if (Math.abs(xExpectedPush) > Math.abs(xpush)) {
             xpush = xExpectedPush;
           }

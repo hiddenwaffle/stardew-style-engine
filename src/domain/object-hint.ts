@@ -10,6 +10,7 @@ export default class {
   readonly callInterval: number;
   readonly defaultTile: number;
   readonly hidden: boolean;
+  readonly pushable: boolean;
 
   constructor(object: any) {
     this.name = object.name;
@@ -33,6 +34,7 @@ export default class {
       }
 
       this.hidden = object.properties.hidden;
+      this.pushable = object.properties.pushable || false;
     }
   }
 }

@@ -162,23 +162,25 @@
                  "gid":844,
                  "height":16,
                  "id":48,
-                 "name":"to-town",
+                 "name":"to-town-misaligned",
                  "properties":
                     {
                      "call":"global.switchMap town bottom",
-                     "hidden":true
+                     "hidden":false,
+                     "pushable":false
                     },
                  "propertytypes":
                     {
                      "call":"string",
-                     "hidden":"bool"
+                     "hidden":"bool",
+                     "pushable":"bool"
                     },
                  "rotation":0,
                  "type":"",
                  "visible":true,
                  "width":16,
-                 "x":64.3333333333334,
-                 "y":50.6666666666667
+                 "x":57.3333333333334,
+                 "y":51.6666666666667
                 }],
          "opacity":1,
          "type":"objectgroup",

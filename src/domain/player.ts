@@ -8,6 +8,8 @@ export default class {
 
   constructor() {
     this.entity = new Entity();
+    // TODO: Best place for this?
+    this.entity.pushable = true;
   }
 
   applySave(save: SavePlayer) {
