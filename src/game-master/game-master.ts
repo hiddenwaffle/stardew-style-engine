@@ -1,5 +1,8 @@
 import World from 'src/domain/world';
 import walkEntity from './walk-entity';
+import {
+  ScriptCall
+} from './script-call';
 
 class GameMaster {
   /**
@@ -62,7 +65,16 @@ function checkEntityToEntityOverlap(world: World) {
           left, right, top, bottom,
           leftOther, rightOther, topOther, bottomOther)
         ) {
-          // TODO: Do something about the entity-entity intersection.
+          if (entity.entityToEntityCollisionCall) {
+            const call = new ScriptCall(
+              entity.entityToEntityCollisionCall,
+              entity.id,
+              other.id
+            );
+            if (entity.tryScriptCall(call, entity.entityToEntityCollisionCallInterval)) {
+              call.execute(world);
+            }
+          }
         }
       }
     }

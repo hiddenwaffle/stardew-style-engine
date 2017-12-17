@@ -51,6 +51,8 @@ export default class {
   speed: number;
   boundingWidth: number;
   boundingHeight: number;
+  entityToEntityCollisionCall: string;
+  entityToEntityCollisionCallInterval: number;
   callTimers: Map<string, CallTimer>;
   defaultTile: number;
 
@@ -63,6 +65,8 @@ export default class {
     this.speed = 90 * UPSCALE; // TODO: Variable speed entities
     this.boundingWidth  = TARGET_FIELD_TILE_SIZE - 4;
     this.boundingHeight = TARGET_FIELD_TILE_SIZE - 4;
+    this.entityToEntityCollisionCall = null;
+    this.entityToEntityCollisionCallInterval = Number.MAX_SAFE_INTEGER; // Default to 'once'.
     this.callTimers = new Map();
     this.defaultTile = 2000; // TODO: Set this back to zero once player animations are set.
   }
