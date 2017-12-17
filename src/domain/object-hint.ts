@@ -8,7 +8,6 @@ export default class {
   readonly height: number;
   readonly call: string;
   readonly callInterval: number;
-  readonly solid: boolean;
   readonly defaultTile: number;
 
   constructor(object: any) {
@@ -31,7 +30,6 @@ export default class {
         this.callInterval = Number.MAX_SAFE_INTEGER; // It gets called once, in practice.
       }
 
-      this.solid = object.properties.solid || false;
       this.defaultTile = object.gid;
     }
   }
