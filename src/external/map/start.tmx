@@ -293,6 +293,7 @@
   <object id="26" name="scary-skull" gid="2864" x="226.667" y="154.333" width="16" height="16">
    <properties>
     <property name="call" value="global.sayOuch"/>
+    <property name="callInterval" type="int" value="1000"/>
    </properties>
   </object>
  </objectgroup>
