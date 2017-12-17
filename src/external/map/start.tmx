@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" tiledversion="1.0.3" orientation="orthogonal" renderorder="right-down" width="20" height="19" tilewidth="16" tileheight="16" nextobjectid="48">
+<map version="1.0" tiledversion="1.0.3" orientation="orthogonal" renderorder="right-down" width="20" height="19" tilewidth="16" tileheight="16" nextobjectid="49">
  <tileset firstgid="1" name="Floor" tilewidth="16" tileheight="16" tilecount="819" columns="21">
   <image source="../DawnLike/Objects/Floor.png" width="336" height="624"/>
  </tileset>
@@ -240,37 +240,11 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
- <layer name="@collision-door" width="20" height="19" opacity="0.8">
-  <properties>
-   <property name="call" value="global.switchMap town bottom"/>
-  </properties>
-  <data encoding="csv">
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,852,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-</data>
- </layer>
  <layer name="@collision" width="20" height="19" opacity="0.5">
   <data encoding="csv">
 0,0,0,0,0,0,0,0,0,835,0,835,835,835,835,835,835,835,835,835,
 0,0,0,835,835,835,0,0,0,0,0,835,835,835,835,835,835,835,835,835,
-0,0,0,835,835,835,0,0,835,0,0,835,835,835,835,835,835,835,835,835,
+0,0,0,835,0,835,0,0,835,0,0,835,835,835,835,835,835,835,835,835,
 0,0,0,835,0,835,0,0,0,0,0,0,0,0,835,835,835,835,835,835,
 0,0,0,0,0,0,0,0,0,0,0,835,0,0,0,0,0,835,835,835,
 0,0,0,0,0,0,0,0,0,0,0,0,0,835,0,835,0,835,835,835,
@@ -289,11 +263,16 @@
 17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17
 </data>
  </layer>
- <objectgroup name="skulls">
+ <objectgroup name="entities">
   <object id="26" name="scary-skull" gid="2864" x="226.667" y="154.333" width="16" height="16">
    <properties>
     <property name="call" value="global.sayOuch"/>
     <property name="callInterval" type="int" value="1000"/>
+   </properties>
+  </object>
+  <object id="48" name="to-town" gid="844" x="64.3333" y="50.6667" width="16" height="16">
+   <properties>
+    <property name="call" value="global.switchMap town bottom"/>
    </properties>
   </object>
  </objectgroup>
