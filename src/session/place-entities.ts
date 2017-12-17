@@ -7,6 +7,7 @@ export default (world: World) => {
 
   for (const objectHint of world.staticMap.objectHints) {
     const entity = new Entity();
+    entity.name = objectHint.name;
     entity.x = objectHint.x;
     entity.y = objectHint.y;
     entity.boundingWidth = objectHint.width;

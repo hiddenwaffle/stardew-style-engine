@@ -20,6 +20,12 @@ export default (world: World, entity: Entity): WalkResult => {
   const xprojected = entity.x + entity.dxIntended * speed;
   const yprojected = entity.y + entity.dyIntended * speed;
 
+  // Calculate bounding box -- center x to middle and y to bottom.
+  const left    = xprojected - entity.boundingWidth / 2;
+  const right   = xprojected + entity.boundingWidth / 2;
+  const top     = yprojected - entity.boundingHeight;
+  const bottom  = yprojected + 1; // +1 to prevent entity's y to be on a solid tile directly below the entity.
+
   const xTile = Math.floor(entity.x / TARGET_FIELD_TILE_SIZE);
   const yTile = Math.floor(entity.y / TARGET_FIELD_TILE_SIZE);
 
@@ -76,12 +82,6 @@ export default (world: World, entity: Entity): WalkResult => {
         const staeRow = (yTileToCheck - yTile) + 1;
         solidTilesAroundEntity[staeRow][staeCol] = true;
       }
-
-      // Calculate bounding box -- center x to middle and y to bottom.
-      const left    = xprojected - entity.boundingWidth / 2;
-      const right   = xprojected + entity.boundingWidth / 2;
-      const top     = yprojected - entity.boundingHeight;
-      const bottom  = yprojected + 1; // +1 to prevent entity's y to be on a solid tile directly below the entity.
 
       // Convert tile to upscaled pixel space.
       const leftTile   =  xTileToCheck      * TARGET_FIELD_TILE_SIZE;
