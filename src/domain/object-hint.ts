@@ -18,8 +18,8 @@ export default class {
     // y is already aligned to the bottom.
     this.x = (object.x + object.width / 2) * UPSCALE;
     this.y = object.y * UPSCALE;
-    this.width * UPSCALE;
-    this.height * UPSCALE;
+    this.width = object.width * UPSCALE;
+    this.height = object.width * UPSCALE;
 
     if (object.properties) {
       // TODO: This mirrors collision-layer.ts
