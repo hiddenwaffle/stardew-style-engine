@@ -90,18 +90,17 @@ export class ScriptCallBatch {
   //   for (const keyToRemove of keysToRemove) {
   //     this.scriptCalls.delete(keyToRemove);
   //   }
+  // // }
+  // removeBySecondaryEntityId(secondaryEntityId: number) {
+  //   const keysToRemove: string[] = [];
+  //   for (const [key, scriptCall] of Array.from(this.scriptCalls)) {
+  //     if (scriptCall.secondaryEntityId && // Skips calls not associated with a secondary entity.
+  //         scriptCall.secondaryEntityId === secondaryEntityId) {
+  //       keysToRemove.push(key);
+  //     }
+  //   }
+  //   for (const keyToRemove of keysToRemove) {
+  //     this.scriptCalls.delete(keyToRemove);
+  //   }
   // }
-
-  removeBySecondaryEntityId(secondaryEntityId: number) {
-    const keysToRemove: string[] = [];
-    for (const [key, scriptCall] of Array.from(this.scriptCalls)) {
-      if (scriptCall.secondaryEntityId && // Skips calls not associated with a secondary entity.
-          scriptCall.secondaryEntityId === secondaryEntityId) {
-        keysToRemove.push(key);
-      }
-    }
-    for (const keyToRemove of keysToRemove) {
-      this.scriptCalls.delete(keyToRemove);
-    }
-  }
 }
