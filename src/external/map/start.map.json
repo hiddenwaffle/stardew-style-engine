@@ -165,11 +165,13 @@
                  "name":"to-town",
                  "properties":
                     {
-                     "call":"global.switchMap town bottom"
+                     "call":"global.switchMap town bottom",
+                     "hidden":true
                     },
                  "propertytypes":
                     {
-                     "call":"string"
+                     "call":"string",
+                     "hidden":"bool"
                     },
                  "rotation":0,
                  "type":"",

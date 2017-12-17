@@ -273,6 +273,7 @@
   <object id="48" name="to-town" gid="844" x="64.3333" y="50.6667" width="16" height="16">
    <properties>
     <property name="call" value="global.switchMap town bottom"/>
+    <property name="hidden" type="bool" value="true"/>
    </properties>
   </object>
  </objectgroup>

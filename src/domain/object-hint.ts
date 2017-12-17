@@ -9,9 +9,11 @@ export default class {
   readonly call: string;
   readonly callInterval: number;
   readonly defaultTile: number;
+  readonly hidden: boolean;
 
   constructor(object: any) {
     this.name = object.name;
+    this.defaultTile = object.gid;
 
     // (See map-entrance.ts)
     // x needs to be aligned to the center,
@@ -30,7 +32,7 @@ export default class {
         this.callInterval = Number.MAX_SAFE_INTEGER; // It gets called once, in practice.
       }
 
-      this.defaultTile = object.gid;
+      this.hidden = object.properties.hidden;
     }
   }
 }

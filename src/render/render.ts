@@ -128,17 +128,19 @@ class Render {
             const destination3X = destination2X + FIELD_TARGET_WIDTH  / 2;
             const destination3Y = destination2Y + FIELD_TARGET_HEIGHT / 2;
 
-            ctxBack.drawImage(
-              sheet.image,
-              sourceX,
-              sourceY,
-              originalTileWidth,
-              originalTileHeight,
-              destination3X,
-              destination3Y,
-              targetTileWidth,
-              targetTileHeight
-            );
+            if (!entity.hidden) {
+              ctxBack.drawImage(
+                sheet.image,
+                sourceX,
+                sourceY,
+                originalTileWidth,
+                originalTileHeight,
+                destination3X,
+                destination3Y,
+                targetTileWidth,
+                targetTileHeight
+              );
+            }
 
             // TODO: Remove this debug
             ctxBack.strokeStyle = 'yellow';

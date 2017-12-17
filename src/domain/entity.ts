@@ -55,6 +55,7 @@ export default class {
   entityToEntityCollisionCallInterval: number;
   callTimers: Map<string, CallTimer>;
   defaultTile: number;
+  hidden: boolean;
 
   constructor() {
     this.calculateId();
@@ -69,6 +70,7 @@ export default class {
     this.entityToEntityCollisionCallInterval = Number.MAX_SAFE_INTEGER; // Default to 'once'.
     this.callTimers = new Map();
     this.defaultTile = 2000; // TODO: Set this back to zero once player animations are set.
+    this.hidden = false;
   }
 
   clearExpiredCallTimers() {
