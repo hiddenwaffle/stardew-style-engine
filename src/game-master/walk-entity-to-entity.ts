@@ -41,7 +41,6 @@ export default (world: World) => {
         }
       }
     }
-    // TODO: Keep track of collisions - run something like entity.clearCallTimersNotInObjects(others)
     entity.clearCallTimersNotInObjects(collisionSecondaryEntityIds);
   }
 }
