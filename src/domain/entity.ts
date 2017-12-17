@@ -33,11 +33,11 @@ class CallTimer {
   }
 
   get tileLayerName(): string {
-    if (this.call && this.call.tileLayerName) {
-      return this.call.tileLayerName;
-    } else {
-      return null;
-    }
+    return this.call && this.call.tileLayerName || null;
+  }
+
+  get secondaryEntityId(): number {
+     return this.call && this.call.secondaryEntityId || null;
   }
 }
 
@@ -87,9 +87,26 @@ export default class {
   clearCallTimersNotInLayers(layers: string[]) {
     const keys: string[] = [];
     for (const [key, callTimer] of Array.from(this.callTimers)) {
-      const notFound = !layers.includes(callTimer.tileLayerName);
-      if (notFound) {
-        keys.push(key);
+      if (callTimer.tileLayerName) {
+        const notFound = !layers.includes(callTimer.tileLayerName);
+        if (notFound) {
+          keys.push(key);
+        }
+      }
+    }
+    for (const key of keys) {
+      this.callTimers.delete(key);
+    }
+  }
+
+  clearCallTimersNotInObjects(collisionSecondaryEntityIds: number[]) {
+    const keys: string[] = [];
+    for (const [key, callTimer] of Array.from(this.callTimers)) {
+      if (callTimer.secondaryEntityId) {
+        const notFound = !collisionSecondaryEntityIds.includes(callTimer.secondaryEntityId);
+        if (notFound) {
+          keys.push(key);
+        }
       }
     }
     for (const key of keys) {

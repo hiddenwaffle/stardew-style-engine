@@ -6,6 +6,7 @@ import { ScriptCall } from './script-call';
  * Warning: Uses the same bounding box calculation as walk-entity.ts
  */
 export default (world: World) => {
+  const collisionSecondaryEntityIds: number[] = [];
   for (const entity of world.entities) {
     // Calculate bounding box -- center x to middle and y to bottom.
     const left    = entity.x - entity.boundingWidth / 2;
@@ -26,6 +27,7 @@ export default (world: World) => {
           left, right, top, bottom,
           leftOther, rightOther, topOther, bottomOther)
         ) {
+          collisionSecondaryEntityIds.push(other.id);
           if (entity.entityToEntityCollisionCall) {
             const call = new ScriptCall(
               entity.entityToEntityCollisionCall,
@@ -39,8 +41,9 @@ export default (world: World) => {
         }
       }
     }
+    // TODO: Keep track of collisions - run something like entity.clearCallTimersNotInObjects(others)
+    entity.clearCallTimersNotInObjects(collisionSecondaryEntityIds);
   }
-  // TODO: Keep track of collisions - run something like entity.clearCallTimersNotInObjects(others)
 }
 
 /**

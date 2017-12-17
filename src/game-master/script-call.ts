@@ -23,7 +23,7 @@ export class ScriptCallContext {
 export class ScriptCall {
   private readonly name: string;
   private readonly primaryEntityId: number;
-  private readonly secondaryEntityId: number;
+  readonly secondaryEntityId: number;
   readonly tileLayerName: string;
 
   constructor(
@@ -78,10 +78,25 @@ export class ScriptCallBatch {
     this.scriptCalls.set(scriptCall.key, scriptCall);
   }
 
-  removeByTileLayerName(tileLayerName: string) {
+  // // TODO: DEPRECATED?
+  // removeByTileLayerName(tileLayerName: string) {
+  //   const keysToRemove: string[] = [];
+  //   for (const [key, scriptCall] of Array.from(this.scriptCalls)) {
+  //     if (scriptCall.tileLayerName && // Skips calls not associated with a layer.
+  //         scriptCall.tileLayerName === tileLayerName) {
+  //       keysToRemove.push(key);
+  //     }
+  //   }
+  //   for (const keyToRemove of keysToRemove) {
+  //     this.scriptCalls.delete(keyToRemove);
+  //   }
+  // }
+
+  removeBySecondaryEntityId(secondaryEntityId: number) {
     const keysToRemove: string[] = [];
     for (const [key, scriptCall] of Array.from(this.scriptCalls)) {
-      if (scriptCall.tileLayerName === tileLayerName) {
+      if (scriptCall.secondaryEntityId && // Skips calls not associated with a secondary entity.
+          scriptCall.secondaryEntityId === secondaryEntityId) {
         keysToRemove.push(key);
       }
     }

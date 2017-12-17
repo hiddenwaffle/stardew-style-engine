@@ -14,6 +14,7 @@ export default (world: World) => {
     entity.boundingWidth = objectHint.width;
     entity.boundingHeight = objectHint.height;
     entity.entityToEntityCollisionCall = objectHint.call;
+    entity.entityToEntityCollisionCallInterval = objectHint.callInterval;
     entity.defaultTile = objectHint.defaultTile;
 
     world.addEntity(entity);
