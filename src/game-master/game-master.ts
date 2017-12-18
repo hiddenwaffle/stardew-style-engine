@@ -1,4 +1,5 @@
 import World from 'src/domain/world';
+import { Direction } from 'src/domain/direction';
 import walkEntityToTiles from './walk-entity-to-tiles';
 import walkEntityToEntity from './walk-entity-to-entity';
 
@@ -28,6 +29,12 @@ class GameMaster {
     });
 
     walkEntityToEntity(world);
+
+    world.player.facing = calculateFacing(
+      world.player.entity.dxIntended,
+      world.player.entity.dyIntended,
+      world.player.facing
+    );
   }
 
   setPlayerIntendedDirection(dxIntended: number, dyIntended: number) {
@@ -37,3 +44,48 @@ class GameMaster {
 }
 
 export default new GameMaster();
+
+function calculateFacing(
+  dx: number,
+  dy: number,
+  currentFacing: Direction
+): Direction {
+  if (dx !== 0 && dy !== 0) { // Diagonal movement
+    if (dx < 0 && dy < 0) { // Move up-left
+      if (currentFacing === Direction.Left || currentFacing === Direction.Up) {
+        return currentFacing;
+      } else {
+        return Direction.Left; // TODO: Does defaulting to horizontal movement facing work out?
+      }
+    } else if (dx > 0 && dy < 0) { // Move up-right
+      if (currentFacing === Direction.Right || currentFacing === Direction.Up) {
+        return currentFacing;
+      } else {
+        return Direction.Right; // TODO: Does defaulting to horizontal movement facing work out?
+      }
+    } else if (dx < 0 && dy > 0) { // Move down-left
+      if (currentFacing === Direction.Left || currentFacing === Direction.Down) {
+        return currentFacing;
+      } else {
+        return Direction.Left; // TODO: Does defaulting to horizontal movement facing work out?
+      }
+    } else if (dx > 0 && dy > 0) { // Move down-right
+      if (currentFacing === Direction.Right || currentFacing === Direction.Down) {
+        return currentFacing;
+      } else {
+        return Direction.Right; // TODO: Does defaulting to horizontal movement facing work out?
+      }
+    }
+  } else { // Cardinal movement or standing still
+    if (dx < 0) {
+      return Direction.Left;
+    } else if (dx > 0) {
+      return Direction.Right;
+    } else if (dy < 0) {
+      return Direction.Up;
+    } else if (dy > 0) {
+      return Direction.Down;
+    }
+  }
+  return currentFacing;
+}

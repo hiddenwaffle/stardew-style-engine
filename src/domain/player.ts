@@ -1,6 +1,7 @@
 import {
   SavePlayer
 } from 'src/session/save';
+import { Direction } from 'src/domain/direction';
 import Entity from './entity';
 
 export default class {
@@ -38,5 +39,13 @@ export default class {
 
   set y(y: number) {
     this.entity.y = y;
+  }
+
+  get facing() {
+    return this.entity.facing;
+  }
+
+  set facing(facing: Direction) {
+    this.entity.facing = facing;
   }
 }
