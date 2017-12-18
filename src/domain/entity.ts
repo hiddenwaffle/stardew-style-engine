@@ -152,8 +152,19 @@ export default class {
 
   currentAnimationFrame(): [string, number, number] {
     // TODO: Get the real x and ys
-    let x = 12;
-    let y = 11;
+    let x = 13;
+    let y: number;
+    if (this.facing === Direction.Up) {
+      y = 9;
+    } else if (this.facing === Direction.Down) {
+      y = 11;
+    } else if (this.facing === Direction.Left) {
+      y = 10;
+      // TODO: Set flipped
+    } else if (this.facing === Direction.Right) {
+      y = 10;
+    }
+    // TODO: Return 'flipped'
     return [this.animationGroup.imagePath, x, y];
   }
 
