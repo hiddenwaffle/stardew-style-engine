@@ -110,11 +110,12 @@ class Render {
           let sheet: Sheet;
           let sourceX: number;
           let sourceY: number;
+          let flipped = false;
           if (entity.hasAnimation) {
             let imagePath: string;
             let sourceTileX: number;
             let sourceTileY: number;
-            [imagePath, sourceTileX, sourceTileY] = entity.currentAnimationFrame();
+            [imagePath, sourceTileX, sourceTileY, flipped] = entity.currentAnimationFrame();
             sheet = imageLoader.get(imagePath);
             if (sheet) {
               sourceX = sourceTileX * sheet.config.tileWidth;
@@ -145,17 +146,37 @@ class Render {
             const destination3Y = destination2Y + FIELD_TARGET_HEIGHT / 2;
 
             if (!entity.hidden) {
-              ctxBack.drawImage(
-                sheet.image,
-                sourceX,
-                sourceY,
-                originalTileWidth,
-                originalTileHeight,
-                destination3X,
-                destination3Y,
-                targetTileWidth,
-                targetTileHeight
-              );
+              if (flipped) {
+                // Flip based on: http://www.html5gamedevs.com/topic/19017-html5-image-flip-horizontallyvertically/
+                // TODO: What's the performance hit for this?
+                ctxBack.save();
+                ctxBack.translate(destination3X, destination3Y);
+                ctxBack.scale(-1, 1);
+                ctxBack.drawImage(
+                  sheet.image,
+                  sourceX,
+                  sourceY,
+                  originalTileWidth,
+                  originalTileHeight,
+                  -targetTileWidth,
+                  0,
+                  targetTileWidth,
+                  targetTileHeight
+                );
+                ctxBack.restore();
+              } else {
+                ctxBack.drawImage(
+                  sheet.image,
+                  sourceX,
+                  sourceY,
+                  originalTileWidth,
+                  originalTileHeight,
+                  destination3X,
+                  destination3Y,
+                  targetTileWidth,
+                  targetTileHeight
+                );
+              }
             }
 
             // TODO: Remove this debug

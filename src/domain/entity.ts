@@ -150,22 +150,23 @@ export default class {
     this._id = Math.floor(Math.random() * Number.MAX_SAFE_INTEGER);
   }
 
-  currentAnimationFrame(): [string, number, number] {
+  currentAnimationFrame(): [string, number, number, boolean] {
     // TODO: Get the real x and ys
     let x = 13;
     let y: number;
+    let flipped = false;
     if (this.facing === Direction.Up) {
       y = 9;
     } else if (this.facing === Direction.Down) {
       y = 11;
     } else if (this.facing === Direction.Left) {
       y = 10;
-      // TODO: Set flipped
+      flipped = true;
     } else if (this.facing === Direction.Right) {
       y = 10;
     }
     // TODO: Return 'flipped'
-    return [this.animationGroup.imagePath, x, y];
+    return [this.animationGroup.imagePath, x, y, flipped];
   }
 
   applySave(save: SaveEntity) {
