@@ -1,6 +1,5 @@
 import World from 'src/domain/world';
 import Entity from 'src/domain/entity';
-import entityAnimationManger from './entity-animation-manager';
 import entityAnimationManager from './entity-animation-manager';
 
 export default (world: World) => {
@@ -27,7 +26,7 @@ export default (world: World) => {
 
   for (const entity of world.entities) {
     if (entity.animationGroupName) {
-      entityAnimationManager.prepare(entity.animationGroupName);
+      entity.animationGroup = entityAnimationManager.get(entity.animationGroupName);
     }
   }
 }

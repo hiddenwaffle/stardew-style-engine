@@ -1,18 +1,20 @@
 {
   "filename": "antifarea_18x20chars.png",
-  "animations": {
-    "name": "stand-up",
-    "frames": [
-      {
-        "x": 0,
-        "y": 35,
-        "delay": 100
-      },
-      {
-        "x": 1,
-        "y": 35,
-        "delay": 100
-      }
-    ]
-  }
+  "animations": [
+    {
+      "name": "stand-up",
+      "frames": [
+        {
+          "x": 0,
+          "y": 35,
+          "delay": 100
+        },
+        {
+          "x": 1,
+          "y": 35,
+          "delay": 100
+        }
+      ]
+    }
+  ]
 }

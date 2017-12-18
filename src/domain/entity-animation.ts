@@ -1,17 +1,28 @@
 export class EntityAnimationFrame {
-  readonly x: number;
-  readonly y: number;
-  readonly delay: number;
+  private readonly x: number;
+  private readonly y: number;
+  private readonly delay: number;
+
+  constructor(rawFrame: any) {
+    this.x = rawFrame.x;
+    this.y = rawFrame.y;
+    this.delay = rawFrame.delay;
+  }
 }
 
 export class EntityAnimation {
   readonly name: string;
-  readonly frames: EntityAnimationFrame[];
-  readonly next: EntityAnimation;
+  private readonly frames: EntityAnimationFrame[];
+  private readonly next: EntityAnimation;
 
-  constructor(frames: EntityAnimationFrame[], next?: EntityAnimation) {
-    this.frames = frames;
-    this.next = next || null;
+  constructor(rawAnimation: any) {
+    this.name = rawAnimation.name;
+    this.frames = [];
+    for (const rawFrame of rawAnimation.frames) {
+      const frame = new EntityAnimationFrame(rawFrame);
+      this.frames.push(frame);
+    }
+    this.next = rawAnimation.next || null;
   }
 }
 
@@ -19,9 +30,13 @@ export class EntityAnimationGroup {
   readonly imagePath: string;
   private readonly animations: Map<string, EntityAnimation>;
 
-  constructor(imagePath: string, raw: any) {
-    this.imagePath = imagePath;
+  constructor(rawFile: any) {
+    this.imagePath = rawFile.filename;
     this.animations = new Map();
+    for (const rawAnimation of rawFile.animations) {
+      const animation = new EntityAnimation(rawAnimation);
+      this.animations.set(rawAnimation.name, animation);
+    }
   }
 
   add(animation: EntityAnimation) {

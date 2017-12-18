@@ -107,10 +107,12 @@ class Render {
 
         // Entity coordinates are already upscaled
         entities.forEach((entity) => {
+          // console.log(entity.animationGroup);
           const [sheet, sourceX, sourceY] = determineImageAndCoordinate(
             staticMap.tilesets,
             entity.defaultTile
           );
+
           if (sheet) {
             const originalTileWidth = sheet.config.tileWidth;
             const originalTileHeight = sheet.config.tileHeight;

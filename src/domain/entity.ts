@@ -60,6 +60,7 @@ export default class {
   pushable: boolean;
 
   animationGroupName: string;
+  animationGroup: EntityAnimationGroup;
 
   constructor() {
     this.calculateId();
@@ -76,7 +77,9 @@ export default class {
     this.defaultTile = 2000; // TODO: Set this back to zero once player animations are set.
     this.hidden = false;
     this.pushable = false;
+
     this.animationGroupName = null;
+    this.animationGroup = null;
   }
 
   clearExpiredCallTimers() {
