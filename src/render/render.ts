@@ -107,11 +107,25 @@ class Render {
 
         // Entity coordinates are already upscaled
         entities.forEach((entity) => {
-          // console.log(entity.animationGroup);
-          const [sheet, sourceX, sourceY] = determineImageAndCoordinate(
-            staticMap.tilesets,
-            entity.defaultTile
-          );
+          let sheet: Sheet;
+          let sourceX: number;
+          let sourceY: number;
+          if (entity.hasAnimation) {
+            let imagePath: string;
+            let sourceTileX: number;
+            let sourceTileY: number;
+            [imagePath, sourceTileX, sourceTileY] = entity.currentAnimationFrame();
+            sheet = imageLoader.get(imagePath);
+            if (sheet) {
+              sourceX = sourceTileX * sheet.config.tileWidth;
+              sourceY = sourceTileY * sheet.config.tileHeight;
+            }
+          } else {
+            [sheet, sourceX, sourceY] = determineImageAndCoordinate(
+              staticMap.tilesets,
+              entity.defaultTile
+            );
+          }
 
           if (sheet) {
             const originalTileWidth = sheet.config.tileWidth;

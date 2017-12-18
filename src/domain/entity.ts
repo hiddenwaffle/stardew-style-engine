@@ -5,11 +5,12 @@ import {
 import { SaveEntity } from 'src/session/save';
 import { ScriptCall } from 'src/game-master/script-call';
 import timer from 'src/session/timer';
+import { EntityAnimationGroup } from 'src/domain/entity-animation';
+import { Sheet, default as imageLoader } from 'src/session/image-loader';
 import {
   Direction,
   determineDirection
 } from './direction';
-import { EntityAnimationGroup } from 'src/domain/entity-animation';
 
 class CallTimer {
   private readonly call: ScriptCall;
@@ -139,10 +140,6 @@ export default class {
     return alreadyScheduledToBeCalled;
   }
 
-  get id(): number {
-    return this._id;
-  }
-
   /**
    * If called outside of this class, it should be only in the
    * unlikely event that the ID was already taken.
@@ -151,8 +148,11 @@ export default class {
     this._id = Math.floor(Math.random() * Number.MAX_SAFE_INTEGER);
   }
 
-  get direction(): Direction {
-    return determineDirection(this.dxIntended, this.dyIntended);
+  currentAnimationFrame(): [string, number, number] {
+    // TODO: Get the real x and ys
+    let x = 12;
+    let y = 11;
+    return [this.animationGroup.imagePath, x, y];
   }
 
   applySave(save: SaveEntity) {
@@ -162,5 +162,17 @@ export default class {
 
   extractSave(): SaveEntity {
     return new SaveEntity(this.x, this.y);
+  }
+
+  get id(): number {
+    return this._id;
+  }
+
+  get direction(): Direction {
+    return determineDirection(this.dxIntended, this.dyIntended);
+  }
+
+  get hasAnimation(): boolean {
+    return !!this.animationGroup;
   }
 }
