@@ -29,10 +29,6 @@ import wall     from 'src/external/DawnLike/Objects/Wall.png';
 
 import antifarea from 'src/external/antifarea_18x20chars.png';
 
-function onlyFilename(path: string) {
-  return path.replace(/.*\//, '');
-}
-
 export class SheetConfig {
   readonly path: string;
   readonly tileWidth: number;
@@ -97,7 +93,7 @@ class ImageLoader {
     this.configs.set('Tree1.png',   genConfig(tree1));
     this.configs.set('Wall.png',    genConfig(wall));
 
-    this.configs.set('antifarea',   genConfig(antifarea, 18, 20));
+    this.configs.set('antifarea_18x20chars.png',   genConfig(antifarea, 18, 20));
   }
 
   prepare(rawImagePath: string) {
@@ -109,7 +105,7 @@ class ImageLoader {
       if (path) {
         this.retrieve(filename, path);
       } else {
-        console.log('TileManager#constructor() path not found for:', filename);
+        console.log('ImageLoader#prepare() path not found for:', filename);
       }
     }
   }
@@ -131,3 +127,7 @@ class ImageLoader {
 }
 
 export default new ImageLoader();
+
+function onlyFilename(path: string) {
+  return path.replace(/.*\//, '');
+}

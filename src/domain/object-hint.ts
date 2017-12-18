@@ -11,6 +11,7 @@ export default class {
   readonly defaultTile: number;
   readonly hidden: boolean;
   readonly pushable: boolean;
+  readonly animationGroupName: string;
 
   constructor(object: any) {
     this.name = object.name;
@@ -35,6 +36,8 @@ export default class {
 
       this.hidden = object.properties.hidden;
       this.pushable = object.properties.pushable || false;
+
+      this.animationGroupName = object.properties.animationGroupName || null;
     }
   }
 }

@@ -9,6 +9,7 @@ import {
   Direction,
   determineDirection
 } from './direction';
+import { EntityAnimationGroup } from 'src/domain/entity-animation';
 
 class CallTimer {
   private readonly call: ScriptCall;
@@ -58,6 +59,8 @@ export default class {
   hidden: boolean;
   pushable: boolean;
 
+  animationGroupName: string;
+
   constructor() {
     this.calculateId();
     this.x = 100;
@@ -73,6 +76,7 @@ export default class {
     this.defaultTile = 2000; // TODO: Set this back to zero once player animations are set.
     this.hidden = false;
     this.pushable = false;
+    this.animationGroupName = null;
   }
 
   clearExpiredCallTimers() {

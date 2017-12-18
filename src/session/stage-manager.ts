@@ -35,8 +35,6 @@ class StageManager {
     }
     this.applySave(save);
     render.start();
-
-    imageLoader.prepare('antifarea'); // TODO: Move this to a more standard place.
   }
 
   step() {

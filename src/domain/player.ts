@@ -8,8 +8,10 @@ export default class {
 
   constructor() {
     this.entity = new Entity();
-    // TODO: Best place for this?
+
+    // TODO: Best place for these?
     this.entity.pushable = true;
+    this.entity.animationGroupName = 'pirate';
   }
 
   applySave(save: SavePlayer) {

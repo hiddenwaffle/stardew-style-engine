@@ -1,0 +1,21 @@
+Standard Animations
+-------------------
+stand-up
+stand-down
+stand-left
+stand-right
+
+walk-up
+walk-down
+walk-left
+walk-right
+
+melee-up
+melee-down
+melee-left
+melee-right
+
+magic-up
+magic-down
+magic-left
+magic-right

@@ -140,14 +140,16 @@
                  "gid":2864,
                  "height":16,
                  "id":26,
-                 "name":"scary-skull",
+                 "name":"pirate",
                  "properties":
                     {
+                     "animationGroupName":"bard",
                      "call":"global.sayOuch",
                      "callInterval":1000
                     },
                  "propertytypes":
                     {
+                     "animationGroupName":"string",
                      "call":"string",
                      "callInterval":"int"
                     },
