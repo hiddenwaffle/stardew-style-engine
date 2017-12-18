@@ -1,4 +1,5 @@
 import { UPSCALE } from 'src/constants';
+import { Direction } from './direction';
 
 export default class {
   readonly name: string;
@@ -12,6 +13,7 @@ export default class {
   readonly hidden: boolean;
   readonly pushable: boolean;
   readonly animationGroupName: string;
+  readonly facing: string;
 
   constructor(object: any) {
     this.name = object.name;
@@ -36,6 +38,7 @@ export default class {
 
       this.hidden = object.properties.hidden;
       this.pushable = object.properties.pushable || false;
+      this.facing = object.properties.facing || Direction.Down;
 
       this.animationGroupName = object.properties.animationGroupName || null;
     }

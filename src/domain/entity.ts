@@ -59,6 +59,7 @@ export default class {
   defaultTile: number;
   hidden: boolean;
   pushable: boolean;
+  facing: Direction;
 
   animationGroupName: string;
   animationGroup: EntityAnimationGroup;
@@ -78,6 +79,7 @@ export default class {
     this.defaultTile = 2000; // TODO: Set this back to zero once player animations are set.
     this.hidden = false;
     this.pushable = false;
+    this.facing = Direction.Down;
 
     this.animationGroupName = null;
     this.animationGroup = null;
