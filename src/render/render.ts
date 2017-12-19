@@ -72,17 +72,21 @@ class Render {
                 destinationX += FIELD_TARGET_WIDTH / 2;
                 destinationY += FIELD_TARGET_HEIGHT / 2;
 
-                ctxBack.drawImage(
-                  sheet.image,
-                  sourceX,
-                  sourceY,
-                  originalTileWidth,
-                  originalTileHeight,
-                  destinationX,
-                  destinationY,
-                  targetTileWidth,
-                  targetTileHeight
-                );
+                // Manual clipping
+                if (destinationX + targetTileWidth > 0 && destinationY + targetTileHeight > 0 &&
+                    destinationX < FIELD_TARGET_WIDTH  && destinationY < FIELD_TARGET_HEIGHT) {
+                  ctxBack.drawImage(
+                    sheet.image,
+                    sourceX,
+                    sourceY,
+                    originalTileWidth,
+                    originalTileHeight,
+                    destinationX,
+                    destinationY,
+                    targetTileWidth,
+                    targetTileHeight
+                  );
+                }
 
                 // TODO: Remove this debug
                 ctxBack.strokeStyle = 'pink';
@@ -145,37 +149,42 @@ class Render {
             const destination3X = destination2X + FIELD_TARGET_WIDTH  / 2;
             const destination3Y = destination2Y + FIELD_TARGET_HEIGHT / 2;
 
-            if (!entity.hidden) {
-              if (flipped) {
-                // Flip based on: http://www.html5gamedevs.com/topic/19017-html5-image-flip-horizontallyvertically/
-                // TODO: What's the performance hit for this?
-                ctxBack.save();
-                ctxBack.translate(destination3X, destination3Y);
-                ctxBack.scale(-1, 1);
-                ctxBack.drawImage(
-                  sheet.image,
-                  sourceX,
-                  sourceY,
-                  originalTileWidth,
-                  originalTileHeight,
-                  -targetTileWidth,
-                  0,
-                  targetTileWidth,
-                  targetTileHeight
-                );
-                ctxBack.restore();
-              } else {
-                ctxBack.drawImage(
-                  sheet.image,
-                  sourceX,
-                  sourceY,
-                  originalTileWidth,
-                  originalTileHeight,
-                  destination3X,
-                  destination3Y,
-                  targetTileWidth,
-                  targetTileHeight
-                );
+            // Manual clipping
+            if (destination3X + targetTileWidth > 0 && destination3Y + targetTileHeight > 0 &&
+                destination3X < FIELD_TARGET_WIDTH  && destination3Y < FIELD_TARGET_HEIGHT
+            ) {
+              if (!entity.hidden) {
+                if (flipped) {
+                  // Flip based on: http://www.html5gamedevs.com/topic/19017-html5-image-flip-horizontallyvertically/
+                  // TODO: What's the performance hit for this?
+                  ctxBack.save();
+                  ctxBack.translate(destination3X, destination3Y);
+                  ctxBack.scale(-1, 1);
+                  ctxBack.drawImage(
+                    sheet.image,
+                    sourceX,
+                    sourceY,
+                    originalTileWidth,
+                    originalTileHeight,
+                    -targetTileWidth,
+                    0,
+                    targetTileWidth,
+                    targetTileHeight
+                  );
+                  ctxBack.restore();
+                } else {
+                  ctxBack.drawImage(
+                    sheet.image,
+                    sourceX,
+                    sourceY,
+                    originalTileWidth,
+                    originalTileHeight,
+                    destination3X,
+                    destination3Y,
+                    targetTileWidth,
+                    targetTileHeight
+                  );
+                }
               }
             }
 
