@@ -2,7 +2,8 @@
   "filename": "antifarea_18x20chars.png",
   "animations": [
     {
-      "name": "stand-up",
+      "name": "default",
+      "next": "default",
       "frames": [
         {
           "x": 0,
