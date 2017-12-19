@@ -6,7 +6,8 @@ class EntityAnimationManager {
 
   constructor() {
     this.groups = new Map();
-    this.groups.set('bard-white', genGroup(genAntifareaRawGroup(13, 9)));
+    this.groups.set('af-holy-blue',   genGroup(genAntifareaRawGroup( 0, 9)));
+    this.groups.set('af-holy-white',  genGroup(genAntifareaRawGroup(18, 9)));
   }
 
   get(animationGroupName: string) {

@@ -10,7 +10,7 @@ export default class {
   constructor() {
     this.entity = new Entity({
       pushable: true,
-      animationGroupName: 'bard-white'
+      animationGroupName: 'af-holy-white'
     });
   }
 

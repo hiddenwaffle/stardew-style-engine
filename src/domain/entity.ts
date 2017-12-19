@@ -184,11 +184,13 @@ export default class {
   }
 
   switchAnimation(name: string, reset: boolean) {
-    const newAnimation = this.animationGroup.get(name);
-    if (reset || newAnimation !== this.animation) {
-      this.animationFrameIndex = 0;
-      this.animationFrameTime = 0;
-      this.animation = newAnimation;
+    if (this.animationGroup) {
+      const newAnimation = this.animationGroup.get(name);
+      if (reset || newAnimation !== this.animation) {
+        this.animationFrameIndex = 0;
+        this.animationFrameTime = 0;
+        this.animation = newAnimation;
+      }
     }
   }
 
