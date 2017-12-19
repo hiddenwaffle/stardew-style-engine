@@ -1,10 +1,14 @@
+import { Direction } from 'src/domain/direction';
+
 export class SaveEntity {
   x: number;
   y: number;
+  facing: string;
 
-  constructor(x: number, y: number) {
+  constructor(x: number, y: number, facing: Direction) {
     this.x = x;
     this.y = y;
+    this.facing = Direction[facing];
   }
 }
 

@@ -204,10 +204,12 @@ export default class {
   applySave(save: SaveEntity) {
     this.x = save.x;
     this.y = save.y;
+    // Enum conversion requires using "keyof": https://stackoverflow.com/a/42623905
+    this.facing = Direction[save.facing as keyof typeof Direction] || Direction.Down;
   }
 
   extractSave(): SaveEntity {
-    return new SaveEntity(this.x, this.y);
+    return new SaveEntity(this.x, this.y, this.facing);
   }
 
   get id(): number {
