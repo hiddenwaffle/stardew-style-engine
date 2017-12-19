@@ -1,0 +1,168 @@
+{
+  "filename": "antifarea_18x20chars.png",
+  "animations": [
+    {
+      "name": "default",
+      "next": "default",
+      "frames": [
+        {
+          "x": 13,
+          "y": 11
+        }
+      ]
+    },
+    {
+      "name": "stand-up",
+      "next": "stand-up",
+      "frames": [
+        {
+          "x": 19,
+          "y": 9,
+          "delay": 36000000
+        }
+      ]
+    },
+    {
+      "name": "stand-down",
+      "next": "stand-down",
+      "frames": [
+        {
+          "x": 19,
+          "y": 11,
+          "delay": 36000000
+        }
+      ]
+    },
+    {
+      "name": "stand-left",
+      "next": "stand-left",
+      "frames": [
+        {
+          "x": 19,
+          "y": 10,
+          "delay": 36000000,
+          "flipped": true
+        }
+      ]
+    },
+    {
+      "name": "stand-right",
+      "next": "stand-right",
+      "frames": [
+        {
+          "x": 19,
+          "y": 10,
+          "delay": 36000000
+        }
+      ]
+    },
+    {
+      "name": "run-up",
+      "next": "run-up",
+      "frames": [
+        {
+          "x": 13,
+          "y": 9,
+          "delay": 100
+        },
+        {
+          "x": 12,
+          "y": 9,
+          "delay": 100
+        },
+        {
+          "x": 13,
+          "y": 9,
+          "delay": 100
+        },
+        {
+          "x": 14,
+          "y": 9,
+          "delay": 100
+        }
+      ]
+    },
+    {
+      "name": "run-down",
+      "next": "run-down",
+      "frames": [
+        {
+          "x": 13,
+          "y": 11,
+          "delay": 100
+        },
+        {
+          "x": 12,
+          "y": 11,
+          "delay": 100
+        },
+        {
+          "x": 13,
+          "y": 11,
+          "delay": 100
+        },
+        {
+          "x": 14,
+          "y": 11,
+          "delay": 100
+        }
+      ]
+    },
+    {
+      "name": "run-left",
+      "next": "run-left",
+      "frames": [
+        {
+          "x": 13,
+          "y": 10,
+          "delay": 100,
+          "flipped": true
+        },
+        {
+          "x": 12,
+          "y": 10,
+          "delay": 100,
+          "flipped": true
+        },
+        {
+          "x": 13,
+          "y": 10,
+          "delay": 100,
+          "flipped": true
+        },
+        {
+          "x": 14,
+          "y": 10,
+          "delay": 100,
+          "flipped": true
+        }
+      ]
+    },
+    {
+      "name": "run-right",
+      "next": "run-right",
+      "frames": [
+        {
+          "x": 13,
+          "y": 10,
+          "delay": 100
+        },
+        {
+          "x": 12,
+          "y": 10,
+          "delay": 100
+        },
+        {
+          "x": 13,
+          "y": 10,
+          "delay": 100
+        },
+        {
+          "x": 14,
+          "y": 10,
+          "delay": 100
+        }
+      ]
+    }
+  ]
+}

@@ -10,6 +10,11 @@ walk-down
 walk-left
 walk-right
 
+run-up
+run-down
+run-left
+run-right
+
 melee-up
 melee-down
 melee-left

@@ -8,11 +8,10 @@ export default class {
   entity: Entity;
 
   constructor() {
-    this.entity = new Entity();
-
-    // TODO: Best place for these?
-    this.entity.pushable = true;
-    this.entity.animationGroupName = 'pirate';
+    this.entity = new Entity({
+      pushable: true,
+      animationGroupName: 'bard-white'
+    });
   }
 
   applySave(save: SavePlayer) {
@@ -39,13 +38,5 @@ export default class {
 
   set y(y: number) {
     this.entity.y = y;
-  }
-
-  get facing() {
-    return this.entity.facing;
-  }
-
-  set facing(facing: Direction) {
-    this.entity.facing = facing;
   }
 }

@@ -5,7 +5,12 @@ import {
 import { SaveEntity } from 'src/session/save';
 import { ScriptCall } from 'src/game-master/script-call';
 import timer from 'src/session/timer';
-import { EntityAnimationGroup } from 'src/domain/entity-animation';
+import {
+  EntityAnimationGroup,
+  EntityAnimation,
+  determineCurrentAnimationCoordinates
+} from 'src/domain/entity-animation';
+import entityAnimationManager from 'src/session/entity-animation-manager';
 import { Sheet, default as imageLoader } from 'src/session/image-loader';
 import {
   Direction,
@@ -61,10 +66,12 @@ export default class {
   pushable: boolean;
   facing: Direction;
 
-  animationGroupName: string;
   animationGroup: EntityAnimationGroup;
+  animation: EntityAnimation;
+  animationFrameIndex: number;
+  animationFrameTime: number;
 
-  constructor() {
+  constructor(args: any) {
     this.calculateId();
     this.x = 100;
     this.y = 100;
@@ -78,11 +85,37 @@ export default class {
     this.callTimers = new Map();
     this.defaultTile = 2000; // TODO: Set this back to zero once player animations are set.
     this.hidden = false;
-    this.pushable = false;
+    this.pushable = args.pushable || false;
     this.facing = Direction.Down;
 
-    this.animationGroupName = null;
-    this.animationGroup = null;
+    if (args.animationGroupName) {
+      this.animationGroup = entityAnimationManager.get(args.animationGroupName);
+    } else {
+      this.animationGroup = null;
+    }
+    if (this.animationGroup) {
+      this.animation = this.animationGroup.get();
+    } else {
+      this.animation = null;
+    }
+    this.animationFrameIndex = 0;
+    this.animationFrameTime = 0;
+  }
+
+  step() {
+    if (this.animationGroup && this.animation) {
+      this.animationFrameTime += timer.elapsed;
+      if (this.animationFrameTime >= this.animation.frames[this.animationFrameIndex].delay) {
+        this.animationFrameTime = this.animationFrameTime - this.animation.frames[this.animationFrameIndex].delay;
+        this.animationFrameIndex += 1;
+        if (this.animationFrameIndex >= this.animation.frames.length) {
+          this.animationFrameIndex = 0;
+          if (this.animation.next) {
+            this.animation = this.animationGroup.get(this.animation.next);
+          }
+        }
+      }
+    }
   }
 
   clearExpiredCallTimers() {
@@ -150,22 +183,21 @@ export default class {
     this._id = Math.floor(Math.random() * Number.MAX_SAFE_INTEGER);
   }
 
-  currentAnimationFrame(): [string, number, number, boolean] {
-    // TODO: Get the real x and ys
-    let x = 13;
-    let y: number;
-    let flipped = false;
-    if (this.facing === Direction.Up) {
-      y = 9;
-    } else if (this.facing === Direction.Down) {
-      y = 11;
-    } else if (this.facing === Direction.Left) {
-      y = 10;
-      flipped = true;
-    } else if (this.facing === Direction.Right) {
-      y = 10;
+  switchAnimation(name: string, reset: boolean) {
+    const newAnimation = this.animationGroup.get(name);
+    if (reset || newAnimation !== this.animation) {
+      this.animationFrameIndex = 0;
+      this.animationFrameTime = 0;
+      this.animation = newAnimation;
     }
-    // TODO: Return 'flipped'
+  }
+
+  currentAnimationFrame(): [string, number, number, boolean] {
+    const [x, y, flipped] = determineCurrentAnimationCoordinates(
+      this.animation,
+      this.animationFrameIndex,
+      this.animationFrameTime
+    );
     return [this.animationGroup.imagePath, x, y, flipped];
   }
 

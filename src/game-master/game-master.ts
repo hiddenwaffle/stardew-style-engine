@@ -1,4 +1,5 @@
 import World from 'src/domain/world';
+import Entity from 'src/domain/entity';
 import { Direction } from 'src/domain/direction';
 import walkEntityToTiles from './walk-entity-to-tiles';
 import walkEntityToEntity from './walk-entity-to-entity';
@@ -23,18 +24,24 @@ class GameMaster {
     world.player.entity.dyIntended = this.dyIntended;
 
     world.entities.forEach((entity) => {
+      // These have to do with movement and collision checks.
       entity.clearExpiredCallTimers();
       const walkResult = walkEntityToTiles(world, entity);
       walkResult.executeCalls(world);
+
+      // Currently just advances animation.
+      entity.step();
     });
 
     walkEntityToEntity(world);
 
-    world.player.facing = calculateFacing(
+    world.player.entity.facing = calculateFacing(
       world.player.entity.dxIntended,
       world.player.entity.dyIntended,
-      world.player.facing
+      world.player.entity.facing
     );
+
+    tryAnimationSwitch(world.player.entity);
   }
 
   setPlayerIntendedDirection(dxIntended: number, dyIntended: number) {
@@ -88,4 +95,11 @@ function calculateFacing(
     }
   }
   return currentFacing;
+}
+
+function tryAnimationSwitch(entity: Entity) {
+  const action = entity.dxIntended === 0 && entity.dyIntended === 0 ? 'stand' : 'run';
+  const direction = Direction[entity.facing].toLowerCase();
+  const animationName = `${action}-${direction}`;
+  entity.switchAnimation(animationName, false);
 }

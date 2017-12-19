@@ -7,7 +7,10 @@ export default (world: World) => {
   world.addEntity(world.player.entity);
 
   for (const objectHint of world.staticMap.objectHints) {
-    const entity = new Entity();
+    const entity = new Entity({
+      pushable: objectHint.pushable,
+      animationGroupName: objectHint.animationGroupName
+    });
 
     entity.name = objectHint.name;
     entity.x = objectHint.x;
@@ -18,15 +21,7 @@ export default (world: World) => {
     entity.entityToEntityCollisionCallInterval = objectHint.callInterval;
     entity.defaultTile = objectHint.defaultTile;
     entity.hidden = objectHint.hidden;
-    entity.pushable = objectHint.pushable;
-    entity.animationGroupName = objectHint.animationGroupName;
 
     world.addEntity(entity);
-  }
-
-  for (const entity of world.entities) {
-    if (entity.animationGroupName) {
-      entity.animationGroup = entityAnimationManager.get(entity.animationGroupName);
-    }
   }
 }

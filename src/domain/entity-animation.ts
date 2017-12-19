@@ -1,19 +1,21 @@
 export class EntityAnimationFrame {
-  private readonly x: number;
-  private readonly y: number;
-  private readonly delay: number;
+  readonly x: number;
+  readonly y: number;
+  readonly delay: number;
+  readonly flipped: boolean;
 
   constructor(rawFrame: any) {
     this.x = rawFrame.x;
     this.y = rawFrame.y;
     this.delay = rawFrame.delay;
+    this.flipped = rawFrame.flipped || false;
   }
 }
 
 export class EntityAnimation {
   readonly name: string;
-  private readonly frames: EntityAnimationFrame[];
-  private readonly next: EntityAnimation;
+  readonly frames: EntityAnimationFrame[];
+  readonly next: string;
 
   constructor(rawAnimation: any) {
     this.name = rawAnimation.name;
@@ -45,7 +47,29 @@ export class EntityAnimationGroup {
     }
   }
 
-  get(name: string):EntityAnimation {
-    return this.animations.get(name);
+  get(name?: string):EntityAnimation {
+    if (name) {
+      return this.animations.get(name);
+    } else {
+      return this.animations.get('default');
+    }
   }
+}
+
+export function determineCurrentAnimationCoordinates(
+  animation: EntityAnimation,
+  frameIndex: number,
+  elapsedInFrame: number
+): [number, number, boolean] {
+  let x = 0;
+  let y = 0;
+  let flipped = false;
+
+  if (animation && frameIndex >= 0 && frameIndex < animation.frames.length) {
+    x = animation.frames[frameIndex].x;
+    y = animation.frames[frameIndex].y;
+    flipped = animation.frames[frameIndex].flipped;
+  }
+
+  return [x, y, flipped];
 }
