@@ -5,15 +5,14 @@
 * Also uses Antifarea's [16x18 RPG Sprites](https://opengameart.org/content/18x20-characters-walkattackcast-spritesheet).
 
 ## Getting Started
-* Development requires these tools:
-    * [Node.js](https://nodejs.org)
-    * [Tiled Map Editor](https://thorbjorn.itch.io/tiled)
-    * [Yarn](https://yarnpkg.com) (optional)
+* Engine development requires only [Node.js](https://nodejs.org).
+* (Optional) [Tiled](https://thorbjorn.itch.io/tiled) is recommended for map editing.
+* (Optional) [Yarn](https://yarnpkg.com) is needed for package.json dependency updates.
 ```
 git clone <this-repository>
 cd simplicity
-yarn              # or npm install
-yarn run dev      # or npm run dev
+npm install       # or: yarn install
+npm run dev       # or: yarn run dev
 ```
 
 ## Unit Testing
