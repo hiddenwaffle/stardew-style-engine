@@ -21,7 +21,6 @@ class Keyboard {
   private keyState: Map<Key, State>;
 
   constructor() {
-    // See onblur handler below for more comments.
     this.keyState = new Map();
   }
 
@@ -34,8 +33,7 @@ class Keyboard {
     });
     // Prevent "stuck" key if held down and window loses focus.
     window.addEventListener('blur', () => {
-      // Just re-initailize everything like the constructor
-      this.keyState = new Map();
+      this.keyState.clear();
     });
   }
 
