@@ -171,10 +171,10 @@ function genAntifareaRawAnimations(xoff: number, yoff: number): any[] {
     genRawAnimation(
       'run-up', 'run-up',
       [
+        genRawFrame(xoff + 2, yoff, runDelay),
         genRawFrame(xoff + 1, yoff, runDelay),
         genRawFrame(xoff,     yoff, runDelay),
-        genRawFrame(xoff + 1, yoff, runDelay),
-        genRawFrame(xoff,     yoff, runDelay)
+        genRawFrame(xoff + 1, yoff, runDelay)
       ]
     )
   );
@@ -182,10 +182,10 @@ function genAntifareaRawAnimations(xoff: number, yoff: number): any[] {
     genRawAnimation(
       'run-down', 'run-down',
       [
+        genRawFrame(xoff + 2, yoff + 2, runDelay),
         genRawFrame(xoff + 1, yoff + 2, runDelay),
         genRawFrame(xoff,     yoff + 2, runDelay),
-        genRawFrame(xoff + 1, yoff + 2, runDelay),
-        genRawFrame(xoff,     yoff + 2, runDelay)
+        genRawFrame(xoff + 1, yoff + 2, runDelay)
       ]
     )
   );
@@ -193,10 +193,10 @@ function genAntifareaRawAnimations(xoff: number, yoff: number): any[] {
     genRawAnimation(
       'run-left', 'run-left',
       [
+        genRawFrame(xoff + 2, yoff + 1, runDelay, true),
         genRawFrame(xoff + 1, yoff + 1, runDelay, true),
         genRawFrame(xoff,     yoff + 1, runDelay, true),
-        genRawFrame(xoff + 1, yoff + 1, runDelay, true),
-        genRawFrame(xoff,     yoff + 1, runDelay, true)
+        genRawFrame(xoff + 1,     yoff + 1, runDelay, true)
       ]
     )
   );
@@ -204,10 +204,10 @@ function genAntifareaRawAnimations(xoff: number, yoff: number): any[] {
     genRawAnimation(
       'run-right', 'run-right',
       [
+        genRawFrame(xoff + 2, yoff + 1, runDelay),
         genRawFrame(xoff + 1, yoff + 1, runDelay),
         genRawFrame(xoff,     yoff + 1, runDelay),
-        genRawFrame(xoff + 1, yoff + 1, runDelay),
-        genRawFrame(xoff,     yoff + 1, runDelay)
+        genRawFrame(xoff + 1, yoff + 1, runDelay)
       ]
     )
   );
