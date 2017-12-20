@@ -31,7 +31,8 @@ class Controller {
       dx += 1;
     }
 
-    gameMaster.setPlayerIntendedDirection(dx, dy);
+    const walk = keyboard.isDown(Key.Walk);
+    gameMaster.setPlayerIntendedDirection(dx, dy, walk);
   }
 
   /**

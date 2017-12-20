@@ -3,6 +3,7 @@ export const enum Key {
   Up,
   Down,
   Right,
+  Walk,
   Pause,
   // Rest of these are special directives
   Other,
@@ -106,6 +107,11 @@ class Keyboard {
         key = Key.Down;
         break;
 
+      // Actions ---------------------------------------------------------
+      case 16:    // shift
+        key = Key.Walk;
+        break;
+
       // Pause ---------------------------------------------------------
       case 80: // 'p'
       case 27: // esc
@@ -130,7 +136,6 @@ class Keyboard {
       // Prevent some unwanted behaviors -------------------------------
       case 191:   // forward slash (page find)
       case 9:     // tab (can lose focus)
-      case 16:    // shift
         key = Key.Prevent;
         break;
 
@@ -160,6 +165,10 @@ class Keyboard {
         break;
       case Key.Down:
         this.setState(Key.Down, state);
+        preventDefault = true;
+        break;
+      case Key.Walk:
+        this.setState(Key.Walk, state);
         preventDefault = true;
         break;
       case Key.Pause:

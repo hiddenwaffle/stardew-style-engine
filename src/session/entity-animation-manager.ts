@@ -126,6 +126,7 @@ function genAntifareaRawGroup(xoff: number, yoff: number): any {
 function genAntifareaRawAnimations(xoff: number, yoff: number): any[] {
   const rawAnimations: any[] = [];
   const runDelay = 100;
+  const walkDelay = 100 / 0.65;
 
   rawAnimations.push(
     genRawAnimation(
@@ -180,6 +181,17 @@ function genAntifareaRawAnimations(xoff: number, yoff: number): any[] {
   );
   rawAnimations.push(
     genRawAnimation(
+      'walk-up', 'walk-up',
+      [
+        genRawFrame(xoff + 2, yoff, walkDelay),
+        genRawFrame(xoff + 1, yoff, walkDelay),
+        genRawFrame(xoff,     yoff, walkDelay),
+        genRawFrame(xoff + 1, yoff, walkDelay)
+      ]
+    )
+  );
+  rawAnimations.push(
+    genRawAnimation(
       'run-down', 'run-down',
       [
         genRawFrame(xoff + 2, yoff + 2, runDelay),
@@ -191,12 +203,34 @@ function genAntifareaRawAnimations(xoff: number, yoff: number): any[] {
   );
   rawAnimations.push(
     genRawAnimation(
+      'walk-down', 'walk-down',
+      [
+        genRawFrame(xoff + 2, yoff + 2, walkDelay),
+        genRawFrame(xoff + 1, yoff + 2, walkDelay),
+        genRawFrame(xoff,     yoff + 2, walkDelay),
+        genRawFrame(xoff + 1, yoff + 2, walkDelay)
+      ]
+    )
+  );
+  rawAnimations.push(
+    genRawAnimation(
       'run-left', 'run-left',
       [
         genRawFrame(xoff + 2, yoff + 1, runDelay, true),
         genRawFrame(xoff + 1, yoff + 1, runDelay, true),
         genRawFrame(xoff,     yoff + 1, runDelay, true),
-        genRawFrame(xoff + 1,     yoff + 1, runDelay, true)
+        genRawFrame(xoff + 1, yoff + 1, runDelay, true)
+      ]
+    )
+  );
+  rawAnimations.push(
+    genRawAnimation(
+      'walk-left', 'walk-left',
+      [
+        genRawFrame(xoff + 2, yoff + 1, walkDelay, true),
+        genRawFrame(xoff + 1, yoff + 1, walkDelay, true),
+        genRawFrame(xoff,     yoff + 1, walkDelay, true),
+        genRawFrame(xoff + 1, yoff + 1, walkDelay, true)
       ]
     )
   );
@@ -208,6 +242,17 @@ function genAntifareaRawAnimations(xoff: number, yoff: number): any[] {
         genRawFrame(xoff + 1, yoff + 1, runDelay),
         genRawFrame(xoff,     yoff + 1, runDelay),
         genRawFrame(xoff + 1, yoff + 1, runDelay)
+      ]
+    )
+  );
+  rawAnimations.push(
+    genRawAnimation(
+      'walk-right', 'walk-right',
+      [
+        genRawFrame(xoff + 2, yoff + 1, walkDelay),
+        genRawFrame(xoff + 1, yoff + 1, walkDelay),
+        genRawFrame(xoff,     yoff + 1, walkDelay),
+        genRawFrame(xoff + 1, yoff + 1, walkDelay)
       ]
     )
   );

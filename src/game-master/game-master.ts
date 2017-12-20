@@ -13,6 +13,10 @@ class GameMaster {
    * Vertical direction that the player wants to move.
    */
   private dyIntended: number;
+  /**
+   * If the player is trying to walk.
+   */
+  private walk: boolean;
 
   advance(world: World) {
     if (!world) {
@@ -41,12 +45,13 @@ class GameMaster {
       world.player.entity.facing
     );
 
-    tryAnimationSwitch(world.player.entity);
+    tryAnimationSwitch(world.player.entity, this.walk);
   }
 
-  setPlayerIntendedDirection(dxIntended: number, dyIntended: number) {
-    this.dxIntended = dxIntended;
-    this.dyIntended = dyIntended;
+  setPlayerIntendedDirection(dxIntended: number, dyIntended: number, walk: boolean) {
+    this.dxIntended = dxIntended * (walk ? 0.65 : 1); // TODO: Set constant for walk elsewhere?
+    this.dyIntended = dyIntended * (walk ? 0.65 : 1); // TODO: Set constant for walk elsewhere?
+    this.walk = walk;
   }
 }
 
@@ -97,8 +102,8 @@ function calculateFacing(
   return currentFacing;
 }
 
-function tryAnimationSwitch(entity: Entity) {
-  const action = entity.dxIntended === 0 && entity.dyIntended === 0 ? 'stand' : 'run';
+function tryAnimationSwitch(entity: Entity, walk: boolean) {
+  const action = entity.dxIntended === 0 && entity.dyIntended === 0 ? 'stand' : (walk ? 'walk' : 'run');
   const direction = Direction[entity.facing].toLowerCase();
   const animationName = `${action}-${direction}`;
   entity.switchAnimation(animationName, false);
