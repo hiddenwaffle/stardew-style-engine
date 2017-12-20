@@ -5,7 +5,7 @@
     "noImplicitAny": true,
     "module": "esnext",
     "lib": ["es2016", "dom"],
-    "target": "es5",
+    "target": "es2015",
     "moduleResolution": "node",
     "baseUrl": ".",
     "paths": {
