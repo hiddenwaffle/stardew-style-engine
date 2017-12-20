@@ -10,7 +10,7 @@ import {
   EntityAnimation,
   determineCurrentAnimationCoordinates
 } from 'src/domain/entity-animation';
-import entityAnimationManager from 'src/session/entity-animation-manager';
+import entityAnimationLoader from 'src/session/entity-animation-loader';
 import { Sheet, default as imageLoader } from 'src/session/image-loader';
 import {
   Direction,
@@ -89,7 +89,7 @@ export default class {
     this.facing = Direction.Down;
 
     if (args.animationGroupName) {
-      this.animationGroup = entityAnimationManager.get(args.animationGroupName);
+      this.animationGroup = entityAnimationLoader.get(args.animationGroupName);
     } else {
       this.animationGroup = null;
     }

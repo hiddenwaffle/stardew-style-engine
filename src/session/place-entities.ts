@@ -1,6 +1,5 @@
 import World from 'src/domain/world';
 import Entity from 'src/domain/entity';
-import entityAnimationManager from './entity-animation-manager';
 
 export default (world: World) => {
   // TODO: Is this the right place for it?
