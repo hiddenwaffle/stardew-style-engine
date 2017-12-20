@@ -195,12 +195,12 @@ export default class {
   }
 
   currentAnimationFrame(): [string, number, number, boolean] {
-    const [x, y, flipped] = determineCurrentAnimationCoordinates(
+    const [imagePathIndex, x, y, flipped] = determineCurrentAnimationCoordinates(
       this.animation,
       this.animationFrameIndex,
       this.animationFrameTime
     );
-    return [this.animationGroup.imagePath, x, y, flipped];
+    return [this.animationGroup.imagePaths[imagePathIndex], x, y, flipped];
   }
 
   applySave(save: SaveEntity) {

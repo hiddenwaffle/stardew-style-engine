@@ -1,10 +1,12 @@
 export class EntityAnimationFrame {
+  readonly imageIndex: number;
   readonly x: number;
   readonly y: number;
   readonly delay: number;
   readonly flipped: boolean;
 
   constructor(rawFrame: any) {
+    this.imageIndex = rawFrame.imageIndex || 0;
     this.x = rawFrame.x;
     this.y = rawFrame.y;
     this.delay = rawFrame.delay;
@@ -29,11 +31,11 @@ export class EntityAnimation {
 }
 
 export class EntityAnimationGroup {
-  readonly imagePath: string;
+  readonly imagePaths: string[];
   private readonly animations: Map<string, EntityAnimation>;
 
   constructor(rawFile: any) {
-    this.imagePath = rawFile.filename;
+    this.imagePaths = rawFile.filenames;
     this.animations = new Map();
     for (const rawAnimation of rawFile.animations) {
       const animation = new EntityAnimation(rawAnimation);
@@ -60,16 +62,22 @@ export function determineCurrentAnimationCoordinates(
   animation: EntityAnimation,
   frameIndex: number,
   elapsedInFrame: number
-): [number, number, boolean] {
+): [number, number, number, boolean] {
+  let imageIndex = 0;
   let x = 0;
   let y = 0;
   let flipped = false;
 
   if (animation && frameIndex >= 0 && frameIndex < animation.frames.length) {
+    // Defaults to 0 (first sheet) if unspecified.
+    imageIndex = animation.frames[frameIndex].imageIndex || 0;
+
     x = animation.frames[frameIndex].x;
     y = animation.frames[frameIndex].y;
-    flipped = animation.frames[frameIndex].flipped;
+
+    // Default to false (unflipped) if unspecified.
+    flipped = animation.frames[frameIndex].flipped || false;
   }
 
-  return [x, y, flipped];
+  return [imageIndex, x, y, flipped];
 }

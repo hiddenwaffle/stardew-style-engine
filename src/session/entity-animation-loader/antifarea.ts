@@ -93,21 +93,18 @@ export default (): Map<string, EntityAnimationGroup> => {
 
 /**
  * Should match the structure of *.json files.
- *
- * Uses 'filename' instead of 'filenames' because
- * Antifarea sprite animations do not span multiple sheets.
  */
-function genGroup(xoff: number, yoff: number): any {
+function genGroup(xoff: number, yoff: number): EntityAnimationGroup {
   return new EntityAnimationGroup({
-    filename: 'antifarea_18x20chars.png',
-    animations: genAntifareaRawAnimations(xoff, yoff)
+    filenames: ['antifarea_18x20chars.png'],
+    animations: genRawAnimations(xoff, yoff)
   });
 }
 
 /**
  * Should match the structure of the *.json files.
  */
-function genAntifareaRawAnimations(xoff: number, yoff: number): any[] {
+function genRawAnimations(xoff: number, yoff: number): any[] {
   const rawAnimations: any[] = [];
   const runDelay = 100;
   const walkDelay = 100 / 0.65;

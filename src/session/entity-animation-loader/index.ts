@@ -16,7 +16,9 @@ class EntityAnimationManager {
   get(animationGroupName: string) {
     const group = this.groups.get(animationGroupName);
     if (group) {
-      imageLoader.prepare(group.imagePath);
+      group.imagePaths.forEach((imagePath) => {
+        imageLoader.prepare(imagePath);
+      });
     } else {
       console.warn(`Unknown animationGroupName: ${animationGroupName}`);
     }

@@ -266,7 +266,7 @@
  <objectgroup name="entities">
   <object id="26" name="pirate" gid="2864" x="226.667" y="154.333" width="16" height="16">
    <properties>
-    <property name="animationGroupName" value="bard"/>
+    <property name="animationGroupName" value="dl-player-7-12"/>
     <property name="call" value="global.sayOuch"/>
     <property name="callInterval" type="int" value="1000"/>
    </properties>
