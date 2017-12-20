@@ -89,7 +89,7 @@ class EntityAnimationManager {
     this.groups.set('af-elemental-earth',   genGroup(genAntifareaRawGroup(left,   24 * groupHeight)));
     this.groups.set('af-elemental-plant',   genGroup(genAntifareaRawGroup(right,  24 * groupHeight)));
 
-    this.groups.set('af-elemental-holy',    genGroup(genAntifareaRawGroup(left,   25 * groupHeight)));
+    this.groups.set('af-elemental-light',   genGroup(genAntifareaRawGroup(left,   25 * groupHeight)));
     this.groups.set('af-elemental-shadow',  genGroup(genAntifareaRawGroup(right,  25 * groupHeight)));
   }
 
