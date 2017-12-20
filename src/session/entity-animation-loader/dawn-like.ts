@@ -114,7 +114,8 @@ function genGroup(xoff: number, yoff: number, filenames: string[]): EntityAnimat
  * Should match the structure of the *.json files.
  */
 function genRawAnimations(xoff: number, yoff: number): any[] {
-  const walkDelay  = 250;
+  const walkDelay = 250;
+  const runDelay  = 125;
 
   const rawAnimations: any[] = [];
 
@@ -122,7 +123,7 @@ function genRawAnimations(xoff: number, yoff: number): any[] {
     genRawAnimation(
       'default', 'default',
       [
-        genRawFrame(0, xoff, yoff)
+        genRawFrame(0, xoff, yoff) // Same as stand-left.
       ]
     )
   );
@@ -157,6 +158,24 @@ function genRawAnimations(xoff: number, yoff: number): any[] {
       [
         genRawFrame(0, xoff, yoff, walkDelay, true),
         genRawFrame(1, xoff, yoff, walkDelay, true)
+      ]
+    )
+  );
+  rawAnimations.push(
+    genRawAnimation(
+      'run-left', 'run-left',
+      [
+        genRawFrame(0, xoff, yoff, runDelay),
+        genRawFrame(1, xoff, yoff, runDelay)
+      ]
+    )
+  );
+  rawAnimations.push(
+    genRawAnimation(
+      'run-right', 'run-right',
+      [
+        genRawFrame(0, xoff, yoff, runDelay, true),
+        genRawFrame(1, xoff, yoff, runDelay, true)
       ]
     )
   );
