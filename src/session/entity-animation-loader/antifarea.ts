@@ -1,6 +1,6 @@
 import { EntityAnimationGroup } from 'src/domain/entity-animation';
 
-export default () => {
+export default (): Map<string, EntityAnimationGroup> => {
   // The Antifarea spritesheet has two groups per row.
   const left = 0;
   const right = 12;
