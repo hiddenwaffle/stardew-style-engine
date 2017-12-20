@@ -33,10 +33,10 @@ class Keyboard {
       this.eventToState(event, State.Up);
     });
     // Prevent "stuck" key if held down and window loses focus.
-    window.onblur = () => {
+    window.addEventListener('blur', () => {
       // Just re-initailize everything like the constructor
       this.keyState = new Map();
-    };
+    });
   }
 
   stop() {
