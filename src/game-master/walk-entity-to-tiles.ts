@@ -1,15 +1,15 @@
 import {
   Direction,
-  isCardinal
+  isCardinal,
 } from 'src/domain/direction';
 import World from 'src/domain/world';
 import Entity from 'src/domain/entity';
 import timer from 'src/session/timer';
 import {
-  TARGET_FIELD_TILE_SIZE
+  TARGET_FIELD_TILE_SIZE,
 } from 'src/constants';
 import {
-  ScriptCall
+  ScriptCall,
 } from './script-call';
 import WalkResult from './walk-result';
 
@@ -38,13 +38,13 @@ export default (world: World, entity: Entity): WalkResult => {
     [xTile + 1, yTile    ], // Middle Right   5
     [xTile - 1, yTile + 1], // Bottom Left    6
     [xTile    , yTile + 1], // Bottom Middle  7
-    [xTile + 1, yTile + 1]  // Bottom Right   8
+    [xTile + 1, yTile + 1], // Bottom Right   8
   ];
 
   const solidTilesAroundEntity = [
     [false, false, false], // [0][0]  [0][1]  [0][2]
     [false, false, false], // [1][0]  [1][1]* [1][2]   *entity is in the center at [1][1]
-    [false, false, false]  // [2][0]  [2][1]  [2][2]
+    [false, false, false], // [2][0]  [2][1]  [2][2]
   ];
 
   let xpush = 0;
@@ -92,7 +92,7 @@ export default (world: World, entity: Entity): WalkResult => {
       // Move the entity out of a solid tile.
       const [xExpectedPush, yExpectedPush] = calculatePush(
         left, right, top, bottom,
-        leftTile, rightTile, topTile, bottomTile
+        leftTile, rightTile, topTile, bottomTile,
       );
       const overlapped = xExpectedPush !== 0 || yExpectedPush !== 0;
       if (overlapped) {
@@ -111,7 +111,7 @@ export default (world: World, entity: Entity): WalkResult => {
               layer.call,
               entity.id,
               null,
-              layer.name
+              layer.name,
             );
             if (entity.tryScriptCall(call, layer.callInterval)) {
               walkResult.addCall(call);
@@ -140,7 +140,7 @@ export default (world: World, entity: Entity): WalkResult => {
       yTile,
       solidTilesAroundEntity,
       xpush,
-      ypush
+      ypush,
     );
   }
 
@@ -156,7 +156,7 @@ export default (world: World, entity: Entity): WalkResult => {
  */
 function calculatePush(
   left1: number, right1: number, top1: number, bottom1: number,
-  left2: number, right2: number, top2: number, bottom2: number
+  left2: number, right2: number, top2: number, bottom2: number,
 ): [number, number] {
   const xhalfsize1 = (right1  - left1) / 2;
   const yhalfsize1 = (bottom1 - top1)  / 2;
@@ -213,7 +213,7 @@ function attemptAssistedSlide(
   yTile: number,
   solidTilesAroundEntity: boolean[][],
   xpushOriginal: number,
-  ypushOriginal: number
+  ypushOriginal: number,
 ): [number, number] {
   let xpush = xpushOriginal;
   let ypush = ypushOriginal;

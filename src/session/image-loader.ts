@@ -48,7 +48,7 @@ export class SheetConfig {
 function genConfig(
   path: string,
   tileWidth: number = DEFAULT_FIELD_TILE_SIZE,
-  tileHeight: number = DEFAULT_FIELD_TILE_SIZE
+  tileHeight: number = DEFAULT_FIELD_TILE_SIZE,
 ) {
   return new SheetConfig(path, tileWidth, tileHeight);
 }

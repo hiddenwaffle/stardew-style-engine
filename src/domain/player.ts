@@ -1,5 +1,5 @@
 import {
-  SavePlayer
+  SavePlayer,
 } from 'src/session/save';
 import { Direction } from 'src/domain/direction';
 import Entity from './entity';
@@ -10,7 +10,7 @@ export default class {
   constructor() {
     this.entity = new Entity({
       animationGroupName: 'af-holy-white',
-      pushable: true
+      pushable: true,
     });
   }
 
@@ -20,7 +20,7 @@ export default class {
 
   extractSave(): SavePlayer {
     return new SavePlayer(
-      this.entity.extractSave()
+      this.entity.extractSave(),
     );
   }
 

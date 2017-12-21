@@ -11,7 +11,7 @@ export class ScriptCallContext {
     world: World,
     primaryEntityId: number,
     secondaryEntityId: number,
-    tileLayerName: string
+    tileLayerName: string,
   ) {
     this.world = world;
     this.primaryEntityId = primaryEntityId;
@@ -30,7 +30,7 @@ export class ScriptCall {
     name: string,
     primaryEntityId?: number,
     secondaryEntityId?: number,
-    tileLayerName?: string
+    tileLayerName?: string,
   ) {
     this.name = name;
     this.primaryEntityId = primaryEntityId || null;
@@ -43,7 +43,7 @@ export class ScriptCall {
       world,
       this.primaryEntityId,
       this.secondaryEntityId,
-      this.tileLayerName
+      this.tileLayerName,
     );
     script.execute(this.name, ctx);
   }
@@ -77,30 +77,4 @@ export class ScriptCallBatch {
   add(scriptCall: ScriptCall) {
     this.scriptCalls.set(scriptCall.key, scriptCall);
   }
-
-  // // TODO: DEPRECATED?
-  // removeByTileLayerName(tileLayerName: string) {
-  //   const keysToRemove: string[] = [];
-  //   for (const [key, scriptCall] of Array.from(this.scriptCalls)) {
-  //     if (scriptCall.tileLayerName && // Skips calls not associated with a layer.
-  //         scriptCall.tileLayerName === tileLayerName) {
-  //       keysToRemove.push(key);
-  //     }
-  //   }
-  //   for (const keyToRemove of keysToRemove) {
-  //     this.scriptCalls.delete(keyToRemove);
-  //   }
-  // // }
-  // removeBySecondaryEntityId(secondaryEntityId: number) {
-  //   const keysToRemove: string[] = [];
-  //   for (const [key, scriptCall] of Array.from(this.scriptCalls)) {
-  //     if (scriptCall.secondaryEntityId && // Skips calls not associated with a secondary entity.
-  //         scriptCall.secondaryEntityId === secondaryEntityId) {
-  //       keysToRemove.push(key);
-  //     }
-  //   }
-  //   for (const keyToRemove of keysToRemove) {
-  //     this.scriptCalls.delete(keyToRemove);
-  //   }
-  // }
 }

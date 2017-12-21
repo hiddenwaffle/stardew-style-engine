@@ -1,6 +1,6 @@
 import {
   TARGET_FIELD_TILE_SIZE,
-  UPSCALE
+  UPSCALE,
 } from 'src/constants';
 import { SaveEntity } from 'src/session/save';
 import { ScriptCall } from 'src/game-master/script-call';
@@ -8,14 +8,14 @@ import timer from 'src/session/timer';
 import {
   EntityAnimationGroup,
   EntityAnimation,
-  determineCurrentAnimationCoordinates
+  determineCurrentAnimationCoordinates,
 } from 'src/domain/entity-animation';
 import entityAnimationLoader from 'src/session/entity-animation-loader';
 import { Sheet, default as imageLoader } from 'src/session/image-loader';
 import {
   Direction,
   determineDirection,
-  DirectionsOfFreedom
+  DirectionsOfFreedom,
 } from './direction';
 
 class CallTimer {
@@ -199,7 +199,7 @@ export default class {
     const [imagePathIndex, x, y, flipped] = determineCurrentAnimationCoordinates(
       this.animation,
       this.animationFrameIndex,
-      this.animationFrameTime
+      this.animationFrameTime,
     );
     return [this.animationGroup.imagePaths[imagePathIndex], x, y, flipped];
   }

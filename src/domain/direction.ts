@@ -7,14 +7,14 @@ export enum Direction {
   Right,
   DownLeft,
   Down,
-  DownRight
+  DownRight,
 }
 
 export enum DirectionsOfFreedom {
   One   = 1,
   Two   = 2,
   Four  = 4,
-  Eight = 8 // Arrows?
+  Eight = 8, // Arrows?
 }
 
 export function determineDirection(dx: number, dy: number): Direction {

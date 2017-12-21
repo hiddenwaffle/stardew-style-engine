@@ -16,7 +16,7 @@ global.setHandler('fire', (val1: string, val2: string, ctx: ScriptCallContext) =
     `fire() val1: ${val1} val2: ${val2} = ${total}, ` +
     `entity count: ${ctx.world.entities.length}, ` +
     `Primary: ${ctx.primaryEntityId}, Secondary: ${ctx.secondaryEntityId}, ` +
-    `Tile Layer: ${ctx.tileLayerName}`
+    `Tile Layer: ${ctx.tileLayerName}`,
   );
 });
 

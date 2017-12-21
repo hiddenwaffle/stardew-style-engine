@@ -2,13 +2,13 @@ import environment from 'src/session/environment';
 import { Sheet, default as imageLoader } from 'src/session/image-loader';
 import {
   ctxBack,
-  canvasBack
+  canvasBack,
 } from 'src/ui/elements';
 import {
   TARGET_FIELD_TILE_SIZE,
   FIELD_TARGET_WIDTH,
   FIELD_TARGET_HEIGHT,
-  UPSCALE
+  UPSCALE,
 } from 'src/constants';
 import Tileset from 'src/domain/tileset';
 import World from 'src/domain/world';
@@ -52,7 +52,7 @@ class Render {
             if (tile !== 0) {
               const [sheet, sourceX, sourceY] = determineImageAndCoordinate(
                 staticMap.tilesets,
-                tile
+                tile,
               );
               if (sheet) {
                 const originalTileWidth = sheet.config.tileWidth;
@@ -84,7 +84,7 @@ class Render {
                     destinationX,
                     destinationY,
                     targetTileWidth,
-                    targetTileHeight
+                    targetTileHeight,
                   );
                 }
 
@@ -93,7 +93,7 @@ class Render {
                 debugStrokeRect(
                   ctxBack,
                   destinationX, destinationY,
-                  TARGET_FIELD_TILE_SIZE, TARGET_FIELD_TILE_SIZE
+                  TARGET_FIELD_TILE_SIZE, TARGET_FIELD_TILE_SIZE,
                 );
               }
             }
@@ -128,7 +128,7 @@ class Render {
           } else {
             [sheet, sourceX, sourceY] = determineImageAndCoordinate(
               staticMap.tilesets,
-              entity.defaultTile
+              entity.defaultTile,
             );
           }
 
@@ -169,7 +169,7 @@ class Render {
                     -targetTileWidth,
                     0,
                     targetTileWidth,
-                    targetTileHeight
+                    targetTileHeight,
                   );
                   ctxBack.restore();
                 } else {
@@ -182,7 +182,7 @@ class Render {
                     destination3X,
                     destination3Y,
                     targetTileWidth,
-                    targetTileHeight
+                    targetTileHeight,
                   );
                 }
               }
@@ -193,7 +193,7 @@ class Render {
             debugStrokeRect(
               ctxBack,
               destination3X, destination3Y,
-              targetTileWidth, targetTileHeight
+              targetTileWidth, targetTileHeight,
             );
 
             // TODO: Remove this debug
@@ -205,7 +205,7 @@ class Render {
             debugStrokeRect(
               ctxBack,
               destination5X, destination5Y,
-              entity.boundingWidth, entity.boundingHeight + 1 // Notice the +1 (see collision response code)
+              entity.boundingWidth, entity.boundingHeight + 1, // Notice the +1 (see collision response code)
             );
           }
         });

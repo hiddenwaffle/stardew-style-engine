@@ -32,7 +32,7 @@ export default (world: World) => {
             const call = new ScriptCall(
               entity.entityToEntityCollisionCall,
               entity.id,
-              other.id
+              other.id,
             );
             if (entity.tryScriptCall(call, entity.entityToEntityCollisionCallInterval)) {
               call.execute(world);
@@ -51,7 +51,7 @@ export default (world: World) => {
  */
 function intersect(
   left1: number, right1: number, top1: number, bottom1: number,
-  left2: number, right2: number, top2: number, bottom2: number
+  left2: number, right2: number, top2: number, bottom2: number,
 ): boolean {
   return (
     left2   < right1  &&

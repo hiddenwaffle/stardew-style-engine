@@ -1,7 +1,7 @@
 import World from 'src/domain/world';
 import {
   ScriptCall,
-  ScriptCallBatch
+  ScriptCallBatch,
 } from './script-call';
 
 export default class {

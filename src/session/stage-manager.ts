@@ -8,7 +8,7 @@ import mapLoader from './map-loader';
 import imageLoader from './image-loader';
 import {
   SaveWorld,
-  SavePlayer
+  SavePlayer,
 } from './save';
 import environment from './environment';
 import persistence from './persistence';
@@ -17,7 +17,7 @@ import placeEntities from './place-entities';
 const enum State {
   Initializing,
   Ready,
-  Stopping
+  Stopping,
 }
 
 class StageManager {

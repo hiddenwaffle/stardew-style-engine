@@ -9,7 +9,6 @@
         "member-access": false,
         "no-angle-bracket-type-assertion": false,
         "variable-name": false,
-        "trailing-comma": false,
         "ordered-imports": false,
         "interface-name": false,
         "max-classes-per-file": false,

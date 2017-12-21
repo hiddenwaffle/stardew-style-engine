@@ -5,14 +5,14 @@ import {
   ctxBack,
   canvasScaled,
   ctxScaled,
-  narrationContainer
+  narrationContainer,
 } from './elements';
 import {
   CONTAINER_ASPECT_HEIGHT,
   CONTAINER_ASPECT_WIDTH,
   FIELD_TARGET_HEIGHT,
   FIELD_TARGET_WIDTH,
-  FONT_BASE_SIZE
+  FONT_BASE_SIZE,
 } from 'src/constants';
 
 class UiStructure {
@@ -39,14 +39,14 @@ class UiStructure {
       0,
       0,
       canvasScaled.width,
-      canvasScaled.height
+      canvasScaled.height,
     );
     ctxScaled.drawImage(
       canvasBack,
       0,
       0,
       canvasScaled.width,
-      canvasScaled.height
+      canvasScaled.height,
     );
   }
 
@@ -62,7 +62,7 @@ class UiStructure {
       window.innerWidth,
       window.innerHeight,
       CONTAINER_ASPECT_WIDTH,
-      CONTAINER_ASPECT_HEIGHT
+      CONTAINER_ASPECT_HEIGHT,
     );
     this.scaleContainer(containerScaleFactor);
 
@@ -70,7 +70,7 @@ class UiStructure {
       dynamicResizeContainer.clientWidth,
       dynamicResizeContainer.clientHeight,
       FIELD_TARGET_WIDTH,
-      FIELD_TARGET_HEIGHT
+      FIELD_TARGET_HEIGHT,
     );
     this.scaleContainerContents(containerContentsScaleFactor);
   }
@@ -114,11 +114,11 @@ export default new UiStructure();
  */
 function calculateScaleFactor(
   actualWidth: number, actualHeight: number,
-  logicalWidth: number, logicalHeight: number
+  logicalWidth: number, logicalHeight: number,
 ): number {
   const scaleFactor = Math.min(
     actualWidth / logicalWidth,
-    actualHeight / logicalHeight
+    actualHeight / logicalHeight,
   );
   return scaleFactor;
 }

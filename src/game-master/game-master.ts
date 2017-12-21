@@ -43,7 +43,7 @@ class GameMaster {
       world.player.entity.dxIntended,
       world.player.entity.dyIntended,
       world.player.entity.facing,
-      world.player.entity.directionsOfFreedom
+      world.player.entity.directionsOfFreedom,
     );
 
     tryAnimationSwitch(world.player.entity, this.walk);
@@ -62,7 +62,7 @@ function calculateFacing(
   dx: number,
   dy: number,
   currentFacing: Direction,
-  directionsOfFreedom: DirectionsOfFreedom
+  directionsOfFreedom: DirectionsOfFreedom,
 ): Direction {
   switch (directionsOfFreedom) {
     case DirectionsOfFreedom.One:
@@ -81,14 +81,14 @@ function calculateFacing(
 function calculateFacingOneDirection(
   dx: number,
   dy: number,
-  currentFacing: Direction
+  currentFacing: Direction,
 ): Direction {
   return currentFacing; // TODO: I dunno, doesn't matter does it?
 }
 
 function calculateFacingTwoDirections(
   dx: number,
-  currentFacing: Direction
+  currentFacing: Direction,
 ): Direction {
   if (dx < 0) {
     return Direction.Left;
@@ -101,7 +101,7 @@ function calculateFacingTwoDirections(
 function calculateFacingFourDirections(
   dx: number,
   dy: number,
-  currentFacing: Direction
+  currentFacing: Direction,
 ): Direction {
   if (dx !== 0 && dy !== 0) { // Diagonal movement
     if (dx < 0 && dy < 0) { // Move up-left

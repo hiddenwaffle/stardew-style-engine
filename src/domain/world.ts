@@ -46,7 +46,7 @@ export default class {
   extractSave(): SaveWorld {
     return new SaveWorld(
       this.staticMap.extractSave(),
-      this.player.extractSave()
+      this.player.extractSave(),
     );
   }
 

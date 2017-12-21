@@ -1,11 +1,11 @@
 import {
   canvasScaled,
-  narrationContainer
+  narrationContainer,
 } from 'src/ui/elements';
 
 export const enum Button {
   Left,
-  Right
+  Right,
 }
 
 /**

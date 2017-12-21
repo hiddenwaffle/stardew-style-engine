@@ -8,13 +8,13 @@ export const enum Key {
   // Rest of these are special directives
   Other,
   Ignore,
-  Prevent
+  Prevent,
 }
 
 const enum State {
   Down,
   Up,
-  Handling
+  Handling,
 }
 
 class Keyboard {

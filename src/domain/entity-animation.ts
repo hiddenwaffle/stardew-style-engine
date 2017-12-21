@@ -1,6 +1,6 @@
 import {
   DirectionsOfFreedom,
-  deriveDirectionsOfFreedom
+  deriveDirectionsOfFreedom,
 } from 'src/domain/direction';
 
 export class EntityAnimationFrame {
@@ -48,7 +48,7 @@ export class EntityAnimationGroup {
       this.animations.set(rawAnimation.name, animation);
     }
     this._directionsOfFreedom = deriveDirectionsOfFreedom(
-      Array.from(this.animations.keys())
+      Array.from(this.animations.keys()),
     );
   }
 
@@ -74,7 +74,7 @@ export class EntityAnimationGroup {
 export function determineCurrentAnimationCoordinates(
   animation: EntityAnimation,
   frameIndex: number,
-  elapsedInFrame: number
+  elapsedInFrame: number,
 ): [number, number, number, boolean] {
   let imageIndex = 0;
   let x = 0;
