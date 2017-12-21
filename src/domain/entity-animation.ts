@@ -58,7 +58,7 @@ export class EntityAnimationGroup {
     }
   }
 
-  get(name?: string):EntityAnimation {
+  get(name?: string): EntityAnimation {
     if (name) {
       return this.animations.get(name);
     } else {

@@ -49,7 +49,7 @@ export default (world: World, entity: Entity): WalkResult => {
 
   let xpush = 0;
   let ypush = 0;
-  let walkResult = new WalkResult();
+  const walkResult = new WalkResult();
 
   for (const layer of world.staticMap.collisionLayers) {
     const tileIntersected = false;
@@ -148,7 +148,7 @@ export default (world: World, entity: Entity): WalkResult => {
   entity.y = yprojected + ypush;
 
   return walkResult;
-}
+};
 
 /**
  * AABB Collision Response

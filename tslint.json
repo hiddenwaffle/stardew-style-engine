@@ -9,13 +9,19 @@
         "member-access": false,
         "no-angle-bracket-type-assertion": false,
         "no-console": {
-            "severity": "warning"
+            "severity": "warning",
+            "options": [
+                "log"
+            ]
         },
         "variable-name": false,
         "trailing-comma": false,
         "ordered-imports": false,
         "interface-name": false,
-        "max-classes-per-file": false
+        "max-classes-per-file": false,
+        "import-spacing": false,
+        "member-ordering": false,
+        "one-variable-per-declaration": false
     },
     "rulesDirectory": []
 }

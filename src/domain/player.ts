@@ -9,8 +9,8 @@ export default class {
 
   constructor() {
     this.entity = new Entity({
-      pushable: true,
-      animationGroupName: 'af-holy-white'
+      animationGroupName: 'af-holy-white',
+      pushable: true
     });
   }
 

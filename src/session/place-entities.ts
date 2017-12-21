@@ -7,8 +7,8 @@ export default (world: World) => {
 
   for (const objectHint of world.staticMap.objectHints) {
     const entity = new Entity({
-      pushable: objectHint.pushable,
-      animationGroupName: objectHint.animationGroupName
+      animationGroupName: objectHint.animationGroupName,
+      pushable: objectHint.pushable
     });
 
     entity.name = objectHint.name;
@@ -23,4 +23,4 @@ export default (world: World) => {
 
     world.addEntity(entity);
   }
-}
+};

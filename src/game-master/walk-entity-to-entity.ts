@@ -43,7 +43,7 @@ export default (world: World) => {
     }
     entity.clearCallTimersNotInSecondaryEntityIds(collisionSecondaryEntityIds);
   }
-}
+};
 
 /**
  * AABB Collision (Without Response)

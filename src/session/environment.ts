@@ -1,4 +1,4 @@
-declare const process: any
+declare const process: any;
 
 /**
  * Determine what value the Webpack DefinePlugin set at compile-time.

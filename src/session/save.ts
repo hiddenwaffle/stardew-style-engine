@@ -13,7 +13,7 @@ export class SaveEntity {
 }
 
 export class SaveStaticMap {
-  mapId: string
+  mapId: string;
 
   constructor(mapId: string) {
     this.mapId = mapId;

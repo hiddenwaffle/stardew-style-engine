@@ -96,8 +96,8 @@ export default (): Map<string, EntityAnimationGroup> => {
  */
 function genGroup(xoff: number, yoff: number): EntityAnimationGroup {
   return new EntityAnimationGroup({
-    filenames: ['antifarea_18x20chars.png'],
-    animations: genRawAnimations(xoff, yoff)
+    animations: genRawAnimations(xoff, yoff),
+    filenames: ['antifarea_18x20chars.png']
   });
 }
 
@@ -246,9 +246,9 @@ function genRawAnimations(xoff: number, yoff: number): any[] {
  */
 function genRawAnimation(name: string, next: string, rawFrames: any[]) {
   return {
+    frames: rawFrames,
     name,
-    next,
-    frames: rawFrames
+    next
   };
 }
 

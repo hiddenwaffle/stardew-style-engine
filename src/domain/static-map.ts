@@ -71,7 +71,7 @@ export default class {
         console.warn(`Unknown layer type ${layer.type}`);
         break;
     }
-  };
+  }
 
   private parseAndAddTileLayer(layer: any) {
     if (layer.name.startsWith('@collision')) {

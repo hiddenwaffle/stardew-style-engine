@@ -98,15 +98,15 @@ export default (): Map<string, EntityAnimationGroup> => {
   groups.set('dl-player-7-12', genGroup(7, 14, playerFilenames));
 
   return groups;
-}
+};
 
 /**
  * Should match the structure of *.json files.
  */
 function genGroup(xoff: number, yoff: number, filenames: string[]): EntityAnimationGroup {
   return new EntityAnimationGroup({
-    filenames,
-    animations: genRawAnimations(xoff, yoff)
+    animations: genRawAnimations(xoff, yoff),
+    filenames
   });
 }
 
@@ -188,9 +188,9 @@ function genRawAnimations(xoff: number, yoff: number): any[] {
  */
 function genRawAnimation(name: string, next: string, rawFrames: any[]) {
   return {
+    frames: rawFrames,
     name,
-    next,
-    frames: rawFrames
+    next
   };
 }
 

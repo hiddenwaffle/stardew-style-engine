@@ -57,25 +57,25 @@ export function deriveDirectionsOfFreedom(animationNames: string[]): DirectionsO
   let upLeft, upRight, downLeft, downRight = false;
 
   Array.from(animationNames).forEach((key) => {
-    if (key.endsWith('up'))         up        = true;
-    if (key.endsWith('down'))       down      = true;
-    if (key.endsWith('left'))       left      = true;
-    if (key.endsWith('right'))      right     = true;
-    if (key.endsWith('up-left'))    upLeft    = true;
-    if (key.endsWith('up-right'))   upRight   = true;
-    if (key.endsWith('down-left'))  downLeft  = true;
-    if (key.endsWith('down-right')) downRight = true;
+    if (key.endsWith('up'))         { up        = true; }
+    if (key.endsWith('down'))       { down      = true; }
+    if (key.endsWith('left'))       { left      = true; }
+    if (key.endsWith('right'))      { right     = true; }
+    if (key.endsWith('up-left'))    { upLeft    = true; }
+    if (key.endsWith('up-right'))   { upRight   = true; }
+    if (key.endsWith('down-left'))  { downLeft  = true; }
+    if (key.endsWith('down-right')) { downRight = true; }
   });
 
   let found = 0;
-  if (up)         found++;
-  if (down)       found++;
-  if (left)       found++;
-  if (right)      found++;
-  if (upLeft)     found++;
-  if (upRight)    found++;
-  if (downLeft)   found++;
-  if (downRight)  found++;
+  if (up)         { found++; }
+  if (down)       { found++; }
+  if (left)       { found++; }
+  if (right)      { found++; }
+  if (upLeft)     { found++; }
+  if (upRight)    { found++; }
+  if (downLeft)   { found++; }
+  if (downRight)  { found++; }
 
   let directionsOfFreedom = DirectionsOfFreedom.One;
   if (found >= 2 && found <= 3) {
