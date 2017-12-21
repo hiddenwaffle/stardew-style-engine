@@ -1,6 +1,6 @@
 import World from 'src/domain/world';
 import Entity from 'src/domain/entity';
-import { Direction } from 'src/domain/direction';
+import { Direction, DirectionsOfFreedom } from 'src/domain/direction';
 import walkEntityToTiles from './walk-entity-to-tiles';
 import walkEntityToEntity from './walk-entity-to-entity';
 
@@ -42,7 +42,8 @@ class GameMaster {
     world.player.entity.facing = calculateFacing(
       world.player.entity.dxIntended,
       world.player.entity.dyIntended,
-      world.player.entity.facing
+      world.player.entity.facing,
+      world.player.entity.directionsOfFreedom
     );
 
     tryAnimationSwitch(world.player.entity, this.walk);
@@ -58,6 +59,46 @@ class GameMaster {
 export default new GameMaster();
 
 function calculateFacing(
+  dx: number,
+  dy: number,
+  currentFacing: Direction,
+  directionsOfFreedom: DirectionsOfFreedom
+): Direction {
+  switch (directionsOfFreedom) {
+    case DirectionsOfFreedom.One:
+      return calculateFacingOneDirection(dx, dy, currentFacing);
+    case DirectionsOfFreedom.Two:
+      return calculateFacingTwoDirections(dx, currentFacing);
+    case DirectionsOfFreedom.Four:
+      return calculateFacingFourDirections(dx, dy, currentFacing);
+    case DirectionsOfFreedom.Eight:
+      // TODO: Account for 8 directions of freedom, when necessary (arrows?).
+      break;
+  }
+  return Direction.None;
+}
+
+function calculateFacingOneDirection(
+  dx: number,
+  dy: number,
+  currentFacing: Direction
+): Direction {
+  return currentFacing; // TODO: I dunno, doesn't matter does it?
+}
+
+function calculateFacingTwoDirections(
+  dx: number,
+  currentFacing: Direction
+): Direction {
+  if (dx < 0) {
+    return Direction.Left;
+  } else if (dx > 0) {
+    return Direction.Right;
+  }
+  return currentFacing;
+}
+
+function calculateFacingFourDirections(
   dx: number,
   dy: number,
   currentFacing: Direction
