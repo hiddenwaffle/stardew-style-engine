@@ -106,7 +106,7 @@ export default (): Map<string, EntityAnimationGroup> => {
 function genGroup(xoff: number, yoff: number, filenames: string[]): EntityAnimationGroup {
   return new EntityAnimationGroup({
     animations: genRawAnimations(xoff, yoff),
-    filenames
+    filenames,
   });
 }
 
@@ -123,61 +123,61 @@ function genRawAnimations(xoff: number, yoff: number): any[] {
     genRawAnimation(
       'default', 'default',
       [
-        genRawFrame(0, xoff, yoff) // Same as stand-left.
-      ]
-    )
+        genRawFrame(0, xoff, yoff), // Same as stand-left.
+      ],
+    ),
   );
   rawAnimations.push(
     genRawAnimation(
       'stand-left', 'stand-left',
       [
-        genRawFrame(0, xoff, yoff)
-      ]
-    )
+        genRawFrame(0, xoff, yoff),
+      ],
+    ),
   );
   rawAnimations.push(
     genRawAnimation(
       'stand-right', 'stand-right',
       [
-        genRawFrame(0, xoff, yoff, null, true)
-      ]
-    )
+        genRawFrame(0, xoff, yoff, null, true),
+      ],
+    ),
   );
   rawAnimations.push(
     genRawAnimation(
       'walk-left', 'walk-left',
       [
         genRawFrame(0, xoff, yoff, walkDelay),
-        genRawFrame(1, xoff, yoff, walkDelay)
-      ]
-    )
+        genRawFrame(1, xoff, yoff, walkDelay),
+      ],
+    ),
   );
   rawAnimations.push(
     genRawAnimation(
       'walk-right', 'walk-right',
       [
         genRawFrame(0, xoff, yoff, walkDelay, true),
-        genRawFrame(1, xoff, yoff, walkDelay, true)
-      ]
-    )
+        genRawFrame(1, xoff, yoff, walkDelay, true),
+      ],
+    ),
   );
   rawAnimations.push(
     genRawAnimation(
       'run-left', 'run-left',
       [
         genRawFrame(0, xoff, yoff, runDelay),
-        genRawFrame(1, xoff, yoff, runDelay)
-      ]
-    )
+        genRawFrame(1, xoff, yoff, runDelay),
+      ],
+    ),
   );
   rawAnimations.push(
     genRawAnimation(
       'run-right', 'run-right',
       [
         genRawFrame(0, xoff, yoff, runDelay, true),
-        genRawFrame(1, xoff, yoff, runDelay, true)
-      ]
-    )
+        genRawFrame(1, xoff, yoff, runDelay, true),
+      ],
+    ),
   );
 
   return rawAnimations;
@@ -190,7 +190,7 @@ function genRawAnimation(name: string, next: string, rawFrames: any[]) {
   return {
     frames: rawFrames,
     name,
-    next
+    next,
   };
 }
 
@@ -202,7 +202,7 @@ function genRawFrame(
   x: number,
   y: number,
   delay?: number,
-  flipped?: boolean
+  flipped?: boolean,
 ): any {
   const rawFrame: any = { imageIndex, x, y };
   if (delay) {
