@@ -14,7 +14,8 @@ import entityAnimationLoader from 'src/session/entity-animation-loader';
 import { Sheet, default as imageLoader } from 'src/session/image-loader';
 import {
   Direction,
-  determineDirection
+  determineDirection,
+  DirectionsOfFreedom
 } from './direction';
 
 class CallTimer {
@@ -220,6 +221,14 @@ export default class {
 
   get direction(): Direction {
     return determineDirection(this.dxIntended, this.dyIntended);
+  }
+
+  get directionsOfFreedom(): DirectionsOfFreedom {
+    if (this.animationGroup) {
+      return this.animationGroup.directionsOfFreedom;
+    } else {
+      return DirectionsOfFreedom.One;
+    }
   }
 
   get hasAnimation(): boolean {

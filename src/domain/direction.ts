@@ -10,6 +10,13 @@ export enum Direction {
   DownRight
 }
 
+export enum DirectionsOfFreedom {
+  One,
+  Two,
+  Four,
+  Eight // Arrows?
+}
+
 export function determineDirection(dx: number, dy: number): Direction {
   if (dx < 0) {
     if (dy < 0) {
@@ -43,4 +50,41 @@ export function isCardinal(direction: Direction) {
           Direction.Down,
           Direction.Left,
           Direction.Right].includes(direction);
+}
+
+export function deriveDirectionsOfFreedom(animationNames: string[]): DirectionsOfFreedom {
+  let up, down, left, right = false;
+  let upLeft, upRight, downLeft, downRight = false;
+
+  Array.from(animationNames).forEach((key) => {
+    if (key.endsWith('up'))         up        = true;
+    if (key.endsWith('down'))       down      = true;
+    if (key.endsWith('left'))       left      = true;
+    if (key.endsWith('right'))      right     = true;
+    if (key.endsWith('up-left'))    upLeft    = true;
+    if (key.endsWith('up-right'))   upRight   = true;
+    if (key.endsWith('down-left'))  downLeft  = true;
+    if (key.endsWith('down-right')) downRight = true;
+  });
+
+  let found = 0;
+  if (up)         found++;
+  if (down)       found++;
+  if (left)       found++;
+  if (right)      found++;
+  if (upLeft)     found++;
+  if (upRight)    found++;
+  if (downLeft)   found++;
+  if (downRight)  found++;
+
+  let directionsOfFreedom = DirectionsOfFreedom.One;
+  if (found >= 2 && found <= 3) {
+    directionsOfFreedom = DirectionsOfFreedom.Two;
+  } else if (found >= 4 && found <= 7) {
+    directionsOfFreedom = DirectionsOfFreedom.Four;
+  } else if (found >= 8) {
+    directionsOfFreedom = DirectionsOfFreedom.Eight;
+  }
+
+  return directionsOfFreedom;
 }

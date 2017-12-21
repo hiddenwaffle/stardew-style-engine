@@ -1,3 +1,8 @@
+import {
+  DirectionsOfFreedom,
+  deriveDirectionsOfFreedom
+} from 'src/domain/direction';
+
 export class EntityAnimationFrame {
   readonly imageIndex: number;
   readonly x: number;
@@ -33,6 +38,7 @@ export class EntityAnimation {
 export class EntityAnimationGroup {
   readonly imagePaths: string[];
   private readonly animations: Map<string, EntityAnimation>;
+  private readonly _directionsOfFreedom: DirectionsOfFreedom;
 
   constructor(rawFile: any) {
     this.imagePaths = rawFile.filenames;
@@ -41,6 +47,9 @@ export class EntityAnimationGroup {
       const animation = new EntityAnimation(rawAnimation);
       this.animations.set(rawAnimation.name, animation);
     }
+    this._directionsOfFreedom = deriveDirectionsOfFreedom(
+      Array.from(this.animations.keys())
+    );
   }
 
   add(animation: EntityAnimation) {
@@ -55,6 +64,10 @@ export class EntityAnimationGroup {
     } else {
       return this.animations.get('default');
     }
+  }
+
+  get directionsOfFreedom(): DirectionsOfFreedom {
+    return this._directionsOfFreedom;
   }
 }
 
