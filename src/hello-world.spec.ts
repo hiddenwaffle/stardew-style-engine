@@ -1,5 +1,4 @@
 import { expect } from 'chai';
-import 'mocha';
 
 class HelloWorld {
   getBobX(): number {
