@@ -11,10 +11,10 @@ export enum Direction {
 }
 
 export enum DirectionsOfFreedom {
-  One,
-  Two,
-  Four,
-  Eight // Arrows?
+  One   = 1,
+  Two   = 2,
+  Four  = 2,
+  Eight = 8 // Arrows?
 }
 
 export function determineDirection(dx: number, dy: number): Direction {
