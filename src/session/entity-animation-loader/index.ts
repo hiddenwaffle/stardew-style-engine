@@ -7,10 +7,19 @@ class EntityAnimationManager {
   private readonly groups: Map<string, EntityAnimationGroup>;
 
   constructor() {
-    this.groups = new Map([
-      ...antifarea(),
-      ...dawnLike()
-    ]);
+    // TODO: Someday switch it to this:
+    // this.groups = new Map([
+    //   ...antifarea(),
+    //   ...dawnLike(),
+    //   ...etc...
+    // ]);
+    this.groups = new Map();
+    for (const [key, value] of Array.from(antifarea().entries())) {
+      this.groups.set(key, value);
+    }
+    for (const [key, value] of Array.from(dawnLike().entries())) {
+      this.groups.set(key, value);
+    }
   }
 
   get(animationGroupName: string) {
