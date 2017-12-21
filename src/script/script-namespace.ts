@@ -1,3 +1,4 @@
+import log from 'src/log';
 import { ScriptCallContext } from 'src/game-master/script-call';
 
 export type ScriptHandler = (...args: any[]) => void;
@@ -37,7 +38,7 @@ export class ScriptNamespace {
         if (handler) {
           handler.apply(handler, [...args, ctx]);
         } else {
-          console.warn(`Handler not found: ${handler}. Args: ${args}`);
+          log('warn', `Handler not found: ${handler}. Args: ${args}`);
         }
       } else if (path.length > 1) {
         const namespaceName = path.shift();
@@ -45,7 +46,7 @@ export class ScriptNamespace {
         if (namespace) {
           namespace.execute(path, ctx);
         } else {
-          console.warn(`Namespace not found: ${namespaceName}`);
+          log('warn', `Namespace not found: ${namespaceName}`);
         }
       }
     }

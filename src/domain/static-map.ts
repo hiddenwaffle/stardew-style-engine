@@ -1,4 +1,5 @@
 import { SaveStaticMap } from 'src/session/save';
+import log from 'src/log';
 import TileLayer from './tile-layer';
 import CollisionLayer from './collision-layer';
 import Tileset from './tileset';
@@ -68,7 +69,7 @@ export default class {
         break;
       // TODO: Do something else with the other layer types/names
       default:
-        console.warn(`Unknown layer type ${layer.type}`);
+        log('warn', `Unknown layer type ${layer.type}`);
         break;
     }
   }

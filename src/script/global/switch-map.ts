@@ -1,3 +1,4 @@
+import log from 'src/log';
 import World from 'src/domain/world';
 import StaticMap from 'src/domain/static-map';
 import stageManager from 'src/session/stage-manager';
@@ -13,7 +14,7 @@ export default (mapName: string, entranceName: string, world: World) => {
       world.player.x = entrance.x;
       world.player.y = entrance.y;
     } else {
-      console.warn(`Entrance not found ${entranceName}`);
+      log('warn', `Entrance not found ${entranceName}`);
     }
   });
 };

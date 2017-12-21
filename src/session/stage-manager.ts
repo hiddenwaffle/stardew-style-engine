@@ -1,3 +1,4 @@
+import log from 'src/log';
 import World from 'src/domain/world';
 import StaticMap from 'src/domain/static-map';
 import Player from 'src/domain/player';
@@ -31,7 +32,7 @@ class StageManager {
   start() {
     const save = persistence.load();
     if (environment.development) {
-      console.log('localstorage => StageManager#start()', JSON.stringify(save));
+      log('info', 'localstorage => StageManager#start()', JSON.stringify(save));
     }
     this.applySave(save);
     render.start();
@@ -48,12 +49,12 @@ class StageManager {
     if (this.state === State.Ready) {
       const save = this.extractSave();
       if (environment.development) {
-        console.log('StageManager#stop() => localStorage', JSON.stringify(save));
+        log('info', 'StageManager#stop() => localStorage', JSON.stringify(save));
       }
       persistence.save(save);
     } else {
       if (environment.development) {
-        console.log('StageManager#stop(): World is not initialized; skipping persist.');
+        log('info', 'StageManager#stop(): World is not initialized; skipping persist.');
       }
     }
   }

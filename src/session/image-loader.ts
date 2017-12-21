@@ -1,3 +1,4 @@
+import log from 'src/log';
 import { DEFAULT_FIELD_TILE_SIZE } from 'src/constants';
 
 import player0  from 'src/external/DawnLike/Characters/Player0.png';
@@ -112,7 +113,7 @@ class ImageLoader {
       if (path) {
         this.retrieve(filename, path);
       } else {
-        console.log('ImageLoader#prepare() path not found for:', filename);
+        log('info', 'ImageLoader#prepare() path not found for:', filename);
       }
     }
   }

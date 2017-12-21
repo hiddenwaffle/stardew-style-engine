@@ -1,3 +1,4 @@
+import log from 'src/log';
 import { EntityAnimationGroup } from 'src/domain/entity-animation';
 import imageLoader from 'src/session/image-loader';
 import antifarea from './antifarea';
@@ -29,7 +30,7 @@ class EntityAnimationManager {
         imageLoader.prepare(imagePath);
       });
     } else {
-      console.warn(`Unknown animationGroupName: ${animationGroupName}`);
+      log('warn', `Unknown animationGroupName: ${animationGroupName}`);
     }
     return group;
   }
