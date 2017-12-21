@@ -185,12 +185,12 @@ export default class {
 
   switchAnimation(name: string, reset: boolean) {
     if (this.animationGroup) {
-      const newAnimation = this.animationGroup.get(name);
+      const newAnimation = this.animationGroup.get(name) || this.animationGroup.get();
       if (reset || newAnimation !== this.animation) {
         this.animationFrameIndex = 0;
         this.animationFrameTime = 0;
-        this.animation = newAnimation;
       }
+      this.animation = newAnimation;
     }
   }
 
