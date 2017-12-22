@@ -203,4 +203,4 @@ class Keyboard {
   }
 }
 
-export default new Keyboard();
+export const keyboard = new Keyboard();

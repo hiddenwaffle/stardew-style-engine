@@ -1,4 +1,4 @@
-import log from 'src/log';
+import { log } from 'src/log';
 import { ScriptCallContext } from 'src/game-master/script-call';
 
 export type ScriptHandler = (...args: any[]) => void;

@@ -4,14 +4,17 @@ import {
 } from 'src/constants';
 import { SaveEntity } from 'src/session/save';
 import { ScriptCall } from 'src/game-master/script-call';
-import timer from 'src/session/timer';
+import { timer } from 'src/session/timer';
 import {
   EntityAnimationGroup,
   EntityAnimation,
   determineCurrentAnimationCoordinates,
 } from 'src/domain/entity-animation';
-import entityAnimationLoader from 'src/session/entity-animation-loader';
-import { Sheet, default as imageLoader } from 'src/session/image-loader';
+import { entityAnimationLoader } from 'src/session/entity-animation-loader';
+import {
+  Sheet,
+  imageLoader
+} from 'src/session/image-loader';
 import {
   Direction,
   determineDirection,
@@ -49,7 +52,7 @@ class CallTimer {
   }
 }
 
-export default class {
+export class Entity {
   private _id: number;
   name: string;
   x: number;

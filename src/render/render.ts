@@ -1,5 +1,5 @@
-import environment from 'src/session/environment';
-import { Sheet, default as imageLoader } from 'src/session/image-loader';
+import { environment } from 'src/session/environment';
+import { Sheet, imageLoader } from 'src/session/image-loader';
 import {
   ctxBack,
   canvasBack,
@@ -10,8 +10,8 @@ import {
   FIELD_TARGET_HEIGHT,
   UPSCALE,
 } from 'src/constants';
-import Tileset from 'src/domain/tileset';
-import World from 'src/domain/world';
+import { Tileset } from 'src/domain/tileset';
+import { World } from 'src/domain/world';
 
 function determineImageAndCoordinate(tilesets: Tileset[], tile: number): [Sheet, number, number] {
   let sheet: Sheet = null;
@@ -214,7 +214,7 @@ class Render {
   }
 }
 
-export default new Render();
+export const render = new Render();
 
 /**
  * Draws a box only if in development mode.

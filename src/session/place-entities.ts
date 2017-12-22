@@ -1,7 +1,7 @@
-import World from 'src/domain/world';
-import Entity from 'src/domain/entity';
+import { World } from 'src/domain/world';
+import { Entity } from 'src/domain/entity';
 
-export default (world: World) => {
+export function placeEntities(world: World) {
   // TODO: Is this the right place for it?
   world.addEntity(world.player.entity);
 

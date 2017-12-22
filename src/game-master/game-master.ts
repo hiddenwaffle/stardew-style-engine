@@ -1,8 +1,8 @@
-import World from 'src/domain/world';
-import Entity from 'src/domain/entity';
+import { World } from 'src/domain/world';
+import { Entity } from 'src/domain/entity';
 import { Direction, DirectionsOfFreedom } from 'src/domain/direction';
-import walkEntityToTiles from './walk-entity-to-tiles';
-import walkEntityToEntity from './walk-entity-to-entity';
+import { walkEntityToTiles } from './walk-entity-to-tiles';
+import { walkEntityToEntity } from './walk-entity-to-entity';
 
 class GameMaster {
   /**
@@ -56,7 +56,7 @@ class GameMaster {
   }
 }
 
-export default new GameMaster();
+export const gameMaster = new GameMaster();
 
 function calculateFacing(
   dx: number,

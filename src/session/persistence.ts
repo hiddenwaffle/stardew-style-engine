@@ -1,4 +1,4 @@
-import World from 'src/domain/world';
+import { World } from 'src/domain/world';
 import { SAVE_KEY } from 'src/constants';
 import { SaveWorld } from './save';
 
@@ -38,4 +38,4 @@ class Persistence {
   }
 }
 
-export default new Persistence();
+export const persistence = new Persistence();

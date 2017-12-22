@@ -1,4 +1,4 @@
-import environment from 'src/session/environment';
+import { environment } from 'src/session/environment';
 
 /**
  * From https://developer.mozilla.org/en-US/docs/Web/API/Console
@@ -30,7 +30,7 @@ const allowedInProduction: ConsoleMethod[] = ['warn', 'error'];
 /**
  * Assists with preventing non-warn/error statements from displaying in production.
  */
-export default (methodName: ConsoleMethod, ...args: any[]) => {
+export function log(methodName: ConsoleMethod, ...args: any[]) {
   if (environmentAllows(methodName)) {
     const method = (console as any)[methodName];
     if (method) {

@@ -2,18 +2,14 @@ import {
   Direction,
   isCardinal,
 } from 'src/domain/direction';
-import World from 'src/domain/world';
-import Entity from 'src/domain/entity';
-import timer from 'src/session/timer';
-import {
-  TARGET_FIELD_TILE_SIZE,
-} from 'src/constants';
-import {
-  ScriptCall,
-} from './script-call';
-import WalkResult from './walk-result';
+import { World } from 'src/domain/world';
+import { Entity } from 'src/domain/entity';
+import { timer } from 'src/session/timer';
+import { TARGET_FIELD_TILE_SIZE } from 'src/constants';
+import { ScriptCall } from './script-call';
+import { WalkResult } from './walk-result';
 
-export default (world: World, entity: Entity): WalkResult => {
+export function walkEntityToTiles(world: World, entity: Entity): WalkResult {
   const secondsPast = timer.elapsed / 1000;
   const speed = entity.speed * secondsPast;
 

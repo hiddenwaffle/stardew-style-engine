@@ -1,7 +1,7 @@
-import uiStructure from 'src/ui/ui-structure';
-import controller from 'src/input/controller';
-import timer from './timer';
-import stageManager from './stage-manager';
+import { uiStructure } from 'src/ui/ui-structure';
+import { controller } from 'src/input/controller';
+import { timer } from './timer';
+import { stageManager } from './stage-manager';
 
 class Session {
   /**
@@ -34,4 +34,4 @@ class Session {
   }
 }
 
-export default new Session();
+export const session = new Session();

@@ -2,9 +2,9 @@ import {
   SavePlayer,
 } from 'src/session/save';
 import { Direction } from 'src/domain/direction';
-import Entity from './entity';
+import { Entity } from './entity';
 
-export default class {
+export class Player {
   entity: Entity;
 
   constructor() {

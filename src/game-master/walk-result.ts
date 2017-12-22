@@ -1,10 +1,10 @@
-import World from 'src/domain/world';
+import { World } from 'src/domain/world';
 import {
   ScriptCall,
   ScriptCallBatch,
 } from './script-call';
 
-export default class {
+export class WalkResult {
   private readonly calls: ScriptCallBatch;
   readonly collisionTileLayers: string[];
 

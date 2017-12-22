@@ -25,4 +25,4 @@ class Environment {
   }
 }
 
-export default new Environment();
+export const environment = new Environment();

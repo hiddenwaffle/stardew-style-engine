@@ -1,6 +1,6 @@
 import { ScriptCallContext } from 'src/game-master/script-call';
 import { ScriptHandler, ScriptNamespace } from './script-namespace';
-import global from './global';
+import { global } from './global';
 
 class Script {
   private readonly root: ScriptNamespace;
@@ -18,4 +18,4 @@ class Script {
   }
 }
 
-export default new Script();
+export const script = new Script();

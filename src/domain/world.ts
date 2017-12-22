@@ -1,9 +1,9 @@
 import { SaveWorld } from 'src/session/save';
-import Player from './player';
-import Entity from './entity';
-import StaticMap from './static-map';
+import { Player } from './player';
+import { Entity } from './entity';
+import { StaticMap } from './static-map';
 
-export default class {
+export class World {
   player: Player;
   private readonly _entities: Map<number, Entity>;
   staticMap: StaticMap;

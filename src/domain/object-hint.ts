@@ -1,7 +1,7 @@
 import { UPSCALE } from 'src/constants';
 import { Direction } from './direction';
 
-export default class {
+export class ObjectHint {
   readonly name: string;
   readonly x: number;
   readonly y: number;

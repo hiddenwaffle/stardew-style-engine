@@ -1,13 +1,13 @@
 import { SaveStaticMap } from 'src/session/save';
-import log from 'src/log';
-import TileLayer from './tile-layer';
-import CollisionLayer from './collision-layer';
-import Tileset from './tileset';
-import Entity from './entity';
-import MapEntrance from './map-entrance';
-import ObjectHint from './object-hint';
+import { log } from 'src/log';
+import { TileLayer } from './tile-layer';
+import { CollisionLayer } from './collision-layer';
+import { Tileset } from './tileset';
+import { Entity } from './entity';
+import { MapEntrance } from './map-entrance';
+import { ObjectHint } from './object-hint';
 
-export default class {
+export class StaticMap {
   id: string;
   width: number;
   height: number;

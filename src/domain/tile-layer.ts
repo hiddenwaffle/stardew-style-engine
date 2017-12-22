@@ -1,4 +1,4 @@
-export default class {
+export class TileLayer {
   readonly name: string;
   readonly x: number;
   readonly y: number;

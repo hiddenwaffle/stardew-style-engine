@@ -1,18 +1,18 @@
-import log from 'src/log';
-import World from 'src/domain/world';
-import StaticMap from 'src/domain/static-map';
-import Player from 'src/domain/player';
-import gameMaster from 'src/game-master/game-master';
-import render from 'src/render/render';
-import mapLoader from './map-loader';
-import imageLoader from './image-loader';
+import { log } from 'src/log';
+import { World } from 'src/domain/world';
+import { StaticMap } from 'src/domain/static-map';
+import { Player } from 'src/domain/player';
+import { gameMaster } from 'src/game-master/game-master';
+import { render } from 'src/render/render';
+import { mapLoader } from './map-loader';
+import { imageLoader } from './image-loader';
 import {
   SaveWorld,
   SavePlayer,
 } from './save';
-import environment from './environment';
-import persistence from './persistence';
-import placeEntities from './place-entities';
+import { environment } from './environment';
+import { persistence } from './persistence';
+import { placeEntities } from './place-entities';
 
 const enum State {
   Initializing,
@@ -92,4 +92,4 @@ class StageManager {
   }
 }
 
-export default new StageManager();
+export const stageManager = new StageManager();

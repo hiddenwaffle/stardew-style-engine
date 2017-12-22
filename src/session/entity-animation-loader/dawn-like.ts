@@ -1,6 +1,6 @@
 import { EntityAnimationGroup } from 'src/domain/entity-animation';
 
-export default (): Map<string, EntityAnimationGroup> => {
+export function dawnLike(): Map<string, EntityAnimationGroup> {
   const groups: Map<string, EntityAnimationGroup> = new Map();
 
   const playerFilenames = ['Player0.png', 'Player1.png'];

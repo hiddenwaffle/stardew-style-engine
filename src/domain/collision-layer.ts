@@ -1,6 +1,6 @@
-import TileLayer from './tile-layer';
+import { TileLayer } from './tile-layer';
 
-export default class extends TileLayer {
+export class CollisionLayer extends TileLayer {
   readonly call: string;
   readonly callInterval: number;
   readonly passthrough: boolean;

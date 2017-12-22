@@ -103,7 +103,7 @@ class UiStructure {
   }
 }
 
-export default new UiStructure();
+export const uiStructure = new UiStructure();
 
 /**
  * Determine how much to scale the given logical rectangle

@@ -1,5 +1,5 @@
-import script from 'src/script';
-import World from 'src/domain/world';
+import { script } from 'src/script';
+import { World } from 'src/domain/world';
 
 export class ScriptCallContext {
   readonly world: World;

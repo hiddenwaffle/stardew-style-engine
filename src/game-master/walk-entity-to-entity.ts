@@ -1,11 +1,11 @@
-import World from 'src/domain/world';
+import { World } from 'src/domain/world';
 import { ScriptCall } from './script-call';
 
 /**
  * Warning: O(n^2)
  * Warning: Uses the same bounding box calculation as walk-entity.ts
  */
-export default (world: World) => {
+export function walkEntityToEntity (world: World) {
   const collisionSecondaryEntityIds: number[] = [];
   for (const entity of world.entities) {
     // Calculate bounding box -- center x to middle and y to bottom.

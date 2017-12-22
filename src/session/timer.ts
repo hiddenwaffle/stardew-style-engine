@@ -28,7 +28,7 @@ class Timer {
   }
 }
 
-export default new Timer();
+export const timer = new Timer();
 
 function calculateElapsed(now: number, lastStep: number): [number, number] {
   let elapsed = now - lastStep;

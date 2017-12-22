@@ -1,6 +1,6 @@
-import {EventType, AbstractEvent} from './event-bus';
+import { EventType, AbstractEvent } from './event-bus';
 
-export default class extends AbstractEvent {
+export class ExampleEvent extends AbstractEvent {
     getType() {
         return EventType.ExampleEvent;
     }

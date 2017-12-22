@@ -1,4 +1,4 @@
-export default class {
+export class Tileset {
   firstgid: number;
   tilecount: number;
   columns: number;

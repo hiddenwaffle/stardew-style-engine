@@ -1,7 +1,7 @@
-import gameMaster from 'src/game-master/game-master';
-import timer from 'src/session/timer';
-import keyboard, { Key } from './keyboard';
-import mouse from './mouse';
+import { gameMaster } from 'src/game-master/game-master';
+import { timer } from 'src/session/timer';
+import { keyboard, Key } from './keyboard';
+import { mouse } from './mouse';
 
 class Controller {
   /**
@@ -43,4 +43,4 @@ class Controller {
   }
 }
 
-export default new Controller();
+export const controller = new Controller();

@@ -1,6 +1,6 @@
 import { UPSCALE } from 'src/constants';
 
-export default class {
+export class MapEntrance {
   readonly name: string;
   readonly x: number;
   readonly y: number;

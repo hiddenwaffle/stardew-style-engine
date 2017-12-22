@@ -1,9 +1,9 @@
-import log from 'src/log';
+import { log } from 'src/log';
 import { ScriptCallContext } from 'src/game-master/script-call';
 import { ScriptHandler, ScriptNamespace } from 'src/script/script-namespace';
-import switchMap from './switch-map';
+import { switchMap } from './switch-map';
 
-const global = new ScriptNamespace();
+export const global = new ScriptNamespace();
 
 global.setHandler('sayOuch', () => {
   log('info', '"ouch"', '"that hurts"');
@@ -23,5 +23,3 @@ global.setHandler('fire', (val1: string, val2: string, ctx: ScriptCallContext) =
 global.setHandler('switchMap', (mapName: string, entrance: string, ctx: ScriptCallContext) => {
   switchMap(mapName, entrance, ctx.world);
 });
-
-export default global;

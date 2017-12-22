@@ -32,4 +32,4 @@ class MapLoader {
   }
 }
 
-export default new MapLoader();
+export const mapLoader = new MapLoader();
