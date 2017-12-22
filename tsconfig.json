@@ -1,13 +1,14 @@
 {
   "compilerOptions": {
+    "baseUrl": ".",
+    "lib": ["es2016", "dom"],
+    "module": "esnext",
+    "moduleResolution": "node",
+    "noImplicitAny": true,
     "outDir": "./dist/",
     "sourceMap": true,
-    "noImplicitAny": true,
-    "module": "esnext",
-    "lib": ["es2016", "dom"],
+    "strictNullChecks": true,
     "target": "es5",
-    "moduleResolution": "node",
-    "baseUrl": ".",
     "paths": {
       "src": ["src"]
     }
