@@ -22,7 +22,7 @@ export class World {
   }
 
   async start() {
-    this.switchMap(this.initialMapId);
+    await this.switchMap(this.initialMapId);
   }
 
   async switchMap(mapId: string, entranceName?: string) {
