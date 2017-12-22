@@ -22,27 +22,25 @@ export class World {
   }
 
   async start() {
-    this.staticMap = await fetchMap(this.initialMapId);
-    await imageLoader.prepareAll(this.staticMap.tilesets.map(tileset => tileset.image));
-    worldPlaceEntities(this);
+    this.switchMap(this.initialMapId);
   }
 
-  // TODO: fix duplication with start()
-  async switchMap(mapId: string, entranceName: string) {
-    this._entities.clear(); // TODO: Best place for this?
+  async switchMap(mapId: string, entranceName?: string) {
     this.staticMap = await fetchMap(mapId);
     await imageLoader.prepareAll(this.staticMap.tilesets.map(tileset => tileset.image));
+    this._entities.clear(); // TODO: Best place for this?
     worldPlaceEntities(this);
 
-    const entrance = this.staticMap.entrances.find((entranceCandidate) => {
-      return entranceCandidate.name === entranceName;
-    });
-
-    if (entrance) {
-      this.player.x = entrance.x;
-      this.player.y = entrance.y;
-    } else {
-      log('warn', `Entrance not found ${entranceName}`);
+    if (entranceName) {
+      const entrance = this.staticMap.entrances.find((entranceCandidate) => {
+        return entranceCandidate.name === entranceName;
+      });
+      if (entrance) {
+        this.player.x = entrance.x;
+        this.player.y = entrance.y;
+      } else {
+        log('warn', `Entrance not found ${entranceName}`);
+      }
     }
   }
 
