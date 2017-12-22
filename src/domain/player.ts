@@ -7,15 +7,12 @@ import { Entity } from './entity';
 export class Player {
   entity: Entity;
 
-  constructor() {
+  constructor(save: SavePlayer) {
     this.entity = new Entity({
       animationGroupName: 'af-holy-white',
       pushable: true,
     });
-  }
-
-  applySave(save: SavePlayer) {
-    this.entity.applySave(save.entity);
+    this.entity.applySave(save.entity); // TODO: Something else?
   }
 
   extractSave(): SavePlayer {

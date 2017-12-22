@@ -1,4 +1,8 @@
 import { session } from './session/session';
-session.start();
 
-window.addEventListener('beforeunload', session.stop.bind(session));
+async function start() {
+  await session.start();
+  window.addEventListener('beforeunload', session.stop.bind(session));
+}
+
+start();

@@ -19,36 +19,25 @@ export class StaticMap {
 
   tilesets: Tileset[];
 
-  constructor() {
-    // The default starting map
-    this.id = 'start';
-    // Rest of this is placeholder
-    this.width = 0;
-    this.height = 0;
+  constructor(mapId: string, rawMap: any) {
+    this.id = mapId;
+    this.width = rawMap && rawMap.width;
+    this.height = rawMap.height;
+
     this.tileLayers = [];
     this.collisionLayers = [];
     this.entrances = [];
     this.objectHints = [];
-    this.tilesets = [];
-  }
-
-  applySave(save: SaveStaticMap) {
-    this.id = save.mapId;
-  }
-
-  fill(mapId: string, rawMap: any) {
-    this.id = mapId;
-    this.width = rawMap.width;
-    this.height = rawMap.height;
-
     rawMap.layers.forEach((layer: any) => {
       this.parseAndAddLayers(layer);
     });
 
+    this.tilesets = [];
     rawMap.tilesets.forEach((rawTileset: any) => {
       const tileset = new Tileset(rawTileset);
       this.tilesets.push(tileset);
     });
+
   }
 
   extractSave(): SaveStaticMap {

@@ -14,8 +14,7 @@ class Persistence {
     let base64 = loadFromLocalStorage();
     if (!base64) {
       // Persist a pristine world and then load it back in.
-      const world = new World();
-      this.save(world.extractSave());
+      this.save(new SaveWorld());
       base64 = loadFromLocalStorage();
     }
     const json = atob(base64);

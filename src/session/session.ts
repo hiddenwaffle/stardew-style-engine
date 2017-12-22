@@ -7,11 +7,11 @@ class Session {
   /**
    * Reverse order of stop().
    */
-  start() {
+  async start() {
     uiStructure.start();
     timer.start(this.stepAll.bind(this));
     controller.start();
-    stageManager.start();
+    await stageManager.start();
   }
 
   /**

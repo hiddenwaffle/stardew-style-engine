@@ -1,21 +1,49 @@
+import { log } from 'src/log';
 import { SaveWorld } from 'src/session/save';
 import { Player } from './player';
 import { Entity } from './entity';
 import { StaticMap } from './static-map';
+import { imageLoader } from 'src/session/image-loader';
+import { mapLoader } from 'src/session/map-loader';
+import { worldPlaceEntities } from './world-place-entities';
 
 export class World {
-  player: Player;
+  private readonly initialMapId: string;
   private readonly _entities: Map<number, Entity>;
+  player: Player;
   staticMap: StaticMap;
 
-  constructor() {
-    this.player = new Player();
+  constructor(save: SaveWorld) {
     this._entities = new Map();
-    this.staticMap = new StaticMap();
+    // TODO: Fill the entities from save file?
+    this.initialMapId = save.staticMap.mapId;
+    this.player = new Player(save.player);
+    this.staticMap = null;
   }
 
-  clearEntities() {
-    this._entities.clear();
+  async start() {
+    this.staticMap = await fetchMap(this.initialMapId);
+    await imageLoader.prepareAll(this.staticMap.tilesets.map(tileset => tileset.image));
+    worldPlaceEntities(this);
+  }
+
+  // TODO: fix duplication with start()
+  async switchMap(mapId: string, entranceName: string) {
+    this._entities.clear(); // TODO: Best place for this?
+    this.staticMap = await fetchMap(mapId);
+    await imageLoader.prepareAll(this.staticMap.tilesets.map(tileset => tileset.image));
+    worldPlaceEntities(this);
+
+    const entrance = this.staticMap.entrances.find((entranceCandidate) => {
+      return entranceCandidate.name === entranceName;
+    });
+
+    if (entrance) {
+      this.player.x = entrance.x;
+      this.player.y = entrance.y;
+    } else {
+      log('warn', `Entrance not found ${entranceName}`);
+    }
   }
 
   /**
@@ -38,11 +66,6 @@ export class World {
     });
   }
 
-  applySave(save: SaveWorld) {
-    this.player.applySave(save.player);
-    this.staticMap.applySave(save.staticMap);
-  }
-
   extractSave(): SaveWorld {
     return new SaveWorld(
       this.staticMap.extractSave(),
@@ -53,4 +76,13 @@ export class World {
   get entities(): Entity[] {
     return Array.from(this._entities.values());
   }
+}
+
+async function fetchMap(mapId: string): Promise<StaticMap> {
+  return new Promise<StaticMap>((resolve, reject) => {
+    mapLoader.fetch(mapId).then((rawMap: any) => {
+      resolve(new StaticMap(mapId, rawMap));
+    });
+    // TODO: Handle error?
+  });
 }

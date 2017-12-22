@@ -104,18 +104,42 @@ class ImageLoader {
     this.configs.set('antifarea_18x20chars.png',   genConfig(antifarea, 18, 20));
   }
 
-  prepare(rawImagePath: string) {
-    const filename = onlyFilename(rawImagePath);
-    if (this.sheets.has(filename)) {
-      // Nothing to do
-    } else {
-      const path = this.configs.get(filename);
-      if (path) {
-        this.retrieve(filename, path);
+  // prepare(rawImagePath: string) {
+  //   const filename = onlyFilename(rawImagePath);
+  //   if (this.sheets.has(filename)) {
+  //     // Nothing to do
+  //   } else {
+  //     const path = this.configs.get(filename);
+  //     if (path) {
+  //       this.retrieve(filename, path);
+  //     } else {
+  //       log('info', 'ImageLoader#prepare() path not found for:', filename);
+  //     }
+  //   }
+  // }
+
+  async prepare(rawImagePath: string): Promise<{}> {
+    return new Promise<{}>((resolve) => {
+      const filename = onlyFilename(rawImagePath);
+      if (this.sheets.has(filename)) {
+        // Nothing to do
       } else {
-        log('info', 'ImageLoader#prepare() path not found for:', filename);
+        const path = this.configs.get(filename);
+        if (path) {
+          this.retrieve(filename, path);
+        } else {
+          log('warn', 'ImageLoader#prepare() path not found for:', filename);
+        }
       }
-    }
+      resolve();
+    });
+  }
+
+  async prepareAll(rawImagePaths: string[]) {
+    const tasks = rawImagePaths.map((rawImagePath) => {
+      return this.prepare(rawImagePath);
+    });
+    await Promise.all(tasks);
   }
 
   get(rawImagePath: string): Sheet {

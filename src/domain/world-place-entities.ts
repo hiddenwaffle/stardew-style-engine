@@ -1,7 +1,7 @@
 import { World } from 'src/domain/world';
 import { Entity } from 'src/domain/entity';
 
-export function placeEntities(world: World) {
+export function worldPlaceEntities(world: World) {
   // TODO: Is this the right place for it?
   world.addEntity(world.player.entity);
 
