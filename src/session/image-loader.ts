@@ -145,14 +145,16 @@ class ImageLoader {
   }
 
   private retrieve(filename: string, config: SheetConfig): Promise<{}> {
-    return new Promise((resolve) => {
+    return new Promise((resolve, reject) => {
       const image = <HTMLImageElement> document.createElement('img');
       image.onload = () => {
         const sheet = new Sheet(config, image);
         this.sheets.set(filename, sheet);
         resolve();
       };
-      // TODO: Handle errors
+      image.onerror = (e) => {
+        reject(e);
+      };
       image.src = config.path;
     });
   }
