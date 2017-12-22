@@ -118,21 +118,18 @@ class ImageLoader {
   //   }
   // }
 
-  async prepare(rawImagePath: string): Promise<{}> {
-    return new Promise<{}>((resolve) => {
-      const filename = onlyFilename(rawImagePath);
-      if (this.sheets.has(filename)) {
-        // Nothing to do
+  async prepare(rawImagePath: string) {
+    const filename = onlyFilename(rawImagePath);
+    if (this.sheets.has(filename)) {
+      // Nothing to do
+    } else {
+      const path = this.configs.get(filename);
+      if (path) {
+        await this.retrieve(filename, path);
       } else {
-        const path = this.configs.get(filename);
-        if (path) {
-          this.retrieve(filename, path);
-        } else {
-          log('warn', 'ImageLoader#prepare() path not found for:', filename);
-        }
+        log('warn', 'ImageLoader#prepare() path not found for:', filename);
       }
-      resolve();
-    });
+    }
   }
 
   async prepareAll(rawImagePaths: string[]) {
@@ -147,14 +144,17 @@ class ImageLoader {
     return this.sheets.get(filename);
   }
 
-  private retrieve(filename: string, config: SheetConfig) {
-    const image = <HTMLImageElement> document.createElement('img');
-    image.onload = () => {
-      const sheet = new Sheet(config, image);
-      this.sheets.set(filename, sheet);
-    };
-    // TODO: Handle errors
-    image.src = config.path;
+  private retrieve(filename: string, config: SheetConfig): Promise<{}> {
+    return new Promise((resolve) => {
+      const image = <HTMLImageElement> document.createElement('img');
+      image.onload = () => {
+        const sheet = new Sheet(config, image);
+        this.sheets.set(filename, sheet);
+        resolve();
+      };
+      // TODO: Handle errors
+      image.src = config.path;
+    });
   }
 }
 
