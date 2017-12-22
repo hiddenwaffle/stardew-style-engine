@@ -10,8 +10,6 @@
     "baseUrl": ".",
     "paths": {
       "src": ["src"]
-    },
-    "experimentalDecorators": true,
-    "emitDecoratorMetadata": true
+    }
   }
 }
