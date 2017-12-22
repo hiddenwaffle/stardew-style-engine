@@ -4,7 +4,7 @@ import { imageLoader } from 'src/session/image-loader';
 import { antifarea } from './antifarea';
 import { dawnLike } from './dawn-like';
 
-class EntityAnimationManager {
+class EntityAnimationLoader {
   private readonly groups: Map<string, EntityAnimationGroup>;
 
   constructor() {
@@ -36,4 +36,4 @@ class EntityAnimationManager {
   }
 }
 
-export const entityAnimationLoader = new EntityAnimationManager();
+export const entityAnimationLoader = new EntityAnimationLoader();
