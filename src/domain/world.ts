@@ -5,22 +5,15 @@ import { Entity } from './entity';
 import { StaticMap } from './static-map';
 import { imageLoader } from 'src/session/image-loader';
 import { mapLoader } from 'src/session/map-loader';
-
-export const enum State {
-  Initializing,
-  Ready,
-  Loading,
-}
+import { State, gameState } from 'src/session/game-state';
 
 export class World {
-  private _state: State;
   private readonly initialMapId: string;
   private readonly _entities: Map<number, Entity>;
   player: Player;
   staticMap: StaticMap;
 
   constructor(save: SaveWorld) {
-    this._state = State.Initializing;
     this._entities = new Map();
     // TODO: Fill the entities from save file?
     this.initialMapId = save.staticMap.mapId;
@@ -33,7 +26,7 @@ export class World {
   }
 
   async switchMap(mapId: string, entranceName?: string) {
-    this._state = State.Loading;
+    gameState.switch(State.Loading);
     this.staticMap = await fetchMap(mapId);
     await imageLoader.prepareAll(this.staticMap.tilesets.map(tileset => tileset.image));
     this._entities.clear(); // TODO: Best place for this?
@@ -50,7 +43,7 @@ export class World {
         log('warn', `Entrance not found ${entranceName}`);
       }
     }
-    this._state = State.Ready;
+    gameState.switch(State.Ready);
   }
 
   /**
@@ -78,10 +71,6 @@ export class World {
       this.staticMap.extractSave(),
       this.player.extractSave(),
     );
-  }
-
-  get state(): State {
-    return this._state;
   }
 
   get entities(): Entity[] {

@@ -1,8 +1,6 @@
 import { log } from 'src/log';
-import {
-  World,
-  State
-} from 'src/domain/world';
+import { World } from 'src/domain/world';
+import { State, gameState } from 'src/session/game-state';
 import { StaticMap } from 'src/domain/static-map';
 import { Player } from 'src/domain/player';
 import { gameMaster } from 'src/game-master/game-master';
@@ -38,7 +36,7 @@ class StageManager {
   stop() {
     render.stop();
     // CRITICAL: Prevent attempting to save while still initializing.
-    if (this.worldStateIs(State.Ready)) {
+    if (gameState.state === State.Ready) {
       const save = this.extractSave();
       if (environment.development) {
         log('info', 'StageManager#stop() => localStorage', JSON.stringify(save));
@@ -59,14 +57,6 @@ class StageManager {
   private extractSave(): SaveWorld {
     const save = this.world.extractSave();
     return save;
-  }
-
-  private worldStateIs(state: State): boolean {
-    if (this.world) {
-      return this.world.state === state;
-    } else {
-      return false;
-    }
   }
 }
 
