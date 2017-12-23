@@ -7,13 +7,21 @@ import { imageLoader } from 'src/session/image-loader';
 import { mapLoader } from 'src/session/map-loader';
 import { worldPlaceEntities } from './world-place-entities';
 
+export const enum State {
+  Initializing,
+  Ready,
+  Stopping,
+}
+
 export class World {
+  private _state: State;
   private readonly initialMapId: string;
   private readonly _entities: Map<number, Entity>;
   player: Player;
   staticMap: StaticMap;
 
   constructor(save: SaveWorld) {
+    this._state = State.Initializing;
     this._entities = new Map();
     // TODO: Fill the entities from save file?
     this.initialMapId = save.staticMap.mapId;
@@ -23,6 +31,7 @@ export class World {
 
   async start() {
     await this.switchMap(this.initialMapId);
+    this._state = State.Ready;
   }
 
   async switchMap(mapId: string, entranceName?: string) {
@@ -69,6 +78,10 @@ export class World {
       this.staticMap.extractSave(),
       this.player.extractSave(),
     );
+  }
+
+  get state(): State {
+    return this._state;
   }
 
   get entities(): Entity[] {
