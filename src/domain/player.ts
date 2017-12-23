@@ -9,10 +9,12 @@ export class Player {
 
   constructor(save: SavePlayer) {
     this.entity = new Entity({
+      x: save.entity.x,
+      y: save.entity.y,
+      facing: save.entity.facing,
       animationGroupName: 'af-holy-white',
       pushable: true,
     });
-    this.entity.applySave(save.entity); // TODO: Something else?
   }
 
   extractSave(): SavePlayer {

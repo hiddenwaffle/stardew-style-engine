@@ -59,17 +59,18 @@ export class Entity {
   y: number;
   dxIntended: number;
   dyIntended: number;
+  facing: Direction;
   speed: number;
   boundingWidth: number;
   boundingHeight: number;
+  pushable: boolean;
+
   entityToEntityCollisionCall: string;
   entityToEntityCollisionCallInterval: number;
   callTimers: Map<string, CallTimer>;
-  defaultTile: number;
-  hidden: boolean;
-  pushable: boolean;
-  facing: Direction;
 
+  hidden: boolean;
+  defaultTile: number;
   animationGroup: EntityAnimationGroup;
   animation: EntityAnimation;
   animationFrameIndex: number;
@@ -77,21 +78,25 @@ export class Entity {
 
   constructor(args: any) {
     this.calculateId();
-    this.x = 100;
-    this.y = 100;
-    this.dxIntended = 0;
-    this.dyIntended = 0;
-    this.speed = 90 * UPSCALE; // TODO: Variable speed entities
-    this.boundingWidth  = TARGET_FIELD_TILE_SIZE - 4;
-    this.boundingHeight = TARGET_FIELD_TILE_SIZE - 4;
-    this.entityToEntityCollisionCall = null;
-    this.entityToEntityCollisionCallInterval = Number.MAX_SAFE_INTEGER; // Default to 'once'.
-    this.callTimers = new Map();
-    this.defaultTile = 2000; // TODO: Set this back to zero once player animations are set.
-    this.hidden = false;
-    this.pushable = args.pushable || false;
-    this.facing = Direction.Down;
 
+    this.x = args.x || 100;
+    this.y = args.y || 100;
+    this.dxIntended = args.dxIntended || 0;
+    this.dyIntended = args.dyIntended || 0;
+    // Enum conversion requires using "keyof": https://stackoverflow.com/a/42623905
+    this.facing = Direction[args.facing as keyof typeof Direction] || Direction.Down;
+    this.speed = args.speed || 90 * UPSCALE; // TODO: Variable speed entities
+    this.boundingWidth = args.boundingWidth || TARGET_FIELD_TILE_SIZE - 4;
+    this.boundingHeight = args.boundingHeight || TARGET_FIELD_TILE_SIZE - 4;
+    this.pushable = args.pushable || false;
+
+    this.entityToEntityCollisionCall = args.entityToEntityCollisionCall || null;
+    this.entityToEntityCollisionCallInterval = args.entityToEntityCollisionCallInterval || Number.MAX_SAFE_INTEGER; // Default to 'once'.
+    this.callTimers = new Map();
+
+    this.hidden = args.hidden || false;
+
+    this.defaultTile = args.defaultTile || 2000; // TODO: Any better default value for this?
     if (args.animationGroupName) {
       this.animationGroup = entityAnimationLoader.get(args.animationGroupName);
     } else {
@@ -205,13 +210,6 @@ export class Entity {
       this.animationFrameTime,
     );
     return [this.animationGroup.imagePaths[imagePathIndex], x, y, flipped];
-  }
-
-  applySave(save: SaveEntity) {
-    this.x = save.x;
-    this.y = save.y;
-    // Enum conversion requires using "keyof": https://stackoverflow.com/a/42623905
-    this.facing = Direction[save.facing as keyof typeof Direction] || Direction.Down;
   }
 
   extractSave(): SaveEntity {
