@@ -14,6 +14,7 @@ import {
   FIELD_TARGET_WIDTH,
   FONT_BASE_SIZE,
 } from 'src/constants';
+import { setScale } from 'src/session/scale';
 
 class UiStructure {
   constructor() {
@@ -72,6 +73,7 @@ class UiStructure {
       FIELD_TARGET_WIDTH,
       FIELD_TARGET_HEIGHT,
     );
+    setScale(containerContentsScaleFactor);
     this.scaleContainerContents(containerContentsScaleFactor);
   }
 
@@ -90,6 +92,7 @@ class UiStructure {
     const newHeight = Math.ceil(FIELD_TARGET_HEIGHT * scaleFactor);
     canvasScaled.width = newWidth;
     canvasScaled.height = newHeight;
+
     // Must reset after resize: https://stackoverflow.com/a/29564875
     // Setting for backbuffer too just because we need to at some point.
     [ctxBack, ctxScaled].forEach((ctx) => {

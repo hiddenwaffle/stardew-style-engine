@@ -13,26 +13,8 @@ class Controller {
   }
 
   step() {
-    keyboard.step();
-
-    let dx = 0;
-    let dy = 0;
-
-    if (keyboard.isDown(Key.Up)) {
-      dy -= 1;
-    }
-    if (keyboard.isDown(Key.Down)) {
-      dy += 1;
-    }
-    if (keyboard.isDown(Key.Left)) {
-      dx -= 1;
-    }
-    if (keyboard.isDown(Key.Right)) {
-      dx += 1;
-    }
-
-    const walk = keyboard.isDown(Key.Walk);
-    gameMaster.setPlayerIntendedDirection(dx, dy, walk);
+    stepKeyboard();
+    stepMouse();
   }
 
   /**
@@ -44,3 +26,30 @@ class Controller {
 }
 
 export const controller = new Controller();
+
+function stepKeyboard() {
+  keyboard.step();
+
+  let dx = 0;
+  let dy = 0;
+
+  if (keyboard.isDown(Key.Up)) {
+    dy -= 1;
+  }
+  if (keyboard.isDown(Key.Down)) {
+    dy += 1;
+  }
+  if (keyboard.isDown(Key.Left)) {
+    dx -= 1;
+  }
+  if (keyboard.isDown(Key.Right)) {
+    dx += 1;
+  }
+
+  const walk = keyboard.isDown(Key.Walk);
+  gameMaster.setPlayerIntendedDirection(dx, dy, walk);
+}
+
+function stepMouse() {
+  //
+}

@@ -2,39 +2,29 @@ import {
   canvasScaled,
   narrationContainer,
 } from 'src/ui/elements';
+import { getInverseScale } from 'src/session/scale';
 
 export const enum Button {
   Left,
   Right,
 }
 
-/**
- * https://stackoverflow.com/a/12114213
- */
-function getRelativeCoords(event: MouseEvent) {
-  return [ event.offsetX || event.layerX, event.offsetY || event.layerY ];
-}
-
 class Mouse {
   start() {
-    canvasScaled.addEventListener('mousedown', (event) => {
-      // this.eventToState(event, State.Down);
+    canvasScaled.addEventListener('click', (event) => {
+      const [x, y] = getRelativeCoords(event);
+      const xlogical = x * getInverseScale();
+      const ylogical = y * getInverseScale();
+      console.log('left', xlogical, ylogical);
     });
-    canvasScaled.addEventListener('mouseup', (event) => {
-      // this.eventToState(event, State.Up);
-    });
-    // canvasScaled.addEventListener('mousemove', (event) => {
-    // });
+    canvasScaled.addEventListener('contextmenu', (event) => {
+      event.preventDefault();
 
-    narrationContainer.addEventListener('mousewheel', (event) => {
-      // TODO: Fire narration mousewheel event
-      // To get back to most recent: https://developer.mozilla.org/en-US/docs/Web/API/Element/scrollIntoView
+      const [x, y] = getRelativeCoords(event);
+      const xlogical = x * getInverseScale();
+      const ylogical = y * getInverseScale();
+      console.log('right', xlogical, ylogical);
     });
-
-    // Prevent "stuck" button if held down and canvas loses focus.
-    window.onblur = () => {
-      // TODO: Fire mouse up event if mouse was down?
-    };
   }
 
   step() {
@@ -45,15 +35,17 @@ class Mouse {
     //
   }
 
-  private determineButton(button: number): Button {
-    let type;
-    if (button === 0) {
-      type = Button.Left;
-    } else if (button === 2) {
-      type = Button.Right;
-    }
-    return type;
-  }
+  // private eventToState(event: MouseEvent, state: State) {
+  //   //
+  // }
 }
 
 export const mouse = new Mouse();
+
+/**
+ * Relative to the HTML element.
+ * https://stackoverflow.com/a/12114213
+ */
+function getRelativeCoords(event: MouseEvent) {
+  return [ event.offsetX || event.layerX, event.offsetY || event.layerY ];
+}

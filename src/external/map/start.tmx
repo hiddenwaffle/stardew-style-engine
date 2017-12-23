@@ -117,6 +117,9 @@
 </data>
  </layer>
  <layer name="trees" width="20" height="19">
+  <properties>
+   <property name="clickCall" value="narrate Hello World"/>
+  </properties>
   <data encoding="csv">
 0,0,0,0,0,0,0,0,0,1935,0,1944,1945,1945,1945,1945,1945,1945,1945,1945,
 0,0,0,0,0,0,0,0,0,0,0,1944,1945,1945,1945,1945,1945,1945,1945,1945,

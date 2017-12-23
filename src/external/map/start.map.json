@@ -49,6 +49,14 @@
          "height":19,
          "name":"trees",
          "opacity":1,
+         "properties":
+            {
+             "clickCall":"narrate Hello World"
+            },
+         "propertytypes":
+            {
+             "clickCall":"string"
+            },
          "type":"tilelayer",
          "visible":true,
          "width":20,
