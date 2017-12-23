@@ -5,7 +5,6 @@ import { Entity } from './entity';
 import { StaticMap } from './static-map';
 import { imageLoader } from 'src/session/image-loader';
 import { mapLoader } from 'src/session/map-loader';
-import { worldPlaceEntities } from './world-place-entities';
 
 export const enum State {
   Initializing,
@@ -38,7 +37,7 @@ export class World {
     this.staticMap = await fetchMap(mapId);
     await imageLoader.prepareAll(this.staticMap.tilesets.map(tileset => tileset.image));
     this._entities.clear(); // TODO: Best place for this?
-    worldPlaceEntities(this);
+    this.placeEntities();
 
     if (entranceName) {
       const entrance = this.staticMap.entrances.find((entranceCandidate) => {
@@ -86,6 +85,30 @@ export class World {
 
   get entities(): Entity[] {
     return Array.from(this._entities.values());
+  }
+
+  private placeEntities() {
+    // TODO: Is this the right place for it?
+    this.addEntity(this.player.entity);
+
+    for (const objectHint of this.staticMap.objectHints) {
+      const entity = new Entity({
+        animationGroupName: objectHint.animationGroupName,
+        pushable: objectHint.pushable,
+      });
+
+      entity.name = objectHint.name;
+      entity.x = objectHint.x;
+      entity.y = objectHint.y;
+      entity.boundingWidth = objectHint.width;
+      entity.boundingHeight = objectHint.height;
+      entity.entityToEntityCollisionCall = objectHint.call;
+      entity.entityToEntityCollisionCallInterval = objectHint.callInterval;
+      entity.defaultTile = objectHint.defaultTile;
+      entity.hidden = objectHint.hidden;
+
+      this.addEntity(entity);
+    }
   }
 }
 
