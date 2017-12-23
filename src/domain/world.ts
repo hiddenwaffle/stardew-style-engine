@@ -9,7 +9,7 @@ import { mapLoader } from 'src/session/map-loader';
 export const enum State {
   Initializing,
   Ready,
-  Stopping,
+  Loading,
 }
 
 export class World {
@@ -30,10 +30,10 @@ export class World {
 
   async start() {
     await this.switchMap(this.initialMapId);
-    this._state = State.Ready;
   }
 
   async switchMap(mapId: string, entranceName?: string) {
+    this._state = State.Loading;
     this.staticMap = await fetchMap(mapId);
     await imageLoader.prepareAll(this.staticMap.tilesets.map(tileset => tileset.image));
     this._entities.clear(); // TODO: Best place for this?
@@ -50,6 +50,7 @@ export class World {
         log('warn', `Entrance not found ${entranceName}`);
       }
     }
+    this._state = State.Ready;
   }
 
   /**
