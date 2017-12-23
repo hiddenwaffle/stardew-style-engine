@@ -2,7 +2,6 @@ import {
   canvasScaled,
   narrationContainer,
 } from 'src/ui/elements';
-import { getInverseScale } from 'src/session/scale';
 
 export const enum Button {
   Left,
@@ -10,34 +9,52 @@ export const enum Button {
 }
 
 class Mouse {
+  private _x: number;
+  private _y: number;
+  private _leftClick: boolean;
+  private _rightClick: boolean;
+
+  constructor() {
+    this._x = 0;
+    this._y = 0;
+    this._leftClick = false;
+    this._rightClick = false;
+  }
+
   start() {
+    canvasScaled.addEventListener('mousemove', (event) => {
+      [this._x, this._y] = getRelativeCoords(event);
+    });
     canvasScaled.addEventListener('click', (event) => {
-      const [x, y] = getRelativeCoords(event);
-      const xlogical = x * getInverseScale();
-      const ylogical = y * getInverseScale();
-      console.log('left', xlogical, ylogical);
+      // [this._x, this._y] = getRelativeCoords(event); // TODO: Uncomment this?
+      this._leftClick = true;
     });
     canvasScaled.addEventListener('contextmenu', (event) => {
       event.preventDefault();
-
-      const [x, y] = getRelativeCoords(event);
-      const xlogical = x * getInverseScale();
-      const ylogical = y * getInverseScale();
-      console.log('right', xlogical, ylogical);
+      // [this._x, this._y] = getRelativeCoords(event); // TODO: Uncomment this?
+      this._rightClick = true;
     });
   }
 
-  step() {
-    //
+  handleLeftClick(): boolean {
+    const result = this._leftClick;
+    this._leftClick = false;
+    return result;
   }
 
-  stop() {
-    //
+  handleRightClick(): boolean {
+    const result = this._rightClick;
+    this._rightClick = false;
+    return result;
   }
 
-  // private eventToState(event: MouseEvent, state: State) {
-  //   //
-  // }
+  get x(): number {
+    return this._x;
+  }
+
+  get y(): number {
+    return this._y;
+  }
 }
 
 export const mouse = new Mouse();
@@ -45,6 +62,7 @@ export const mouse = new Mouse();
 /**
  * Relative to the HTML element.
  * https://stackoverflow.com/a/12114213
+ * TODO: What is layerX/Y ?
  */
 function getRelativeCoords(event: MouseEvent) {
   return [ event.offsetX || event.layerX, event.offsetY || event.layerY ];

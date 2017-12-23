@@ -2,6 +2,7 @@ import { gameMaster } from 'src/game-master/game-master';
 import { timer } from 'src/session/timer';
 import { keyboard, Key } from './keyboard';
 import { mouse } from './mouse';
+import { getInverseScale } from 'src/session/scale';
 
 class Controller {
   /**
@@ -13,8 +14,8 @@ class Controller {
   }
 
   step() {
-    stepKeyboard();
-    stepMouse();
+    handleKeyboard();
+    handleMouse();
   }
 
   /**
@@ -27,7 +28,7 @@ class Controller {
 
 export const controller = new Controller();
 
-function stepKeyboard() {
+function handleKeyboard() {
   keyboard.step();
 
   let dx = 0;
@@ -50,6 +51,14 @@ function stepKeyboard() {
   gameMaster.setPlayerIntendedDirection(dx, dy, walk);
 }
 
-function stepMouse() {
-  //
+function handleMouse() {
+  const leftClick = mouse.handleLeftClick();
+  const rightClick = mouse.handleRightClick();
+  if (leftClick || rightClick) {
+    const xlogical = Math.floor(mouse.x * getInverseScale());
+    const ylogical = Math.floor(mouse.y * getInverseScale());
+    console.log(leftClick, rightClick, xlogical, ylogical);
+    // TODO: Translate into map coordinates, somehow?
+    // TODO: Probably need shared variables with render()
+  }
 }
