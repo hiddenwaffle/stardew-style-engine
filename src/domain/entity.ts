@@ -11,7 +11,7 @@ import {
   EntityAnimation,
   determineCurrentAnimationCoordinates,
 } from 'src/domain/entity-animation';
-import { entityAnimationLoader } from 'src/session/entity-animation-loader';
+import { entityAnimationGroupManager } from 'src/session/entity-animation-group-manager';
 import {
   Sheet,
   imageLoader
@@ -98,7 +98,7 @@ export class Entity {
     this.hidden = args.hidden || false;
     this.defaultTile = args.defaultTile || 0; // TODO: Any better default value for this?
     if (args.animationGroupName) {
-      this.animationGroup = entityAnimationLoader.get(args.animationGroupName);
+      this.animationGroup = entityAnimationGroupManager.get(args.animationGroupName);
     } else {
       this.animationGroup = null;
     }
