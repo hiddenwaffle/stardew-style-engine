@@ -28,9 +28,22 @@ export class World {
   async switchMap(mapId: string, entranceName?: string) {
     gameState.switch(State.Loading);
     this.staticMap = await fetchMap(mapId);
-    await imageLoader.prepareAll(this.staticMap.tilesets.map(tileset => tileset.image));
     this._entities.clear(); // TODO: Best place for this?
     this.placeEntities();
+
+    // Prepare the images for tiles AND entities.
+    const tilesetRawImagePaths = this.staticMap.tilesets.map(tileset => tileset.image);
+    const entitiesRawImagePaths = new Set();
+    this._entities.forEach((entity) => {
+      entity.rawImagePaths.forEach((rawImagePath) => {
+        entitiesRawImagePaths.add(rawImagePath);
+      });
+    });
+    const rawImagePaths = [].concat(
+      tilesetRawImagePaths,
+      Array.from(entitiesRawImagePaths)
+    );
+    await imageLoader.prepareAll(rawImagePaths);
 
     if (entranceName) {
       const entrance = this.staticMap.entrances.find((entranceCandidate) => {

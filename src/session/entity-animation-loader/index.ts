@@ -8,12 +8,7 @@ class EntityAnimationLoader {
   private readonly groups: Map<string, EntityAnimationGroup>;
 
   constructor() {
-    // TODO: Someday switch it to this:
-    // this.groups = new Map([
-    //   ...antifarea(),
-    //   ...dawnLike(),
-    //   ...etc...
-    // ]);
+    // TODO: Someday use spread syntax notation instead of looping.
     this.groups = new Map();
     for (const [key, value] of Array.from(antifarea().entries())) {
       this.groups.set(key, value);
@@ -25,11 +20,7 @@ class EntityAnimationLoader {
 
   get(animationGroupName: string) {
     const group = this.groups.get(animationGroupName);
-    if (group) {
-      group.imagePaths.forEach((imagePath) => {
-        imageLoader.prepare(imagePath);
-      });
-    } else {
+    if (!group) {
       log('warn', `Unknown animationGroupName: ${animationGroupName}`);
     }
     return group;

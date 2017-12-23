@@ -1,3 +1,4 @@
+import { log } from 'src/log';
 import {
   TARGET_FIELD_TILE_SIZE,
   UPSCALE,
@@ -95,20 +96,23 @@ export class Entity {
     this.callTimers = new Map();
 
     this.hidden = args.hidden || false;
-
-    this.defaultTile = args.defaultTile || 2000; // TODO: Any better default value for this?
+    this.defaultTile = args.defaultTile || 0; // TODO: Any better default value for this?
     if (args.animationGroupName) {
       this.animationGroup = entityAnimationLoader.get(args.animationGroupName);
     } else {
       this.animationGroup = null;
     }
     if (this.animationGroup) {
-      this.animation = this.animationGroup.get();
+      if (args.initialAnimationName) {
+        this.animation = this.animationGroup.get(args.initialAnimationName);
+      } else {
+        this.animation = this.animationGroup.get();
+      }
     } else {
       this.animation = null;
     }
-    this.animationFrameIndex = 0;
-    this.animationFrameTime = 0;
+    this.animationFrameIndex = args.animationFrameIndex || 0;
+    this.animationFrameTime = args.animationFrameTime || 0;
   }
 
   step() {
@@ -230,6 +234,13 @@ export class Entity {
     } else {
       return DirectionsOfFreedom.One;
     }
+  }
+
+  get rawImagePaths(): string[] {
+    if (this.animationGroup) {
+      return this.animationGroup.imagePaths || [];
+    }
+    return [];
   }
 
   get hasAnimation(): boolean {
