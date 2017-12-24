@@ -3,7 +3,7 @@ import { Entity } from 'src/domain/entity';
 import { Direction, DirectionsOfFreedom } from 'src/domain/direction';
 import { walkEntityToTiles } from './walk-entity-to-tiles';
 import { walkEntityToEntity } from './walk-entity-to-entity';
-import { translateScreenToWorld } from 'src/session/camera';
+import { camera } from 'src/session/camera';
 
 class GameMaster {
   /**
@@ -67,11 +67,13 @@ class GameMaster {
     );
 
     if (this.clicked) {
-      const [x, y] = translateScreenToWorld(this.xclick, this.yclick);
+      const [x, y] = camera.logicalToWorld(this.xclick, this.yclick);
       world.executeClick(x, y, this.rightClick);
     }
 
     tryAnimationSwitch(world.player.entity, this.walk);
+
+    camera.setFocus(world.player.x, world.player.y);
   }
 
   setPlayerIntendedDirection(dxIntended: number, dyIntended: number, walk: boolean) {
