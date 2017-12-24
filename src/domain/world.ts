@@ -86,13 +86,24 @@ export class World {
       if (activatedEntity.clickCall) {
         const call = new ScriptCall(
           activatedEntity.clickCall,
-          activatedEntity.id
+          this.player.entity.id,
+          activatedEntity.id,
         );
         call.execute(this);
       }
     } else {
-      // TODO: Check tile layers? Highest to lowest, for a clickCall property
-      // TODO: If the tile layer has a script, run it
+      for (const tileLayer of Array.from(this.staticMap.tileLayers).reverse()) {
+        if (tileLayer.clickCall) {
+          if (tileLayer.containsPoint(x, y)) {
+            const call = new ScriptCall(
+              tileLayer.clickCall,
+              this.player.entity.id,
+            );
+            call.execute(this);
+            break;
+          }
+        }
+      }
     }
   }
 

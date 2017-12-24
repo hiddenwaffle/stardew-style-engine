@@ -221,6 +221,8 @@ export class Entity {
   }
 
   /**
+   * TODO: Duplicated in tile-layer.ts
+   *
    * AABB Collision (Without Response)
    * Based on: https://stackoverflow.com/a/2752387
    */

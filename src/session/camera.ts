@@ -25,8 +25,8 @@ class Camera {
    */
   logicalToWorld(xlogical: number, ylogical: number): [number, number] {
     return [
-      xlogical + (this.xfocus - FIELD_TARGET_WIDTH / 2),
-      ylogical + (this.yfocus - FIELD_TARGET_HEIGHT / 2),
+      Math.floor(xlogical + (this.xfocus - FIELD_TARGET_WIDTH / 2)),
+      Math.floor(ylogical + (this.yfocus - FIELD_TARGET_HEIGHT / 2)),
     ];
   }
 

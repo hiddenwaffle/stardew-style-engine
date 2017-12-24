@@ -51,7 +51,7 @@
          "opacity":1,
          "properties":
             {
-             "clickCall":"narrate Hello, I am a tree."
+             "clickCall":"global.narrate Hello, we are trees."
             },
          "propertytypes":
             {
