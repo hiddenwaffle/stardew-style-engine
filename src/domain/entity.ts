@@ -21,6 +21,7 @@ import {
   determineDirection,
   DirectionsOfFreedom,
 } from './direction';
+import { nextId } from 'src/session/id-generator';
 
 class CallTimer {
   private readonly call: ScriptCall;
@@ -79,8 +80,7 @@ export class Entity {
   animationFrameTime: number;
 
   constructor(args: any) {
-    this.calculateId();
-
+    this._id = args.id || nextId();
     this.name = args.name || 'UNKNOWN';
     this.x = args.x || 100;
     this.y = args.y || 100;
@@ -189,14 +189,6 @@ export class Entity {
       alreadyScheduledToBeCalled = true;
     }
     return alreadyScheduledToBeCalled;
-  }
-
-  /**
-   * If called outside of this class, it should be only in the
-   * unlikely event that the ID was already taken.
-   */
-  calculateId() {
-    this._id = Math.floor(Math.random() * Number.MAX_SAFE_INTEGER);
   }
 
   switchAnimation(name: string, reset: boolean) {

@@ -64,13 +64,6 @@ export class World {
    * Ensures that the entity added to the map has a unique ID.
    */
   addEntity(entity: Entity) {
-    while (true) {
-      if (this._entities.has(entity.id)) {
-        entity.calculateId();
-      } else {
-        break;
-      }
-    }
     this._entities.set(entity.id, entity);
   }
 
