@@ -9,11 +9,11 @@ export class Player {
 
   constructor(save: SavePlayer) {
     this.entity = new Entity({
+      animationGroupName: 'af-holy-white',
+      facing: save.entity.facing,
+      pushable: true,
       x: save.entity.x,
       y: save.entity.y,
-      facing: save.entity.facing,
-      animationGroupName: 'af-holy-white',
-      pushable: true,
     });
   }
 

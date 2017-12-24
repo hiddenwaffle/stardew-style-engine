@@ -42,7 +42,7 @@ export function log(methodName: ConsoleMethod, ...args: any[]) {
       }
     }
   }
-};
+}
 
 function environmentAllows(methodName: ConsoleMethod): boolean {
   if (environment.production) {

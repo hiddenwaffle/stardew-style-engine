@@ -5,7 +5,7 @@ import { ScriptCall } from './script-call';
  * Warning: O(n^2)
  * Warning: Uses the same bounding box calculation as walk-entity.ts
  */
-export function walkEntityToEntity (world: World) {
+export function walkEntityToEntity(world: World) {
   const collisionSecondaryEntityIds: number[] = [];
   for (const entity of world.entities) {
     // Calculate bounding box -- center x to middle and y to bottom.
@@ -43,7 +43,7 @@ export function walkEntityToEntity (world: World) {
     }
     entity.clearCallTimersNotInSecondaryEntityIds(collisionSecondaryEntityIds);
   }
-};
+}
 
 /**
  * AABB Collision (Without Response)

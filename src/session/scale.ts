@@ -9,7 +9,7 @@ export function setScale(newScale: number) {
     newScale = 0.01;
   }
   scale = newScale;
-  inverseScale = 1 / newScale
+  inverseScale = 1 / newScale;
 }
 
 /**

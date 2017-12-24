@@ -1,6 +1,6 @@
 import { EntityAnimationGroup } from 'src/domain/entity-animation';
 
-export function antifarea (): Map<string, EntityAnimationGroup> {
+export function antifarea(): Map<string, EntityAnimationGroup> {
   // The Antifarea spritesheet has two groups per row.
   const left = 0;
   const right = 12;
@@ -89,7 +89,7 @@ export function antifarea (): Map<string, EntityAnimationGroup> {
   groups.set('af-elemental-shadow',  genGroup(right,  25 * groupHeight));
 
   return groups;
-};
+}
 
 /**
  * Should match the structure of *.json files.

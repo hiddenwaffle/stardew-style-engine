@@ -14,7 +14,7 @@ import {
 import { entityAnimationGroupManager } from 'src/session/entity-animation-group-manager';
 import {
   Sheet,
-  imageLoader
+  imageLoader,
 } from 'src/session/image-loader';
 import {
   Direction,
@@ -92,7 +92,7 @@ export class Entity {
     this.pushable = args.pushable || false;
 
     this.entityToEntityCollisionCall = args.entityToEntityCollisionCall || null;
-    this.entityToEntityCollisionCallInterval = args.entityToEntityCollisionCallInterval || Number.MAX_SAFE_INTEGER; // Default to 'once'.
+    this.entityToEntityCollisionCallInterval = args.entityToEntityCollisionCallInterval || Number.MAX_SAFE_INTEGER;
     this.callTimers = new Map();
 
     this.hidden = args.hidden || false;

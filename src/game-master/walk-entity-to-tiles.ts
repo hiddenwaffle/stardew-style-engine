@@ -144,7 +144,7 @@ export function walkEntityToTiles(world: World, entity: Entity): WalkResult {
   entity.y = yprojected + ypush;
 
   return walkResult;
-};
+}
 
 /**
  * AABB Collision Response

@@ -32,7 +32,7 @@ export class World {
     this.placeEntities();
 
     // Prepare the images for tiles AND entities.
-    const tilesetRawImagePaths = this.staticMap.tilesets.map(tileset => tileset.image);
+    const tilesetRawImagePaths = this.staticMap.tilesets.map((tileset) => tileset.image);
     const entitiesRawImagePaths = new Set();
     this._entities.forEach((entity) => {
       entity.rawImagePaths.forEach((rawImagePath) => {
@@ -41,7 +41,7 @@ export class World {
     });
     const rawImagePaths = [].concat(
       tilesetRawImagePaths,
-      Array.from(entitiesRawImagePaths)
+      Array.from(entitiesRawImagePaths),
     );
     await imageLoader.prepareAll(rawImagePaths);
 
@@ -81,7 +81,6 @@ export class World {
 
   executeClick(x: number, y: number, alt: boolean) {
     // TODO: Do it
-    console.log(x, y, alt);
   }
 
   extractSave(): SaveWorld {

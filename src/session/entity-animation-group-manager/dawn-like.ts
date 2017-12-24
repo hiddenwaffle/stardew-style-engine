@@ -98,7 +98,7 @@ export function dawnLike(): Map<string, EntityAnimationGroup> {
   groups.set('dl-player-7-12', genGroup(7, 14, playerFilenames));
 
   return groups;
-};
+}
 
 /**
  * Should match the structure of *.json files.
