@@ -25,5 +25,5 @@ global.setHandler('switchMap', (ctx: ScriptCallContext, mapName: string, entranc
 });
 
 global.setHandler('narrate', (ctx: ScriptCallContext, ...line: string[]) => {
-  console.log(ctx.primaryEntityId, line);
+  log('info', ctx.primaryEntityId, line.join(' '));
 });
