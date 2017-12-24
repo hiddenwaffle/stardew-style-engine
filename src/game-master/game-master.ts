@@ -3,6 +3,7 @@ import { Entity } from 'src/domain/entity';
 import { Direction, DirectionsOfFreedom } from 'src/domain/direction';
 import { walkEntityToTiles } from './walk-entity-to-tiles';
 import { walkEntityToEntity } from './walk-entity-to-entity';
+import { translateScreenToWorld } from 'src/session/camera';
 
 class GameMaster {
   /**
@@ -17,6 +18,25 @@ class GameMaster {
    * If the player is trying to walk.
    */
   private walk: boolean;
+
+  /**
+   * If the mouse was clicked, and where.
+   */
+  private clicked: boolean;
+  private rightClick: boolean;
+  private xclick: number;
+  private yclick: number;
+
+  constructor() {
+    this.dxIntended = 0;
+    this.dyIntended = 0;
+    this.walk = false;
+
+    this.clicked = false;
+    this.rightClick = false;
+    this.xclick = 0;
+    this.yclick = 0;
+  }
 
   advance(world: World) {
     if (!world) {
@@ -46,6 +66,11 @@ class GameMaster {
       world.player.entity.directionsOfFreedom,
     );
 
+    if (this.clicked) {
+      const [x, y] = translateScreenToWorld(this.xclick, this.yclick);
+      world.executeClick(x, y, this.rightClick);
+    }
+
     tryAnimationSwitch(world.player.entity, this.walk);
   }
 
@@ -53,6 +78,13 @@ class GameMaster {
     this.dxIntended = dxIntended * (walk ? 0.65 : 1); // TODO: Set constant for walk elsewhere?
     this.dyIntended = dyIntended * (walk ? 0.65 : 1); // TODO: Set constant for walk elsewhere?
     this.walk = walk;
+  }
+
+  setLogicalClickedAt(x?: number, y?: number, rightClick?: boolean) {
+    this.clicked = x && y ? true : false;
+    this.rightClick = rightClick || false;
+    this.xclick = x || 0;
+    this.yclick = y || 0;
   }
 }
 

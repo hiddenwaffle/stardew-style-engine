@@ -2,6 +2,7 @@ import {
   canvasScaled,
   narrationContainer,
 } from 'src/ui/elements';
+import { getInverseScale } from 'src/session/scale';
 
 export const enum Button {
   Left,
@@ -9,61 +10,52 @@ export const enum Button {
 }
 
 class Mouse {
-  private _x: number;
-  private _y: number;
+  private _xclient: number;
+  private _yclient: number;
   private _leftClick: boolean;
   private _rightClick: boolean;
 
   constructor() {
-    this._x = 0;
-    this._y = 0;
+    this._xclient = 0;
+    this._yclient = 0;
     this._leftClick = false;
     this._rightClick = false;
   }
 
   start() {
     canvasScaled.addEventListener('mousemove', (event) => {
-      [this._x, this._y] = getRelativeCoords(event);
+      this._xclient = event.clientX;
+      this._yclient = event.clientY;
     });
     canvasScaled.addEventListener('click', (event) => {
-      // [this._x, this._y] = getRelativeCoords(event); // TODO: Uncomment this?
       this._leftClick = true;
     });
     canvasScaled.addEventListener('contextmenu', (event) => {
       event.preventDefault();
-      // [this._x, this._y] = getRelativeCoords(event); // TODO: Uncomment this?
       this._rightClick = true;
     });
   }
 
-  handleLeftClick(): boolean {
-    const result = this._leftClick;
+  handleClick(): [boolean, boolean] {
+    const leftClick = this._leftClick;
+    const rightClick = this._rightClick;
     this._leftClick = false;
-    return result;
-  }
-
-  handleRightClick(): boolean {
-    const result = this._rightClick;
     this._rightClick = false;
-    return result;
+    return [leftClick, rightClick];
   }
 
-  get x(): number {
-    return this._x;
-  }
-
-  get y(): number {
-    return this._y;
+  /**
+   * Translate the current mouse event coordinate into its location on the backbuffer.
+   * https://stackoverflow.com/a/18053642
+   */
+  get xy(): [number, number] {
+    const rect = canvasScaled.getBoundingClientRect();
+    const xscaled = this._xclient - rect.left;
+    const yscaled = this._yclient - rect.top;
+    const xback = Math.floor(xscaled * getInverseScale());
+    const yback = Math.floor(yscaled * getInverseScale());
+    return [xback, yback];
   }
 }
 
 export const mouse = new Mouse();
-
-/**
- * Relative to the HTML element.
- * https://stackoverflow.com/a/12114213
- * TODO: What is layerX/Y ?
- */
-function getRelativeCoords(event: MouseEvent) {
-  return [ event.offsetX || event.layerX, event.offsetY || event.layerY ];
-}

@@ -79,6 +79,11 @@ export class World {
     });
   }
 
+  executeClick(x: number, y: number, alt: boolean) {
+    // TODO: Do it
+    console.log(x, y, alt);
+  }
+
   extractSave(): SaveWorld {
     return new SaveWorld(
       this.staticMap.extractSave(),

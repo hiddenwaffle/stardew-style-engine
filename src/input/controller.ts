@@ -2,7 +2,6 @@ import { gameMaster } from 'src/game-master/game-master';
 import { timer } from 'src/session/timer';
 import { keyboard, Key } from './keyboard';
 import { mouse } from './mouse';
-import { getInverseScale } from 'src/session/scale';
 
 class Controller {
   /**
@@ -52,13 +51,12 @@ function handleKeyboard() {
 }
 
 function handleMouse() {
-  const leftClick = mouse.handleLeftClick();
-  const rightClick = mouse.handleRightClick();
+  const [leftClick, rightClick] = mouse.handleClick();
   if (leftClick || rightClick) {
-    const xlogical = Math.floor(mouse.x * getInverseScale());
-    const ylogical = Math.floor(mouse.y * getInverseScale());
-    console.log(leftClick, rightClick, xlogical, ylogical);
-    // TODO: Translate into map coordinates, somehow?
-    // TODO: Probably need shared variables with render()
+    const [xlogical, ylogical] = mouse.xy;
+    gameMaster.setLogicalClickedAt(xlogical, ylogical, rightClick);
+  } else {
+    // "Clears" click if there was one in the previous step() iteration.
+    gameMaster.setLogicalClickedAt();
   }
 }

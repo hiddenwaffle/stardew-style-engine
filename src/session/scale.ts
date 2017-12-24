@@ -12,6 +12,9 @@ export function setScale(newScale: number) {
   inverseScale = 1 / newScale
 }
 
+/**
+ * Multiplying by this = front buffer xy -> back buffer xy
+ */
 export function getInverseScale(): number {
   return inverseScale;
 }
