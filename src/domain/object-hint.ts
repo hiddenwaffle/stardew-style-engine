@@ -9,6 +9,7 @@ export class ObjectHint {
   readonly height: number;
   readonly call: string;
   readonly callInterval: number;
+  readonly clickCall: string;
   readonly defaultTile: number;
   readonly hidden: boolean;
   readonly pushable: boolean;
@@ -29,12 +30,14 @@ export class ObjectHint {
 
     if (object.properties) {
       // TODO: This mirrors collision-layer.ts
-      this.call = object.properties.call;
+      this.call = object.properties.call || null;
       if (object.properties.callInterval) {
         this.callInterval = object.properties.callInterval;
       } else {
         this.callInterval = Number.MAX_SAFE_INTEGER; // It gets called once, in practice.
       }
+
+      this.clickCall = object.properties.clickCall || null;
 
       this.hidden = object.properties.hidden;
       this.pushable = object.properties.pushable || false;

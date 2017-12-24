@@ -5,10 +5,13 @@ import {
 } from './script-call';
 
 export class WalkResult {
+  private readonly world: World;
   private readonly calls: ScriptCallBatch;
   readonly collisionTileLayers: string[];
+  readonly collisionEntityIds: number[];
 
-  constructor() {
+  constructor(world: World) {
+    this.world = world;
     this.calls = new ScriptCallBatch();
     this.collisionTileLayers = [];
   }
@@ -17,11 +20,15 @@ export class WalkResult {
     this.calls.add(call);
   }
 
-  executeCalls(world: World) {
-    this.calls.execute(world);
+  executeCalls() {
+    this.calls.execute(this.world);
   }
 
   addCollisionTileLayer(tileLayerName: string) {
     this.collisionTileLayers.push(tileLayerName);
+  }
+
+  addCollisionEntity(collisionEntityId: number) {
+    this.collisionEntityIds.push(collisionEntityId);
   }
 }

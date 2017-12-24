@@ -51,7 +51,7 @@
          "opacity":1,
          "properties":
             {
-             "clickCall":"narrate Hello World"
+             "clickCall":"narrate Hello, I am a tree."
             },
          "propertytypes":
             {
@@ -153,13 +153,15 @@
                     {
                      "animationGroupName":"dl-player-7-12",
                      "call":"global.sayOuch",
-                     "callInterval":1000
+                     "callInterval":1000,
+                     "clickCall":"global.narrate"
                     },
                  "propertytypes":
                     {
                      "animationGroupName":"string",
                      "call":"string",
-                     "callInterval":"int"
+                     "callInterval":"int",
+                     "clickCall":"string"
                     },
                  "rotation":0,
                  "type":"",

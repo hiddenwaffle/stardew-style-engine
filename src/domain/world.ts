@@ -6,6 +6,7 @@ import { StaticMap } from './static-map';
 import { imageLoader } from 'src/session/image-loader';
 import { mapLoader } from 'src/session/map-loader';
 import { State, gameState } from 'src/session/game-state';
+import { ScriptCall } from 'src/game-master/script-call';
 
 export class World {
   private readonly initialMapId: string;
@@ -89,8 +90,13 @@ export class World {
       return entity.overlap(x, x, y, y);
     });
     if (activatedEntity) {
-      console.log(activatedEntity);
-      // TODO: Determine if any script to run, and run it
+      if (activatedEntity.clickCall) {
+        const call = new ScriptCall(
+          activatedEntity.clickCall,
+          activatedEntity.id
+        );
+        call.execute(this);
+      }
     } else {
       // TODO: Check tile layers? Highest to lowest, for a clickCall property
       // TODO: If the tile layer has a script, run it
@@ -115,19 +121,18 @@ export class World {
     for (const objectHint of this.staticMap.objectHints) {
       const entity = new Entity({
         animationGroupName: objectHint.animationGroupName,
+        boundingHeight: objectHint.height,
+        boundingWidth: objectHint.width,
+        clickCall: objectHint.clickCall,
+        defaultTile: objectHint.defaultTile,
+        entityToEntityCollisionCall: objectHint.call,
+        entityToEntityCollisionCallInterval: objectHint.callInterval,
+        hidden: objectHint.hidden,
+        name: objectHint.name,
         pushable: objectHint.pushable,
+        x: objectHint.x,
+        y: objectHint.y,
       });
-
-      entity.name = objectHint.name;
-      entity.x = objectHint.x;
-      entity.y = objectHint.y;
-      entity.boundingWidth = objectHint.width;
-      entity.boundingHeight = objectHint.height;
-      entity.entityToEntityCollisionCall = objectHint.call;
-      entity.entityToEntityCollisionCallInterval = objectHint.callInterval;
-      entity.defaultTile = objectHint.defaultTile;
-      entity.hidden = objectHint.hidden;
-
       this.addEntity(entity);
     }
   }

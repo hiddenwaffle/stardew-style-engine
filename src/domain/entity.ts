@@ -68,7 +68,8 @@ export class Entity {
 
   entityToEntityCollisionCall: string;
   entityToEntityCollisionCallInterval: number;
-  callTimers: Map<string, CallTimer>;
+  clickCall: string;
+  private callTimers: Map<string, CallTimer>;
 
   hidden: boolean;
   defaultTile: number;
@@ -94,6 +95,7 @@ export class Entity {
 
     this.entityToEntityCollisionCall = args.entityToEntityCollisionCall || null;
     this.entityToEntityCollisionCallInterval = args.entityToEntityCollisionCallInterval || Number.MAX_SAFE_INTEGER;
+    this.clickCall = args.clickCall || null;
     this.callTimers = new Map();
 
     this.hidden = args.hidden || false;

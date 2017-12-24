@@ -2,7 +2,7 @@ import { World } from 'src/domain/world';
 import { Entity } from 'src/domain/entity';
 import { Direction, DirectionsOfFreedom } from 'src/domain/direction';
 import { walkEntityToTiles } from './walk-entity-to-tiles';
-import { walkEntityToEntity } from './walk-entity-to-entity';
+import { walkEntityToEntities } from './walk-entity-to-entities';
 import { camera } from 'src/session/camera';
 
 class GameMaster {
@@ -50,14 +50,12 @@ class GameMaster {
     world.entities.forEach((entity) => {
       // These have to do with movement and collision checks.
       entity.clearExpiredCallTimers();
-      const walkResult = walkEntityToTiles(world, entity);
-      walkResult.executeCalls(world);
+      walkEntityToTiles(world, entity).executeCalls();
+      walkEntityToEntities(world, entity).executeCalls();
 
       // Currently just advances animation.
       entity.step();
     });
-
-    walkEntityToEntity(world);
 
     world.player.entity.facing = calculateFacing(
       world.player.entity.dxIntended,

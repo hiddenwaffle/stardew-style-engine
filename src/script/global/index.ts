@@ -23,3 +23,7 @@ global.setHandler('fire', (val1: string, val2: string, ctx: ScriptCallContext) =
 global.setHandler('switchMap', (mapName: string, entrance: string, ctx: ScriptCallContext) => {
   switchMap(mapName, entrance, ctx.world);
 });
+
+global.setHandler('narrate', (line: string[], ctx: ScriptCallContext) => {
+  console.log(line, ctx);
+});
