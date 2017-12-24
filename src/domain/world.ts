@@ -90,8 +90,10 @@ export class World {
     });
     if (activatedEntity) {
       console.log(activatedEntity);
+      // TODO: Determine if any script to run, and run it
     } else {
       // TODO: Check tile layers? Highest to lowest, for a clickCall property
+      // TODO: If the tile layer has a script, run it
     }
   }
 
