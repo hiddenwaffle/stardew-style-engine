@@ -9,7 +9,7 @@ global.setHandler('sayOuch', () => {
   log('info', '"ouch"', '"that hurts"');
 });
 
-global.setHandler('fire', (val1: string, val2: string, ctx: ScriptCallContext) => {
+global.setHandler('fire', (ctx: ScriptCallContext, val1: string, val2: string) => {
   const total = parseInt(val1, 10) + parseInt(val2, 10);
   log(
     'info',
@@ -20,10 +20,10 @@ global.setHandler('fire', (val1: string, val2: string, ctx: ScriptCallContext) =
   );
 });
 
-global.setHandler('switchMap', (mapName: string, entrance: string, ctx: ScriptCallContext) => {
+global.setHandler('switchMap', (ctx: ScriptCallContext, mapName: string, entrance: string) => {
   switchMap(mapName, entrance, ctx.world);
 });
 
-global.setHandler('narrate', (line: string[], ctx: ScriptCallContext) => {
-  console.log(line, ctx);
+global.setHandler('narrate', (ctx: ScriptCallContext, ...line: string[]) => {
+  console.log(ctx.primaryEntityId, line);
 });

@@ -1,3 +1,4 @@
+import { log } from 'src/log';
 import { ScriptCallContext } from 'src/game-master/script-call';
 import { ScriptHandler, ScriptNamespace } from './script-namespace';
 import { global } from './global';
@@ -12,8 +13,13 @@ class Script {
 
   execute(name: string, ctx: ScriptCallContext) {
     if (name) {
-      const path = name.split('.');
-      this.root.execute(path, ctx);
+      const tokens = name.split(' ');
+      if (tokens.length >= 1) {
+        const path = tokens.shift().split('.');
+        this.root.execute(path, tokens, ctx);
+      } else {
+        log('warn', `Could not parse: ${name}`);
+      }
     }
   }
 }

@@ -154,7 +154,7 @@
                      "animationGroupName":"dl-player-7-12",
                      "call":"global.sayOuch",
                      "callInterval":1000,
-                     "clickCall":"global.narrate"
+                     "clickCall":"global.narrate Hello, I am a dragon."
                     },
                  "propertytypes":
                     {

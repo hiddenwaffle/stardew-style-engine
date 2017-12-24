@@ -272,7 +272,7 @@
     <property name="animationGroupName" value="dl-player-7-12"/>
     <property name="call" value="global.sayOuch"/>
     <property name="callInterval" type="int" value="1000"/>
-    <property name="clickCall" value="global.narrate"/>
+    <property name="clickCall" value="global.narrate Hello, I am a dragon."/>
    </properties>
   </object>
   <object id="48" name="to-town-misaligned" gid="844" x="57.3333" y="51.6667" width="16" height="16">

@@ -29,14 +29,13 @@ export class ScriptNamespace {
    * it must be the actual call.
    * Otherwise, delegate the rest of the path to a sub-namespace.
    */
-  execute(path: string[], ctx: ScriptCallContext) {
+  execute(path: string[], args: string[], ctx: ScriptCallContext) {
     if (path) {
       if (path.length === 1) {
-        const callStr = path.shift();
-        const [handlerName, args] = parseCallStr(callStr);
+        const handlerName = path.shift();
         const handler = this.handlers.get(handlerName);
         if (handler) {
-          handler.apply(handler, [...args, ctx]);
+          handler.apply(handler, [ctx, ...args]);
         } else {
           log('warn', `Handler not found: ${handler}. Args: ${args}`);
         }
@@ -44,27 +43,11 @@ export class ScriptNamespace {
         const namespaceName = path.shift();
         const namespace = this.namespaces.get(namespaceName);
         if (namespace) {
-          namespace.execute(path, ctx);
+          namespace.execute(path, args, ctx);
         } else {
           log('warn', `Namespace not found: ${namespaceName}`);
         }
       }
     }
-  }
-}
-
-/**
- * Expects calls to be formatted like:
- * fire 100 50
- * Where "fire" is the handler name, 100 is the first argument,
- * and 50 is the second argument.
- */
-function parseCallStr(call: string): [string, string[]] {
-  const args = call.split(' ');
-  if (args.length >= 1) {
-    const handlerName = args.shift();
-    return [handlerName, args];
-  } else {
-    return ['', []];
   }
 }
