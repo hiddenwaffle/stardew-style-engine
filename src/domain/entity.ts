@@ -80,6 +80,7 @@ export class Entity {
   constructor(args: any) {
     this.calculateId();
 
+    this.name = args.name || 'UNKNOWN';
     this.x = args.x || 100;
     this.y = args.y || 100;
     this.dxIntended = args.dxIntended || 0;
