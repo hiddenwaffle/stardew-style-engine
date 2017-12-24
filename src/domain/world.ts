@@ -85,11 +85,13 @@ export class World {
    */
   executeClick(x: number, y: number, alt: boolean) {
     const entities = this.entitiesSortedByY().reverse();
-    const activated = entities.find((entity) => {
+    const activatedEntity = entities.find((entity) => {
       return entity.overlap(x, x, y, y);
     });
-    if (activated) {
-      console.log(activated);
+    if (activatedEntity) {
+      console.log(activatedEntity);
+    } else {
+      // TODO: Check tile layers? Highest to lowest, for a clickCall property
     }
   }
 
