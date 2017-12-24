@@ -216,6 +216,31 @@ export class Entity {
     return [this.animationGroup.imagePaths[imagePathIndex], x, y, flipped];
   }
 
+  calculateBoundingBox(): [number, number, number, number] {
+    // Calculate bounding box -- center x to middle and y to bottom.
+    const left    = this.x - this.boundingWidth / 2;
+    const right   = this.x + this.boundingWidth / 2;
+    const top     = this.y - this.boundingHeight;
+    const bottom  = this.y + 1; // +1 to prevent entity's y to be on a solid tile directly below the entity.
+    return [left, right, top, bottom];
+  }
+
+  /**
+   * AABB Collision (Without Response)
+   * Based on: https://stackoverflow.com/a/2752387
+   */
+  overlap(
+    left1: number, right1: number, top1: number, bottom1: number,
+  ): boolean {
+    const [left2, right2, top2, bottom2] = this.calculateBoundingBox();
+    return (
+      left2   < right1  &&
+      right2  > left1   &&
+      top2    < bottom1 &&
+      bottom2 > top1
+    );
+  }
+
   extractSave(): SaveEntity {
     return new SaveEntity(this.x, this.y, this.facing);
   }

@@ -79,8 +79,15 @@ export class World {
     });
   }
 
+  /**
+   * Determine which entity, if any, receives the click.
+   * Start with the entity with highest y-coordinate (i.e., on top).
+   */
   executeClick(x: number, y: number, alt: boolean) {
-    // TODO: Do it
+    const entities = this.entitiesSortedByY().reverse();
+    entities.find((entity) => {
+      return true; // TODO: Detemrine overlap.
+    });
   }
 
   extractSave(): SaveWorld {
