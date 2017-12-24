@@ -85,9 +85,12 @@ export class World {
    */
   executeClick(x: number, y: number, alt: boolean) {
     const entities = this.entitiesSortedByY().reverse();
-    entities.find((entity) => {
-      return true; // TODO: Detemrine overlap.
+    const activated = entities.find((entity) => {
+      return entity.overlap(x, x, y, y);
     });
+    if (activated) {
+      console.log(activated);
+    }
   }
 
   extractSave(): SaveWorld {
