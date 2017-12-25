@@ -9,7 +9,7 @@ module.exports = merge(common, {
   plugins: [
     new BundleAnalyzerPlugin({
       analyzerMode: 'static',
-      reportFilename: 'webpack-bundle-analyzer-report.html',
+      reportFilename: 'meta/webpack-bundle-analyzer-report.html',
       openAnalyzer: false
     }),
     new UglifyJsPlugin(),
