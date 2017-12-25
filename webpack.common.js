@@ -3,10 +3,15 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 
+/**
+ * Everything but the index.html should go under the ./world directory.
+ */
+const worldDirectory = 'world';
+
 const fileLoaderConfig = {
   loader: 'file-loader',
   options: {
-    name: process.env.NODE_ENV === 'production' ? '[hash].[ext]' : '[path][name].[ext]'
+    name: `${worldDirectory}/${process.env.NODE_ENV === 'production' ? '[hash].[ext]' : '[path][name].[ext]'}`
   }
 };
 
@@ -49,7 +54,7 @@ module.exports = {
     }
   },
   output: {
-    filename: '[name].[chunkhash].js',
+    filename: `${worldDirectory}/[name].[chunkhash].js`,
     path: path.resolve(__dirname, 'dist')
   },
   plugins: [
