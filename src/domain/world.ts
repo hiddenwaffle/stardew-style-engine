@@ -7,6 +7,7 @@ import { imageLoader } from 'src/session/image-loader';
 import { mapLoader } from 'src/session/map-loader';
 import { State, gameState } from 'src/session/game-state';
 import { ScriptCall } from 'src/game-master/script-call';
+import { TileLayer } from './tile-layer';
 
 export class World {
   private readonly initialMapId: string;
@@ -74,42 +75,31 @@ export class World {
   }
 
   setMouseOverPosition(x: number, y: number) {
-    // console.log(x, y);
+    const [entity, tileLayer] = this.calculateTopMostFromPoint(x, y);
+    if (entity) {
+      console.log(entity.name);
+    } else if (tileLayer) {
+      console.log(tileLayer.name);
+    }
   }
 
   /**
    * Determine which entity or tile layer, if any, receives the click.
-   * Start with the entity with highest y-coordinate (i.e., on top).
-   * Then start with top-most tile layer.
+   * TODO: Use alt for something?
    */
   executeClick(x: number, y: number, alt: boolean) {
-    const entities = this.entitiesSortedByY().reverse();
-    const activatedEntity = entities.find((entity) => {
-      return entity.overlap(x, x, y, y);
-    });
-    if (activatedEntity) {
-      if (activatedEntity.clickCall) {
-        const call = new ScriptCall(
-          activatedEntity.clickCall,
-          this.player.entity.id,
-          activatedEntity.id,
-        );
-        call.execute(this);
-      }
-    } else if (this.staticMap) {
-      const tileLayers = Array.from(this.staticMap.tileLayers).reverse();
-      const activatedTileLayer = tileLayers.find((tileLayer) => {
-        if (tileLayer.clickCall) {
-          return tileLayer.containsPoint(x, y);
-        };
-      });
-      if (activatedTileLayer) {
-        const call = new ScriptCall(
-          activatedTileLayer.clickCall,
-          this.player.entity.id,
-        );
-        call.execute(this);
-      }
+    const [entity, tileLayer] = this.calculateTopMostFromPoint(x, y);
+    if (entity && entity.clickCall) {
+      new ScriptCall(
+        entity.clickCall,
+        this.player.entity.id,
+        entity.id
+      ).execute(this);
+    } else if (tileLayer && tileLayer.clickCall) {
+      new ScriptCall(
+        tileLayer.clickCall,
+        this.player.entity.id
+      ).execute(this);
     }
   }
 
@@ -145,6 +135,37 @@ export class World {
       });
       this.addEntity(entity);
     }
+  }
+
+  /**
+   * At least one of the return values will be null, and possibly both.
+   */
+  private calculateTopMostFromPoint(x: number, y: number): [Entity, TileLayer] {
+    const overlapEntity = this.calculateTopMostEntityFromPoint(x, y);
+    const overlapTileLayer = overlapEntity ? null : this.calculateTopMostTileLayerFromPoint(x, y);
+    return [overlapEntity, overlapTileLayer];
+  }
+
+  /**
+   * Start with the entity with highest y-coordinate (i.e., on top).
+   */
+  private calculateTopMostEntityFromPoint(x: number, y: number): Entity {
+    const entities = this.entitiesSortedByY().reverse();
+    const overlapEntity = entities.find((entity) => {
+      return entity.overlap(x, x, y, y);
+    });
+    return overlapEntity || null;
+  }
+
+  /**
+   * Start with top-most tile layer.
+   */
+  private calculateTopMostTileLayerFromPoint(x: number, y: number): TileLayer {
+    const tileLayers = !this.staticMap ? null : Array.from(this.staticMap.tileLayers).reverse();
+    const overlapTileLayer = !tileLayers ? null : tileLayers.find((tileLayer) => {
+      return tileLayer.containsPoint(x, y);
+    });
+    return overlapTileLayer || null;
   }
 }
 
