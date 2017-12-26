@@ -10,6 +10,11 @@ import { ScriptCall } from './script-call';
 import { WalkResult } from './walk-result';
 
 export function walkEntityToTiles(world: World, entity: Entity): WalkResult {
+  const walkResult = new WalkResult(world);
+  if (!world || !world.staticMap) {
+    return walkResult;
+  }
+
   const secondsPast = timer.elapsed / 1000;
   const speed = entity.speed * secondsPast;
 
@@ -45,7 +50,6 @@ export function walkEntityToTiles(world: World, entity: Entity): WalkResult {
 
   let xpush = 0;
   let ypush = 0;
-  const walkResult = new WalkResult(world);
 
   for (const layer of world.staticMap.collisionLayers) {
     const tileIntersected = false;
