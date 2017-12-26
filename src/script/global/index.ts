@@ -7,10 +7,12 @@ import { narrator } from 'src/text/narrator';
 export const global = new ScriptNamespace();
 
 global.setHandler('sayOuch', () => {
+  narrator.write('You bump into a dragon');
   log('info', '"ouch"', '"that hurts"');
 });
 
 global.setHandler('fire', (ctx: ScriptCallContext, val1: string, val2: string) => {
+  narrator.write('Fire burns you for X amount');
   const total = parseInt(val1, 10) + parseInt(val2, 10);
   log(
     'info',
