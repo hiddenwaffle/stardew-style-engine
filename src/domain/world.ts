@@ -8,6 +8,7 @@ import { mapLoader } from 'src/session/map-loader';
 import { State, gameState } from 'src/session/game-state';
 import { ScriptCall } from 'src/game-master/script-call';
 import { TileLayer } from './tile-layer';
+import { pointer } from './pointer';
 
 export class World {
   private readonly initialMapId: string;
@@ -74,7 +75,8 @@ export class World {
     });
   }
 
-  recalculateCursorImage(x: number, y: number) {
+  recalculatePointer(x: number, y: number) {
+    pointer.reset(x, y);
     const [entity, tileLayer] = this.calculateTopMostFromPoint(x, y);
     if (entity) {
       // TODO: If entity can talk, have [speech bubble] if far enough away.

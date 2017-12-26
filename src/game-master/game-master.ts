@@ -51,7 +51,7 @@ class GameMaster {
 
     {
       const [x, y] = camera.logicalToWorld(this.xmouse, this.ymouse);
-      world.recalculateCursorImage(x, y);
+      world.recalculatePointer(x, y);
     }
 
     // Set the player's intended movement before walking the entities.
