@@ -27,9 +27,14 @@ export class TileLayer {
   containsPoint(x: number, y: number): boolean {
     const xtile = Math.floor(x / TARGET_FIELD_TILE_SIZE);
     const ytile = Math.floor(y / TARGET_FIELD_TILE_SIZE);
-    const index = convertXYToIndex(xtile, ytile, this.width);
-    const tileValue = this.tiles[index];
-    return tileValue > 0;
+    if (xtile < 0 || xtile >= this.width ||
+        ytile < 0 || ytile >= this.height) {
+      return false;
+    } else {
+      const index = convertXYToIndex(xtile, ytile, this.width);
+      const tileValue = this.tiles[index];
+      return tileValue > 0;
+    }
   }
 }
 

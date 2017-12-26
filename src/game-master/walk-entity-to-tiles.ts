@@ -58,8 +58,8 @@ export function walkEntityToTiles(world: World, entity: Entity): WalkResult {
       // Determine if collision is an actual tile, or a map boundary.
       let tileToCheckIsAMapBoundary;
       let tileValue = -1;
-      if (xTileToCheck < 0 || xTileToCheck >= world.staticMap.width ||
-          yTileToCheck < 0 || yTileToCheck >= world.staticMap.height) {
+      if (xTileToCheck < 0 || xTileToCheck >= layer.width ||
+          yTileToCheck < 0 || yTileToCheck >= layer.height) {
         tileToCheckIsAMapBoundary = true;
         tileValue = 1337; // arbitrary
       } else {
