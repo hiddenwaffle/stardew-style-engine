@@ -74,12 +74,19 @@ export class World {
     });
   }
 
-  setMouseOverPosition(x: number, y: number) {
+  recalculateCursorImage(x: number, y: number) {
     const [entity, tileLayer] = this.calculateTopMostFromPoint(x, y);
     if (entity) {
-      console.log(entity.name);
+      // TODO: If entity can talk, have [speech bubble] if far enough away.
+      // TODO: If entity cannot talk but can be interacted with, have [pointer]?
+      // TODO: If entity cannot talk or be interacted with, have [magnifying glass]?
+      // TODO: Otherwise use a [default] cursor.
     } else if (tileLayer) {
-      console.log(tileLayer.name);
+      // TODO: If layer has a description, have a [magnifying glass], if far enough away?
+      // TODO: If the layer has no description but can be interacted with, have [pointer]?
+      // TODO: Otherwise use [default] cursor.
+    } else {
+      // TODO: [default] cursor
     }
   }
 
