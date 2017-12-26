@@ -2,6 +2,7 @@ import { log } from 'src/log';
 import { ScriptCallContext } from 'src/game-master/script-call';
 import { ScriptHandler, ScriptNamespace } from 'src/script/script-namespace';
 import { switchMap } from './switch-map';
+import { narrator } from 'src/text/narrator';
 
 export const global = new ScriptNamespace();
 
@@ -25,5 +26,6 @@ global.setHandler('switchMap', (ctx: ScriptCallContext, mapName: string, entranc
 });
 
 global.setHandler('narrate', (ctx: ScriptCallContext, ...line: string[]) => {
-  log('info', ctx.primaryEntityId, line.join(' '));
+  let text = line.join(' ');
+  narrator.write(text);
 });

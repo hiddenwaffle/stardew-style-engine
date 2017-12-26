@@ -44,6 +44,29 @@
     margin-top: 8px;
     margin-bottom: 8px;
   }
+  .flash {
+    -webkit-animation-name: flash-animation;
+    -webkit-animation-duration: 0.7s;
+
+    animation-name: flash-animation;
+    animation-duration: 0.7s;
+  }
+  @-webkit-keyframes flash-animation {
+    from {
+      color: cyan;
+    }
+    to {
+      color: default;
+    }
+  }
+  @keyframes flash-animation {
+    from {
+      color: cyan;
+    }
+    to {
+      color: default;
+    }
+  }
 </style>
 </head>
 <body>
