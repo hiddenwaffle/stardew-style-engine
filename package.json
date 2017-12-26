@@ -4,20 +4,15 @@
   "scripts": {
     "build": "cross-env NODE_ENV=production webpack -p --config webpack.prod.js",
     "dev": "webpack-dev-server --config webpack.dev.js",
-    "lint": "tslint -c tslint.json -p tsconfig.json -t verbose",
-    "test": "cross-env TS_NODE_COMPILER_OPTIONS='{ \"module\": \"commonjs\" }' mocha --opts mocha.opts"
+    "lint": "tslint -c tslint.json -p tsconfig.json -t verbose"
   },
   "devDependencies": {
-    "@types/chai": "^4.0.5",
-    "@types/mocha": "^2.2.44",
     "@types/tween.js": "^16.9.0",
-    "chai": "^4.1.2",
     "clean-webpack-plugin": "^0.1.17",
     "cross-env": "^5.1.1",
     "css-loader": "^0.28.7",
     "file-loader": "^1.1.5",
     "html-webpack-plugin": "^2.30.1",
-    "mocha": "^4.0.1",
     "style-loader": "^0.19.1",
     "ts-loader": "^3.1.1",
     "ts-node": "^3.3.0",
