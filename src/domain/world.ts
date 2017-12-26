@@ -96,18 +96,19 @@ export class World {
         );
         call.execute(this);
       }
-    } else {
-      for (const tileLayer of Array.from(this.staticMap.tileLayers).reverse()) {
+    } else if (this.staticMap) {
+      const tileLayers = Array.from(this.staticMap.tileLayers).reverse();
+      const activatedTileLayer = tileLayers.find((tileLayer) => {
         if (tileLayer.clickCall) {
-          if (tileLayer.containsPoint(x, y)) {
-            const call = new ScriptCall(
-              tileLayer.clickCall,
-              this.player.entity.id,
-            );
-            call.execute(this);
-            break;
-          }
-        }
+          return tileLayer.containsPoint(x, y);
+        };
+      });
+      if (activatedTileLayer) {
+        const call = new ScriptCall(
+          activatedTileLayer.clickCall,
+          this.player.entity.id,
+        );
+        call.execute(this);
       }
     }
   }
