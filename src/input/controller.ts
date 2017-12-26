@@ -51,9 +51,11 @@ function handleKeyboard() {
 }
 
 function handleMouse() {
+  const [xlogical, ylogical] = mouse.xy;
+  gameMaster.setLogicalMouseAt(xlogical, ylogical);
+
   const [leftClick, rightClick] = mouse.handleClick();
   if (leftClick || rightClick) {
-    const [xlogical, ylogical] = mouse.xy;
     gameMaster.setLogicalClickedAt(xlogical, ylogical, rightClick);
   } else {
     // "Clears" click if there was one in the previous step() iteration.

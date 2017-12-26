@@ -73,9 +73,14 @@ export class World {
     });
   }
 
+  setMouseOverPosition(x: number, y: number) {
+    // console.log(x, y);
+  }
+
   /**
-   * Determine which entity, if any, receives the click.
+   * Determine which entity or tile layer, if any, receives the click.
    * Start with the entity with highest y-coordinate (i.e., on top).
+   * Then start with top-most tile layer.
    */
   executeClick(x: number, y: number, alt: boolean) {
     const entities = this.entitiesSortedByY().reverse();

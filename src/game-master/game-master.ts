@@ -19,6 +19,9 @@ class GameMaster {
    */
   private walk: boolean;
 
+  private xmouse: number;
+  private ymouse: number;
+
   /**
    * If the mouse was clicked, and where.
    */
@@ -32,15 +35,23 @@ class GameMaster {
     this.dyIntended = 0;
     this.walk = false;
 
+    this.xmouse = -1;
+    this.ymouse = -1;
+
     this.clicked = false;
     this.rightClick = false;
-    this.xclick = 0;
-    this.yclick = 0;
+    this.xclick = -1;
+    this.yclick = -1;
   }
 
   advance(world: World) {
     if (!world) {
       return;
+    }
+
+    {
+      const [x, y] = camera.logicalToWorld(this.xmouse, this.ymouse);
+      world.setMouseOverPosition(x, y);
     }
 
     // Set the player's intended movement before walking the entities.
@@ -78,6 +89,11 @@ class GameMaster {
     this.dxIntended = dxIntended * (walk ? 0.65 : 1); // TODO: Set constant for walk elsewhere?
     this.dyIntended = dyIntended * (walk ? 0.65 : 1); // TODO: Set constant for walk elsewhere?
     this.walk = walk;
+  }
+
+  setLogicalMouseAt(x: number, y: number) {
+    this.xmouse = x;
+    this.ymouse = y;
   }
 
   setLogicalClickedAt(x?: number, y?: number, rightClick?: boolean) {
