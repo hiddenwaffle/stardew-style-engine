@@ -7,15 +7,20 @@ export class CollisionLayer extends TileLayer {
 
   constructor(rawLayer: any) {
     super(rawLayer);
-    if (rawLayer.properties) {
+
+    // Read properties
+    {
+      // Prevent null pointer errors
+      const properties = rawLayer.properties || {};
+
       // TODO: This mirrors object-hint.ts
-      this.call = rawLayer.properties.call;
-      if (rawLayer.properties.callInterval) {
-        this.callInterval = rawLayer.properties.callInterval;
+      this.call = properties.call;
+      if (properties.callInterval) {
+        this.callInterval = properties.callInterval;
       } else {
         this.callInterval = Number.MAX_SAFE_INTEGER; // It gets called once, in practice.
       }
-      this.passthrough = rawLayer.properties.passthrough || false;
+      this.passthrough = properties.passthrough || false;
     }
   }
 }

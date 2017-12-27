@@ -80,31 +80,12 @@ export class World {
 
   recalculatePointer(x: number, y: number) {
     pointer.overEntityId = null;
-
     const [entity, tileLayer] = this.calculateTopMostFromPoint(x, y);
     if (entity) {
       pointer.overEntityId = entity.id;
-
-      // If entity can talk, have [speech bubble] if far enough away.
-      pointer.setType(PointerType.Talk);
-
-      // If entity cannot talk but can be interacted with, have [pointer]?
-      // pointer.setType(PointerType.Use);
-
-      // If entity cannot talk or be interacted with, have [magnifying glass]?
-      // pointer.setType(PointerType.Examine);
-
-      // Otherwise use a [default] cursor.
-      // pointer.setType(PointerType.Default);
+      pointer.setType(entity.mouseoverPointerType);
     } else if (tileLayer) {
-      // TODO: If layer has a description, have a [magnifying glass], if far enough away?
-      pointer.setType(PointerType.Examine);
-
-      // If the layer has no description but can be interacted with, have [pointer]?
-      // pointer.setType(PointerType.Use);
-
-      // Otherwise use [default] cursor.
-      // pointer.setType(PointerType.Default);
+      pointer.setType(tileLayer.mouseoverPointerType);
     } else {
       // Otherwise use a [default] cursor.
       pointer.setType(PointerType.Default);
@@ -156,6 +137,7 @@ export class World {
         entityToEntityCollisionCall: objectHint.call,
         entityToEntityCollisionCallInterval: objectHint.callInterval,
         hidden: objectHint.hidden,
+        mouseoverPointerType: objectHint.mouseoverPointerType,
         name: objectHint.name,
         pushable: objectHint.pushable,
         x: objectHint.x,

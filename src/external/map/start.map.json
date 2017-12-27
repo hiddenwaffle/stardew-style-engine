@@ -51,11 +51,11 @@
          "opacity":1,
          "properties":
             {
-             "clickCall":"global.narrate Hello, we are trees."
+             "clickCall-examine":"global.narrate Hello, we are trees."
             },
          "propertytypes":
             {
-             "clickCall":"string"
+             "clickCall-examine":"string"
             },
          "type":"tilelayer",
          "visible":true,
@@ -154,14 +154,14 @@
                      "animationGroupName":"dl-player-7-12",
                      "call":"global.sayOuch",
                      "callInterval":1000,
-                     "clickCall":"global.narrate Hello, I am a dragon."
+                     "clickCall-talk":"global.narrate Hello, I am a dragon."
                     },
                  "propertytypes":
                     {
                      "animationGroupName":"string",
                      "call":"string",
                      "callInterval":"int",
-                     "clickCall":"string"
+                     "clickCall-talk":"string"
                     },
                  "rotation":0,
                  "type":"",

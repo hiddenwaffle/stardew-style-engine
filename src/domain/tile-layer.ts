@@ -1,4 +1,6 @@
 import { TARGET_FIELD_TILE_SIZE } from 'src/constants';
+import { parseClickProperties } from './parse-click-properties';
+import { PointerType } from 'src/ui/pointer';
 
 export class TileLayer {
   readonly name: string;
@@ -8,6 +10,7 @@ export class TileLayer {
   readonly height: number;
   readonly tiles: number[];
   readonly clickCall: string;
+  readonly mouseoverPointerType: PointerType;
 
   constructor(layer: any) {
     this.name = layer.name;
@@ -16,8 +19,12 @@ export class TileLayer {
     this.width = layer.width;
     this.height = layer.height;
     this.tiles = layer.data;
-    if (layer.properties) {
-      this.clickCall = layer.properties.clickCall || null;
+
+    // Read properties
+    {
+      // Prevent null pointer errors
+      const properties = layer.properties || {};
+      [this.clickCall, this.mouseoverPointerType] = parseClickProperties(properties);
     }
   }
 

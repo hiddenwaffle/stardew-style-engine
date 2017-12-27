@@ -22,6 +22,7 @@ import {
   DirectionsOfFreedom,
 } from './direction';
 import { nextId } from 'src/session/id-generator';
+import { PointerType } from 'src/ui/pointer';
 
 class CallTimer {
   private readonly call: ScriptCall;
@@ -70,6 +71,7 @@ export class Entity {
   entityToEntityCollisionCall: string;
   entityToEntityCollisionCallInterval: number;
   clickCall: string;
+  mouseoverPointerType: PointerType;
   private callTimers: Map<string, CallTimer>;
 
   hidden: boolean;
@@ -96,6 +98,7 @@ export class Entity {
     this.entityToEntityCollisionCall = args.entityToEntityCollisionCall || null;
     this.entityToEntityCollisionCallInterval = args.entityToEntityCollisionCallInterval || Number.MAX_SAFE_INTEGER;
     this.clickCall = args.clickCall || null;
+    this.mouseoverPointerType = args.mouseoverPointerType || PointerType.Default;
     this.callTimers = new Map();
 
     this.hidden = args.hidden || false;

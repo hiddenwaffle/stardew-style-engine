@@ -1,5 +1,7 @@
 import { UPSCALE } from 'src/constants';
 import { Direction } from './direction';
+import { PointerType } from 'src/ui/pointer';
+import { parseClickProperties } from './parse-click-properties';
 
 export class ObjectHint {
   readonly name: string;
@@ -10,6 +12,7 @@ export class ObjectHint {
   readonly call: string;
   readonly callInterval: number;
   readonly clickCall: string;
+  readonly mouseoverPointerType: PointerType;
   readonly defaultTile: number;
   readonly hidden: boolean;
   readonly pushable: boolean;
@@ -28,22 +31,26 @@ export class ObjectHint {
     this.width = object.width * UPSCALE;
     this.height = object.width * UPSCALE;
 
-    if (object.properties) {
+    // Read properties
+    {
+      // Prevent null pointer errors.
+      const properties = object.properties || {};
+
       // TODO: This mirrors collision-layer.ts
-      this.call = object.properties.call || null;
-      if (object.properties.callInterval) {
-        this.callInterval = object.properties.callInterval;
+      this.call = properties.call || null;
+      if (properties.callInterval) {
+        this.callInterval = properties.callInterval;
       } else {
         this.callInterval = Number.MAX_SAFE_INTEGER; // It gets called once, in practice.
       }
 
-      this.clickCall = object.properties.clickCall || null;
+      [this.clickCall, this.mouseoverPointerType] = parseClickProperties(properties);
 
-      this.hidden = object.properties.hidden;
-      this.pushable = object.properties.pushable || false;
-      this.facing = object.properties.facing || Direction.Down;
+      this.hidden = properties.hidden;
+      this.pushable = properties.pushable || false;
+      this.facing = properties.facing || Direction.Down;
 
-      this.animationGroupName = object.properties.animationGroupName || null;
+      this.animationGroupName = properties.animationGroupName || null;
     }
   }
 }
