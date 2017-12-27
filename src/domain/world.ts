@@ -8,7 +8,10 @@ import { mapLoader } from 'src/session/map-loader';
 import { State, gameState } from 'src/session/game-state';
 import { ScriptCall } from 'src/game-master/script-call';
 import { TileLayer } from './tile-layer';
-import { pointer } from './pointer';
+import {
+  PointerType,
+  pointer,
+} from 'src/ui/pointer';
 
 export class World {
   private readonly initialMapId: string;
@@ -76,19 +79,35 @@ export class World {
   }
 
   recalculatePointer(x: number, y: number) {
-    pointer.reset(x, y);
+    pointer.overEntityId = null;
+
     const [entity, tileLayer] = this.calculateTopMostFromPoint(x, y);
     if (entity) {
-      // TODO: If entity can talk, have [speech bubble] if far enough away.
-      // TODO: If entity cannot talk but can be interacted with, have [pointer]?
-      // TODO: If entity cannot talk or be interacted with, have [magnifying glass]?
-      // TODO: Otherwise use a [default] cursor.
+      pointer.overEntityId = entity.id;
+
+      // If entity can talk, have [speech bubble] if far enough away.
+      pointer.setType(PointerType.Talk);
+
+      // If entity cannot talk but can be interacted with, have [pointer]?
+      // pointer.setType(PointerType.Use);
+
+      // If entity cannot talk or be interacted with, have [magnifying glass]?
+      // pointer.setType(PointerType.Examine);
+
+      // Otherwise use a [default] cursor.
+      // pointer.setType(PointerType.Default);
     } else if (tileLayer) {
       // TODO: If layer has a description, have a [magnifying glass], if far enough away?
-      // TODO: If the layer has no description but can be interacted with, have [pointer]?
-      // TODO: Otherwise use [default] cursor.
+      pointer.setType(PointerType.Examine);
+
+      // If the layer has no description but can be interacted with, have [pointer]?
+      // pointer.setType(PointerType.Use);
+
+      // Otherwise use [default] cursor.
+      // pointer.setType(PointerType.Default);
     } else {
-      // TODO: [default] cursor
+      // Otherwise use a [default] cursor.
+      pointer.setType(PointerType.Default);
     }
   }
 

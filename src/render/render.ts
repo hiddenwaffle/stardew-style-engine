@@ -13,6 +13,7 @@ import {
 } from 'src/constants';
 import { Tileset } from 'src/domain/tileset';
 import { World } from 'src/domain/world';
+import { pointer } from 'src/ui/pointer';
 
 function determineImageAndCoordinate(tilesets: Tileset[], tile: number): [Sheet, number, number] {
   let sheet: Sheet = null;
@@ -100,13 +101,13 @@ function renderWorld(world: World) {
                 );
               }
 
-              // TODO: Remove this debug
-              ctxBack.strokeStyle = 'pink';
-              debugStrokeRect(
-                ctxBack,
-                destinationX, destinationY,
-                TARGET_FIELD_TILE_SIZE, TARGET_FIELD_TILE_SIZE,
-              );
+              // // TODO: Remove this debug
+              // ctxBack.strokeStyle = 'pink';
+              // debugStrokeRect(
+              //   ctxBack,
+              //   destinationX, destinationY,
+              //   TARGET_FIELD_TILE_SIZE, TARGET_FIELD_TILE_SIZE,
+              // );
             }
           }
 
@@ -200,25 +201,36 @@ function renderWorld(world: World) {
             }
           }
 
-          // TODO: Remove this debug
-          ctxBack.strokeStyle = 'yellow';
-          debugStrokeRect(
-            ctxBack,
-            destination3X, destination3Y,
-            targetTileWidth, targetTileHeight,
-          );
+          // // TODO: Remove this debug
+          // ctxBack.strokeStyle = 'yellow';
+          // debugStrokeRect(
+          //   ctxBack,
+          //   destination3X, destination3Y,
+          //   targetTileWidth, targetTileHeight,
+          // );
 
-          // TODO: Remove this debug
-          ctxBack.strokeStyle = 'cyan';
-          const destinationX4 = destinationX - entity.boundingWidth / 2;
-          const destinationY4 = destinationY - entity.boundingHeight;
-          const destination5X = destinationX4 + FIELD_TARGET_WIDTH  / 2;
-          const destination5Y = destinationY4 + FIELD_TARGET_HEIGHT / 2;
-          debugStrokeRect(
-            ctxBack,
-            destination5X, destination5Y,
-            entity.boundingWidth, entity.boundingHeight + 1, // Notice the +1 (see collision response code)
-          );
+          // // TODO: Remove this debug
+          // ctxBack.strokeStyle = 'cyan';
+          // const destinationX4 = destinationX - entity.boundingWidth / 2;
+          // const destinationY4 = destinationY - entity.boundingHeight;
+          // const destination5X = destinationX4 + FIELD_TARGET_WIDTH  / 2;
+          // const destination5Y = destinationY4 + FIELD_TARGET_HEIGHT / 2;
+          // debugStrokeRect(
+          //   ctxBack,
+          //   destination5X, destination5Y,
+          //   entity.boundingWidth, entity.boundingHeight + 1, // Notice the +1 (see collision response code)
+          // );
+
+          // TODO: Make better and animated?
+          if (pointer.overEntityId === entity.id) {
+            ctxBack.strokeStyle = 'cyan';
+            ctxBack.strokeRect(
+              destination3X,
+              destination3Y,
+              targetTileWidth,
+              targetTileHeight,
+            );
+          }
         }
       });
     }

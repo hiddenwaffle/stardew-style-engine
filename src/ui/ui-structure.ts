@@ -17,6 +17,7 @@ import {
   FONT_BASE_SIZE,
 } from 'src/constants';
 import { setScale } from 'src/session/scale';
+import { pointer } from './pointer';
 
 class UiStructure {
   constructor() {
@@ -38,6 +39,10 @@ class UiStructure {
   }
 
   step() {
+    if (pointer.typeChangedSinceLastHandle()) {
+      canvasScaled.style.cursor = pointer.handleTypeChanged();
+    }
+
     ctxScaled.clearRect(
       0,
       0,
