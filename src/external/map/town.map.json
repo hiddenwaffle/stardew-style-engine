@@ -179,6 +179,14 @@
         }],
  "nextobjectid":7,
  "orientation":"orthogonal",
+ "properties":
+    {
+     "startCall":"global.narrate This is a town"
+    },
+ "propertytypes":
+    {
+     "startCall":"string"
+    },
  "renderorder":"right-down",
  "tiledversion":"1.0.3",
  "tileheight":16,

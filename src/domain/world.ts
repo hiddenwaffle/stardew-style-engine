@@ -62,7 +62,12 @@ export class World {
         log('warn', `Entrance not found ${entranceName}`);
       }
     }
+
     gameState.switch(State.Ready);
+
+    if (this.staticMap.startCall) {
+      new ScriptCall(this.staticMap.startCall).execute(this);
+    }
   }
 
   /**

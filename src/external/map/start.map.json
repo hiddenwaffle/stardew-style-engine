@@ -224,6 +224,14 @@
         }],
  "nextobjectid":49,
  "orientation":"orthogonal",
+ "properties":
+    {
+     "startCall":"global.narrate This is the starting area"
+    },
+ "propertytypes":
+    {
+     "startCall":"string"
+    },
  "renderorder":"right-down",
  "tiledversion":"1.0.3",
  "tileheight":16,

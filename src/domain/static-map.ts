@@ -19,6 +19,8 @@ export class StaticMap {
 
   tilesets: Tileset[];
 
+  readonly startCall: string;
+
   constructor(mapId: string, rawMap: any) {
     this.id = mapId;
     this.width = rawMap && rawMap.width;
@@ -37,6 +39,14 @@ export class StaticMap {
       const tileset = new Tileset(rawTileset);
       this.tilesets.push(tileset);
     });
+
+    // Read properties
+    {
+      // Prevent null pointer errors
+      const properties = rawMap.properties || {};
+
+      this.startCall = properties.startCall;
+    }
   }
 
   extractSave(): SaveStaticMap {
