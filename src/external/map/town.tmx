@@ -115,19 +115,19 @@
  <objectgroup name="exits">
   <object id="4" name="example-portal-out-1" gid="844" x="63.6667" y="80.6667" width="16" height="16">
    <properties>
-    <property name="call" value="global.switchMap start center"/>
+    <property name="collisionCall" value="global.switchMap start center"/>
     <property name="hidden" type="bool" value="true"/>
    </properties>
   </object>
   <object id="5" name="example-portal-out-2" gid="844" x="352" y="80.3333" width="16" height="16">
    <properties>
-    <property name="call" value="global.switchMap start center"/>
+    <property name="collisionCall" value="global.switchMap start center"/>
     <property name="hidden" type="bool" value="true"/>
    </properties>
   </object>
   <object id="6" name="example-portal-out-3" gid="844" x="224.333" y="80" width="16" height="16">
    <properties>
-    <property name="call" value="global.switchMap start center"/>
+    <property name="collisionCall" value="global.switchMap start center"/>
     <property name="hidden" type="bool" value="true"/>
    </properties>
   </object>

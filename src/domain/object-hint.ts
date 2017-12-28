@@ -9,8 +9,8 @@ export class ObjectHint {
   readonly y: number;
   readonly width: number;
   readonly height: number;
-  readonly call: string;
-  readonly callInterval: number;
+  readonly collisionCall: string;
+  readonly collisionCallInterval: number;
   readonly clickCall: string;
   readonly mouseoverPointerType: PointerType;
   readonly defaultTile: number;
@@ -37,11 +37,11 @@ export class ObjectHint {
       const properties = object.properties || {};
 
       // TODO: This mirrors collision-layer.ts
-      this.call = properties.call || null;
-      if (properties.callInterval) {
-        this.callInterval = properties.callInterval;
+      this.collisionCall = properties.collisionCall || null;
+      if (properties.collisionCallInterval) {
+        this.collisionCallInterval = properties.collisionCallInterval;
       } else {
-        this.callInterval = Number.MAX_SAFE_INTEGER; // It gets called once, in practice.
+        this.collisionCallInterval = Number.MAX_SAFE_INTEGER; // It gets called once, in practice.
       }
 
       [this.clickCall, this.mouseoverPointerType] = parseClickProperties(properties);

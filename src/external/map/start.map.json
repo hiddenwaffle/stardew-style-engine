@@ -92,14 +92,14 @@
          "opacity":0.46000000834465,
          "properties":
             {
-             "call":"global.fire 100 51",
-             "callInterval":1000,
+             "collisionCall":"global.fire 100 51",
+             "collisionCallInterval":1000,
              "passthrough":true
             },
          "propertytypes":
             {
-             "call":"string",
-             "callInterval":"int",
+             "collisionCall":"string",
+             "collisionCallInterval":"int",
              "passthrough":"bool"
             },
          "type":"tilelayer",
@@ -115,12 +115,12 @@
          "opacity":0.75,
          "properties":
             {
-             "call":"global.fire 100 51",
+             "collisionCall":"global.fire 100 51",
              "passthrough":true
             },
          "propertytypes":
             {
-             "call":"string",
+             "collisionCall":"string",
              "passthrough":"bool"
             },
          "type":"tilelayer",
@@ -152,16 +152,16 @@
                  "properties":
                     {
                      "animationGroupName":"dl-player-7-12",
-                     "call":"global.sayOuch",
-                     "callInterval":1000,
-                     "clickCall-talk":"global.narrate Hello, I am a dragon."
+                     "clickCall-talk":"global.narrate Hello, I am a dragon.",
+                     "collisionCall":"global.sayOuch",
+                     "collisionCallInterval":1000
                     },
                  "propertytypes":
                     {
                      "animationGroupName":"string",
-                     "call":"string",
-                     "callInterval":"int",
-                     "clickCall-talk":"string"
+                     "clickCall-talk":"string",
+                     "collisionCall":"string",
+                     "collisionCallInterval":"int"
                     },
                  "rotation":0,
                  "type":"",
@@ -177,13 +177,13 @@
                  "name":"to-town-misaligned",
                  "properties":
                     {
-                     "call":"global.switchMap town bottom",
+                     "collisionCall":"global.switchMap town bottom",
                      "hidden":false,
                      "pushable":false
                     },
                  "propertytypes":
                     {
-                     "call":"string",
+                     "collisionCall":"string",
                      "hidden":"bool",
                      "pushable":"bool"
                     },

@@ -106,14 +106,14 @@ export function walkEntityToTiles(world: World, entity: Entity): WalkResult {
         }
         if (!tileToCheckIsAMapBoundary) {
           walkResult.addCollisionTileLayer(layer.name);
-          if (layer.call) {
+          if (layer.collisionCall) {
             const call = new ScriptCall(
-              layer.call,
+              layer.collisionCall,
               entity.id,
               null,
               layer.name,
             );
-            if (entity.tryScriptCall(call, layer.callInterval)) {
+            if (entity.tryScriptCall(call, layer.collisionCallInterval)) {
               walkResult.addCall(call);
             }
           }

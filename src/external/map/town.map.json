@@ -112,12 +112,12 @@
                  "name":"example-portal-out-1",
                  "properties":
                     {
-                     "call":"global.switchMap start center",
+                     "collisionCall":"global.switchMap start center",
                      "hidden":true
                     },
                  "propertytypes":
                     {
-                     "call":"string",
+                     "collisionCall":"string",
                      "hidden":"bool"
                     },
                  "rotation":0,
@@ -134,12 +134,12 @@
                  "name":"example-portal-out-2",
                  "properties":
                     {
-                     "call":"global.switchMap start center",
+                     "collisionCall":"global.switchMap start center",
                      "hidden":true
                     },
                  "propertytypes":
                     {
-                     "call":"string",
+                     "collisionCall":"string",
                      "hidden":"bool"
                     },
                  "rotation":0,
@@ -156,12 +156,12 @@
                  "name":"example-portal-out-3",
                  "properties":
                     {
-                     "call":"global.switchMap start center",
+                     "collisionCall":"global.switchMap start center",
                      "hidden":true
                     },
                  "propertytypes":
                     {
-                     "call":"string",
+                     "collisionCall":"string",
                      "hidden":"bool"
                     },
                  "rotation":0,
