@@ -92,6 +92,12 @@
 </data>
  </layer>
  <layer name="@collision" width="26" height="15" opacity="0.48">
+  <properties>
+   <property name="downCall" value="global.switchMap start center"/>
+   <property name="leftCall" value="global.switchMap start center"/>
+   <property name="rightCall" value="global.switchMap start center"/>
+   <property name="upCall" value="global.switchMap start center"/>
+  </properties>
   <data encoding="csv">
 0,0,17,17,0,0,17,17,0,17,0,0,17,0,0,0,17,0,0,0,0,17,0,17,17,0,
 17,17,17,0,0,0,17,17,0,17,17,17,17,0,0,0,17,17,17,17,17,17,0,0,17,17,

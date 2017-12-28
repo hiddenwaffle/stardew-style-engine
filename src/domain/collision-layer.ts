@@ -5,6 +5,11 @@ export class CollisionLayer extends TileLayer {
   readonly collisionCallInterval: number;
   readonly passthrough: boolean;
 
+  readonly upCall: string;
+  readonly downCall: string;
+  readonly leftCall: string;
+  readonly rightCall: string;
+
   constructor(rawLayer: any) {
     super(rawLayer);
 
@@ -21,6 +26,11 @@ export class CollisionLayer extends TileLayer {
         this.collisionCallInterval = Number.MAX_SAFE_INTEGER; // It gets called once, in practice.
       }
       this.passthrough = properties.passthrough || false;
+
+      this.upCall = properties.upCall;
+      this.downCall = properties.downCall;
+      this.leftCall = properties.leftCall;
+      this.rightCall = properties.rightCall;
     }
   }
 }

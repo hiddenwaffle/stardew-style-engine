@@ -8,6 +8,7 @@ import { timer } from 'src/session/timer';
 import { TARGET_FIELD_TILE_SIZE } from 'src/constants';
 import { ScriptCall } from './script-call';
 import { WalkResult } from './walk-result';
+import { CollisionLayer } from 'src/domain/collision-layer';
 
 export function walkEntityToTiles(world: World, entity: Entity): WalkResult {
   const walkResult = new WalkResult(world);
@@ -118,7 +119,13 @@ export function walkEntityToTiles(world: World, entity: Entity): WalkResult {
             }
           }
         } else {
-          // TODO: Maybe here is where it checks for map boundary transition to another map?
+          let directionCall = determineLayerDirectionCall(entity, layer);
+          if (directionCall) {
+            const call = new ScriptCall(directionCall, entity.id, null, layer.name);
+            if (entity.tryScriptCall(call, layer.collisionCallInterval)) {
+              walkResult.addCall(call);
+            }
+          }
         }
       }
     }
@@ -267,4 +274,26 @@ function attemptAssistedSlide(
   }
 
   return [xpush, ypush];
+}
+
+function determineLayerDirectionCall(entity: Entity, layer: CollisionLayer): string {
+  let directionCall;
+  switch(entity.direction) {
+    case Direction.Up:
+      directionCall = layer.upCall || null;
+      break;
+    case Direction.Down:
+      directionCall = layer.downCall || null;
+      break;
+    case Direction.Left:
+      directionCall = layer.leftCall || null;
+      break;
+    case Direction.Right:
+      directionCall = layer.rightCall || null;
+      break;
+    default:
+      directionCall = null;
+      break;
+  }
+  return directionCall;
 }

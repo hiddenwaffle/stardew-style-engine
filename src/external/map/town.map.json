@@ -49,6 +49,20 @@
          "height":15,
          "name":"@collision",
          "opacity":0.479999989271164,
+         "properties":
+            {
+             "downCall":"global.switchMap start center",
+             "leftCall":"global.switchMap start center",
+             "rightCall":"global.switchMap start center",
+             "upCall":"global.switchMap start center"
+            },
+         "propertytypes":
+            {
+             "downCall":"string",
+             "leftCall":"string",
+             "rightCall":"string",
+             "upCall":"string"
+            },
          "type":"tilelayer",
          "visible":true,
          "width":26,
