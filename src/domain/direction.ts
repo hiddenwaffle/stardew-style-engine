@@ -17,6 +17,11 @@ export enum DirectionsOfFreedom {
   Eight = 8, // Arrows?
 }
 
+export function asDirection(value: string): Direction {
+  // Enum conversion requires using "keyof": https://stackoverflow.com/a/42623905
+  return Direction[value as keyof typeof Direction];
+}
+
 export function determineDirection(dx: number, dy: number): Direction {
   if (dx < 0) {
     if (dy < 0) {

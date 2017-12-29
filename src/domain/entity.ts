@@ -18,6 +18,7 @@ import {
 } from 'src/session/image-loader';
 import {
   Direction,
+  asDirection,
   determineDirection,
   DirectionsOfFreedom,
 } from './direction';
@@ -88,8 +89,7 @@ export class Entity {
     this.y = args.y || 100;
     this.dxIntended = args.dxIntended || 0;
     this.dyIntended = args.dyIntended || 0;
-    // Enum conversion requires using "keyof": https://stackoverflow.com/a/42623905
-    this.facing = Direction[args.facing as keyof typeof Direction] || Direction.Down;
+    this.facing = asDirection(args.facing) || Direction.Down;
     this.speed = args.speed || 90 * UPSCALE; // TODO: Variable speed entities
     this.boundingWidth = args.boundingWidth || TARGET_FIELD_TILE_SIZE - 4;
     this.boundingHeight = args.boundingHeight || TARGET_FIELD_TILE_SIZE - 4;
