@@ -2,6 +2,10 @@ import { UPSCALE } from 'src/constants';
 import { Direction } from './direction';
 import { PointerType } from 'src/ui/pointer';
 import { parseClickProperties } from './parse-click-properties';
+import {
+  MovementType,
+  asMovementType,
+} from 'src/domain/movement';
 
 export class ObjectHint {
   readonly name: string;
@@ -18,6 +22,7 @@ export class ObjectHint {
   readonly pushable: boolean;
   readonly animationGroupName: string;
   readonly facing: string;
+  readonly movementType: MovementType;
 
   constructor(object: any) {
     this.name = object.name;
@@ -51,6 +56,8 @@ export class ObjectHint {
       this.facing = properties.facing || Direction.Down;
 
       this.animationGroupName = properties.animationGroupName || null;
+
+      this.movementType = asMovementType(properties.movementType) || MovementType.Stationary;
     }
   }
 }

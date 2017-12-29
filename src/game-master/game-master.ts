@@ -3,6 +3,7 @@ import { Entity } from 'src/domain/entity';
 import { Direction, DirectionsOfFreedom } from 'src/domain/direction';
 import { walkEntityToTiles } from './walk-entity-to-tiles';
 import { walkEntityToEntities } from './walk-entity-to-entities';
+import { calculateDxDyIntended } from './calculate-dx-dy-intended';
 import { camera } from 'src/session/camera';
 
 class GameMaster {
@@ -59,8 +60,12 @@ class GameMaster {
     world.player.entity.dyIntended = this.dyIntended;
 
     world.entities.forEach((entity) => {
-      // These have to do with movement and collision checks.
+      // Have entity calcuate where it is going, if anywhere.
+      calculateDxDyIntended(world, entity);
+
+      // Clear expired call timers before doing anything that involves calls.
       entity.clearExpiredCallTimers();
+      // These have to do with direct movement and collision checks.
       walkEntityToTiles(world, entity).executeCalls();
       walkEntityToEntities(world, entity).executeCalls();
 

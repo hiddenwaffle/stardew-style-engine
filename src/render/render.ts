@@ -233,6 +233,19 @@ function renderWorld(world: World) {
           }
         }
       });
+      // TODO: Remove this debug
+      // {
+      //   const xtile = Math.floor(world.player.x / TARGET_FIELD_TILE_SIZE);
+      //   const ytile = Math.floor(world.player.y / TARGET_FIELD_TILE_SIZE);
+      //   ctxBack.strokeStyle = 'yellow';
+      //   debugStrokeRect(
+      //     ctxBack,
+      //     ((xtile * TARGET_FIELD_TILE_SIZE) - player.x) + FIELD_TARGET_WIDTH  / 2,
+      //     ((ytile * TARGET_FIELD_TILE_SIZE) - player.y) + FIELD_TARGET_HEIGHT / 2,
+      //     TARGET_FIELD_TILE_SIZE,
+      //     TARGET_FIELD_TILE_SIZE,
+      //   );
+      // }
     }
   }
 }

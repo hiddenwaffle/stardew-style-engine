@@ -276,6 +276,7 @@
     <property name="clickCall-talk" value="global.narrate Hello, I am a dragon."/>
     <property name="collisionCall" value="global.sayOuch"/>
     <property name="collisionCallInterval" type="int" value="1000"/>
+    <property name="movementType" value="Wander"/>
    </properties>
   </object>
   <object id="48" name="to-town-misaligned" gid="844" x="57.3333" y="51.6667" width="16" height="16">

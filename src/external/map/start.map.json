@@ -154,14 +154,16 @@
                      "animationGroupName":"dl-player-7-12",
                      "clickCall-talk":"global.narrate Hello, I am a dragon.",
                      "collisionCall":"global.sayOuch",
-                     "collisionCallInterval":1000
+                     "collisionCallInterval":1000,
+                     "movementType":"Wander"
                     },
                  "propertytypes":
                     {
                      "animationGroupName":"string",
                      "clickCall-talk":"string",
                      "collisionCall":"string",
-                     "collisionCallInterval":"int"
+                     "collisionCallInterval":"int",
+                     "movementType":"string"
                     },
                  "rotation":0,
                  "type":"",

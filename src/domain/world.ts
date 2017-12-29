@@ -143,6 +143,7 @@ export class World {
         entityToEntityCollisionCallInterval: objectHint.collisionCallInterval,
         hidden: objectHint.hidden,
         mouseoverPointerType: objectHint.mouseoverPointerType,
+        movementType: objectHint.movementType,
         name: objectHint.name,
         pushable: objectHint.pushable,
         x: objectHint.x,

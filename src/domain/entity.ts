@@ -24,6 +24,7 @@ import {
 } from './direction';
 import { nextId } from 'src/session/id-generator';
 import { PointerType } from 'src/ui/pointer';
+import { MovementPlan } from 'src/domain/movement';
 
 class CallTimer {
   private readonly call: ScriptCall;
@@ -82,6 +83,8 @@ export class Entity {
   animationFrameIndex: number;
   animationFrameTime: number;
 
+  private _movementPlan: MovementPlan;
+
   constructor(args: any) {
     this._id = args.id || nextId();
     this.name = args.name || 'UNKNOWN';
@@ -119,6 +122,8 @@ export class Entity {
     }
     this.animationFrameIndex = args.animationFrameIndex || 0;
     this.animationFrameTime = args.animationFrameTime || 0;
+
+    this._movementPlan = new MovementPlan(args.movementType);
   }
 
   step() {
@@ -270,5 +275,9 @@ export class Entity {
 
   get hasAnimation(): boolean {
     return !!this.animationGroup;
+  }
+
+  get movementPlan(): MovementPlan {
+    return this._movementPlan;
   }
 }
