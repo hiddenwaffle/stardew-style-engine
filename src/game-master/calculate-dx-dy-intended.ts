@@ -3,13 +3,14 @@ import { Entity } from 'src/domain/entity';
 import { MovementType } from 'src/domain/movement';
 
 export function calculateDxDyIntended(world: World, entity: Entity) {
-  const plan = entity.movementPlan;
-  if (plan.type === MovementType.Player || plan.type === MovementType.Stationary) {
-    return;
-  }
-
-  if (plan.type === MovementType.Wander) {
-    advanceWander(world, entity);
+  switch (entity.movementPlan.type) {
+    case MovementType.Wander:
+      advanceWander(world, entity);
+      break;
+    case MovementType.Player:
+    case MovementType.Stationary:
+    default:
+      // Do nothing
   }
 }
 
