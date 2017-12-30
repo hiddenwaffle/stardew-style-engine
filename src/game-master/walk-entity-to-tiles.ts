@@ -65,6 +65,32 @@ export function walkEntityToTiles(world: World, entity: Entity): WalkResult {
       if (!layer.passthrough) {
         tileTracker.setSolid(trackerRow, trackerCol, true);
       }
+    }
+  }
+
+  for (const layer of world.staticMap.collisionLayers) {
+    for (const tileToCheck of tilesToCheck) {
+      const xtileToCheck = tileToCheck[0];
+      const ytileToCheck = tileToCheck[1];
+
+      // These correspond to the TileTracker's array indexes.
+      const trackerRow = (ytileToCheck - yTile) + 1;
+      const trackerCol = (xtileToCheck - xTile) + 1;
+
+      // Determine if collision is an actual tile, or a map boundary.
+      let tileValue = -1;
+      if (xtileToCheck < 0 || xtileToCheck >= layer.width ||
+          ytileToCheck < 0 || ytileToCheck >= layer.height) {
+        tileValue = 1337; // arbitrary
+      } else {
+        const index = convertXYToIndex(xtileToCheck, ytileToCheck, layer.width);
+        tileValue = layer.tiles[index];
+      }
+
+      // Collision possible only if the tile value is a positive number.
+      if (tileValue <= 0) {
+        continue;
+      }
 
       // Convert tile to upscaled pixel space.
       const leftTile   =  xtileToCheck      * TARGET_FIELD_TILE_SIZE;
