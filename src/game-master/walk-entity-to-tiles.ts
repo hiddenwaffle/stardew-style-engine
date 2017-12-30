@@ -10,6 +10,14 @@ import { ScriptCall } from './script-call';
 import { WalkResult } from './walk-result';
 import { CollisionLayer } from 'src/domain/collision-layer';
 
+class TileTrack {
+  solid: boolean;
+
+  constructor() {
+    this.solid = false;
+  }
+}
+
 export function walkEntityToTiles(world: World, entity: Entity): WalkResult {
   const walkResult = new WalkResult(world);
   if (!world || !world.staticMap) {
@@ -43,10 +51,10 @@ export function walkEntityToTiles(world: World, entity: Entity): WalkResult {
     [xTile + 1, yTile + 1], // Bottom Right   8
   ];
 
-  const solidTilesAroundEntity = [
-    [false, false, false], // [0][0]  [0][1]  [0][2]
-    [false, false, false], // [1][0]  [1][1]* [1][2]   *entity is in the center at [1][1]
-    [false, false, false], // [2][0]  [2][1]  [2][2]
+  const tracks = [
+    [new TileTrack(), new TileTrack(), new TileTrack()], // [0][0]  [0][1]  [0][2]
+    [new TileTrack(), new TileTrack(), new TileTrack()], // [1][0]  [1][1]* [1][2]   *entity is in the center at [1][1]
+    [new TileTrack(), new TileTrack(), new TileTrack()], // [2][0]  [2][1]  [2][2]
   ];
 
   let xpush = 0;
@@ -76,9 +84,9 @@ export function walkEntityToTiles(world: World, entity: Entity): WalkResult {
       }
 
       if (!layer.passthrough) {
-        const staeCol = (xTileToCheck - xTile) + 1;
-        const staeRow = (yTileToCheck - yTile) + 1;
-        solidTilesAroundEntity[staeRow][staeCol] = true;
+        const row = (yTileToCheck - yTile) + 1;
+        const col = (xTileToCheck - xTile) + 1;
+        tracks[row][col].solid = true;
       }
 
       // Convert tile to upscaled pixel space.
@@ -140,7 +148,7 @@ export function walkEntityToTiles(world: World, entity: Entity): WalkResult {
       entity.y,
       xTile,
       yTile,
-      solidTilesAroundEntity,
+      tracks,
       xpush,
       ypush,
     );
@@ -213,7 +221,7 @@ function attemptAssistedSlide(
   y: number,
   xTile: number,
   yTile: number,
-  solidTilesAroundEntity: boolean[][],
+  tracks: TileTrack[][],
   xpushOriginal: number,
   ypushOriginal: number,
 ): [number, number] {
@@ -233,39 +241,39 @@ function attemptAssistedSlide(
   // console.log('xpct, ypct', xPercentOnCurrentTile, yPercentOnCurrentTile);
 
   if (direction === Direction.Up) {
-    if (solidTilesAroundEntity[0][1] === false) {
+    if (tracks[0][1].solid === false) {
       if (xPercentOnCurrentTile < 0.5) {
         xpush =  Math.abs(ypush);
       } else {
         xpush = -Math.abs(ypush);
       }
-    } else if (solidTilesAroundEntity[0][0] === false && xPercentOnCurrentTile < 0.4) {
+    } else if (tracks[0][0].solid === false && xPercentOnCurrentTile < 0.4) {
       xpush = -Math.abs(ypush);
-    } else if (solidTilesAroundEntity[0][2] === false && xPercentOnCurrentTile > 0.6) {
+    } else if (tracks[0][2].solid === false && xPercentOnCurrentTile > 0.6) {
       xpush =  Math.abs(ypush);
     }
   } else if (direction === Direction.Down) {
-    if (solidTilesAroundEntity[2][1] === false) {
+    if (tracks[2][1].solid === false) {
       if (xPercentOnCurrentTile < 0.5) {
         xpush =  Math.abs(ypush);
       } else {
         xpush = -Math.abs(ypush);
       }
-    } else if (solidTilesAroundEntity[2][0] === false && xPercentOnCurrentTile < 0.4) {
+    } else if (tracks[2][0].solid === false && xPercentOnCurrentTile < 0.4) {
       xpush = -Math.abs(ypush);
-    } else if (solidTilesAroundEntity[2][2] === false && xPercentOnCurrentTile > 0.6) {
+    } else if (tracks[2][2].solid === false && xPercentOnCurrentTile > 0.6) {
       xpush =  Math.abs(ypush);
     }
   } else if (direction === Direction.Left) {
-    if (solidTilesAroundEntity[0][0] === false && yPercentOnCurrentTile < 0.85) {
+    if (tracks[0][0].solid === false && yPercentOnCurrentTile < 0.85) {
       ypush = -Math.abs(xpush);
-    } else if (solidTilesAroundEntity[1][0] === false && yPercentOnCurrentTile > 0.15) {
+    } else if (tracks[1][0].solid === false && yPercentOnCurrentTile > 0.15) {
       ypush =  Math.abs(xpush);
     }
   } else if (direction === Direction.Right) {
-    if (solidTilesAroundEntity[0][2] === false && yPercentOnCurrentTile < 0.85) {
+    if (tracks[0][2].solid === false && yPercentOnCurrentTile < 0.85) {
       ypush = -Math.abs(xpush);
-    } else if (solidTilesAroundEntity[1][2] === false && yPercentOnCurrentTile > 0.15) {
+    } else if (tracks[1][2].solid === false && yPercentOnCurrentTile > 0.15) {
       ypush =  Math.abs(xpush);
     }
   }
