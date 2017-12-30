@@ -15,28 +15,35 @@ export function asMovementType(value: string): MovementType {
   return MovementType[value as keyof typeof MovementType];
 }
 
-class MovementTarget {
-  x: number;
-  y: number;
+export class MovementTarget {
+  readonly xstart: number;
+  readonly ystart: number;
+  readonly x: number;
+  readonly y: number;
+  wait: boolean;
   ttl: number;
-  call: string;
+
+  constructor(xstart: number, ystart: number, x: number, y: number, wait?: boolean) {
+    this.xstart = xstart;
+    this.ystart = ystart;
+    this.x = x;
+    this.y = y;
+    this.wait = wait || false;
+  }
 }
 
 export class MovementPlan {
-  private _type: MovementType;
-
+  type: MovementType;
   previousDirection: Direction;
   currentDirection: Direction;
   targets: MovementTarget[];
+  finishedCall: string;
 
-  constructor(type?: MovementType) {
-    this._type = type || MovementType.Stationary;
+  constructor(type?: MovementType, finishedCall?: string) {
+    this.type = type || MovementType.Stationary;
     this.previousDirection = Direction.None;
     this.currentDirection = Direction.None;
     this.targets = [];
-  }
-
-  get type(): MovementType {
-    return this._type;
+    this.finishedCall = finishedCall || null;
   }
 }

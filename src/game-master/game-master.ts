@@ -1,10 +1,15 @@
 import { World } from 'src/domain/world';
 import { Entity } from 'src/domain/entity';
-import { Direction, DirectionsOfFreedom } from 'src/domain/direction';
+import {
+  calculateFacing,
+  Direction,
+  DirectionsOfFreedom,
+} from 'src/domain/direction';
 import { walkEntityToTiles } from './walk-entity-to-tiles';
 import { walkEntityToEntities } from './walk-entity-to-entities';
 import { calculateDxDyIntended } from './calculate-dx-dy-intended';
 import { camera } from 'src/session/camera';
+import { tryAnimationSwitch } from './try-animation-switch';
 
 class GameMaster {
   /**
@@ -110,95 +115,3 @@ class GameMaster {
 }
 
 export const gameMaster = new GameMaster();
-
-function calculateFacing(
-  dx: number,
-  dy: number,
-  currentFacing: Direction,
-  directionsOfFreedom: DirectionsOfFreedom,
-): Direction {
-  switch (directionsOfFreedom) {
-    case DirectionsOfFreedom.One:
-      return calculateFacingOneDirection(dx, dy, currentFacing);
-    case DirectionsOfFreedom.Two:
-      return calculateFacingTwoDirections(dx, currentFacing);
-    case DirectionsOfFreedom.Four:
-      return calculateFacingFourDirections(dx, dy, currentFacing);
-    case DirectionsOfFreedom.Eight:
-      // TODO: Account for 8 directions of freedom, when necessary (arrows?).
-      break;
-  }
-  return Direction.None;
-}
-
-function calculateFacingOneDirection(
-  dx: number,
-  dy: number,
-  currentFacing: Direction,
-): Direction {
-  return currentFacing; // TODO: I dunno, doesn't matter does it?
-}
-
-function calculateFacingTwoDirections(
-  dx: number,
-  currentFacing: Direction,
-): Direction {
-  if (dx < 0) {
-    return Direction.Left;
-  } else if (dx > 0) {
-    return Direction.Right;
-  }
-  return currentFacing;
-}
-
-function calculateFacingFourDirections(
-  dx: number,
-  dy: number,
-  currentFacing: Direction,
-): Direction {
-  if (dx !== 0 && dy !== 0) { // Diagonal movement
-    if (dx < 0 && dy < 0) { // Move up-left
-      if (currentFacing === Direction.Left || currentFacing === Direction.Up) {
-        return currentFacing;
-      } else {
-        return Direction.Left; // TODO: Does defaulting to horizontal movement facing work out?
-      }
-    } else if (dx > 0 && dy < 0) { // Move up-right
-      if (currentFacing === Direction.Right || currentFacing === Direction.Up) {
-        return currentFacing;
-      } else {
-        return Direction.Right; // TODO: Does defaulting to horizontal movement facing work out?
-      }
-    } else if (dx < 0 && dy > 0) { // Move down-left
-      if (currentFacing === Direction.Left || currentFacing === Direction.Down) {
-        return currentFacing;
-      } else {
-        return Direction.Left; // TODO: Does defaulting to horizontal movement facing work out?
-      }
-    } else if (dx > 0 && dy > 0) { // Move down-right
-      if (currentFacing === Direction.Right || currentFacing === Direction.Down) {
-        return currentFacing;
-      } else {
-        return Direction.Right; // TODO: Does defaulting to horizontal movement facing work out?
-      }
-    }
-  } else { // Cardinal movement or standing still
-    if (dx < 0) {
-      return Direction.Left;
-    } else if (dx > 0) {
-      return Direction.Right;
-    } else if (dy < 0) {
-      return Direction.Up;
-    } else if (dy > 0) {
-      return Direction.Down;
-    }
-  }
-  return currentFacing;
-}
-
-function tryAnimationSwitch(entity: Entity, walk: boolean) {
-  const action = entity.dxIntended === 0 && entity.dyIntended === 0 ? 'stand' : (walk ? 'walk' : 'run');
-  const direction = Direction[entity.facing].toLowerCase();
-  const animationName = `${action}-${direction}`;
-  entity.switchAnimation(animationName, false);
-}
