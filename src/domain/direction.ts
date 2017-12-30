@@ -1,13 +1,13 @@
 export enum Direction {
-  None,
-  UpLeft,
-  Up,
-  UpRight,
-  Left,
-  Right,
-  DownLeft,
-  Down,
-  DownRight,
+  None,       // 0
+  UpLeft,     // 1
+  Up,         // 2
+  UpRight,    // 3
+  Left,       // 4
+  Right,      // 5
+  DownLeft,   // 6
+  Down,       // 7
+  DownRight,  // 8
 }
 
 export enum DirectionsOfFreedom {
