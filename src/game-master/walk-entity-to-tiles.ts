@@ -9,14 +9,7 @@ import { TARGET_FIELD_TILE_SIZE } from 'src/constants';
 import { ScriptCall } from './script-call';
 import { WalkResult } from './walk-result';
 import { CollisionLayer } from 'src/domain/collision-layer';
-
-class TileTrack {
-  solid: boolean;
-
-  constructor() {
-    this.solid = false;
-  }
-}
+import { TileTracker } from './tile-tracker';
 
 export function walkEntityToTiles(world: World, entity: Entity): WalkResult {
   const walkResult = new WalkResult(world);
@@ -51,11 +44,7 @@ export function walkEntityToTiles(world: World, entity: Entity): WalkResult {
     [xTile + 1, yTile + 1], // Bottom Right   8
   ];
 
-  const tracks = [
-    [new TileTrack(), new TileTrack(), new TileTrack()], // [0][0]  [0][1]  [0][2]
-    [new TileTrack(), new TileTrack(), new TileTrack()], // [1][0]  [1][1]* [1][2]   *entity is in the center at [1][1]
-    [new TileTrack(), new TileTrack(), new TileTrack()], // [2][0]  [2][1]  [2][2]
-  ];
+  const tracker = new TileTracker();
 
   let xpush = 0;
   let ypush = 0;
@@ -88,7 +77,7 @@ export function walkEntityToTiles(world: World, entity: Entity): WalkResult {
       }
 
       if (!layer.passthrough) {
-        tracks[trackRow][trackCol].solid = true;
+        tracker.setSolid(trackRow, trackCol, true);
       }
 
       // Convert tile to upscaled pixel space.
@@ -150,7 +139,7 @@ export function walkEntityToTiles(world: World, entity: Entity): WalkResult {
       entity.y,
       xTile,
       yTile,
-      tracks,
+      tracker,
       xpush,
       ypush,
     );
@@ -223,7 +212,7 @@ function attemptAssistedSlide(
   y: number,
   xTile: number,
   yTile: number,
-  tracks: TileTrack[][],
+  tracker: TileTracker,
   xpushOriginal: number,
   ypushOriginal: number,
 ): [number, number] {
@@ -243,39 +232,39 @@ function attemptAssistedSlide(
   // console.log('xpct, ypct', xPercentOnCurrentTile, yPercentOnCurrentTile);
 
   if (direction === Direction.Up) {
-    if (tracks[0][1].solid === false) {
+    if (tracker.isSolid(0, 1) === false) {
       if (xPercentOnCurrentTile < 0.5) {
         xpush =  Math.abs(ypush);
       } else {
         xpush = -Math.abs(ypush);
       }
-    } else if (tracks[0][0].solid === false && xPercentOnCurrentTile < 0.4) {
+    } else if (tracker.isSolid(0, 0) === false && xPercentOnCurrentTile < 0.4) {
       xpush = -Math.abs(ypush);
-    } else if (tracks[0][2].solid === false && xPercentOnCurrentTile > 0.6) {
+    } else if (tracker.isSolid(0, 2) === false && xPercentOnCurrentTile > 0.6) {
       xpush =  Math.abs(ypush);
     }
   } else if (direction === Direction.Down) {
-    if (tracks[2][1].solid === false) {
+    if (tracker.isSolid(2, 1) === false) {
       if (xPercentOnCurrentTile < 0.5) {
         xpush =  Math.abs(ypush);
       } else {
         xpush = -Math.abs(ypush);
       }
-    } else if (tracks[2][0].solid === false && xPercentOnCurrentTile < 0.4) {
+    } else if (tracker.isSolid(2, 0) === false && xPercentOnCurrentTile < 0.4) {
       xpush = -Math.abs(ypush);
-    } else if (tracks[2][2].solid === false && xPercentOnCurrentTile > 0.6) {
+    } else if (tracker.isSolid(2, 2) === false && xPercentOnCurrentTile > 0.6) {
       xpush =  Math.abs(ypush);
     }
   } else if (direction === Direction.Left) {
-    if (tracks[0][0].solid === false && yPercentOnCurrentTile < 0.85) {
+    if (tracker.isSolid(0, 0) === false && yPercentOnCurrentTile < 0.85) {
       ypush = -Math.abs(xpush);
-    } else if (tracks[1][0].solid === false && yPercentOnCurrentTile > 0.15) {
+    } else if (tracker.isSolid(1, 0) === false && yPercentOnCurrentTile > 0.15) {
       ypush =  Math.abs(xpush);
     }
   } else if (direction === Direction.Right) {
-    if (tracks[0][2].solid === false && yPercentOnCurrentTile < 0.85) {
+    if (tracker.isSolid(0, 2) === false && yPercentOnCurrentTile < 0.85) {
       ypush = -Math.abs(xpush);
-    } else if (tracks[1][2].solid === false && yPercentOnCurrentTile > 0.15) {
+    } else if (tracker.isSolid(1, 2) === false && yPercentOnCurrentTile > 0.15) {
       ypush =  Math.abs(xpush);
     }
   }
