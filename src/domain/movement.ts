@@ -34,15 +34,11 @@ export class MovementTarget {
 
 export class MovementPlan {
   type: MovementType;
-  previousDirection: Direction;
-  currentDirection: Direction;
   targets: MovementTarget[];
   finishedCall: string;
 
   constructor(type?: MovementType, finishedCall?: string) {
     this.type = type || MovementType.Stationary;
-    this.previousDirection = Direction.None;
-    this.currentDirection = Direction.None;
     this.targets = [];
     this.finishedCall = finishedCall || null;
   }
