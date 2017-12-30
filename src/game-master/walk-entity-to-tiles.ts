@@ -9,6 +9,7 @@ import { TARGET_FIELD_TILE_SIZE } from 'src/constants';
 import { ScriptCall } from './script-call';
 import { WalkResult } from './walk-result';
 import { CollisionLayer } from 'src/domain/collision-layer';
+import { calculateTilesToCheck } from 'src/game-master/tile-tracker';
 
 export function walkEntityToTiles(world: World, entity: Entity): WalkResult {
   const walkResult = new WalkResult(world);
@@ -30,19 +31,7 @@ export function walkEntityToTiles(world: World, entity: Entity): WalkResult {
 
   const xTile = Math.floor(entity.x / TARGET_FIELD_TILE_SIZE);
   const yTile = Math.floor(entity.y / TARGET_FIELD_TILE_SIZE);
-
-  const tilesToCheck = [
-    [xTile - 1, yTile - 1], // Top Left       0
-    [xTile,     yTile - 1], // Top Middle     1
-    [xTile + 1, yTile - 1], // Top Right      2
-    [xTile - 1, yTile    ], // Middle Left    3
-    [xTile    , yTile    ], // Middle         4
-    [xTile + 1, yTile    ], // Middle Right   5
-    [xTile - 1, yTile + 1], // Bottom Left    6
-    [xTile    , yTile + 1], // Bottom Middle  7
-    [xTile + 1, yTile + 1], // Bottom Right   8
-  ];
-
+  const tilesToCheck = calculateTilesToCheck(xTile, yTile);
   const solidTilesAroundEntity = [
     [false, false, false], // [0][0]  [0][1]  [0][2]
     [false, false, false], // [1][0]  [1][1]* [1][2]   *entity is in the center at [1][1]
