@@ -135,8 +135,6 @@ export class World {
     for (const objectHint of this.staticMap.objectHints) {
       const entity = new Entity({
         animationGroupName: objectHint.animationGroupName,
-        boundingHeight: objectHint.height,
-        boundingWidth: objectHint.width,
         clickCall: objectHint.clickCall,
         defaultTile: objectHint.defaultTile,
         entityToEntityCollisionCall: objectHint.collisionCall,
