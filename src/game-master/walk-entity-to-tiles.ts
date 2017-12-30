@@ -51,6 +51,8 @@ export function walkEntityToTiles(world: World, entity: Entity): WalkResult {
   let xpush = 0;
   let ypush = 0;
 
+  const collisionTileLayers: string[] = [];
+
   for (const layer of world.staticMap.collisionLayers) {
     for (const tileToCheck of tilesToCheck) {
       const xTileToCheck = tileToCheck[0];
@@ -104,7 +106,7 @@ export function walkEntityToTiles(world: World, entity: Entity): WalkResult {
           }
         }
         if (!tileToCheckIsAMapBoundary) {
-          walkResult.addCollisionTileLayer(layer.name); // TODO: Might be able to factor out of WalkResult
+          collisionTileLayers.push(layer.name);
           if (layer.collisionCall) {
             const call = new ScriptCall(
               layer.collisionCall,
@@ -138,7 +140,7 @@ export function walkEntityToTiles(world: World, entity: Entity): WalkResult {
 
   // If the entity moved out of a layer on which the entity
   // had an active call timer, cancel that timer.
-  entity.clearCallTimersNotInLayersNames(walkResult.collisionTileLayers);
+  entity.clearCallTimersNotInLayersNames(collisionTileLayers);
 
   const solidCollisionOccurred = (xpush !== 0 && ypush === 0) || (xpush === 0 && ypush !== 0);
   if (solidCollisionOccurred && isCardinal(entity.direction)) {
