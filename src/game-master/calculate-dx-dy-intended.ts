@@ -155,7 +155,7 @@ function advanceWander(world: World, entity: Entity) {
 }
 
 /**
- * Convert the given number to 1 or -1.
+ * Convert the given number to 1 or -1, or 0 if given 0.
  */
 function to1(value: number): number {
   if (value === 0) {
