@@ -50,6 +50,33 @@ export function determineDirection(dx: number, dy: number): Direction {
   }
 }
 
+/**
+ * Returns [dx, dy]
+ */
+export function determineDxDy(direction: Direction): [number, number] {
+  switch (direction) {
+    case Direction.None:
+      return [0, 0];
+    case Direction.UpLeft:
+      return [-1, -1];
+    case Direction.Up:
+      return [0, -1];
+    case Direction.UpRight:
+      return [1, -1];
+    case Direction.Left:
+      return [-1, 0];
+    case Direction.Right:
+      return [1, 0];
+    case Direction.DownLeft:
+      return [-1, 1];
+    case Direction.Down:
+      return [0, 1];
+    case Direction.DownRight:
+      return [1, 1];
+  }
+  return [0, 0];
+}
+
 export function isCardinal(direction: Direction) {
   return [Direction.Up,
           Direction.Down,
