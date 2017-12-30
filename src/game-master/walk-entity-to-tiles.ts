@@ -42,15 +42,15 @@ export function walkEntityToTiles(world: World, entity: Entity): WalkResult {
       const xTileToCheck = tileToCheck[0];
       const yTileToCheck = tileToCheck[1];
 
-      // These offsets are for the TileTracker's array indexes.
-      const offsetRow = (yTileToCheck - yTile) + 1;
-      const offsetCol = (xTileToCheck - xTile) + 1;
+      // These correspond to the TileTracker's array indexes.
+      const trackerRow = (yTileToCheck - yTile) + 1;
+      const trackerCol = (xTileToCheck - xTile) + 1;
 
       // Determine if collision is an actual tile, or a map boundary.
       let tileValue = -1;
       if (xTileToCheck < 0 || xTileToCheck >= layer.width ||
           yTileToCheck < 0 || yTileToCheck >= layer.height) {
-        tileTracker.setMapBoundary(offsetRow, offsetCol, true);
+        tileTracker.setMapBoundary(trackerRow, trackerCol, true);
         tileValue = 1337; // arbitrary
       } else {
         const index = convertXYToIndex(xTileToCheck, yTileToCheck, layer.width);
@@ -63,7 +63,7 @@ export function walkEntityToTiles(world: World, entity: Entity): WalkResult {
       }
 
       if (!layer.passthrough) {
-        tileTracker.setSolid(offsetRow, offsetCol, true);
+        tileTracker.setSolid(trackerRow, trackerCol, true);
       }
 
       // Convert tile to upscaled pixel space.
@@ -87,7 +87,7 @@ export function walkEntityToTiles(world: World, entity: Entity): WalkResult {
             ypush = yExpectedPush;
           }
         }
-        if (!tileTracker.isMapBoundary(offsetRow, offsetCol)) {
+        if (!tileTracker.isMapBoundary(trackerRow, trackerCol)) {
           walkResult.addCollisionTileLayer(layer.name);
           if (layer.collisionCall) {
             const call = new ScriptCall(
