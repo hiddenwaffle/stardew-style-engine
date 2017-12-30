@@ -38,14 +38,13 @@ export function walkEntityToTiles(world: World, entity: Entity): WalkResult {
   let ypush = 0;
 
   for (const layer of world.staticMap.collisionLayers) {
-    const tileIntersected = false;
     for (const tileToCheck of tilesToCheck) {
       const xTileToCheck = tileToCheck[0];
       const yTileToCheck = tileToCheck[1];
+
+      // These offsets are for the TileTracker's array indexes.
       const offsetRow = (yTileToCheck - yTile) + 1;
       const offsetCol = (xTileToCheck - xTile) + 1;
-
-      // TODO: Adjust for layers with offsets.
 
       // Determine if collision is an actual tile, or a map boundary.
       let tileValue = -1;
