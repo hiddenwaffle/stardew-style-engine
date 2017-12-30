@@ -114,7 +114,7 @@ function advanceWander(world: World, entity: Entity) {
       entity.x,
       entity.y,
       xtileTarget * TARGET_FIELD_TILE_SIZE + (TARGET_FIELD_TILE_SIZE / 2),
-      ytileTarget * TARGET_FIELD_TILE_SIZE + (TARGET_FIELD_TILE_SIZE - 1),
+      ytileTarget * TARGET_FIELD_TILE_SIZE + (TARGET_FIELD_TILE_SIZE - 2), // -2 to prevent overlap with tile above
     );
     plan.targets.push(target);
   } else {

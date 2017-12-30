@@ -94,8 +94,8 @@ export class Entity {
     this.dyIntended = args.dyIntended || 0;
     this.facing = asDirection(args.facing) || Direction.Down;
     this.speed = args.speed || 90 * UPSCALE; // TODO: Variable speed entities
-    this.boundingWidth = args.boundingWidth || TARGET_FIELD_TILE_SIZE - 4;
-    this.boundingHeight = args.boundingHeight || TARGET_FIELD_TILE_SIZE - 4;
+    this.boundingWidth = TARGET_FIELD_TILE_SIZE - 4;
+    this.boundingHeight = TARGET_FIELD_TILE_SIZE - 4;
     this.pushable = args.pushable || false;
 
     this.entityToEntityCollisionCall = args.entityToEntityCollisionCall || null;
