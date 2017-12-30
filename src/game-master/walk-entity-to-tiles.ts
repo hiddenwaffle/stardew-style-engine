@@ -65,6 +65,10 @@ export function walkEntityToTiles(world: World, entity: Entity): WalkResult {
       const xTileToCheck = tileToCheck[0];
       const yTileToCheck = tileToCheck[1];
 
+      // Corresponds to indexes in the tracks array.
+      const trackRow = (yTileToCheck - yTile) + 1;
+      const trackCol = (xTileToCheck - xTile) + 1;
+
       // Determine if collision is an actual tile, or a map boundary.
       let tileToCheckIsAMapBoundary;
       let tileValue = -1;
@@ -84,9 +88,7 @@ export function walkEntityToTiles(world: World, entity: Entity): WalkResult {
       }
 
       if (!layer.passthrough) {
-        const row = (yTileToCheck - yTile) + 1;
-        const col = (xTileToCheck - xTile) + 1;
-        tracks[row][col].solid = true;
+        tracks[trackRow][trackCol].solid = true;
       }
 
       // Convert tile to upscaled pixel space.
