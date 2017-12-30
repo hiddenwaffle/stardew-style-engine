@@ -54,7 +54,6 @@ export function walkEntityToTiles(world: World, entity: Entity): WalkResult {
         tileValue = 1337; // arbitrary
       } else {
         const index = convertXYToIndex(xTileToCheck, yTileToCheck, layer.width);
-        tileTracker.setMapBoundary(offsetRow, offsetCol, false);
         tileValue = layer.tiles[index];
       }
 
