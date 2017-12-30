@@ -46,7 +46,7 @@ export function walkEntityToTiles(world: World, entity: Entity): WalkResult {
       const trackerRow = (ytileToCheck - yTile) + 1;
       const trackerCol = (xtileToCheck - xTile) + 1;
 
-      // Determine if collision is an actual tile, or a map boundary.
+      // Determine if tile is an actual tile or a map boundary.
       let tileValue = -1;
       if (xtileToCheck < 0 || xtileToCheck >= layer.width ||
           ytileToCheck < 0 || ytileToCheck >= layer.height) {
@@ -57,13 +57,12 @@ export function walkEntityToTiles(world: World, entity: Entity): WalkResult {
         tileValue = layer.tiles[index];
       }
 
-      // Collision possible only if the tile value is a positive number.
-      if (tileValue <= 0) {
-        continue;
-      }
-
-      if (!layer.passthrough) {
-        tileTracker.setSolid(trackerRow, trackerCol, true);
+      // Make a note of tile values that have a positive number.
+      if (tileValue > 0) {
+        tileTracker.setNonZero(trackerRow, trackerCol, true);
+        if (!layer.passthrough) {
+          tileTracker.setSolid(trackerRow, trackerCol, true);
+        }
       }
     }
   }

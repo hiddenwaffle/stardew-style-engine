@@ -1,7 +1,9 @@
+const NON_ZERO_DEFAULT = false;
 const SOLID_DEFAULT = false;
 const MAP_BOUNDARY_DEFAULT = false;
 
 class TileTrack {
+  nonZero: boolean;
   solid: boolean;
   mapBoundary: boolean;
 
@@ -10,6 +12,7 @@ class TileTrack {
   }
 
   reset() {
+    this.nonZero = NON_ZERO_DEFAULT;
     this.solid = SOLID_DEFAULT;
     this.mapBoundary = MAP_BOUNDARY_DEFAULT;
   }
@@ -31,6 +34,21 @@ export class TileTracker {
     this.tracks.push([new TileTrack(), new TileTrack(), new TileTrack()]);
     this.tracks.push([new TileTrack(), new TileTrack(), new TileTrack()]);
     this.tracks.push([new TileTrack(), new TileTrack(), new TileTrack()]);
+  }
+
+  isNonZero(row: number, col: number): boolean {
+    const track = this.trackAt(row, col);
+    if (track) {
+      return track.nonZero;
+    }
+    return NON_ZERO_DEFAULT;
+  }
+
+  setNonZero(row: number, col: number, nonZero: boolean) {
+    const track = this.trackAt(row, col);
+    if (track) {
+      track.nonZero = nonZero;
+    }
   }
 
   isSolid(row: number, col: number): boolean {
