@@ -9,7 +9,9 @@ import { TARGET_FIELD_TILE_SIZE } from 'src/constants';
 import { ScriptCall } from './script-call';
 import { WalkResult } from './walk-result';
 import { CollisionLayer } from 'src/domain/collision-layer';
-import { TileTracker } from './tile-tracker';
+import {
+  TileTracker,
+} from './tile-tracker';
 
 export function walkEntityToTiles(world: World, entity: Entity): WalkResult {
   const walkResult = new WalkResult(world);
@@ -102,7 +104,7 @@ export function walkEntityToTiles(world: World, entity: Entity): WalkResult {
           }
         }
         if (!tileToCheckIsAMapBoundary) {
-          walkResult.addCollisionTileLayer(layer.name);
+          walkResult.addCollisionTileLayer(layer.name); // TODO: Might be able to factor out of WalkResult
           if (layer.collisionCall) {
             const call = new ScriptCall(
               layer.collisionCall,
@@ -110,9 +112,7 @@ export function walkEntityToTiles(world: World, entity: Entity): WalkResult {
               null,
               layer.name,
             );
-            if (entity.tryScriptCall(call, layer.collisionCallInterval)) {
-              walkResult.addCall(call);
-            }
+            tracker.addCall(trackRow, trackCol, call, layer.collisionCallInterval);
           }
         } else {
           let directionCall = determineLayerDirectionCall(entity, layer);
@@ -124,6 +124,13 @@ export function walkEntityToTiles(world: World, entity: Entity): WalkResult {
           }
         }
       }
+    }
+  }
+
+  tracker.removeCornersBlockedByDiagonalSolid(entity.direction);
+  for (const [call, collisionCallInterval] of tracker.calls) {
+    if (entity.tryScriptCall(call, collisionCallInterval)) {
+      walkResult.addCall(call);
     }
   }
 
