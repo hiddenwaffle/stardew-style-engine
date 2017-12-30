@@ -127,6 +127,8 @@ export function walkEntityToTiles(world: World, entity: Entity): WalkResult {
     }
   }
 
+  // Do not run scripts that are on the other side of solid diagonal tile walls.
+  // See method for more details.
   tracker.removeCornersBlockedByDiagonalSolid(entity.direction);
   for (const [call, collisionCallInterval] of tracker.calls) {
     if (entity.tryScriptCall(call, collisionCallInterval)) {

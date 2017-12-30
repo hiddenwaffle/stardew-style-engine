@@ -8,7 +8,6 @@ export class WalkResult {
   private readonly world: World;
   private readonly calls: ScriptCallBatch;
   readonly collisionTileLayers: string[];
-  readonly collisionEntityIds: number[];
 
   constructor(world: World) {
     this.world = world;
@@ -26,9 +25,5 @@ export class WalkResult {
 
   addCollisionTileLayer(tileLayerName: string) {
     this.collisionTileLayers.push(tileLayerName);
-  }
-
-  addCollisionEntity(collisionEntityId: number) {
-    this.collisionEntityIds.push(collisionEntityId);
   }
 }
