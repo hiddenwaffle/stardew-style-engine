@@ -9,7 +9,7 @@ import { TARGET_FIELD_TILE_SIZE } from 'src/constants';
 import { ScriptCall } from './script-call';
 import { WalkResult } from './walk-result';
 import { CollisionLayer } from 'src/domain/collision-layer';
-import { calculateTilesToCheck } from 'src/game-master/tile-tracker';
+import { calculateTilesToCheck, TileTracker } from 'src/game-master/tile-tracker';
 
 export function walkEntityToTiles(world: World, entity: Entity): WalkResult {
   const walkResult = new WalkResult(world);
@@ -32,11 +32,7 @@ export function walkEntityToTiles(world: World, entity: Entity): WalkResult {
   const xTile = Math.floor(entity.x / TARGET_FIELD_TILE_SIZE);
   const yTile = Math.floor(entity.y / TARGET_FIELD_TILE_SIZE);
   const tilesToCheck = calculateTilesToCheck(xTile, yTile);
-  const solidTilesAroundEntity = [
-    [false, false, false], // [0][0]  [0][1]  [0][2]
-    [false, false, false], // [1][0]  [1][1]* [1][2]   *entity is in the center at [1][1]
-    [false, false, false], // [2][0]  [2][1]  [2][2]
-  ];
+  const tileTracker = new TileTracker();
 
   let xpush = 0;
   let ypush = 0;
@@ -46,19 +42,20 @@ export function walkEntityToTiles(world: World, entity: Entity): WalkResult {
     for (const tileToCheck of tilesToCheck) {
       const xTileToCheck = tileToCheck[0];
       const yTileToCheck = tileToCheck[1];
+      const offsetRow = (yTileToCheck - yTile) + 1;
+      const offsetCol = (xTileToCheck - xTile) + 1;
 
       // TODO: Adjust for layers with offsets.
 
       // Determine if collision is an actual tile, or a map boundary.
-      let tileToCheckIsAMapBoundary;
       let tileValue = -1;
       if (xTileToCheck < 0 || xTileToCheck >= layer.width ||
           yTileToCheck < 0 || yTileToCheck >= layer.height) {
-        tileToCheckIsAMapBoundary = true;
+        tileTracker.setMapBoundary(offsetRow, offsetCol, true);
         tileValue = 1337; // arbitrary
       } else {
         const index = convertXYToIndex(xTileToCheck, yTileToCheck, layer.width);
-        tileToCheckIsAMapBoundary = false;
+        tileTracker.setMapBoundary(offsetRow, offsetCol, false);
         tileValue = layer.tiles[index];
       }
 
@@ -68,9 +65,7 @@ export function walkEntityToTiles(world: World, entity: Entity): WalkResult {
       }
 
       if (!layer.passthrough) {
-        const staeCol = (xTileToCheck - xTile) + 1;
-        const staeRow = (yTileToCheck - yTile) + 1;
-        solidTilesAroundEntity[staeRow][staeCol] = true;
+        tileTracker.setSolid(offsetRow, offsetCol, true);
       }
 
       // Convert tile to upscaled pixel space.
@@ -94,7 +89,7 @@ export function walkEntityToTiles(world: World, entity: Entity): WalkResult {
             ypush = yExpectedPush;
           }
         }
-        if (!tileToCheckIsAMapBoundary) {
+        if (!tileTracker.isMapBoundary(offsetRow, offsetCol)) {
           walkResult.addCollisionTileLayer(layer.name);
           if (layer.collisionCall) {
             const call = new ScriptCall(
@@ -132,7 +127,7 @@ export function walkEntityToTiles(world: World, entity: Entity): WalkResult {
       entity.y,
       xTile,
       yTile,
-      solidTilesAroundEntity,
+      tileTracker,
       xpush,
       ypush,
     );
@@ -205,7 +200,7 @@ function attemptAssistedSlide(
   y: number,
   xTile: number,
   yTile: number,
-  solidTilesAroundEntity: boolean[][],
+  tileTracker: TileTracker,
   xpushOriginal: number,
   ypushOriginal: number,
 ): [number, number] {
@@ -225,39 +220,39 @@ function attemptAssistedSlide(
   // console.log('xpct, ypct', xPercentOnCurrentTile, yPercentOnCurrentTile);
 
   if (direction === Direction.Up) {
-    if (solidTilesAroundEntity[0][1] === false) {
+    if (tileTracker.isSolid(0, 1) === false) {
       if (xPercentOnCurrentTile < 0.5) {
         xpush =  Math.abs(ypush);
       } else {
         xpush = -Math.abs(ypush);
       }
-    } else if (solidTilesAroundEntity[0][0] === false && xPercentOnCurrentTile < 0.4) {
+    } else if (tileTracker.isSolid(0, 0) === false && xPercentOnCurrentTile < 0.4) {
       xpush = -Math.abs(ypush);
-    } else if (solidTilesAroundEntity[0][2] === false && xPercentOnCurrentTile > 0.6) {
+    } else if (tileTracker.isSolid(0, 2) === false && xPercentOnCurrentTile > 0.6) {
       xpush =  Math.abs(ypush);
     }
   } else if (direction === Direction.Down) {
-    if (solidTilesAroundEntity[2][1] === false) {
+    if (tileTracker.isSolid(2, 1) === false) {
       if (xPercentOnCurrentTile < 0.5) {
         xpush =  Math.abs(ypush);
       } else {
         xpush = -Math.abs(ypush);
       }
-    } else if (solidTilesAroundEntity[2][0] === false && xPercentOnCurrentTile < 0.4) {
+    } else if (tileTracker.isSolid(2, 0) === false && xPercentOnCurrentTile < 0.4) {
       xpush = -Math.abs(ypush);
-    } else if (solidTilesAroundEntity[2][2] === false && xPercentOnCurrentTile > 0.6) {
+    } else if (tileTracker.isSolid(2, 2) === false && xPercentOnCurrentTile > 0.6) {
       xpush =  Math.abs(ypush);
     }
   } else if (direction === Direction.Left) {
-    if (solidTilesAroundEntity[0][0] === false && yPercentOnCurrentTile < 0.85) {
+    if (tileTracker.isSolid(0, 0) === false && yPercentOnCurrentTile < 0.85) {
       ypush = -Math.abs(xpush);
-    } else if (solidTilesAroundEntity[1][0] === false && yPercentOnCurrentTile > 0.15) {
+    } else if (tileTracker.isSolid(1, 0) === false && yPercentOnCurrentTile > 0.15) {
       ypush =  Math.abs(xpush);
     }
   } else if (direction === Direction.Right) {
-    if (solidTilesAroundEntity[0][2] === false && yPercentOnCurrentTile < 0.85) {
+    if (tileTracker.isSolid(0, 2) === false && yPercentOnCurrentTile < 0.85) {
       ypush = -Math.abs(xpush);
-    } else if (solidTilesAroundEntity[1][2] === false && yPercentOnCurrentTile > 0.15) {
+    } else if (tileTracker.isSolid(1, 2) === false && yPercentOnCurrentTile > 0.15) {
       ypush =  Math.abs(xpush);
     }
   }
