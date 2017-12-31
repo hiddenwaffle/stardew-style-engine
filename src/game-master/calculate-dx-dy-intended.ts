@@ -31,27 +31,13 @@ export function calculateDxDyIntended(world: World, entity: Entity) {
 function advanceWander(world: World, entity: Entity) {
   const plan = entity.movementPlan;
   if (plan.targets.length === 0) {
-
     // TODO: This is duplicated in walk-entity-to-tiles.ts
-    const tilesToCheck = [
-      [entity.xtile - 1, entity.ytile - 1], // Top Left       0
-      [entity.xtile,     entity.ytile - 1], // Top Middle     1
-      [entity.xtile + 1, entity.ytile - 1], // Top Right      2
-      [entity.xtile - 1, entity.ytile    ], // Middle Left    3
-      [entity.xtile    , entity.ytile    ], // Middle         4
-      [entity.xtile + 1, entity.ytile    ], // Middle Right   5
-      [entity.xtile - 1, entity.ytile + 1], // Bottom Left    6
-      [entity.xtile    , entity.ytile + 1], // Bottom Middle  7
-      [entity.xtile + 1, entity.ytile + 1], // Bottom Right   8
-    ];
-
-    // TODO: This is duplicated in walk-entity-to-tiles.ts
-    const tracker = new TileTracker();
+    const tracker = new TileTracker(entity.xtile, entity.ytile);
 
     // TODO: This is duplicated in walk-entity-to-tiles.ts
     for (const layer of world.staticMap.collisionLayers) {
       const tileIntersected = false;
-      for (const tileToCheck of tilesToCheck) {
+      for (const tileToCheck of tracker.allXY) {
         const xtileToCheck = tileToCheck[0];
         const ytileToCheck = tileToCheck[1];
 

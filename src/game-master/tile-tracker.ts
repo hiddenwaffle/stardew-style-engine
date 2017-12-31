@@ -19,11 +19,15 @@ class TileTrackerCall {
 }
 
 class TileTrack {
+  readonly x: number;
+  readonly y: number;
   solid: boolean;
   mapBoundary: boolean;
   calls: TileTrackerCall[];
 
-  constructor() {
+  constructor(x: number, y: number) {
+    this.x = x;
+    this.y = y;
     this.solid = SOLID_DEFAULT;
     this.mapBoundary = MAP_BOUNDARY_DEFAULT;
     this.calls = CALLS_DEFAULT();
@@ -31,12 +35,17 @@ class TileTrack {
 }
 
 export class TileTracker {
-  tracks: TileTrack[][];
-  constructor() {
+  readonly xcenter: number;
+  readonly ycenter: number;
+  readonly tracks: TileTrack[][];
+
+  constructor(x: number, y: number) {
+    this.xcenter = x;
+    this.ycenter = y;
     this.tracks = [
-      [new TileTrack(), new TileTrack(), new TileTrack()], // [0][0]  [0][1]  [0][2]
-      [new TileTrack(), new TileTrack(), new TileTrack()], // [1][0]  [1][1]* [1][2]   *entity is in the center at [1][1]
-      [new TileTrack(), new TileTrack(), new TileTrack()], // [2][0]  [2][1]  [2][2]
+      [new TileTrack(x - 1, y - 1), new TileTrack(x    , y - 1), new TileTrack(x + 1, y - 1)], // [0][0]  [0][1]  [0][2]
+      [new TileTrack(x - 1, y    ), new TileTrack(x    , y    ), new TileTrack(x + 1, y    )], // [1][0]  [1][1]* [1][2]
+      [new TileTrack(x - 1, y + 1), new TileTrack(x    , y + 1), new TileTrack(x + 1, y + 1)], // [2][0]  [2][1]  [2][2]
     ];
   }
 
@@ -113,6 +122,16 @@ export class TileTracker {
   //   console.log(this.tracks[1][0].solid, this.tracks[1][1].solid, this.tracks[1][2].solid);
   //   console.log(this.tracks[2][0].solid, this.tracks[2][1].solid, this.tracks[2][2].solid);
   // }
+
+  get allXY(): [number, number][] {
+    const coordinates: [number, number][] = [];
+    for (const row of this.tracks) {
+      for (const track of row) {
+        coordinates.push([track.x, track.y]);
+      }
+    }
+    return coordinates;
+  }
 
   get calls(): [ScriptCall, number][] {
     const calls: [ScriptCall, number][] = [];
