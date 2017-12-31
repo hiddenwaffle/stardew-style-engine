@@ -31,24 +31,21 @@ export function walkEntityToTiles(world: World, entity: Entity): WalkResult {
   const top     = yprojected - entity.boundingHeight;
   const bottom  = yprojected + 1; // +1 to prevent entity's y to be on a solid tile directly below the entity.
 
-  const xtile = entity.xtile;
-  const ytile = entity.ytile;
-
   let xpush = 0;
   let ypush = 0;
 
   const collisionTileLayers: string[] = [];
 
   const tilesToCheck = [
-    [xtile - 1, ytile - 1], // Top Left       0
-    [xtile,     ytile - 1], // Top Middle     1
-    [xtile + 1, ytile - 1], // Top Right      2
-    [xtile - 1, ytile    ], // Middle Left    3
-    [xtile    , ytile    ], // Middle         4
-    [xtile + 1, ytile    ], // Middle Right   5
-    [xtile - 1, ytile + 1], // Bottom Left    6
-    [xtile    , ytile + 1], // Bottom Middle  7
-    [xtile + 1, ytile + 1], // Bottom Right   8
+    [entity.xtile - 1, entity.ytile - 1], // Top Left       0
+    [entity.xtile,     entity.ytile - 1], // Top Middle     1
+    [entity.xtile + 1, entity.ytile - 1], // Top Right      2
+    [entity.xtile - 1, entity.ytile    ], // Middle Left    3
+    [entity.xtile    , entity.ytile    ], // Middle         4
+    [entity.xtile + 1, entity.ytile    ], // Middle Right   5
+    [entity.xtile - 1, entity.ytile + 1], // Bottom Left    6
+    [entity.xtile    , entity.ytile + 1], // Bottom Middle  7
+    [entity.xtile + 1, entity.ytile + 1], // Bottom Right   8
   ];
 
   const tracker = new TileTracker();
@@ -59,8 +56,8 @@ export function walkEntityToTiles(world: World, entity: Entity): WalkResult {
       const ytileToCheck = tileToCheck[1];
 
       // Corresponds to indexes in the tracks array.
-      const trackRow = (ytileToCheck - ytile) + 1;
-      const trackCol = (xtileToCheck - xtile) + 1;
+      const trackRow = (ytileToCheck - entity.ytile) + 1;
+      const trackCol = (xtileToCheck - entity.xtile) + 1;
 
       // Determine if collision is an actual tile, or a map boundary.
       let tileToCheckIsAMapBoundary;
@@ -148,8 +145,8 @@ export function walkEntityToTiles(world: World, entity: Entity): WalkResult {
       entity.direction,
       entity.x,
       entity.y,
-      xtile,
-      ytile,
+      entity.xtile,
+      entity.ytile,
       tracker,
       xpush,
       ypush,

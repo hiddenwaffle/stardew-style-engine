@@ -30,20 +30,18 @@ export function calculateDxDyIntended(world: World, entity: Entity) {
 function advanceWander(world: World, entity: Entity) {
   const plan = entity.movementPlan;
   if (plan.targets.length === 0) {
-    const xtile = entity.xtile;
-    const ytile = entity.ytile;
 
     // TODO: This is duplicated in walk-entity-to-tiles.ts
     const tilesToCheck = [
-      [xtile - 1, ytile - 1], // Top Left       0
-      [xtile,     ytile - 1], // Top Middle     1
-      [xtile + 1, ytile - 1], // Top Right      2
-      [xtile - 1, ytile    ], // Middle Left    3
-      [xtile    , ytile    ], // Middle         4
-      [xtile + 1, ytile    ], // Middle Right   5
-      [xtile - 1, ytile + 1], // Bottom Left    6
-      [xtile    , ytile + 1], // Bottom Middle  7
-      [xtile + 1, ytile + 1], // Bottom Right   8
+      [entity.xtile - 1, entity.ytile - 1], // Top Left       0
+      [entity.xtile,     entity.ytile - 1], // Top Middle     1
+      [entity.xtile + 1, entity.ytile - 1], // Top Right      2
+      [entity.xtile - 1, entity.ytile    ], // Middle Left    3
+      [entity.xtile    , entity.ytile    ], // Middle         4
+      [entity.xtile + 1, entity.ytile    ], // Middle Right   5
+      [entity.xtile - 1, entity.ytile + 1], // Bottom Left    6
+      [entity.xtile    , entity.ytile + 1], // Bottom Middle  7
+      [entity.xtile + 1, entity.ytile + 1], // Bottom Right   8
     ];
 
     // TODO: This is duplicated in walk-entity-to-tiles.ts
@@ -77,8 +75,8 @@ function advanceWander(world: World, entity: Entity) {
 
         // TODO: Something that allows passthrough layers if specified?
         // if (!layer.passthrough) {
-          const staeCol = (xTileToCheck - xtile) + 1;
-          const staeRow = (yTileToCheck - ytile) + 1;
+          const staeCol = (xTileToCheck - entity.xtile) + 1;
+          const staeRow = (yTileToCheck - entity.ytile) + 1;
           solidTilesAroundEntity[staeRow][staeCol] = true;
         // }
       }
@@ -108,8 +106,8 @@ function advanceWander(world: World, entity: Entity) {
     // TODO: Include "waiting" as an option.
     const actionIndex = Math.floor(Math.random() * openDirections.length);
     const [dxtile, dytile] = determineDxDy(openDirections[actionIndex]);
-    const xtileTarget = xtile + dxtile;
-    const ytileTarget = ytile + dytile;
+    const xtileTarget = entity.xtile + dxtile;
+    const ytileTarget = entity.ytile + dytile;
 
     const target = new MovementTarget(
       entity.x,
