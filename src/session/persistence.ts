@@ -42,7 +42,13 @@ function rawToSaveWorld(raw: string): SaveWorld {
     const headerJson = atob(headerBase64);
     const header = JSON.parse(headerJson);
     log('info', 'Save Version:', header.version);
-    // TODO: This is where version migrations might occur.
+
+    if (header.version !== SAVE_VERSION) {
+      // TODO: This is where version migrations might occur.
+      // TODO: Instead, for now, just throw an error so it resets the world.
+      throw Error('Does not match');
+    }
+
     const payloadJson = atob(payloadBase64);
     save = <SaveWorld> JSON.parse(payloadJson);
   } catch (e) {
