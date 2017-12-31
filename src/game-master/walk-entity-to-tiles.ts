@@ -39,10 +39,7 @@ export function walkEntityToTiles(world: World, entity: Entity): WalkResult {
   const tracker = new TileTracker(entity.xtile, entity.ytile);
 
   for (const layer of world.staticMap.collisionLayers) {
-    for (const tileToCheck of tracker.allXY) {
-      const xtileToCheck = tileToCheck[0];
-      const ytileToCheck = tileToCheck[1];
-
+    for (const [xtileToCheck, ytileToCheck] of tracker.allXY) {
       // Corresponds to indexes in the tracks array.
       const trackRow = (ytileToCheck - entity.ytile) + 1;
       const trackCol = (xtileToCheck - entity.xtile) + 1;
