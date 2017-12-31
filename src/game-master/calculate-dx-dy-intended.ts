@@ -30,8 +30,8 @@ export function calculateDxDyIntended(world: World, entity: Entity) {
 function advanceWander(world: World, entity: Entity) {
   const plan = entity.movementPlan;
   if (plan.targets.length === 0) {
-    const xtile = Math.floor(entity.x / TARGET_FIELD_TILE_SIZE);
-    const ytile = Math.floor(entity.y / TARGET_FIELD_TILE_SIZE);
+    const xtile = entity.xtile;
+    const ytile = entity.ytile;
 
     // TODO: This is duplicated in walk-entity-to-tiles.ts
     const tilesToCheck = [

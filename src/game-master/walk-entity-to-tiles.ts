@@ -31,8 +31,8 @@ export function walkEntityToTiles(world: World, entity: Entity): WalkResult {
   const top     = yprojected - entity.boundingHeight;
   const bottom  = yprojected + 1; // +1 to prevent entity's y to be on a solid tile directly below the entity.
 
-  const xtile = Math.floor(entity.x / TARGET_FIELD_TILE_SIZE);
-  const ytile = Math.floor(entity.y / TARGET_FIELD_TILE_SIZE);
+  const xtile = entity.xtile;
+  const ytile = entity.ytile;
 
   let xpush = 0;
   let ypush = 0;

@@ -254,6 +254,14 @@ export class Entity {
     return this._id;
   }
 
+  get xtile(): number {
+    return Math.floor(this.x / TARGET_FIELD_TILE_SIZE);
+  }
+
+  get ytile(): number {
+    return Math.floor(this.y / TARGET_FIELD_TILE_SIZE);
+  }
+
   get direction(): Direction {
     return determineDirection(this.dxIntended, this.dyIntended);
   }

@@ -223,8 +223,8 @@ function renderWorld(world: World) {
 
           // TODO: Remove this debug
           {
-            const xtile = Math.floor(entity.x / TARGET_FIELD_TILE_SIZE);
-            const ytile = Math.floor(entity.y / TARGET_FIELD_TILE_SIZE);
+            const xtile = entity.xtile;
+            const ytile = entity.ytile;
             ctxBack.strokeStyle = 'yellow';
             debugStrokeRect(
               ctxBack,
