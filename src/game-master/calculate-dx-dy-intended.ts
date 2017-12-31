@@ -39,6 +39,7 @@ function advanceWander(world: World, entity: Entity) {
       [xtile,     ytile - 1], // Top Middle     1
       [xtile + 1, ytile - 1], // Top Right      2
       [xtile - 1, ytile    ], // Middle Left    3
+      [xtile    , ytile    ], // Middle         4
       [xtile + 1, ytile    ], // Middle Right   5
       [xtile - 1, ytile + 1], // Bottom Left    6
       [xtile    , ytile + 1], // Bottom Middle  7
