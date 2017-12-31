@@ -7,7 +7,6 @@ import {
 import { timer } from 'src/session/timer';
 import {
   calculateFacing,
-  determineDirection,
   Direction,
   DirectionsOfFreedom,
   determineDxDy,
