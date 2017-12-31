@@ -14,6 +14,7 @@ import {
 } from 'src/domain/direction';
 import { tryAnimationSwitch } from './try-animation-switch';
 import { TARGET_FIELD_TILE_SIZE } from 'src/constants';
+import { TileTracker } from 'src/game-master/tile-tracker';
 
 export function calculateDxDyIntended(world: World, entity: Entity) {
   switch (entity.movementPlan.type) {
@@ -45,11 +46,7 @@ function advanceWander(world: World, entity: Entity) {
     ];
 
     // TODO: This is duplicated in walk-entity-to-tiles.ts
-    const solidTilesAroundEntity = [
-      [false, false, false], // [0][0]  [0][1]  [0][2]
-      [false, false, false], // [1][0]  [1][1]* [1][2]   *entity is in the center at [1][1]
-      [false, false, false], // [2][0]  [2][1]  [2][2]
-    ];
+    const tracker = new TileTracker();
 
     // TODO: This is duplicated in walk-entity-to-tiles.ts
     for (const layer of world.staticMap.collisionLayers) {
@@ -69,16 +66,14 @@ function advanceWander(world: World, entity: Entity) {
         }
 
         // Collision possible only if the tile value is a positive number.
+        // TODO: Something that allows passthrough layers if specified?
         if (tileValue <= 0) {
           continue;
         }
 
-        // TODO: Something that allows passthrough layers if specified?
-        // if (!layer.passthrough) {
-          const staeCol = (xTileToCheck - entity.xtile) + 1;
-          const staeRow = (yTileToCheck - entity.ytile) + 1;
-          solidTilesAroundEntity[staeRow][staeCol] = true;
-        // }
+        const staeCol = (xTileToCheck - entity.xtile) + 1;
+        const staeRow = (yTileToCheck - entity.ytile) + 1;
+        tracker.setSolid(staeRow, staeCol, true);
       }
     }
 
@@ -86,22 +81,22 @@ function advanceWander(world: World, entity: Entity) {
 
     // Determine open directions
     const openDirections: Direction[] = [];
-    if (!solidTilesAroundEntity[0][0] &&
-        !solidTilesAroundEntity[1][0] &&
-        !solidTilesAroundEntity[0][1]) { openDirections.push(Direction.UpLeft); }
-    if (!solidTilesAroundEntity[0][1]) { openDirections.push(Direction.Up); }
-    if (!solidTilesAroundEntity[0][2] &&
-        !solidTilesAroundEntity[0][1] &&
-        !solidTilesAroundEntity[1][2]) { openDirections.push(Direction.UpRight); }
-    if (!solidTilesAroundEntity[1][0]) { openDirections.push(Direction.Left); }
-    if (!solidTilesAroundEntity[1][2]) { openDirections.push(Direction.Right); }
-    if (!solidTilesAroundEntity[2][0] &&
-        !solidTilesAroundEntity[1][0] &&
-        !solidTilesAroundEntity[2][1]) { openDirections.push(Direction.DownLeft); }
-    if (!solidTilesAroundEntity[2][1]) { openDirections.push(Direction.Down) ; }
-    if (!solidTilesAroundEntity[2][2] &&
-        !solidTilesAroundEntity[2][1] &&
-        !solidTilesAroundEntity[1][2]) { openDirections.push(Direction.DownRight); }
+    if (!tracker.isSolid(0, 0) &&
+        !tracker.isSolid(1, 0) &&
+        !tracker.isSolid(0, 1)) { openDirections.push(Direction.UpLeft); }
+    if (!tracker.isSolid(0, 1)) { openDirections.push(Direction.Up); }
+    if (!tracker.isSolid(0, 2) &&
+        !tracker.isSolid(0, 1) &&
+        !tracker.isSolid(1, 2)) { openDirections.push(Direction.UpRight); }
+    if (!tracker.isSolid(1, 0)) { openDirections.push(Direction.Left); }
+    if (!tracker.isSolid(1, 2)) { openDirections.push(Direction.Right); }
+    if (!tracker.isSolid(2, 0) &&
+        !tracker.isSolid(1, 0) &&
+        !tracker.isSolid(2, 1)) { openDirections.push(Direction.DownLeft); }
+    if (!tracker.isSolid(2, 1)) { openDirections.push(Direction.Down) ; }
+    if (!tracker.isSolid(2, 2) &&
+        !tracker.isSolid(2, 1) &&
+        !tracker.isSolid(1, 2)) { openDirections.push(Direction.DownRight); }
 
     // TODO: Include "waiting" as an option.
     const actionIndex = Math.floor(Math.random() * openDirections.length);
