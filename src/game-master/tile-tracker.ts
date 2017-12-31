@@ -3,9 +3,9 @@ import { ScriptCall } from 'src/game-master/script-call';
 import { Direction } from 'src/domain/direction';
 
 const SOLID_DEFAULT = false;
-const CALLS_DEFAULT: () => TileTrackerCall[] = function () {
+const CALLS_DEFAULT: () => TileTrackerCall[] = () => {
   return [];
-}
+};
 
 class TileTrackerCall {
   readonly call: ScriptCall;
