@@ -26,10 +26,10 @@ export function walkEntityToTiles(world: World, entity: Entity): WalkResult {
   const yprojected = entity.y + entity.dyIntended * speed;
 
   // Calculate bounding box -- center x to middle and y to bottom.
-  const left    = xprojected - entity.boundingWidth / 2;
-  const right   = xprojected + entity.boundingWidth / 2;
-  const top     = yprojected - entity.boundingHeight;
-  const bottom  = yprojected + 1; // +1 to prevent entity's y to be on a solid tile directly below the entity.
+  const leftProjected    = xprojected - entity.boundingWidth / 2;
+  const rightProjected   = xprojected + entity.boundingWidth / 2;
+  const topProjected     = yprojected - entity.boundingHeight;
+  const bottomProjected  = yprojected + 1; // +1 to prevent entity's y to be on a solid tile directly below the entity.
 
   let xpush = 0;
   let ypush = 0;
@@ -87,7 +87,7 @@ export function walkEntityToTiles(world: World, entity: Entity): WalkResult {
 
       // Move the entity out of a solid tile.
       const [xExpectedPush, yExpectedPush] = calculatePush(
-        left, right, top, bottom,
+        leftProjected, rightProjected, topProjected, bottomProjected,
         leftTile, rightTile, topTile, bottomTile,
       );
       const overlapped = xExpectedPush !== 0 || yExpectedPush !== 0;
