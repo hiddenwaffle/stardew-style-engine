@@ -60,15 +60,13 @@ export function walkEntityToTiles(world: World, entity: Entity): WalkResult {
       const trackCol = (xtileToCheck - entity.xtile) + 1;
 
       // Determine if collision is an actual tile, or a map boundary.
-      let tileToCheckIsAMapBoundary;
       let tileValue = -1;
       if (xtileToCheck < 0 || xtileToCheck >= layer.width ||
           ytileToCheck < 0 || ytileToCheck >= layer.height) {
-        tileToCheckIsAMapBoundary = true;
+        tracker.setMapBoundary(trackRow, trackCol, true);
         tileValue = 1337; // arbitrary
       } else {
         const index = convertXYToIndex(xtileToCheck, ytileToCheck, layer.width);
-        tileToCheckIsAMapBoundary = false;
         tileValue = layer.tiles[index];
       }
 
@@ -102,7 +100,7 @@ export function walkEntityToTiles(world: World, entity: Entity): WalkResult {
             ypush = yExpectedPush;
           }
         }
-        if (!tileToCheckIsAMapBoundary) {
+        if (!tracker.isMapBoundary(trackRow, trackCol)) {
           collisionTileLayers.push(layer.name);
           if (layer.collisionCall) {
             const call = new ScriptCall(

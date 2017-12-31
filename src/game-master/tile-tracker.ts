@@ -3,6 +3,7 @@ import { ScriptCall } from 'src/game-master/script-call';
 import { Direction } from 'src/domain/direction';
 
 const SOLID_DEFAULT = false;
+const MAP_BOUNDARY_DEFAULT = false;
 const CALLS_DEFAULT: () => TileTrackerCall[] = () => {
   return [];
 };
@@ -19,10 +20,12 @@ class TileTrackerCall {
 
 class TileTrack {
   solid: boolean;
+  mapBoundary: boolean;
   calls: TileTrackerCall[];
 
   constructor() {
     this.solid = SOLID_DEFAULT;
+    this.mapBoundary = MAP_BOUNDARY_DEFAULT;
     this.calls = CALLS_DEFAULT();
   }
 }
@@ -49,6 +52,21 @@ export class TileTracker {
     const track = this.getTrack(row, col);
     if (track) {
       track.solid = solid;
+    }
+  }
+
+  isMapBoundary(row: number, col: number): boolean {
+    const track = this.getTrack(row, col);
+    if (track) {
+      return track.mapBoundary;
+    }
+    return MAP_BOUNDARY_DEFAULT;
+  }
+
+  setMapBoundary(row: number, col: number, mapBoundary: boolean) {
+    const track = this.getTrack(row, col);
+    if (track) {
+      track.mapBoundary = mapBoundary;
     }
   }
 
