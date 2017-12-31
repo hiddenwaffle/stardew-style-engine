@@ -57,23 +57,7 @@ function advanceWander(world: World, entity: Entity) {
     // console.log(solidTilesAroundEntity.join("\n"));
 
     // Determine open directions
-    const openDirections: Direction[] = [];
-    if (!tracker.isSolid(0, 0) &&
-        !tracker.isSolid(1, 0) &&
-        !tracker.isSolid(0, 1)) { openDirections.push(Direction.UpLeft); }
-    if (!tracker.isSolid(0, 1)) { openDirections.push(Direction.Up); }
-    if (!tracker.isSolid(0, 2) &&
-        !tracker.isSolid(0, 1) &&
-        !tracker.isSolid(1, 2)) { openDirections.push(Direction.UpRight); }
-    if (!tracker.isSolid(1, 0)) { openDirections.push(Direction.Left); }
-    if (!tracker.isSolid(1, 2)) { openDirections.push(Direction.Right); }
-    if (!tracker.isSolid(2, 0) &&
-        !tracker.isSolid(1, 0) &&
-        !tracker.isSolid(2, 1)) { openDirections.push(Direction.DownLeft); }
-    if (!tracker.isSolid(2, 1)) { openDirections.push(Direction.Down) ; }
-    if (!tracker.isSolid(2, 2) &&
-        !tracker.isSolid(2, 1) &&
-        !tracker.isSolid(1, 2)) { openDirections.push(Direction.DownRight); }
+    const openDirections = tracker.determineOpenDirections();
 
     // TODO: Include "waiting" as an option.
     const actionIndex = Math.floor(Math.random() * openDirections.length);

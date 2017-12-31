@@ -101,6 +101,27 @@ export class TileTracker {
   //   console.log(this.tracks[2][0].solid, this.tracks[2][1].solid, this.tracks[2][2].solid);
   // }
 
+  determineOpenDirections(): Direction[] {
+    const openDirections: Direction[] = [];
+    if (!this.getTrack(0, 0).solid &&
+        !this.getTrack(1, 0).solid &&
+        !this.getTrack(0, 1).solid) { openDirections.push(Direction.UpLeft); }
+    if (!this.getTrack(0, 1).solid) { openDirections.push(Direction.Up); }
+    if (!this.getTrack(0, 2).solid &&
+        !this.getTrack(0, 1).solid &&
+        !this.getTrack(1, 2).solid) { openDirections.push(Direction.UpRight); }
+    if (!this.getTrack(1, 0).solid) { openDirections.push(Direction.Left); }
+    if (!this.getTrack(1, 2).solid) { openDirections.push(Direction.Right); }
+    if (!this.getTrack(2, 0).solid &&
+        !this.getTrack(1, 0).solid &&
+        !this.getTrack(2, 1).solid) { openDirections.push(Direction.DownLeft); }
+    if (!this.getTrack(2, 1).solid) { openDirections.push(Direction.Down) ; }
+    if (!this.getTrack(2, 2).solid &&
+        !this.getTrack(2, 1).solid &&
+        !this.getTrack(1, 2).solid) { openDirections.push(Direction.DownRight); }
+    return openDirections;
+  }
+
   get allXY(): [number, number][] {
     const coordinates: [number, number][] = [];
     for (const row of this.tracks) {
