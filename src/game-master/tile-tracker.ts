@@ -1,6 +1,9 @@
 import { log } from 'src/log';
 import { ScriptCall } from 'src/game-master/script-call';
-import { Direction } from 'src/domain/direction';
+import {
+  determineDxDy,
+  Direction,
+} from 'src/domain/direction';
 
 const SOLID_DEFAULT = false;
 const MAP_BOUNDARY_DEFAULT = false;
@@ -58,7 +61,7 @@ export class TileTracker {
    * TODO: Replace this with something else. Use a Direction from center?
    */
   isSolid(row: number, col: number): boolean {
-    const track = this.getTrack(row, col);
+    const track = this.getTrackOld(row, col);
     if (track) {
       return track.solid;
     }
@@ -103,22 +106,22 @@ export class TileTracker {
 
   determineOpenDirections(): Direction[] {
     const openDirections: Direction[] = [];
-    if (!this.getTrack(0, 0).solid &&
-        !this.getTrack(1, 0).solid &&
-        !this.getTrack(0, 1).solid) { openDirections.push(Direction.UpLeft); }
-    if (!this.getTrack(0, 1).solid) { openDirections.push(Direction.Up); }
-    if (!this.getTrack(0, 2).solid &&
-        !this.getTrack(0, 1).solid &&
-        !this.getTrack(1, 2).solid) { openDirections.push(Direction.UpRight); }
-    if (!this.getTrack(1, 0).solid) { openDirections.push(Direction.Left); }
-    if (!this.getTrack(1, 2).solid) { openDirections.push(Direction.Right); }
-    if (!this.getTrack(2, 0).solid &&
-        !this.getTrack(1, 0).solid &&
-        !this.getTrack(2, 1).solid) { openDirections.push(Direction.DownLeft); }
-    if (!this.getTrack(2, 1).solid) { openDirections.push(Direction.Down) ; }
-    if (!this.getTrack(2, 2).solid &&
-        !this.getTrack(2, 1).solid &&
-        !this.getTrack(1, 2).solid) { openDirections.push(Direction.DownRight); }
+    if (!this.getTrackOld(0, 0).solid &&
+        !this.getTrackOld(1, 0).solid &&
+        !this.getTrackOld(0, 1).solid) { openDirections.push(Direction.UpLeft); }
+    if (!this.getTrackOld(0, 1).solid) { openDirections.push(Direction.Up); }
+    if (!this.getTrackOld(0, 2).solid &&
+        !this.getTrackOld(0, 1).solid &&
+        !this.getTrackOld(1, 2).solid) { openDirections.push(Direction.UpRight); }
+    if (!this.getTrackOld(1, 0).solid) { openDirections.push(Direction.Left); }
+    if (!this.getTrackOld(1, 2).solid) { openDirections.push(Direction.Right); }
+    if (!this.getTrackOld(2, 0).solid &&
+        !this.getTrackOld(1, 0).solid &&
+        !this.getTrackOld(2, 1).solid) { openDirections.push(Direction.DownLeft); }
+    if (!this.getTrackOld(2, 1).solid) { openDirections.push(Direction.Down) ; }
+    if (!this.getTrackOld(2, 2).solid &&
+        !this.getTrackOld(2, 1).solid &&
+        !this.getTrackOld(1, 2).solid) { openDirections.push(Direction.DownRight); }
     return openDirections;
   }
 
@@ -157,7 +160,21 @@ export class TileTracker {
     return tracks;
   }
 
-  private getTrack(rowIndex: number, colIndex: number): TileTrack {
+  /**
+   * @deprecated
+   */
+  private getTrackOld(rowIndex: number, colIndex: number): TileTrack {
+    const row = this.tracks[rowIndex];
+    if (row) {
+      return row[colIndex] || null;
+    }
+    return null;
+  }
+
+  private getTrack(direction: Direction): TileTrack {
+    const [dx, dy] = determineDxDy(direction);
+    const rowIndex = dy + 1;
+    const colIndex = dx + 1;
     const row = this.tracks[rowIndex];
     if (row) {
       return row[colIndex] || null;
