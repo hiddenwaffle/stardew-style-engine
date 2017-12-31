@@ -52,16 +52,20 @@ function advanceWander(world: World, entity: Entity) {
     for (const layer of world.staticMap.collisionLayers) {
       const tileIntersected = false;
       for (const tileToCheck of tilesToCheck) {
-        const xTileToCheck = tileToCheck[0];
-        const yTileToCheck = tileToCheck[1];
+        const xtileToCheck = tileToCheck[0];
+        const ytileToCheck = tileToCheck[1];
+
+        // Corresponds to indexes in the tracks array.
+        const trackRow = (ytileToCheck - entity.ytile) + 1;
+        const trackCol = (xtileToCheck - entity.xtile) + 1;
 
         // Determine if collision is an actual tile, or a map boundary.
         let tileValue = -1;
-        if (xTileToCheck < 0 || xTileToCheck >= layer.width ||
-            yTileToCheck < 0 || yTileToCheck >= layer.height) {
+        if (xtileToCheck < 0 || xtileToCheck >= layer.width ||
+            ytileToCheck < 0 || ytileToCheck >= layer.height) {
           tileValue = 1337; // arbitrary
         } else {
-          const index = convertXYToIndex(xTileToCheck, yTileToCheck, layer.width);
+          const index = convertXYToIndex(xtileToCheck, ytileToCheck, layer.width);
           tileValue = layer.tiles[index];
         }
 
@@ -71,9 +75,7 @@ function advanceWander(world: World, entity: Entity) {
           continue;
         }
 
-        const staeCol = (xTileToCheck - entity.xtile) + 1;
-        const staeRow = (yTileToCheck - entity.ytile) + 1;
-        tracker.setSolid(staeRow, staeCol, true);
+        tracker.setSolid(trackRow, trackCol, true);
       }
     }
 
