@@ -54,42 +54,15 @@ export class TileTracker {
     ];
   }
 
+  /**
+   * TODO: Replace this with something else. Use a Direction from center?
+   */
   isSolid(row: number, col: number): boolean {
     const track = this.getTrack(row, col);
     if (track) {
       return track.solid;
     }
     return SOLID_DEFAULT;
-  }
-
-  setSolid(row: number, col: number, solid: boolean) {
-    const track = this.getTrack(row, col);
-    if (track) {
-      track.solid = solid;
-    }
-  }
-
-  isMapBoundary(row: number, col: number): boolean {
-    const track = this.getTrack(row, col);
-    if (track) {
-      return track.mapBoundary;
-    }
-    return MAP_BOUNDARY_DEFAULT;
-  }
-
-  setMapBoundary(row: number, col: number, mapBoundary: boolean) {
-    const track = this.getTrack(row, col);
-    if (track) {
-      track.mapBoundary = mapBoundary;
-    }
-  }
-
-  addCall(row: number, col: number, call: ScriptCall, collisionCallInterval: number) {
-    const track = this.getTrack(row, col);
-    if (track) {
-      const trackerCall = new TileTrackerCall(call, collisionCallInterval);
-      track.calls.push(trackerCall);
-    }
   }
 
   /**
