@@ -32,6 +32,11 @@ class TileTrack {
     this.mapBoundary = MAP_BOUNDARY_DEFAULT;
     this.calls = CALLS_DEFAULT();
   }
+
+  addCall(call: ScriptCall, collisionCallInterval: number) {
+    const trackerCall = new TileTrackerCall(call, collisionCallInterval);
+    this.calls.push(trackerCall);
+  }
 }
 
 export class TileTracker {
@@ -146,6 +151,16 @@ export class TileTracker {
       }
     }
     return calls;
+  }
+
+  get allTracks(): TileTrack[] {
+    const tracks: TileTrack[] = [];
+    for (const row of this.tracks) {
+      for (const track of row) {
+        tracks.push(track);
+      }
+    }
+    return tracks;
   }
 
   private getTrack(rowIndex: number, colIndex: number): TileTrack {

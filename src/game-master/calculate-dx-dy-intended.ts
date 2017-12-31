@@ -33,19 +33,15 @@ function advanceWander(world: World, entity: Entity) {
   if (plan.targets.length === 0) {
     const tracker = new TileTracker(entity.xtile, entity.ytile);
 
-    for (const [xtileToCheck, ytileToCheck] of tracker.allXY) {
+    for (const track of tracker.allTracks) {
       for (const layer of world.staticMap.collisionLayers) {
-        // Corresponds to indexes in the tracks array.
-        const trackRow = (ytileToCheck - entity.ytile) + 1;
-        const trackCol = (xtileToCheck - entity.xtile) + 1;
-
         // Determine if collision is an actual tile, or a map boundary.
         let tileValue = -1;
-        if (xtileToCheck < 0 || xtileToCheck >= layer.width ||
-            ytileToCheck < 0 || ytileToCheck >= layer.height) {
+        if (track.x < 0 || track.x >= layer.width ||
+            track.y < 0 || track.y >= layer.height) {
           tileValue = 1337; // arbitrary
         } else {
-          const index = convertXYToIndex(xtileToCheck, ytileToCheck, layer.width);
+          const index = convertXYToIndex(track.x, track.y, layer.width);
           tileValue = layer.tiles[index];
         }
 
@@ -55,7 +51,7 @@ function advanceWander(world: World, entity: Entity) {
           continue;
         }
 
-        tracker.setSolid(trackRow, trackCol, true);
+        track.solid = true;
       }
     }
 

@@ -38,20 +38,16 @@ export function walkEntityToTiles(world: World, entity: Entity): WalkResult {
 
   const tracker = new TileTracker(entity.xtile, entity.ytile);
 
-  for (const [xtileToCheck, ytileToCheck] of tracker.allXY) {
+  for (const track of tracker.allTracks) {
     for (const layer of world.staticMap.collisionLayers) {
-      // Corresponds to indexes in the tracks array.
-      const trackRow = (ytileToCheck - entity.ytile) + 1;
-      const trackCol = (xtileToCheck - entity.xtile) + 1;
-
       // Determine if collision is an actual tile, or a map boundary.
       let tileValue = -1;
-      if (xtileToCheck < 0 || xtileToCheck >= layer.width ||
-          ytileToCheck < 0 || ytileToCheck >= layer.height) {
-        tracker.setMapBoundary(trackRow, trackCol, true);
+      if (track.x < 0 || track.x >= layer.width ||
+          track.y < 0 || track.y >= layer.height) {
+        track.mapBoundary = true;
         tileValue = 1337; // arbitrary
       } else {
-        const index = convertXYToIndex(xtileToCheck, ytileToCheck, layer.width);
+        const index = convertXYToIndex(track.x, track.y, layer.width);
         tileValue = layer.tiles[index];
       }
 
@@ -61,14 +57,14 @@ export function walkEntityToTiles(world: World, entity: Entity): WalkResult {
       }
 
       if (!layer.passthrough) {
-        tracker.setSolid(trackRow, trackCol, true);
+        track.solid = true;
       }
 
       // Convert tile to upscaled pixel space.
-      const leftTile   =  xtileToCheck      * TARGET_FIELD_TILE_SIZE;
-      const rightTile  = (xtileToCheck + 1) * TARGET_FIELD_TILE_SIZE;
-      const topTile    =  ytileToCheck      * TARGET_FIELD_TILE_SIZE;
-      const bottomTile = (ytileToCheck + 1) * TARGET_FIELD_TILE_SIZE;
+      const leftTile   =  track.x      * TARGET_FIELD_TILE_SIZE;
+      const rightTile  = (track.x + 1) * TARGET_FIELD_TILE_SIZE;
+      const topTile    =  track.y      * TARGET_FIELD_TILE_SIZE;
+      const bottomTile = (track.y + 1) * TARGET_FIELD_TILE_SIZE;
 
       // Move the entity out of a solid tile.
       const [xExpectedPush, yExpectedPush] = calculatePush(
@@ -85,7 +81,7 @@ export function walkEntityToTiles(world: World, entity: Entity): WalkResult {
             ypush = yExpectedPush;
           }
         }
-        if (!tracker.isMapBoundary(trackRow, trackCol)) {
+        if (!track.mapBoundary) {
           collisionTileLayers.push(layer.name);
           if (layer.collisionCall) {
             const call = new ScriptCall(
@@ -94,7 +90,7 @@ export function walkEntityToTiles(world: World, entity: Entity): WalkResult {
               null,
               layer.name,
             );
-            tracker.addCall(trackRow, trackCol, call, layer.collisionCallInterval);
+            track.addCall(call, layer.collisionCallInterval);
           }
         } else {
           let directionCall = determineLayerDirectionCall(entity, layer);
