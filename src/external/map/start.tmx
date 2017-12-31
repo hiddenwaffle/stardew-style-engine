@@ -270,7 +270,7 @@
 </data>
  </layer>
  <objectgroup name="entities">
-  <object id="26" name="pirate" gid="2864" x="151" y="38.6663" width="16" height="16">
+  <object id="26" name="pirate" gid="2864" x="288.667" y="142.333" width="16" height="16">
    <properties>
     <property name="animationGroupName" value="dl-player-7-12"/>
     <property name="clickCall-talk" value="global.narrate Hello, I am a dragon."/>
