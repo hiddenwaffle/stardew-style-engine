@@ -36,7 +36,6 @@ function advanceWander(world: World, entity: Entity) {
 
     // TODO: This is duplicated in walk-entity-to-tiles.ts
     for (const layer of world.staticMap.collisionLayers) {
-      const tileIntersected = false;
       for (const [xtileToCheck, ytileToCheck] of tracker.allXY) {
         // Corresponds to indexes in the tracks array.
         const trackRow = (ytileToCheck - entity.ytile) + 1;
