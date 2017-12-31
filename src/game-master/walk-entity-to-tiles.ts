@@ -31,27 +31,27 @@ export function walkEntityToTiles(world: World, entity: Entity): WalkResult {
   const top     = yprojected - entity.boundingHeight;
   const bottom  = yprojected + 1; // +1 to prevent entity's y to be on a solid tile directly below the entity.
 
-  const xTile = Math.floor(entity.x / TARGET_FIELD_TILE_SIZE);
-  const yTile = Math.floor(entity.y / TARGET_FIELD_TILE_SIZE);
-
-  const tilesToCheck = [
-    [xTile - 1, yTile - 1], // Top Left       0
-    [xTile,     yTile - 1], // Top Middle     1
-    [xTile + 1, yTile - 1], // Top Right      2
-    [xTile - 1, yTile    ], // Middle Left    3
-    [xTile    , yTile    ], // Middle         4
-    [xTile + 1, yTile    ], // Middle Right   5
-    [xTile - 1, yTile + 1], // Bottom Left    6
-    [xTile    , yTile + 1], // Bottom Middle  7
-    [xTile + 1, yTile + 1], // Bottom Right   8
-  ];
-
-  const tracker = new TileTracker();
+  const xtile = Math.floor(entity.x / TARGET_FIELD_TILE_SIZE);
+  const ytile = Math.floor(entity.y / TARGET_FIELD_TILE_SIZE);
 
   let xpush = 0;
   let ypush = 0;
 
   const collisionTileLayers: string[] = [];
+
+  const tilesToCheck = [
+    [xtile - 1, ytile - 1], // Top Left       0
+    [xtile,     ytile - 1], // Top Middle     1
+    [xtile + 1, ytile - 1], // Top Right      2
+    [xtile - 1, ytile    ], // Middle Left    3
+    [xtile    , ytile    ], // Middle         4
+    [xtile + 1, ytile    ], // Middle Right   5
+    [xtile - 1, ytile + 1], // Bottom Left    6
+    [xtile    , ytile + 1], // Bottom Middle  7
+    [xtile + 1, ytile + 1], // Bottom Right   8
+  ];
+
+  const tracker = new TileTracker();
 
   for (const layer of world.staticMap.collisionLayers) {
     for (const tileToCheck of tilesToCheck) {
@@ -59,8 +59,8 @@ export function walkEntityToTiles(world: World, entity: Entity): WalkResult {
       const yTileToCheck = tileToCheck[1];
 
       // Corresponds to indexes in the tracks array.
-      const trackRow = (yTileToCheck - yTile) + 1;
-      const trackCol = (xTileToCheck - xTile) + 1;
+      const trackRow = (yTileToCheck - ytile) + 1;
+      const trackCol = (xTileToCheck - xtile) + 1;
 
       // Determine if collision is an actual tile, or a map boundary.
       let tileToCheckIsAMapBoundary;
@@ -148,8 +148,8 @@ export function walkEntityToTiles(world: World, entity: Entity): WalkResult {
       entity.direction,
       entity.x,
       entity.y,
-      xTile,
-      yTile,
+      xtile,
+      ytile,
       tracker,
       xpush,
       ypush,
