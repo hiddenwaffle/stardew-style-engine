@@ -45,14 +45,10 @@ function advanceWander(world: World, entity: Entity) {
         }
 
         // Collision possible only if the tile value is a positive number.
-        if (tileValue <= 0) {
-          continue;
-        }
-
         // TODO: Something that allows passthrough layers if specified?
-        // if (!layer.passthrough) {
-          track.solid = true;
-        // }
+        if (tileValue > 0) {
+          track.solid = true; // TODO: Not necessarily solid; it is non-zero.
+        }
       }
     }
 
