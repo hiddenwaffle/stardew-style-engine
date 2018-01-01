@@ -59,6 +59,7 @@ export class TileTracker {
 
   /**
    * TODO: Replace this with something else. Use a Direction from center?
+   * @deprecated
    */
   isSolid(row: number, col: number): boolean {
     const track = this.getTrackOld(row, col);
@@ -106,22 +107,28 @@ export class TileTracker {
 
   determineOpenDirections(): Direction[] {
     const openDirections: Direction[] = [];
-    if (!this.getTrackOld(0, 0).solid &&
-        !this.getTrackOld(1, 0).solid &&
-        !this.getTrackOld(0, 1).solid) { openDirections.push(Direction.UpLeft); }
-    if (!this.getTrackOld(0, 1).solid) { openDirections.push(Direction.Up); }
-    if (!this.getTrackOld(0, 2).solid &&
-        !this.getTrackOld(0, 1).solid &&
-        !this.getTrackOld(1, 2).solid) { openDirections.push(Direction.UpRight); }
-    if (!this.getTrackOld(1, 0).solid) { openDirections.push(Direction.Left); }
-    if (!this.getTrackOld(1, 2).solid) { openDirections.push(Direction.Right); }
-    if (!this.getTrackOld(2, 0).solid &&
-        !this.getTrackOld(1, 0).solid &&
-        !this.getTrackOld(2, 1).solid) { openDirections.push(Direction.DownLeft); }
-    if (!this.getTrackOld(2, 1).solid) { openDirections.push(Direction.Down) ; }
-    if (!this.getTrackOld(2, 2).solid &&
-        !this.getTrackOld(2, 1).solid &&
-        !this.getTrackOld(1, 2).solid) { openDirections.push(Direction.DownRight); }
+
+    if (!this.getTrack(Direction.Up).solid)     { openDirections.push(Direction.Up); }
+    if (!this.getTrack(Direction.Down).solid)   { openDirections.push(Direction.Down) ; }
+    if (!this.getTrack(Direction.Left).solid)   { openDirections.push(Direction.Left); }
+    if (!this.getTrack(Direction.Right).solid)  { openDirections.push(Direction.Right); }
+
+    if (!this.getTrack(Direction.UpLeft).solid &&
+        !this.getTrack(Direction.Left).solid &&
+        !this.getTrack(Direction.Up).solid)     { openDirections.push(Direction.UpLeft); }
+
+    if (!this.getTrack(Direction.UpRight).solid &&
+        !this.getTrack(Direction.Up).solid &&
+        !this.getTrack(Direction.Right).solid)  { openDirections.push(Direction.UpRight); }
+
+    if (!this.getTrack(Direction.DownLeft).solid &&
+        !this.getTrack(Direction.Left).solid &&
+        !this.getTrack(Direction.Down).solid)   { openDirections.push(Direction.DownLeft); }
+
+    if (!this.getTrack(Direction.DownRight).solid &&
+        !this.getTrack(Direction.Down).solid &&
+        !this.getTrack(Direction.Right).solid)  { openDirections.push(Direction.DownRight); }
+
     return openDirections;
   }
 
