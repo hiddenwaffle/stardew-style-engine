@@ -104,6 +104,10 @@ export class TileTracker {
     }
   }
 
+  /**
+   * Returns an array of directions an entity could travel if
+   * they started from the center and moved outward.
+   */
   determineOpenDirections(): Direction[] {
     const openDirections: Direction[] = [];
 
