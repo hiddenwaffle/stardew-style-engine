@@ -5,12 +5,6 @@ import {
   Direction,
 } from 'src/domain/direction';
 
-const SOLID_DEFAULT = false;
-const MAP_BOUNDARY_DEFAULT = false;
-const CALLS_DEFAULT: () => TileTrackerCall[] = () => {
-  return [];
-};
-
 class TileTrackerCall {
   readonly call: ScriptCall;
   readonly collisionCallInterval: number;
@@ -38,9 +32,9 @@ class TileTrack {
   constructor(x: number, y: number) {
     this.x = x;
     this.y = y;
-    this.solid = SOLID_DEFAULT;
-    this.mapBoundary = MAP_BOUNDARY_DEFAULT;
-    this.calls = CALLS_DEFAULT();
+    this.solid = false;
+    this.mapBoundary = false;
+    this.calls = [];
   }
 
   addCall(call: ScriptCall, collisionCallInterval: number) {
