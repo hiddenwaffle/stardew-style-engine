@@ -13,7 +13,7 @@ export function determineTileValueOrMapBoundary(
   layer: TileLayer,
 ): [number, boolean] {
   const index = convertXYToIndex(x, y, layer.width);
-  let mapBoundary = (x < 0 || x >= layer.width || y < 0 || y >= layer.height);
+  let mapBoundary = x < 0 || x >= layer.width || y < 0 || y >= layer.height;
   let tileValue = mapBoundary ? 777 : layer.tiles[index]; // 777 is an arbitrary number
   return [tileValue, mapBoundary];
 }
