@@ -16,8 +16,16 @@ import { convertXYToIndex, determineTileValueOrMapBoundary } from 'src/math';
 
 export function walkEntityToTiles(world: World, entity: Entity): WalkResult {
   const walkResult = new WalkResult(world);
+  if (world && world.staticMap) {
+    movement(world, entity, walkResult);
+    calls(world, entity, walkResult);
+  }
+  return walkResult;
+}
+
+function movement(world: World, entity: Entity, walkResult: WalkResult) {
   if (!world || !world.staticMap) {
-    return walkResult;
+    return;
   }
 
   const secondsPast = timer.elapsed / 1000;
@@ -34,8 +42,6 @@ export function walkEntityToTiles(world: World, entity: Entity): WalkResult {
 
   let xpush = 0;
   let ypush = 0;
-
-  const collisionTileLayers: string[] = [];
 
   const tracker = new TileTracker(entity.xtile, entity.ytile);
 
@@ -73,18 +79,7 @@ export function walkEntityToTiles(world: World, entity: Entity): WalkResult {
             ypush = yExpectedPush;
           }
         }
-        if (!mapBoundary) {
-          collisionTileLayers.push(layer.name);
-          if (layer.collisionCall) {
-            const call = new ScriptCall(
-              layer.collisionCall,
-              entity.id,
-              null,
-              layer.name,
-            );
-            track.addCall(call, layer.collisionCallInterval);
-          }
-        } else {
+        if (mapBoundary) {
           let directionCall = determineLayerDirectionCall(entity, layer);
           if (directionCall) {
             const call = new ScriptCall(directionCall, entity.id, null, layer.name);
@@ -96,19 +91,6 @@ export function walkEntityToTiles(world: World, entity: Entity): WalkResult {
       }
     }
   }
-
-  // Do not run scripts that are on the other side of solid diagonal tile walls.
-  // See method for more details.
-  tracker.removeCornersBlockedByDiagonalSolid(entity.direction);
-  for (const [call, collisionCallInterval] of tracker.calls) {
-    if (entity.tryScriptCall(call, collisionCallInterval)) {
-      walkResult.addCall(call);
-    }
-  }
-
-  // If the entity moved out of a layer on which the entity
-  // had an active call timer, cancel that timer.
-  entity.clearCallTimersNotInLayersNames(collisionTileLayers);
 
   const solidCollisionOccurred = (xpush !== 0 && ypush === 0) || (xpush === 0 && ypush !== 0);
   if (solidCollisionOccurred && isCardinal(entity.direction)) {
@@ -124,8 +106,30 @@ export function walkEntityToTiles(world: World, entity: Entity): WalkResult {
 
   entity.x = xprojected + xpush;
   entity.y = yprojected + ypush;
+}
 
-  return walkResult;
+function calls(world: World, entity: Entity, walkResult: WalkResult) {
+  const collisionTileLayers: string[] = [];
+  for (const layer of world.staticMap.collisionLayers) {
+    const [tileValue, mapBoundary] = determineTileValueOrMapBoundary(entity.xtile, entity.ytile, layer);
+    if (tileValue > 0) { // Overlap possible only if the tile value is a positive number.
+      collisionTileLayers.push(layer.name);
+      if (layer.collisionCall) {
+        const call = new ScriptCall(
+          layer.collisionCall,
+          entity.id,
+          null,
+          layer.name,
+        );
+        if (entity.tryScriptCall(call, layer.collisionCallInterval)) {
+          walkResult.addCall(call);
+        }
+      }
+    }
+  }
+  // If the entity moved out of a layer on which the entity
+  // had an active call timer, cancel that timer.
+  entity.clearCallTimersNotInLayersNames(collisionTileLayers);
 }
 
 /**

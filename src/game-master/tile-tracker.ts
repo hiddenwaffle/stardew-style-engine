@@ -5,16 +5,6 @@ import {
   Direction,
 } from 'src/domain/direction';
 
-class TileTrackerCall {
-  readonly call: ScriptCall;
-  readonly collisionCallInterval: number;
-
-  constructor(call: ScriptCall, collisionCallInterval: number) {
-    this.call = call;
-    this.collisionCallInterval = collisionCallInterval;
-  }
-}
-
 /**
  * General purpose object for keeping track of the properties
  * of a 3x3 tile grid, with the given (x, y) being the center
@@ -26,18 +16,11 @@ class TileTrack {
   readonly x: number;
   readonly y: number;
   solid: boolean;
-  calls: TileTrackerCall[];
 
   constructor(x: number, y: number) {
     this.x = x;
     this.y = y;
     this.solid = false;
-    this.calls = [];
-  }
-
-  addCall(call: ScriptCall, collisionCallInterval: number) {
-    const trackerCall = new TileTrackerCall(call, collisionCallInterval);
-    this.calls.push(trackerCall);
   }
 }
 
@@ -65,35 +48,6 @@ export class TileTracker {
 
   getTrack(direction: Direction): TileTrack {
     return this.tracks.get(direction);
-  }
-
-  /**
-   * Disallow script calls due to diagonal blocking of two tiles.
-   *
-   * Example where player is X, moving down right, O is a tile with
-   * a collision script, and # are solid tiles:
-   *                     X#
-   *                     #O
-   * This check would prevent the O scripts from running
-   */
-  removeCornersBlockedByDiagonalSolid(direction: Direction) {
-    if (direction === Direction.DownRight) {
-      if (this.getTrack(Direction.Right).solid && this.getTrack(Direction.Down).solid) {
-        this.getTrack(Direction.DownRight).calls = [];
-      }
-    } else if (direction === Direction.DownLeft) {
-      if (this.getTrack(Direction.Left).solid && this.getTrack(Direction.Down).solid) {
-        this.getTrack(Direction.DownLeft).calls = [];
-      }
-    } else if (direction === Direction.UpLeft) {
-      if (this.getTrack(Direction.Left).solid && this.getTrack(Direction.Up).solid) {
-        this.getTrack(Direction.UpLeft).calls = [];
-      }
-    } else if (direction === Direction.UpRight) {
-      if (this.getTrack(Direction.Right).solid && this.getTrack(Direction.Up).solid) {
-        this.getTrack(Direction.UpRight).calls = [];
-      }
-    }
   }
 
   /**
@@ -133,19 +87,6 @@ export class TileTracker {
       coordinates.push([track.x, track.y]);
     }
     return coordinates;
-  }
-
-  get calls(): [ScriptCall, number][] {
-    const calls: [ScriptCall, number][] = [];
-    for (const track of Array.from(this.tracks.values())) {
-      for (const trackCall of track.calls) {
-        calls.push([
-          trackCall.call,
-          trackCall.collisionCallInterval,
-        ]);
-      }
-    }
-    return calls;
   }
 
   get allTracks(): TileTrack[] {
