@@ -45,39 +45,27 @@ class TileTrack {
 export class TileTracker {
   readonly xcenter: number;
   readonly ycenter: number;
-  readonly tracks: TileTrack[][];
+  private readonly tracks: Map<Direction, TileTrack>;
 
   constructor(x: number, y: number) {
     this.xcenter = x;
     this.ycenter = y;
-    this.tracks = [
-      [new TileTrack(x - 1, y - 1), new TileTrack(x    , y - 1), new TileTrack(x + 1, y - 1)], // [0][0]  [0][1]  [0][2]
-      [new TileTrack(x - 1, y    ), new TileTrack(x    , y    ), new TileTrack(x + 1, y    )], // [1][0]  [1][1]* [1][2]
-      [new TileTrack(x - 1, y + 1), new TileTrack(x    , y + 1), new TileTrack(x + 1, y + 1)], // [2][0]  [2][1]  [2][2]
-    ];
+    {
+      this.tracks = new Map();
+      this.tracks.set(Direction.UpLeft,     new TileTrack(x - 1, y - 1));
+      this.tracks.set(Direction.Up,         new TileTrack(x    , y - 1));
+      this.tracks.set(Direction.UpRight,    new TileTrack(x + 1, y - 1));
+      this.tracks.set(Direction.Left,       new TileTrack(x - 1, y    ));
+      this.tracks.set(Direction.None,       new TileTrack(x    , y    ));
+      this.tracks.set(Direction.Right,      new TileTrack(x + 1, y    ));
+      this.tracks.set(Direction.DownLeft,   new TileTrack(x - 1, y + 1));
+      this.tracks.set(Direction.Down,       new TileTrack(x    , y + 1));
+      this.tracks.set(Direction.DownRight,  new TileTrack(x + 1, y + 1));
+    }
   }
 
-  // /**
-  //  * TODO: Replace this with something else. Use a Direction from center?
-  //  * @deprecated
-  //  */
-  // isSolid(row: number, col: number): boolean {
-  //   const track = this.getTrackOld(row, col);
-  //   if (track) {
-  //     return track.solid;
-  //   }
-  //   return SOLID_DEFAULT;
-  // }
-
   getTrack(direction: Direction): TileTrack {
-    const [dx, dy] = determineDxDy(direction);
-    const rowIndex = dy + 1;
-    const colIndex = dx + 1;
-    const row = this.tracks[rowIndex];
-    if (row) {
-      return row[colIndex] || null;
-    }
-    return null;
+    return this.tracks.get(direction);
   }
 
   /**
@@ -145,24 +133,20 @@ export class TileTracker {
 
   get allXY(): [number, number][] {
     const coordinates: [number, number][] = [];
-    for (const row of this.tracks) {
-      for (const track of row) {
-        coordinates.push([track.x, track.y]);
-      }
+    for (const track of Array.from(this.tracks.values())) {
+      coordinates.push([track.x, track.y]);
     }
     return coordinates;
   }
 
   get calls(): [ScriptCall, number][] {
     const calls: [ScriptCall, number][] = [];
-    for (const row of this.tracks) {
-      for (const track of row) {
-        for (const trackerCall of track.calls) {
-          calls.push([
-            trackerCall.call,
-            trackerCall.collisionCallInterval
-          ]);
-        }
+    for (const track of Array.from(this.tracks.values())) {
+      for (const trackCall of track.calls) {
+        calls.push([
+          trackCall.call,
+          trackCall.collisionCallInterval,
+        ]);
       }
     }
     return calls;
@@ -170,10 +154,8 @@ export class TileTracker {
 
   get allTracks(): TileTrack[] {
     const tracks: TileTrack[] = [];
-    for (const row of this.tracks) {
-      for (const track of row) {
-        tracks.push(track);
-      }
+    for (const track of Array.from(this.tracks.values())) {
+      tracks.push(track);
     }
     return tracks;
   }
