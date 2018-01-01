@@ -91,8 +91,6 @@ function headTowardsTarget(world: World, entity: Entity) {
   const plan = entity.movementPlan;
   const target = plan.targets[0];
 
-  // TODO: Handle ttl if waiting
-
   // Determine the direction needed to travel from point A to point B.
   const dxstart = to1(target.x - target.xstart);
   const dystart = to1(target.y - target.ystart);
