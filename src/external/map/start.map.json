@@ -179,7 +179,7 @@
                  "gid":2864,
                  "height":16,
                  "id":26,
-                 "name":"pirate",
+                 "name":"dragon3",
                  "properties":
                     {
                      "animationGroupName":"dl-player-7-12",
@@ -200,8 +200,8 @@
                  "type":"",
                  "visible":true,
                  "width":16,
-                 "x":191.667,
-                 "y":251.333
+                 "x":192,
+                 "y":240
                 }, 
                 {
                  "gid":844,
@@ -226,6 +226,62 @@
                  "width":16,
                  "x":57.3333,
                  "y":51.6667
+                }, 
+                {
+                 "gid":2864,
+                 "height":16,
+                 "id":51,
+                 "name":"dragon2",
+                 "properties":
+                    {
+                     "animationGroupName":"dl-player-7-12",
+                     "clickCall-talk":"global.narrate Hello, I am a dragon.",
+                     "collisionCall":"global.sayOuch",
+                     "collisionCallInterval":1000,
+                     "movementType":"Wander"
+                    },
+                 "propertytypes":
+                    {
+                     "animationGroupName":"string",
+                     "clickCall-talk":"string",
+                     "collisionCall":"string",
+                     "collisionCallInterval":"int",
+                     "movementType":"string"
+                    },
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":16,
+                 "x":160,
+                 "y":224
+                }, 
+                {
+                 "gid":2864,
+                 "height":16,
+                 "id":52,
+                 "name":"dragon1",
+                 "properties":
+                    {
+                     "animationGroupName":"dl-player-7-12",
+                     "clickCall-talk":"global.narrate Hello, I am a dragon.",
+                     "collisionCall":"global.sayOuch",
+                     "collisionCallInterval":1000,
+                     "movementType":"Wander"
+                    },
+                 "propertytypes":
+                    {
+                     "animationGroupName":"string",
+                     "clickCall-talk":"string",
+                     "collisionCall":"string",
+                     "collisionCallInterval":"int",
+                     "movementType":"string"
+                    },
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":16,
+                 "x":112,
+                 "y":224
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -255,7 +311,7 @@
          "x":0,
          "y":0
         }],
- "nextobjectid":51,
+ "nextobjectid":53,
  "orientation":"orthogonal",
  "properties":
     {

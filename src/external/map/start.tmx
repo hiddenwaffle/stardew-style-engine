@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" tiledversion="1.0.3" orientation="orthogonal" renderorder="right-down" width="20" height="19" tilewidth="16" tileheight="16" nextobjectid="51">
+<map version="1.0" tiledversion="1.0.3" orientation="orthogonal" renderorder="right-down" width="20" height="19" tilewidth="16" tileheight="16" nextobjectid="53">
  <properties>
   <property name="startCall" value="global.narrate This is the starting area"/>
  </properties>
@@ -304,7 +304,7 @@
 </data>
  </layer>
  <objectgroup name="entities">
-  <object id="26" name="pirate" gid="2864" x="191.667" y="251.333" width="16" height="16">
+  <object id="26" name="dragon3" gid="2864" x="192" y="240" width="16" height="16">
    <properties>
     <property name="animationGroupName" value="dl-player-7-12"/>
     <property name="clickCall-talk" value="global.narrate Hello, I am a dragon."/>
@@ -318,6 +318,24 @@
     <property name="collisionCall" value="global.switchMap town bottom"/>
     <property name="hidden" type="bool" value="false"/>
     <property name="pushable" type="bool" value="false"/>
+   </properties>
+  </object>
+  <object id="51" name="dragon2" gid="2864" x="160" y="224" width="16" height="16">
+   <properties>
+    <property name="animationGroupName" value="dl-player-7-12"/>
+    <property name="clickCall-talk" value="global.narrate Hello, I am a dragon."/>
+    <property name="collisionCall" value="global.sayOuch"/>
+    <property name="collisionCallInterval" type="int" value="1000"/>
+    <property name="movementType" value="Wander"/>
+   </properties>
+  </object>
+  <object id="52" name="dragon1" gid="2864" x="112" y="224" width="16" height="16">
+   <properties>
+    <property name="animationGroupName" value="dl-player-7-12"/>
+    <property name="clickCall-talk" value="global.narrate Hello, I am a dragon."/>
+    <property name="collisionCall" value="global.sayOuch"/>
+    <property name="collisionCallInterval" type="int" value="1000"/>
+    <property name="movementType" value="Wander"/>
    </properties>
   </object>
  </objectgroup>
