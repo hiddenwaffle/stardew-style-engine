@@ -57,16 +57,27 @@ export class TileTracker {
     ];
   }
 
-  /**
-   * TODO: Replace this with something else. Use a Direction from center?
-   * @deprecated
-   */
-  isSolid(row: number, col: number): boolean {
-    const track = this.getTrackOld(row, col);
-    if (track) {
-      return track.solid;
+  // /**
+  //  * TODO: Replace this with something else. Use a Direction from center?
+  //  * @deprecated
+  //  */
+  // isSolid(row: number, col: number): boolean {
+  //   const track = this.getTrackOld(row, col);
+  //   if (track) {
+  //     return track.solid;
+  //   }
+  //   return SOLID_DEFAULT;
+  // }
+
+  getTrack(direction: Direction): TileTrack {
+    const [dx, dy] = determineDxDy(direction);
+    const rowIndex = dy + 1;
+    const colIndex = dx + 1;
+    const row = this.tracks[rowIndex];
+    if (row) {
+      return row[colIndex] || null;
     }
-    return SOLID_DEFAULT;
+    return null;
   }
 
   /**
@@ -165,27 +176,5 @@ export class TileTracker {
       }
     }
     return tracks;
-  }
-
-  /**
-   * @deprecated
-   */
-  private getTrackOld(rowIndex: number, colIndex: number): TileTrack {
-    const row = this.tracks[rowIndex];
-    if (row) {
-      return row[colIndex] || null;
-    }
-    return null;
-  }
-
-  private getTrack(direction: Direction): TileTrack {
-    const [dx, dy] = determineDxDy(direction);
-    const rowIndex = dy + 1;
-    const colIndex = dx + 1;
-    const row = this.tracks[rowIndex];
-    if (row) {
-      return row[colIndex] || null;
-    }
-    return null;
   }
 }

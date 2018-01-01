@@ -219,39 +219,39 @@ function attemptAssistedSlide(
   // console.log('xpct, ypct', xPercentOnCurrentTile, yPercentOnCurrentTile);
 
   if (direction === Direction.Up) {
-    if (tracker.isSolid(0, 1) === false) {
+    if (tracker.getTrack(Direction.Up).solid === false) {
       if (xPercentOnCurrentTile < 0.5) {
         xpush =  Math.abs(ypush);
       } else {
         xpush = -Math.abs(ypush);
       }
-    } else if (tracker.isSolid(0, 0) === false && xPercentOnCurrentTile < 0.4) {
+    } else if (tracker.getTrack(Direction.UpLeft).solid === false && xPercentOnCurrentTile < 0.4) {
       xpush = -Math.abs(ypush);
-    } else if (tracker.isSolid(0, 2) === false && xPercentOnCurrentTile > 0.6) {
+    } else if (tracker.getTrack(Direction.UpRight).solid === false && xPercentOnCurrentTile > 0.6) {
       xpush =  Math.abs(ypush);
     }
   } else if (direction === Direction.Down) {
-    if (tracker.isSolid(2, 1) === false) {
+    if (tracker.getTrack(Direction.Down).solid === false) {
       if (xPercentOnCurrentTile < 0.5) {
         xpush =  Math.abs(ypush);
       } else {
         xpush = -Math.abs(ypush);
       }
-    } else if (tracker.isSolid(2, 0) === false && xPercentOnCurrentTile < 0.4) {
+    } else if (tracker.getTrack(Direction.DownLeft).solid === false && xPercentOnCurrentTile < 0.4) {
       xpush = -Math.abs(ypush);
-    } else if (tracker.isSolid(2, 2) === false && xPercentOnCurrentTile > 0.6) {
+    } else if (tracker.getTrack(Direction.DownRight).solid === false && xPercentOnCurrentTile > 0.6) {
       xpush =  Math.abs(ypush);
     }
   } else if (direction === Direction.Left) {
-    if (tracker.isSolid(0, 0) === false && yPercentOnCurrentTile < 0.85) {
+    if (tracker.getTrack(Direction.UpLeft).solid === false && yPercentOnCurrentTile < 0.85) {
       ypush = -Math.abs(xpush);
-    } else if (tracker.isSolid(1, 0) === false && yPercentOnCurrentTile > 0.15) {
+    } else if (tracker.getTrack(Direction.Left).solid === false && yPercentOnCurrentTile > 0.15) {
       ypush =  Math.abs(xpush);
     }
   } else if (direction === Direction.Right) {
-    if (tracker.isSolid(0, 2) === false && yPercentOnCurrentTile < 0.85) {
+    if (tracker.getTrack(Direction.UpRight).solid === false && yPercentOnCurrentTile < 0.85) {
       ypush = -Math.abs(xpush);
-    } else if (tracker.isSolid(1, 2) === false && yPercentOnCurrentTile > 0.15) {
+    } else if (tracker.getTrack(Direction.Right).solid === false && yPercentOnCurrentTile > 0.15) {
       ypush =  Math.abs(xpush);
     }
   }
