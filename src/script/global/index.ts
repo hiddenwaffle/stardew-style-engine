@@ -8,19 +8,19 @@ export const global = new ScriptNamespace();
 
 global.setHandler('sayOuch', () => {
   narrator.write('You bump into a dragon');
-  log('info', '"ouch"', '"that hurts"');
+  // log('info', '"ouch"', '"that hurts"');
 });
 
 global.setHandler('fire', (ctx: ScriptCallContext, val1: string, val2: string) => {
   narrator.write('Fire burns you for X amount');
   const total = parseInt(val1, 10) + parseInt(val2, 10);
-  log(
-    'info',
-    `fire() val1: ${val1} val2: ${val2} = ${total}, ` +
-    `entity count: ${ctx.world.entities.length}, ` +
-    `Primary: ${ctx.primaryEntityId}, Secondary: ${ctx.secondaryEntityId}, ` +
-    `Tile Layer: ${ctx.tileLayerName}`,
-  );
+  // log(
+  //   'info',
+  //   `fire() val1: ${val1} val2: ${val2} = ${total}, ` +
+  //   `entity count: ${ctx.world.entities.length}, ` +
+  //   `Primary: ${ctx.primaryEntityId}, Secondary: ${ctx.secondaryEntityId}, ` +
+  //   `Tile Layer: ${ctx.tileLayerName}`,
+  // );
 });
 
 global.setHandler('switchMap', (ctx: ScriptCallContext, mapName: string, entrance: string) => {
