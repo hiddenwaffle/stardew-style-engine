@@ -61,7 +61,10 @@ function advanceWander(world: World, entity: Entity) {
       entity.x,
       entity.y,
       xtileTarget * TARGET_FIELD_TILE_SIZE + (TARGET_FIELD_TILE_SIZE / 2),
-      ytileTarget * TARGET_FIELD_TILE_SIZE + (TARGET_FIELD_TILE_SIZE - 2), // -2 to prevent overlap with tiles above and below.
+      // The -2 is to prevent overlap with adjacent tiles: -1 (above) + -1 (below) = -2.
+      // Otherwise, xtile/ytile can end up pointed to a solid tile even
+      // though the entity is only next to it, and get stuck.
+      ytileTarget * TARGET_FIELD_TILE_SIZE + (TARGET_FIELD_TILE_SIZE - 2),
     );
     plan.targets.push(target);
   } else {
