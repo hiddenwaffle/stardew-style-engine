@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" tiledversion="1.0.3" orientation="orthogonal" renderorder="right-down" width="20" height="19" tilewidth="16" tileheight="16" nextobjectid="49">
+<map version="1.0" tiledversion="1.0.3" orientation="orthogonal" renderorder="right-down" width="20" height="19" tilewidth="16" tileheight="16" nextobjectid="51">
  <properties>
   <property name="startCall" value="global.narrate This is the starting area"/>
  </properties>
@@ -26,6 +26,9 @@
  </tileset>
  <tileset firstgid="2680" name="Effect0" tilewidth="16" tileheight="16" tilecount="208" columns="8">
   <image source="../DawnLike/Objects/Effect0.png" width="128" height="416"/>
+ </tileset>
+ <tileset firstgid="2888" name="Effect1" tilewidth="16" tileheight="16" tilecount="208" columns="8">
+  <image source="../DawnLike/Objects/Effect1.png" width="128" height="416"/>
  </tileset>
  <layer name="grass" width="20" height="19">
   <data encoding="csv">
@@ -97,6 +100,10 @@
 </data>
  </layer>
  <layer name="fire" width="20" height="19">
+  <properties>
+   <property name="blinkGroup" value="fire"/>
+   <property name="blinkWait" type="int" value="500"/>
+  </properties>
   <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -109,6 +116,33 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2849,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,2849,0,0,2849,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,2849,2849,2849,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+</data>
+ </layer>
+ <layer name="fire-2" width="20" height="19">
+  <properties>
+   <property name="blinkGroup" value="fire"/>
+   <property name="blinkWait" type="int" value="500"/>
+  </properties>
+  <data encoding="csv">
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,3057,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3057,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,3057,0,0,3057,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,3057,3057,3057,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
