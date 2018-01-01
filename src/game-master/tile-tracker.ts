@@ -91,20 +91,20 @@ export class TileTracker {
    */
   removeCornersBlockedByDiagonalSolid(direction: Direction) {
     if (direction === Direction.DownRight) {
-      if (this.tracks[1][2].solid && this.tracks[2][1].solid) {
-        this.tracks[2][2].calls = [];
+      if (this.getTrack(Direction.Right).solid && this.getTrack(Direction.Down).solid) {
+        this.getTrack(Direction.DownRight).calls = [];
       }
     } else if (direction === Direction.DownLeft) {
-      if (this.tracks[1][0].solid && this.tracks[2][1].solid) {
-        this.tracks[2][0].calls = [];
+      if (this.getTrack(Direction.Left).solid && this.getTrack(Direction.Down).solid) {
+        this.getTrack(Direction.DownLeft).calls = [];
       }
     } else if (direction === Direction.UpLeft) {
-      if (this.tracks[1][0].solid && this.tracks[0][1].solid) {
-        this.tracks[0][0].calls = [];
+      if (this.getTrack(Direction.Left).solid && this.getTrack(Direction.Up).solid) {
+        this.getTrack(Direction.UpLeft).calls = [];
       }
     } else if (direction === Direction.UpRight) {
-      if (this.tracks[1][2].solid && this.tracks[0][1].solid) {
-        this.tracks[0][2].calls = [];
+      if (this.getTrack(Direction.Right).solid && this.getTrack(Direction.Up).solid) {
+        this.getTrack(Direction.UpRight).calls = [];
       }
     }
   }
