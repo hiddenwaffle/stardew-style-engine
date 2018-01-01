@@ -21,6 +21,13 @@ class TileTrackerCall {
   }
 }
 
+/**
+ * General purpose object for keeping track of the properties
+ * of a 3x3 tile grid, with the given (x, y) being the center
+ * tile.
+ *
+ * Different methods use it for different things.
+ */
 class TileTrack {
   readonly x: number;
   readonly y: number;
