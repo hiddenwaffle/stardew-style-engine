@@ -20,15 +20,25 @@ export class MovementTarget {
   readonly ystart: number;
   readonly x: number;
   readonly y: number;
+
   wait: boolean;
   ttl: number;
 
-  constructor(xstart: number, ystart: number, x: number, y: number, wait?: boolean) {
+  constructor(
+    xstart: number,
+    ystart: number,
+    x: number,
+    y: number,
+    wait: boolean,
+    ttl: number
+  ) {
     this.xstart = xstart;
     this.ystart = ystart;
     this.x = x;
     this.y = y;
+
     this.wait = wait || false;
+    this.ttl = ttl || 0;
   }
 }
 
