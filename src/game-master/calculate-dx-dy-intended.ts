@@ -14,6 +14,7 @@ import {
 import { tryAnimationSwitch } from './try-animation-switch';
 import { TARGET_FIELD_TILE_SIZE } from 'src/constants';
 import { TileTracker } from 'src/game-master/tile-tracker';
+import { convertXYToIndex } from 'src/math';
 
 export function calculateDxDyIntended(world: World, entity: Entity) {
   switch (entity.movementPlan.type) {
@@ -116,11 +117,4 @@ function to1(value: number): number {
   } else {
     return value / Math.abs(value);
   }
-}
-
-/**
- * TODO: This is duplicated in walk-entity-to-tiles.ts
- */
-function convertXYToIndex(x: number, y: number, width: number): number {
-  return x + (y * width);
 }

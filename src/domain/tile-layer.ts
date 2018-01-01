@@ -1,6 +1,7 @@
 import { TARGET_FIELD_TILE_SIZE } from 'src/constants';
 import { parseClickProperties } from './parse-click-properties';
 import { PointerType } from 'src/ui/pointer';
+import { convertXYToIndex } from 'src/math';
 
 export class TileLayer {
   readonly name: string;
@@ -43,9 +44,4 @@ export class TileLayer {
       return tileValue > 0;
     }
   }
-}
-
-// TODO: Duplicated in walk-entity-to-tiles.ts
-function convertXYToIndex(x: number, y: number, width: number): number {
-  return x + (y * width);
 }

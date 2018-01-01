@@ -12,6 +12,7 @@ import { CollisionLayer } from 'src/domain/collision-layer';
 import {
   TileTracker,
 } from './tile-tracker';
+import { convertXYToIndex } from 'src/math';
 
 export function walkEntityToTiles(world: World, entity: Entity): WalkResult {
   const walkResult = new WalkResult(world);
@@ -177,10 +178,6 @@ function calculatePush(
   }
 
   return [xpush, ypush];
-}
-
-function convertXYToIndex(x: number, y: number, width: number): number {
-  return x + (y * width);
 }
 
 /**
