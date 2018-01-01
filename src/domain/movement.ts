@@ -30,7 +30,7 @@ export class MovementTarget {
     x: number,
     y: number,
     wait: boolean,
-    ttl: number
+    ttl: number,
   ) {
     this.xstart = xstart;
     this.ystart = ystart;

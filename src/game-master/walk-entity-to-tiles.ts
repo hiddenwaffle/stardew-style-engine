@@ -80,7 +80,7 @@ function movement(world: World, entity: Entity, walkResult: WalkResult) {
           }
         }
         if (mapBoundary) {
-          let directionCall = determineLayerDirectionCall(entity, layer);
+          const directionCall = determineLayerDirectionCall(entity, layer);
           if (directionCall) {
             const call = new ScriptCall(directionCall, entity.id, null, layer.name);
             if (entity.tryScriptCall(call, layer.collisionCallInterval)) {
@@ -239,7 +239,7 @@ function attemptAssistedSlide(
 
 function determineLayerDirectionCall(entity: Entity, layer: CollisionLayer): string {
   let directionCall;
-  switch(entity.direction) {
+  switch (entity.direction) {
     case Direction.Up:
       directionCall = layer.upCall || null;
       break;

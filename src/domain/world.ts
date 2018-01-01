@@ -113,12 +113,12 @@ export class World {
       new ScriptCall(
         entity.clickCall,
         this.player.entity.id,
-        entity.id
+        entity.id,
       ).execute(this);
     } else if (tileLayer && tileLayer.clickCall) {
       new ScriptCall(
         tileLayer.clickCall,
-        this.player.entity.id
+        this.player.entity.id,
       ).execute(this);
     }
   }

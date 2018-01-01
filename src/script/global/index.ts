@@ -28,6 +28,6 @@ global.setHandler('switchMap', (ctx: ScriptCallContext, mapName: string, entranc
 });
 
 global.setHandler('narrate', (ctx: ScriptCallContext, ...line: string[]) => {
-  let text = line.join(' ');
+  const text = line.join(' ');
   narrator.write(text);
 });

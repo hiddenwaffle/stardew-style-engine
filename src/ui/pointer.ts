@@ -5,7 +5,7 @@ export enum PointerType {
   Default = 'default',
   Talk    = 'help',
   Use     = 'pointer',
-  Examine = 'zoom-in'
+  Examine = 'zoom-in',
 }
 
 /**

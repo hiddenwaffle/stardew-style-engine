@@ -2,7 +2,7 @@ import { log } from 'src/log';
 import { World } from 'src/domain/world';
 import {
   SAVE_KEY,
-  SAVE_VERSION
+  SAVE_VERSION,
 } from 'src/constants';
 import { SaveWorld } from './save';
 

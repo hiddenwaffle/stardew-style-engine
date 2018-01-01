@@ -32,10 +32,10 @@ class Narrator {
         if (section.innerText === text) {
           duplicate = true;
           {
-          // Cancels mid-animation, if applicable.
-          // https://stackoverflow.com/a/6303311
-          section.style.animation = 'none';
-            setTimeout(function() {
+            // Cancels mid-animation, if applicable.
+            // https://stackoverflow.com/a/6303311
+            section.style.animation = 'none';
+            setTimeout(() => {
               section.style.webkitAnimation = '';
             }, 1);
           }

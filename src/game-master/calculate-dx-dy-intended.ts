@@ -82,7 +82,7 @@ function createNewTarget(world: World, entity: Entity) {
     // though the entity is only next to it, and get stuck.
     ytileTarget * TARGET_FIELD_TILE_SIZE + (TARGET_FIELD_TILE_SIZE - 2),
     wait,
-    ttl
+    ttl,
   );
   plan.targets.push(target);
 }
@@ -113,7 +113,7 @@ function headTowardsTarget(world: World, entity: Entity) {
     entity.dxIntended,
     entity.dyIntended,
     entity.facing,
-    entity.directionsOfFreedom
+    entity.directionsOfFreedom,
   );
   tryAnimationSwitch(entity, true); // TODO: Wandering = walk animation, right?
 
