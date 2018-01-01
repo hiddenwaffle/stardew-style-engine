@@ -31,6 +31,7 @@ export class TileLayer {
     {
       // Prevent null pointer errors
       const properties = layer.properties || {};
+
       [this.clickCall, this.mouseoverPointerType] = parseClickProperties(properties);
 
       this.blinkGroup = properties.blinkGroup || null;
