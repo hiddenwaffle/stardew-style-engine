@@ -41,11 +41,13 @@ export function walkEntityToTiles(world: World, entity: Entity): WalkResult {
 
   for (const track of tracker.allTracks) {
     for (const layer of world.staticMap.collisionLayers) {
+      let mapBoundary = false;
+
       // Determine if collision is an actual tile, or a map boundary.
       let tileValue = -1;
       if (track.x < 0 || track.x >= layer.width ||
           track.y < 0 || track.y >= layer.height) {
-        track.mapBoundary = true;
+        mapBoundary = true;
         tileValue = 1337; // arbitrary
       } else {
         const index = convertXYToIndex(track.x, track.y, layer.width);
@@ -82,7 +84,7 @@ export function walkEntityToTiles(world: World, entity: Entity): WalkResult {
             ypush = yExpectedPush;
           }
         }
-        if (!track.mapBoundary) {
+        if (!mapBoundary) {
           collisionTileLayers.push(layer.name);
           if (layer.collisionCall) {
             const call = new ScriptCall(

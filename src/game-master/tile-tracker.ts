@@ -26,14 +26,12 @@ class TileTrack {
   readonly x: number;
   readonly y: number;
   solid: boolean;
-  mapBoundary: boolean;
   calls: TileTrackerCall[];
 
   constructor(x: number, y: number) {
     this.x = x;
     this.y = y;
     this.solid = false;
-    this.mapBoundary = false;
     this.calls = [];
   }
 
