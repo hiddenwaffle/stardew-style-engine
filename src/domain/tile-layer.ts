@@ -5,13 +5,19 @@ import { convertXYToIndex } from 'src/math';
 
 export class TileLayer {
   readonly name: string;
+
   readonly x: number;
   readonly y: number;
   readonly width: number;
   readonly height: number;
+
   readonly tiles: number[];
+
   readonly clickCall: string;
   readonly mouseoverPointerType: PointerType;
+
+  readonly blinkGroup: string;
+  readonly blinkWait: number;
 
   constructor(layer: any) {
     this.name = layer.name;
@@ -26,6 +32,9 @@ export class TileLayer {
       // Prevent null pointer errors
       const properties = layer.properties || {};
       [this.clickCall, this.mouseoverPointerType] = parseClickProperties(properties);
+
+      this.blinkGroup = properties.blinkGroup || null;
+      this.blinkWait = properties.blinkWait || 0;
     }
   }
 
