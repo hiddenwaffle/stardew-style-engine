@@ -58,6 +58,10 @@ function renderWorld(world: World) {
     const { staticMap, player } = world;
     if (staticMap) {
       for (const tileLayer of staticMap.tileLayers) {
+        if (tileLayer.hidden) {
+          continue;
+        }
+
         // TODO: Use player x, y coordinates to determine start and end ranges.
         let currentX = 0;
         let currentY = 0;

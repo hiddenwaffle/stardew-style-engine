@@ -18,6 +18,7 @@ export class TileLayer {
 
   readonly blinkGroup: string;
   readonly blinkWait: number;
+  hidden: boolean;
 
   constructor(layer: any) {
     this.name = layer.name;
@@ -36,6 +37,7 @@ export class TileLayer {
 
       this.blinkGroup = properties.blinkGroup || null;
       this.blinkWait = properties.blinkWait || 0;
+      this.hidden = properties.hidden || false;
     }
   }
 

@@ -31,6 +31,12 @@ export class World {
     await this.switchMap(this.initialMapId);
   }
 
+  step() {
+    if (this.staticMap) {
+      this.staticMap.step();
+    }
+  }
+
   async switchMap(mapId: string, entranceName?: string) {
     gameState.switch(State.Loading);
     this.staticMap = await fetchMap(mapId);

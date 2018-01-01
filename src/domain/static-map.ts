@@ -6,6 +6,64 @@ import { Tileset } from './tileset';
 import { Entity } from './entity';
 import { MapEntrance } from './map-entrance';
 import { ObjectHint } from './object-hint';
+import { timer } from 'src/session/timer';
+
+class BlinkGroup {
+  private readonly layers: TileLayer[];
+  private current: number;
+  private ttl: number;
+
+  constructor() {
+    this.layers = [];
+    this.current = 0;
+    this.ttl = 0;
+  }
+
+  add(layer: TileLayer) {
+    this.layers.push(layer);
+  }
+
+  /**
+   * Ensure blink order and start with the first layer.
+   */
+  start() {
+    if (this.layers.length === 0) {
+      return;
+    }
+
+    this.layers.sort();
+    for (const layer of this.layers) {
+      layer.hidden = true;
+    }
+    const currentLayer = this.layers[0];
+    currentLayer.hidden = false;
+    this.ttl = currentLayer.blinkWait;
+  }
+
+  step() {
+    if (this.layers.length === 0) {
+      return;
+    }
+    const currentLayer = this.layers[this.current];
+    if (!currentLayer) {
+      return;
+    }
+
+    this.ttl -= timer.elapsed;
+    if (this.ttl <= 0) {
+      currentLayer.hidden = true;
+      this.current += 1;
+      if (this.current >= this.layers.length) {
+        this.current = 0;
+      }
+      const newCurrentLayer = this.layers[this.current];
+      if (newCurrentLayer) {
+        newCurrentLayer.hidden = false;
+        this.ttl = newCurrentLayer.blinkWait - this.ttl;
+      }
+    }
+  }
+}
 
 export class StaticMap {
   id: string;
@@ -16,6 +74,7 @@ export class StaticMap {
   collisionLayers: CollisionLayer[];
   entrances: MapEntrance[];
   objectHints: ObjectHint[];
+  readonly blinkGroups: Map<string, BlinkGroup>;
 
   tilesets: Tileset[];
 
@@ -33,6 +92,7 @@ export class StaticMap {
     rawMap.layers.forEach((layer: any) => {
       this.parseAndAddLayers(layer);
     });
+    this.blinkGroups = determineBlinkGroups(this.tileLayers);
 
     this.tilesets = [];
     rawMap.tilesets.forEach((rawTileset: any) => {
@@ -46,6 +106,12 @@ export class StaticMap {
       const properties = rawMap.properties || {};
 
       this.startCall = properties.startCall;
+    }
+  }
+
+  step() {
+    for (const group of Array.from(this.blinkGroups.values())) {
+      group.step();
     }
   }
 
@@ -120,4 +186,24 @@ export class StaticMap {
       this.parseAndAddLayers(sublayer);
     });
   }
+}
+
+function determineBlinkGroups(layers: TileLayer[]): Map<string, BlinkGroup> {
+  const groups: Map<string, BlinkGroup> = new Map();
+  for (const layer of layers) {
+    const name = layer.blinkGroup;
+    if (name) {
+      const wait = layer.blinkWait;
+      let group = groups.get(name);
+      if (!group) {
+        group = new BlinkGroup();
+        groups.set(name, group);
+      }
+      group.add(layer);
+    }
+  }
+  for (const group of Array.from(groups.values())) {
+    group.start();
+  }
+  return groups;
 }

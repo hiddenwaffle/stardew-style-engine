@@ -55,6 +55,8 @@ class GameMaster {
       return;
     }
 
+    world.step();
+
     {
       const [x, y] = camera.logicalToWorld(this.xmouse, this.ymouse);
       world.recalculatePointer(x, y);
