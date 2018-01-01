@@ -116,8 +116,6 @@ export function walkEntityToTiles(world: World, entity: Entity): WalkResult {
       entity.direction,
       entity.x,
       entity.y,
-      entity.xtile,
-      entity.ytile,
       tracker,
       xpush,
       ypush,
@@ -185,17 +183,14 @@ function attemptAssistedSlide(
   direction: Direction,
   x: number,
   y: number,
-  xTile: number,
-  yTile: number,
   tracker: TileTracker,
-  xpushOriginal: number,
-  ypushOriginal: number,
+  xpush: number, // Function mutates and returns this argument.
+  ypush: number, // Function mutates and returns this argument.
 ): [number, number] {
-  let xpush = xpushOriginal;
-  let ypush = ypushOriginal;
 
-  const xPercentOnCurrentTile = (x - xTile * TARGET_FIELD_TILE_SIZE) / TARGET_FIELD_TILE_SIZE;
-  const yPercentOnCurrentTile = (y - yTile * TARGET_FIELD_TILE_SIZE) / TARGET_FIELD_TILE_SIZE;
+  // Calculate how much of the entity is "on" the center tile for each axis.
+  const xPercentOnCurrentTile = (x - tracker.xcenter * TARGET_FIELD_TILE_SIZE) / TARGET_FIELD_TILE_SIZE;
+  const yPercentOnCurrentTile = (y - tracker.ycenter * TARGET_FIELD_TILE_SIZE) / TARGET_FIELD_TILE_SIZE;
 
   if (direction === Direction.Up) {
     if (tracker.getTrack(Direction.Up).solid === false) {
