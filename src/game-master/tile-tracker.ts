@@ -97,13 +97,6 @@ export class TileTracker {
     }
   }
 
-  // debug() {
-  //   console.log('-----');
-  //   console.log(this.tracks[0][0].solid, this.tracks[0][1].solid, this.tracks[0][2].solid);
-  //   console.log(this.tracks[1][0].solid, this.tracks[1][1].solid, this.tracks[1][2].solid);
-  //   console.log(this.tracks[2][0].solid, this.tracks[2][1].solid, this.tracks[2][2].solid);
-  // }
-
   determineOpenDirections(): Direction[] {
     const openDirections: Direction[] = [];
 

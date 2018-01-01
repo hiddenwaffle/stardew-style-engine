@@ -209,15 +209,6 @@ function attemptAssistedSlide(
   const xPercentOnCurrentTile = (x - xTile * TARGET_FIELD_TILE_SIZE) / TARGET_FIELD_TILE_SIZE;
   const yPercentOnCurrentTile = (y - yTile * TARGET_FIELD_TILE_SIZE) / TARGET_FIELD_TILE_SIZE;
 
-  // console.log('---------------');
-  // console.log(solidTilesAroundEntity[0]);
-  // console.log(solidTilesAroundEntity[1]);
-  // console.log(solidTilesAroundEntity[2]);
-  // console.log('xTile, yTile', xTile, yTile);
-  // console.log(x, xTile * TARGET_FIELD_TILE_SIZE, (xTile + 1) * TARGET_FIELD_TILE_SIZE);
-  // console.log(y, yTile * TARGET_FIELD_TILE_SIZE, (yTile + 1) * TARGET_FIELD_TILE_SIZE);
-  // console.log('xpct, ypct', xPercentOnCurrentTile, yPercentOnCurrentTile);
-
   if (direction === Direction.Up) {
     if (tracker.getTrack(Direction.Up).solid === false) {
       if (xPercentOnCurrentTile < 0.5) {
