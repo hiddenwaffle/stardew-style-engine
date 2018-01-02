@@ -23,8 +23,15 @@ global.setHandler('fire', (ctx: ScriptCallContext, val1: string, val2: string) =
   // );
 });
 
+/**
+ * Switch the map only if it the player entity is involved.
+ */
 global.setHandler('switchMap', (ctx: ScriptCallContext, mapName: string, entrance: string) => {
-  switchMap(mapName, entrance, ctx.world);
+  const primary = ctx.world.getEntity(ctx.primaryEntityId);
+  const secondary = ctx.world.getEntity(ctx.secondaryEntityId);
+  if (primary === ctx.world.player.entity || secondary === ctx.world.player.entity) {
+    switchMap(mapName, entrance, ctx.world);
+  }
 });
 
 global.setHandler('narrate', (ctx: ScriptCallContext, ...line: string[]) => {

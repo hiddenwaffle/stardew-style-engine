@@ -83,6 +83,10 @@ export class World {
     this._entities.set(entity.id, entity);
   }
 
+  getEntity(id: number) {
+    return this._entities.get(id);
+  }
+
   entitiesSortedByY(): Entity[] {
     return Array.from(this._entities.values()).sort((a, b) => {
       return a.y - b.y;
