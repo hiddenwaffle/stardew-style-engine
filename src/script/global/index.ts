@@ -6,35 +6,31 @@ import { narrator } from 'src/text/narrator';
 
 export const global = new ScriptNamespace();
 
-global.setHandler('sayOuch', () => {
-  narrator.write('You bump into a dragon');
-  // log('info', '"ouch"', '"that hurts"');
+global.setHandler('sayOuch', (ctx: ScriptCallContext) => {
+  if (ctx.primaryOrSecondaryEntityIsPlayer()) {
+    narrator.write('You bump into a dragon');
+  }
 });
 
 global.setHandler('fire', (ctx: ScriptCallContext, val1: string, val2: string) => {
-  narrator.write('Fire burns you for X amount');
-  const total = parseInt(val1, 10) + parseInt(val2, 10);
-  // log(
-  //   'info',
-  //   `fire() val1: ${val1} val2: ${val2} = ${total}, ` +
-  //   `entity count: ${ctx.world.entities.length}, ` +
-  //   `Primary: ${ctx.primaryEntityId}, Secondary: ${ctx.secondaryEntityId}, ` +
-  //   `Tile Layer: ${ctx.tileLayerName}`,
-  // );
+  if (ctx.primaryOrSecondaryEntityIsPlayer()) {
+    const total = parseInt(val1, 10) + parseInt(val2, 10);
+    narrator.write(`Fire burns you for X amount ${total}`);
+  }
 });
 
 /**
  * Switch the map only if it the player entity is involved.
  */
 global.setHandler('switchMap', (ctx: ScriptCallContext, mapName: string, entrance: string) => {
-  const primary = ctx.world.getEntity(ctx.primaryEntityId);
-  const secondary = ctx.world.getEntity(ctx.secondaryEntityId);
-  if (primary === ctx.world.player.entity || secondary === ctx.world.player.entity) {
+  if (ctx.primaryOrSecondaryEntityIsPlayer()) {
     switchMap(mapName, entrance, ctx.world);
   }
 });
 
 global.setHandler('narrate', (ctx: ScriptCallContext, ...line: string[]) => {
-  const text = line.join(' ');
-  narrator.write(text);
+  if (ctx.primaryOrSecondaryEntityIsPlayer()) {
+    const text = line.join(' ');
+    narrator.write(text);
+  }
 });

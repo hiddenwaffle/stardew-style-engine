@@ -18,6 +18,18 @@ export class ScriptCallContext {
     this.secondaryEntityId = secondaryEntityId;
     this.tileLayerName = tileLayerName;
   }
+
+  primaryEntityIsPlayer(): boolean {
+    return this.world.player.entity === this.world.getEntity(this.primaryEntityId);
+  }
+
+  secondaryEntityIsPlayer(): boolean {
+    return this.world.player.entity === this.world.getEntity(this.secondaryEntityId);
+  }
+
+  primaryOrSecondaryEntityIsPlayer(): boolean {
+    return this.primaryEntityIsPlayer() || this.secondaryEntityIsPlayer();
+  }
 }
 
 export class ScriptCall {
