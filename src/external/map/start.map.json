@@ -176,7 +176,7 @@
          "name":"entities",
          "objects":[
                 {
-                 "gid":2864,
+                 "gid":3215,
                  "height":16,
                  "id":26,
                  "name":"dragon3",
@@ -228,7 +228,7 @@
                  "y":51.6667
                 }, 
                 {
-                 "gid":2864,
+                 "gid":3215,
                  "height":16,
                  "id":51,
                  "name":"dragon2",
@@ -256,7 +256,7 @@
                  "y":224
                 }, 
                 {
-                 "gid":2864,
+                 "gid":3215,
                  "height":16,
                  "id":52,
                  "name":"dragon1",
@@ -439,6 +439,19 @@
          "name":"Effect1",
          "spacing":0,
          "tilecount":208,
+         "tileheight":16,
+         "tilewidth":16
+        }, 
+        {
+         "columns":8,
+         "firstgid":3096,
+         "image":"..\/DawnLike\/Characters\/Player0.png",
+         "imageheight":240,
+         "imagewidth":128,
+         "margin":0,
+         "name":"Player0",
+         "spacing":0,
+         "tilecount":120,
          "tileheight":16,
          "tilewidth":16
         }],

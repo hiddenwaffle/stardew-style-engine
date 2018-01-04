@@ -30,6 +30,9 @@
  <tileset firstgid="2888" name="Effect1" tilewidth="16" tileheight="16" tilecount="208" columns="8">
   <image source="../DawnLike/Objects/Effect1.png" width="128" height="416"/>
  </tileset>
+ <tileset firstgid="3096" name="Player0" tilewidth="16" tileheight="16" tilecount="120" columns="8">
+  <image source="../DawnLike/Characters/Player0.png" width="128" height="240"/>
+ </tileset>
  <layer name="grass" width="20" height="19">
   <data encoding="csv">
 156,156,156,156,156,156,134,156,156,156,156,156,156,156,156,156,156,156,156,156,
@@ -304,7 +307,7 @@
 </data>
  </layer>
  <objectgroup name="entities">
-  <object id="26" name="dragon3" gid="2864" x="192" y="240" width="16" height="16">
+  <object id="26" name="dragon3" gid="3215" x="192" y="240" width="16" height="16">
    <properties>
     <property name="animationGroupName" value="dl-player-7-12"/>
     <property name="clickCall-talk" value="global.narrate Hello, I am a dragon."/>
@@ -320,7 +323,7 @@
     <property name="pushable" type="bool" value="false"/>
    </properties>
   </object>
-  <object id="51" name="dragon2" gid="2864" x="160" y="224" width="16" height="16">
+  <object id="51" name="dragon2" gid="3215" x="160" y="224" width="16" height="16">
    <properties>
     <property name="animationGroupName" value="dl-player-7-12"/>
     <property name="clickCall-talk" value="global.narrate Hello, I am a dragon."/>
@@ -329,7 +332,7 @@
     <property name="movementType" value="Wander"/>
    </properties>
   </object>
-  <object id="52" name="dragon1" gid="2864" x="112" y="224" width="16" height="16">
+  <object id="52" name="dragon1" gid="3215" x="112" y="224" width="16" height="16">
    <properties>
     <property name="animationGroupName" value="dl-player-7-12"/>
     <property name="clickCall-talk" value="global.narrate Hello, I am a dragon."/>
