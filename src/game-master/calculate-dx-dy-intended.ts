@@ -115,7 +115,7 @@ function headTowardsTarget(world: World, entity: Entity) {
     entity.facing,
     entity.directionsOfFreedom,
   );
-  tryAnimationSwitch(entity, true); // TODO: Wandering = walk animation, right?
+  tryAnimationSwitch(entity, false); // TODO: Wandering = walk animation, right?
 
   // Already at destination
   if (dx === 0 && dy === 0) {
