@@ -33,6 +33,8 @@ import wall     from 'src/external/DawnLike/Objects/Wall.png';
 
 import antifarea from 'src/external/antifarea_18x20chars.png';
 
+import metacolors  from 'src/external/metacolors.png';
+
 export class SheetConfig {
   readonly path: string;
   readonly tileWidth: number;
@@ -102,6 +104,8 @@ class ImageLoader {
     this.configs.set('Wall.png',    genConfig(wall));
 
     this.configs.set('antifarea_18x20chars.png',   genConfig(antifarea, 18, 20));
+
+    this.configs.set('metacolors.png', genConfig(metacolors));
   }
 
   // prepare(rawImagePath: string) {
