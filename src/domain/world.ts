@@ -40,8 +40,7 @@ export class World {
   async switchMap(mapId: string, entranceName?: string) {
     gameState.switch(State.Loading);
     this.staticMap = await fetchMap(mapId);
-    this._entities.clear(); // TODO: Best place for this?
-    this.placeEntities();
+    this.resetEntities();
 
     // Prepare the images for tiles AND entities.
     const tilesetRawImagePaths = this.staticMap.tilesets.map((tileset) => tileset.image);
@@ -138,7 +137,9 @@ export class World {
     return Array.from(this._entities.values());
   }
 
-  private placeEntities() {
+  private resetEntities() {
+    this._entities.clear();
+    
     // TODO: Is this the right place for it?
     this.addEntity(this.player.entity);
 
