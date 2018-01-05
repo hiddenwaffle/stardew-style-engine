@@ -10,16 +10,18 @@ export class Player {
   constructor(save: SavePlayer) {
     this.entity = new Entity({
       animationGroupName: 'af-pirate-red',
-      facing: save.entity.facing,
+      facing: save.facing,
       pushable: true,
-      x: save.entity.x,
-      y: save.entity.y,
+      x: save.x,
+      y: save.y,
     });
   }
 
   extractSave(): SavePlayer {
     return new SavePlayer(
-      this.entity.extractSave(),
+      this.entity.x,
+      this.entity.y,
+      this.entity.facing
     );
   }
 

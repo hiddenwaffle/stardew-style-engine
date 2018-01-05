@@ -3,7 +3,6 @@ import {
   TARGET_FIELD_TILE_SIZE,
   UPSCALE,
 } from 'src/constants';
-import { SaveEntity } from 'src/session/save';
 import { ScriptCall } from 'src/game-master/script-call';
 import { timer } from 'src/session/timer';
 import {
@@ -244,10 +243,6 @@ export class Entity {
       top2    < bottom1 &&
       bottom2 > top1
     );
-  }
-
-  extractSave(): SaveEntity {
-    return new SaveEntity(this.x, this.y, this.facing);
   }
 
   get id(): number {
