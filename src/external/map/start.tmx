@@ -346,6 +346,6 @@
   </object>
  </objectgroup>
  <objectgroup name="@entrances">
-  <object id="47" name="center" gid="844" x="111" y="107" width="16" height="16"/>
+  <object id="47" name="center" gid="844" x="64" y="96" width="16" height="16"/>
  </objectgroup>
 </map>
