@@ -14,6 +14,9 @@ class Session {
     controller.start();
     await stageManager.start();
     narrator.start();
+
+    // Finally, make everything visible.
+    uiStructure.revealContainer();
   }
 
   /**

@@ -32,8 +32,13 @@ class UiStructure {
 
     window.addEventListener('resize', this.resizeHandler.bind(this), false);
     this.resizeHandler();
+  }
 
-    // UI is set up; allow it to be displayed
+  /**
+   * Intended to be called once all initializion is complete, files
+   * are loaded, and the first frame is ready to be rendered().
+   */
+  revealContainer() {
     dynamicResizeContainer.style.opacity = '1';
     dynamicResizeContainer.style.transition = 'opacity 0.25s ease-in';
   }
