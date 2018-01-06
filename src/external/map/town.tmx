@@ -139,7 +139,7 @@
   </object>
   <object id="6" name="example-portal-out-3" gid="844" x="224.333" y="80" width="16" height="16">
    <properties>
-    <property name="collisionCall" value="global.switchMap start center"/>
+    <property name="collisionCall" value="global.switchMap cave left"/>
     <property name="hidden" type="bool" value="true"/>
    </properties>
   </object>

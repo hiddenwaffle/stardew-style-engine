@@ -1,5 +1,6 @@
 import start  from 'src/external/map/start.map.json';
 import town   from 'src/external/map/town.map.json';
+import cave   from 'src/external/map/cave.map.json';
 // TODO: More maps
 
 class MapLoader {
@@ -11,7 +12,8 @@ class MapLoader {
 
     this.paths = new Map();
     this.paths.set('start', start);
-    this.paths.set('town', town);
+    this.paths.set('town',  town);
+    this.paths.set('cave',  cave);
   }
 
   fetch(mapId: string): Promise<any> {

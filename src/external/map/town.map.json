@@ -170,7 +170,7 @@
                  "name":"example-portal-out-3",
                  "properties":
                     {
-                     "collisionCall":"global.switchMap start center",
+                     "collisionCall":"global.switchMap cave left",
                      "hidden":true
                     },
                  "propertytypes":
