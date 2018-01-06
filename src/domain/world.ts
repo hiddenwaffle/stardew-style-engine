@@ -14,6 +14,7 @@ import {
 } from 'src/ui/pointer';
 import { ObjectHint } from 'src/domain/object-hint';
 import { Tileset } from 'src/domain/tileset';
+import { tokenize } from 'src/script';
 
 export class World {
   private readonly initialMapId: string;
@@ -41,15 +42,11 @@ export class World {
 
   async switchMap(mapId: string, entranceName?: string) {
     gameState.switch(State.SwitchingMap);
-    const staticMap = await fetchMap(mapId);
 
-    // Calculate entities from hints.
-    const entities = objectHintsToEntities(staticMap.objectHints);
-    // Do not forget the player.
-    entities.push(this.player.entity); // Best place for this?
-
-    // Prepare images
-    await prepareImages(staticMap.tilesets, entities);
+    const [staticMap, entities] = await fetchMapEntitiesAndPrepareImages(
+      mapId,
+      this.player,
+    );
 
     // Replace the map.
     this.staticMap = staticMap;
@@ -74,6 +71,8 @@ export class World {
     }
 
     gameState.switch(State.Ready);
+
+    backgroundLoadKnownMapTransitions(staticMap, entities);
 
     if (this.staticMap.startCall) {
       new ScriptCall(this.staticMap.startCall).execute(this);
@@ -174,6 +173,25 @@ export class World {
   }
 }
 
+async function fetchMapEntitiesAndPrepareImages(
+  mapId: string,
+  player?: Player,
+): Promise<[StaticMap, Entity[]]> {
+  const [staticMap, entities] = await fetchMapAndEntities(mapId);
+  if (player) {
+    // TODO: Is this a good place for this?
+    entities.push(player.entity); // Do not forget the player, if given.
+  }
+  await prepareImages(staticMap.tilesets, entities);
+  return [staticMap, entities];
+}
+
+async function fetchMapAndEntities(mapId: string): Promise<[StaticMap, Entity[]]> {
+  const staticMap = await fetchMap(mapId);
+  const entities = objectHintsToEntities(staticMap.objectHints);
+  return [staticMap, entities];
+}
+
 async function fetchMap(mapId: string): Promise<StaticMap> {
   return new Promise<StaticMap>((resolve, reject) => {
     mapLoader.fetch(mapId).then((rawMap: any) => {
@@ -223,4 +241,72 @@ function objectHintToEntity(hint: ObjectHint): Entity {
     y: hint.y,
   });
   return entity;
+}
+
+/**
+ * Based on: https://stackoverflow.com/a/41791149
+ * TODO: Add type annotations? Factor out to utility file?
+ *
+ * @param items An array of items.
+ * @param fn A function that accepts an item from the array and returns a promise.
+ * @returns {Promise}
+ */
+function forEachPromise(items: any, fn: any) {
+  return items.reduce(function (promise: any, item: any) {
+    return promise.then(function () {
+      return fn(item);
+    });
+  }, Promise.resolve());
+}
+
+/**
+ * This should find many, but not all, places where switchMap()
+ * could be called by examining certain properties.
+ *
+ * Notice that this calls async functions without using await.
+ *
+ * There is a very small chance that image loads could be duplicated
+ * if the game initiates a switchMap() while image loads are occurring
+ * in the async calls in this function.
+ */
+function backgroundLoadKnownMapTransitions(staticMap: StaticMap, entities: Entity[]) {
+  const mapIds: Set<string> = new Set();
+
+  findMapId(staticMap.startCall, mapIds); // Unlikely, but here for completeness.
+
+  for (const layer of staticMap.collisionLayers) {
+    findMapId(layer.clickCall, mapIds);
+    findMapId(layer.upCall, mapIds);
+    findMapId(layer.downCall, mapIds);
+    findMapId(layer.leftCall, mapIds);
+    findMapId(layer.rightCall, mapIds);
+    findMapId(layer.collisionCall, mapIds);
+  }
+
+  for (const entity of entities) {
+    findMapId(entity.clickCall, mapIds);
+    findMapId(entity.entityToEntityCollisionCall, mapIds);
+  }
+
+  // Sequential because the image cache will prevent duplicate requests.
+  // TODO: Test that ---------------------------------^------^------^
+  log('info', 'Map transition precaching started', Date.now());
+  forEachPromise(Array.from(mapIds.values()), fetchMapEntitiesAndPrepareImages).then(() => {
+    log('info', 'Map transition precaching completed', Date.now());
+  });
+}
+
+function findMapId(call: string, mapNames: Set<string>) {
+  if (call) {
+    const tokens = tokenize(call);
+    if (tokens.length >= 2) {
+      const scriptName = tokens[0];
+      if (scriptName === 'global.switchMap') {
+        const firstParameter = tokens[1]; // Should be map name
+        if (firstParameter) {
+          mapNames.add(firstParameter);
+        }
+      }
+    }
+  }
 }

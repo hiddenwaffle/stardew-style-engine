@@ -13,7 +13,7 @@ class Script {
 
   execute(name: string, ctx: ScriptCallContext) {
     if (name) {
-      const tokens = name.split(' ');
+      const tokens = tokenize(name);
       if (tokens.length >= 1) {
         const path = tokens.shift().split('.');
         this.root.execute(path, tokens, ctx);
@@ -25,3 +25,7 @@ class Script {
 }
 
 export const script = new Script();
+
+export function tokenize(name: string): string[] {
+  return name ? name.split(' ') : [];
+}
