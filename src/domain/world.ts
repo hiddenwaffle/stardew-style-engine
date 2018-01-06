@@ -289,7 +289,6 @@ function backgroundLoadKnownMapTransitions(staticMap: StaticMap, entities: Entit
   }
 
   // Sequential because the image cache will prevent duplicate requests.
-  // TODO: Test that ---------------------------------^------^------^
   log('info', 'Map transition precaching started', Date.now());
   forEachPromise(Array.from(mapIds.values()), fetchMapEntitiesAndPrepareImages).then(() => {
     log('info', 'Map transition precaching completed', Date.now());
