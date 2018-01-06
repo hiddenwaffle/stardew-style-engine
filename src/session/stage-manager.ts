@@ -29,7 +29,9 @@ class StageManager {
   }
 
   step() {
-    gameMaster.advance(this.world);
+    if (gameState.state === State.Ready) {
+      gameMaster.advance(this.world);
+    }
     render.step(this.world);
   }
 

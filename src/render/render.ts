@@ -44,7 +44,7 @@ class Render {
   step(world: World) {
     if (gameState.state === State.Ready) {
       renderWorld(world);
-    } else if (gameState.state === State.Loading) {
+    } else if (gameState.state === State.SwitchingMap) {
       // Draw loading animation
     }
   }

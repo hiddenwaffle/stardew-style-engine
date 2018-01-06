@@ -12,6 +12,8 @@ import {
   PointerType,
   pointer,
 } from 'src/ui/pointer';
+import { ObjectHint } from 'src/domain/object-hint';
+import { Tileset } from 'src/domain/tileset';
 
 export class World {
   private readonly initialMapId: string;
@@ -38,24 +40,27 @@ export class World {
   }
 
   async switchMap(mapId: string, entranceName?: string) {
-    gameState.switch(State.Loading);
-    this.staticMap = await fetchMap(mapId);
-    this.resetEntities();
+    gameState.switch(State.SwitchingMap);
+    const staticMap = await fetchMap(mapId);
 
-    // Prepare the images for tiles AND entities.
-    const tilesetRawImagePaths = this.staticMap.tilesets.map((tileset) => tileset.image);
-    const entitiesRawImagePaths = new Set();
-    this._entities.forEach((entity) => {
-      entity.rawImagePaths.forEach((rawImagePath) => {
-        entitiesRawImagePaths.add(rawImagePath);
-      });
-    });
-    const rawImagePaths = [].concat(
-      tilesetRawImagePaths,
-      Array.from(entitiesRawImagePaths),
-    );
-    await imageLoader.prepareAll(rawImagePaths);
+    // Calculate entities from hints.
+    const entities = objectHintsToEntities(staticMap.objectHints);
+    // Do not forget the player.
+    entities.push(this.player.entity); // Best place for this?
 
+    // Prepare images
+    await prepareImages(staticMap.tilesets, entities);
+
+    // Replace the map.
+    this.staticMap = staticMap;
+
+    // Replace the entities.
+    this._entities.clear();
+    for (const entity of entities) {
+      this._entities.set(entity.id, entity);
+    }
+
+    // Replace the location of the player.
     if (entranceName) {
       const entrance = this.staticMap.entrances.find((entranceCandidate) => {
         return entranceCandidate.name === entranceName;
@@ -137,31 +142,6 @@ export class World {
     return Array.from(this._entities.values());
   }
 
-  private resetEntities() {
-    this._entities.clear();
-    
-    // TODO: Is this the right place for it?
-    this.addEntity(this.player.entity);
-
-    for (const objectHint of this.staticMap.objectHints) {
-      const entity = new Entity({
-        animationGroupName: objectHint.animationGroupName,
-        clickCall: objectHint.clickCall,
-        defaultTile: objectHint.defaultTile,
-        entityToEntityCollisionCall: objectHint.collisionCall,
-        entityToEntityCollisionCallInterval: objectHint.collisionCallInterval,
-        hidden: objectHint.hidden,
-        mouseoverPointerType: objectHint.mouseoverPointerType,
-        movementType: objectHint.movementType,
-        name: objectHint.name,
-        pushable: objectHint.pushable,
-        x: objectHint.x,
-        y: objectHint.y,
-      });
-      this.addEntity(entity);
-    }
-  }
-
   /**
    * At least one of the return values will be null, and possibly both.
    */
@@ -201,4 +181,46 @@ async function fetchMap(mapId: string): Promise<StaticMap> {
     });
     // TODO: Handle error?
   });
+}
+
+async function prepareImages(tilesets: Tileset[], entities: Entity[]) {
+  // Prepare the images for tiles AND entities.
+  const tilesetRawImagePaths = tilesets.map((tileset) => tileset.image);
+  const entitiesRawImagePaths = new Set();
+  entities.forEach((entity) => {
+    entity.rawImagePaths.forEach((rawImagePath) => {
+      entitiesRawImagePaths.add(rawImagePath);
+    });
+  });
+  const rawImagePaths = [].concat(
+    tilesetRawImagePaths,
+    Array.from(entitiesRawImagePaths),
+  );
+  await imageLoader.prepareAll(rawImagePaths);
+}
+
+function objectHintsToEntities(hints: ObjectHint[]): Entity[] {
+  const entities: Entity[] = [];
+  for (const hint of hints) {
+    entities.push(objectHintToEntity(hint));
+  }
+  return entities;
+}
+
+function objectHintToEntity(hint: ObjectHint): Entity {
+  const entity = new Entity({
+    animationGroupName: hint.animationGroupName,
+    clickCall: hint.clickCall,
+    defaultTile: hint.defaultTile,
+    entityToEntityCollisionCall: hint.collisionCall,
+    entityToEntityCollisionCallInterval: hint.collisionCallInterval,
+    hidden: hint.hidden,
+    mouseoverPointerType: hint.mouseoverPointerType,
+    movementType: hint.movementType,
+    name: hint.name,
+    pushable: hint.pushable,
+    x: hint.x,
+    y: hint.y,
+  });
+  return entity;
 }

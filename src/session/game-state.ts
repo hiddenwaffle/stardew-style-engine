@@ -1,7 +1,7 @@
 export const enum State {
   Initializing,
   Ready,
-  Loading,
+  SwitchingMap,
 }
 
 class GameState {
