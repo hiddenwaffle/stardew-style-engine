@@ -24,4 +24,6 @@ export const CONTAINER_ASPECT_HEIGHT = 9;
 export const FONT_BASE_SIZE = 5.25 * UPSCALE;
 
 export const SAVE_KEY = 'simplicity';
-export const SAVE_VERSION = 2;
+export const SAVE_VERSION = 3;
+
+export const PLAYER_ENTITY_NAME = '@player';

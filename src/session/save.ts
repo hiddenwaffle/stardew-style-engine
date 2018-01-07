@@ -1,5 +1,8 @@
 import { Direction } from 'src/domain/direction';
 
+/**
+ * TOOD: Maybe extract the defaults out to better comprehend the initial state.
+ */
 export class SaveEntity {
   name: string;
   x: number;
@@ -23,29 +26,25 @@ export class SaveStaticMap {
 }
 
 export class SavePlayer {
-    x: number;
-    y: number;
-    facing: string;
+    animationGroupName: string;
 
-    constructor(x?: number, y?: number, facing?: Direction) {
-      this.x = x || 100; // TODO: Default is an arbitary number
-      this.y = y || 100; // TODO: Default is an arbitrary number
-      this.facing = Direction[facing] || Direction[Direction.Left];
+    constructor(animationGroupName?: string) {
+      this.animationGroupName = animationGroupName || 'af-pirate-red'; // TODO: Default is pirate
     }
 }
 
 export class SaveWorld {
-  staticMap: SaveStaticMap;
   player: SavePlayer;
+  staticMap: SaveStaticMap;
   entities: SaveEntity[];
 
   constructor(
-    staticMap?: SaveStaticMap,
     player?: SavePlayer,
+    staticMap?: SaveStaticMap,
     entities?: SaveEntity[]
   ) {
-    this.staticMap = staticMap || new SaveStaticMap();
     this.player = player || new SavePlayer();
+    this.staticMap = staticMap || new SaveStaticMap();
     this.entities = entities || [];
   }
 }

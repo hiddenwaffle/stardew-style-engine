@@ -298,6 +298,10 @@ export class Entity {
     return !!this.animationGroup;
   }
 
+  get animationGroupName(): string {
+    return this.animationGroup && this.animationGroup.name || 'none'; // TODO: Something other than 'none'?
+  }
+
   get movementPlan(): MovementPlan {
     return this._movementPlan;
   }

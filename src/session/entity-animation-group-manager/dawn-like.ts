@@ -5,97 +5,97 @@ export function dawnLike(): Map<string, EntityAnimationGroup> {
 
   const playerFilenames = ['Player0.png', 'Player1.png'];
   // Row 0
-  groups.set('dl-player-0-0', genGroup(0, 0, playerFilenames));
-  groups.set('dl-player-1-0', genGroup(1, 0, playerFilenames));
-  groups.set('dl-player-2-0', genGroup(2, 0, playerFilenames));
-  groups.set('dl-player-3-0', genGroup(3, 0, playerFilenames));
-  groups.set('dl-player-4-0', genGroup(4, 0, playerFilenames));
-  groups.set('dl-player-5-0', genGroup(5, 0, playerFilenames));
-  groups.set('dl-player-6-0', genGroup(6, 0, playerFilenames));
-  groups.set('dl-player-7-0', genGroup(7, 0, playerFilenames));
+  groups.set('dl-player-0-0', genGroup(0, 0, playerFilenames, 'dl-player-0-0'));
+  groups.set('dl-player-1-0', genGroup(1, 0, playerFilenames, 'dl-player-1-0'));
+  groups.set('dl-player-2-0', genGroup(2, 0, playerFilenames, 'dl-player-2-0'));
+  groups.set('dl-player-3-0', genGroup(3, 0, playerFilenames, 'dl-player-3-0'));
+  groups.set('dl-player-4-0', genGroup(4, 0, playerFilenames, 'dl-player-4-0'));
+  groups.set('dl-player-5-0', genGroup(5, 0, playerFilenames, 'dl-player-5-0'));
+  groups.set('dl-player-6-0', genGroup(6, 0, playerFilenames, 'dl-player-6-0'));
+  groups.set('dl-player-7-0', genGroup(7, 0, playerFilenames, 'dl-player-7-0'));
   // Row 1
-  groups.set('dl-player-0-1', genGroup(0, 1, playerFilenames));
-  groups.set('dl-player-1-1', genGroup(1, 1, playerFilenames));
-  groups.set('dl-player-2-1', genGroup(2, 1, playerFilenames));
-  groups.set('dl-player-3-1', genGroup(3, 1, playerFilenames));
-  groups.set('dl-player-4-1', genGroup(4, 1, playerFilenames));
-  groups.set('dl-player-5-1', genGroup(5, 1, playerFilenames));
-  groups.set('dl-player-6-1', genGroup(6, 1, playerFilenames));
-  groups.set('dl-player-7-1', genGroup(7, 1, playerFilenames));
+  groups.set('dl-player-0-1', genGroup(0, 1, playerFilenames, 'dl-player-0-1'));
+  groups.set('dl-player-1-1', genGroup(1, 1, playerFilenames, 'dl-player-1-1'));
+  groups.set('dl-player-2-1', genGroup(2, 1, playerFilenames, 'dl-player-2-1'));
+  groups.set('dl-player-3-1', genGroup(3, 1, playerFilenames, 'dl-player-3-1'));
+  groups.set('dl-player-4-1', genGroup(4, 1, playerFilenames, 'dl-player-4-1'));
+  groups.set('dl-player-5-1', genGroup(5, 1, playerFilenames, 'dl-player-5-1'));
+  groups.set('dl-player-6-1', genGroup(6, 1, playerFilenames, 'dl-player-6-1'));
+  groups.set('dl-player-7-1', genGroup(7, 1, playerFilenames, 'dl-player-7-1'));
   // Row 2 (blank)
   // Row 3
-  groups.set('dl-player-0-3', genGroup(0, 3, playerFilenames));
-  groups.set('dl-player-1-3', genGroup(1, 3, playerFilenames));
-  groups.set('dl-player-2-3', genGroup(2, 3, playerFilenames));
-  groups.set('dl-player-3-3', genGroup(3, 3, playerFilenames));
-  groups.set('dl-player-4-3', genGroup(4, 3, playerFilenames));
-  groups.set('dl-player-5-3', genGroup(5, 3, playerFilenames));
-  groups.set('dl-player-6-3', genGroup(6, 3, playerFilenames));
-  groups.set('dl-player-7-3', genGroup(7, 3, playerFilenames));
+  groups.set('dl-player-0-3', genGroup(0, 3, playerFilenames, 'dl-player-0-3'));
+  groups.set('dl-player-1-3', genGroup(1, 3, playerFilenames, 'dl-player-1-3'));
+  groups.set('dl-player-2-3', genGroup(2, 3, playerFilenames, 'dl-player-2-3'));
+  groups.set('dl-player-3-3', genGroup(3, 3, playerFilenames, 'dl-player-3-3'));
+  groups.set('dl-player-4-3', genGroup(4, 3, playerFilenames, 'dl-player-4-3'));
+  groups.set('dl-player-5-3', genGroup(5, 3, playerFilenames, 'dl-player-5-3'));
+  groups.set('dl-player-6-3', genGroup(6, 3, playerFilenames, 'dl-player-6-3'));
+  groups.set('dl-player-7-3', genGroup(7, 3, playerFilenames, 'dl-player-7-3'));
   // Row 4
-  groups.set('dl-player-0-4', genGroup(0, 4, playerFilenames));
-  groups.set('dl-player-1-4', genGroup(1, 4, playerFilenames));
-  groups.set('dl-player-2-4', genGroup(2, 4, playerFilenames));
-  groups.set('dl-player-3-4', genGroup(3, 4, playerFilenames));
-  groups.set('dl-player-4-4', genGroup(4, 4, playerFilenames));
-  groups.set('dl-player-5-4', genGroup(5, 4, playerFilenames));
-  groups.set('dl-player-6-4', genGroup(6, 4, playerFilenames));
-  groups.set('dl-player-7-4', genGroup(7, 4, playerFilenames));
+  groups.set('dl-player-0-4', genGroup(0, 4, playerFilenames, 'dl-player-0-4'));
+  groups.set('dl-player-1-4', genGroup(1, 4, playerFilenames, 'dl-player-1-4'));
+  groups.set('dl-player-2-4', genGroup(2, 4, playerFilenames, 'dl-player-2-4'));
+  groups.set('dl-player-3-4', genGroup(3, 4, playerFilenames, 'dl-player-3-4'));
+  groups.set('dl-player-4-4', genGroup(4, 4, playerFilenames, 'dl-player-4-4'));
+  groups.set('dl-player-5-4', genGroup(5, 4, playerFilenames, 'dl-player-5-4'));
+  groups.set('dl-player-6-4', genGroup(6, 4, playerFilenames, 'dl-player-6-4'));
+  groups.set('dl-player-7-4', genGroup(7, 4, playerFilenames, 'dl-player-7-4'));
   // Row 5
-  groups.set('dl-player-0-5', genGroup(0, 5, playerFilenames));
-  groups.set('dl-player-1-5', genGroup(1, 5, playerFilenames));
-  groups.set('dl-player-2-5', genGroup(2, 5, playerFilenames));
+  groups.set('dl-player-0-5', genGroup(0, 5, playerFilenames, 'dl-player-0-5'));
+  groups.set('dl-player-1-5', genGroup(1, 5, playerFilenames, 'dl-player-1-5'));
+  groups.set('dl-player-2-5', genGroup(2, 5, playerFilenames, 'dl-player-2-5'));
   // Row 6 (blank)
   // Row 7
-  groups.set('dl-player-0-7', genGroup(0, 7, playerFilenames));
-  groups.set('dl-player-1-7', genGroup(1, 7, playerFilenames));
-  groups.set('dl-player-2-7', genGroup(2, 7, playerFilenames));
-  groups.set('dl-player-3-7', genGroup(3, 7, playerFilenames));
-  groups.set('dl-player-4-7', genGroup(4, 7, playerFilenames));
-  groups.set('dl-player-5-7', genGroup(5, 7, playerFilenames));
-  groups.set('dl-player-6-7', genGroup(6, 7, playerFilenames));
-  groups.set('dl-player-7-7', genGroup(7, 7, playerFilenames));
+  groups.set('dl-player-0-7', genGroup(0, 7, playerFilenames, 'dl-player-0-7'));
+  groups.set('dl-player-1-7', genGroup(1, 7, playerFilenames, 'dl-player-1-7'));
+  groups.set('dl-player-2-7', genGroup(2, 7, playerFilenames, 'dl-player-2-7'));
+  groups.set('dl-player-3-7', genGroup(3, 7, playerFilenames, 'dl-player-3-7'));
+  groups.set('dl-player-4-7', genGroup(4, 7, playerFilenames, 'dl-player-4-7'));
+  groups.set('dl-player-5-7', genGroup(5, 7, playerFilenames, 'dl-player-5-7'));
+  groups.set('dl-player-6-7', genGroup(6, 7, playerFilenames, 'dl-player-6-7'));
+  groups.set('dl-player-7-7', genGroup(7, 7, playerFilenames, 'dl-player-7-7'));
   // Row 8
-  groups.set('dl-player-0-8', genGroup(0, 8, playerFilenames));
-  groups.set('dl-player-1-8', genGroup(1, 8, playerFilenames));
-  groups.set('dl-player-2-8', genGroup(2, 8, playerFilenames));
-  groups.set('dl-player-3-8', genGroup(3, 8, playerFilenames));
-  groups.set('dl-player-4-8', genGroup(4, 8, playerFilenames));
-  groups.set('dl-player-5-8', genGroup(5, 8, playerFilenames));
-  groups.set('dl-player-6-8', genGroup(6, 8, playerFilenames));
-  groups.set('dl-player-7-8', genGroup(7, 8, playerFilenames));
+  groups.set('dl-player-0-8', genGroup(0, 8, playerFilenames, 'dl-player-0-8'));
+  groups.set('dl-player-1-8', genGroup(1, 8, playerFilenames, 'dl-player-1-8'));
+  groups.set('dl-player-2-8', genGroup(2, 8, playerFilenames, 'dl-player-2-8'));
+  groups.set('dl-player-3-8', genGroup(3, 8, playerFilenames, 'dl-player-3-8'));
+  groups.set('dl-player-4-8', genGroup(4, 8, playerFilenames, 'dl-player-4-8'));
+  groups.set('dl-player-5-8', genGroup(5, 8, playerFilenames, 'dl-player-5-8'));
+  groups.set('dl-player-6-8', genGroup(6, 8, playerFilenames, 'dl-player-6-8'));
+  groups.set('dl-player-7-8', genGroup(7, 8, playerFilenames, 'dl-player-7-8'));
   // Row 9  (blank)
   // Row 10 (blank)
   // Row 11
-  groups.set('dl-player-0-11', genGroup(0, 11, playerFilenames));
-  groups.set('dl-player-1-11', genGroup(1, 11, playerFilenames));
-  groups.set('dl-player-2-11', genGroup(2, 11, playerFilenames));
-  groups.set('dl-player-3-11', genGroup(3, 11, playerFilenames));
-  groups.set('dl-player-4-11', genGroup(4, 11, playerFilenames));
-  groups.set('dl-player-5-11', genGroup(5, 11, playerFilenames));
-  groups.set('dl-player-6-11', genGroup(6, 11, playerFilenames));
-  groups.set('dl-player-7-11', genGroup(7, 11, playerFilenames));
+  groups.set('dl-player-0-11', genGroup(0, 11, playerFilenames, 'dl-player-0-11'));
+  groups.set('dl-player-1-11', genGroup(1, 11, playerFilenames, 'dl-player-1-11'));
+  groups.set('dl-player-2-11', genGroup(2, 11, playerFilenames, 'dl-player-2-11'));
+  groups.set('dl-player-3-11', genGroup(3, 11, playerFilenames, 'dl-player-3-11'));
+  groups.set('dl-player-4-11', genGroup(4, 11, playerFilenames, 'dl-player-4-11'));
+  groups.set('dl-player-5-11', genGroup(5, 11, playerFilenames, 'dl-player-5-11'));
+  groups.set('dl-player-6-11', genGroup(6, 11, playerFilenames, 'dl-player-6-11'));
+  groups.set('dl-player-7-11', genGroup(7, 11, playerFilenames, 'dl-player-7-11'));
   // Row 12
-  groups.set('dl-player-0-12', genGroup(0, 12, playerFilenames));
-  groups.set('dl-player-1-12', genGroup(1, 12, playerFilenames));
-  groups.set('dl-player-2-12', genGroup(2, 12, playerFilenames));
-  groups.set('dl-player-3-12', genGroup(3, 12, playerFilenames));
-  groups.set('dl-player-4-12', genGroup(4, 12, playerFilenames));
-  groups.set('dl-player-5-12', genGroup(5, 12, playerFilenames));
-  groups.set('dl-player-6-12', genGroup(6, 12, playerFilenames));
-  groups.set('dl-player-7-12', genGroup(7, 12, playerFilenames));
+  groups.set('dl-player-0-12', genGroup(0, 12, playerFilenames, 'dl-player-0-12'));
+  groups.set('dl-player-1-12', genGroup(1, 12, playerFilenames, 'dl-player-1-12'));
+  groups.set('dl-player-2-12', genGroup(2, 12, playerFilenames, 'dl-player-2-12'));
+  groups.set('dl-player-3-12', genGroup(3, 12, playerFilenames, 'dl-player-3-12'));
+  groups.set('dl-player-4-12', genGroup(4, 12, playerFilenames, 'dl-player-4-12'));
+  groups.set('dl-player-5-12', genGroup(5, 12, playerFilenames, 'dl-player-5-12'));
+  groups.set('dl-player-6-12', genGroup(6, 12, playerFilenames, 'dl-player-6-12'));
+  groups.set('dl-player-7-12', genGroup(7, 12, playerFilenames, 'dl-player-7-12'));
   // Row 13
-  groups.set('dl-player-0-13', genGroup(0, 13, playerFilenames));
-  groups.set('dl-player-1-13', genGroup(1, 13, playerFilenames));
+  groups.set('dl-player-0-13', genGroup(0, 13, playerFilenames, 'dl-player-0-13'));
+  groups.set('dl-player-1-13', genGroup(1, 13, playerFilenames, 'dl-player-1-13'));
   // Row 14
-  groups.set('dl-player-0-12', genGroup(0, 14, playerFilenames));
-  groups.set('dl-player-1-12', genGroup(1, 14, playerFilenames));
-  groups.set('dl-player-2-12', genGroup(2, 14, playerFilenames));
-  groups.set('dl-player-3-12', genGroup(3, 14, playerFilenames));
-  groups.set('dl-player-4-12', genGroup(4, 14, playerFilenames));
-  groups.set('dl-player-5-12', genGroup(5, 14, playerFilenames));
-  groups.set('dl-player-6-12', genGroup(6, 14, playerFilenames));
-  groups.set('dl-player-7-12', genGroup(7, 14, playerFilenames));
+  groups.set('dl-player-0-12', genGroup(0, 14, playerFilenames, 'dl-player-0-12'));
+  groups.set('dl-player-1-12', genGroup(1, 14, playerFilenames, 'dl-player-1-12'));
+  groups.set('dl-player-2-12', genGroup(2, 14, playerFilenames, 'dl-player-2-12'));
+  groups.set('dl-player-3-12', genGroup(3, 14, playerFilenames, 'dl-player-3-12'));
+  groups.set('dl-player-4-12', genGroup(4, 14, playerFilenames, 'dl-player-4-12'));
+  groups.set('dl-player-5-12', genGroup(5, 14, playerFilenames, 'dl-player-5-12'));
+  groups.set('dl-player-6-12', genGroup(6, 14, playerFilenames, 'dl-player-6-12'));
+  groups.set('dl-player-7-12', genGroup(7, 14, playerFilenames, 'dl-player-7-12'));
 
   return groups;
 }
@@ -103,8 +103,8 @@ export function dawnLike(): Map<string, EntityAnimationGroup> {
 /**
  * Should match the structure of *.json files.
  */
-function genGroup(xoff: number, yoff: number, filenames: string[]): EntityAnimationGroup {
-  return new EntityAnimationGroup({
+function genGroup(xoff: number, yoff: number, filenames: string[], name: string): EntityAnimationGroup {
+  return new EntityAnimationGroup(name, {
     animations: genRawAnimations(xoff, yoff),
     filenames,
   });

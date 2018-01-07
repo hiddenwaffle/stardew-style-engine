@@ -36,11 +36,13 @@ export class EntityAnimation {
 }
 
 export class EntityAnimationGroup {
+  name: string;
   readonly imagePaths: string[];
   private readonly animations: Map<string, EntityAnimation>;
   private readonly _directionsOfFreedom: DirectionsOfFreedom;
 
-  constructor(rawFile: any) {
+  constructor(name: string, rawFile: any) {
+    this.name = name;
     this.imagePaths = rawFile.filenames;
     this.animations = new Map();
     for (const rawAnimation of rawFile.animations) {

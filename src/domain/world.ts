@@ -37,6 +37,8 @@ export class World {
 
   async start() {
     await this.switchMap(this.initialMapId);
+
+    // Apply save file to the entities created by switchMap()
     for (const save of this.initialEntityStates) {
       const entity = Array.from(this._entities.values()).find((entityCandidate) => {
         return entityCandidate.name === save.name;
@@ -45,9 +47,6 @@ export class World {
         entity.start(save);
       }
     }
-    // Array.from(this._entities.values()).forEach((entity) => {
-    //   entity.start(this)
-    // });
   }
 
   step() {
@@ -152,8 +151,8 @@ export class World {
     });
 
     return new SaveWorld(
-      this.staticMap.extractSave(),
       this.player.extractSave(),
+      this.staticMap.extractSave(),
       entityStates,
     );
   }

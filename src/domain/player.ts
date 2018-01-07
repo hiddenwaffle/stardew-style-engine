@@ -3,25 +3,22 @@ import {
 } from 'src/session/save';
 import { Direction } from 'src/domain/direction';
 import { Entity } from './entity';
+import { PLAYER_ENTITY_NAME } from 'src/constants';
 
 export class Player {
   entity: Entity;
 
   constructor(save: SavePlayer) {
     this.entity = new Entity({
-      animationGroupName: 'af-pirate-red',
-      facing: save.facing,
+      name: PLAYER_ENTITY_NAME,
       pushable: true,
-      x: save.x,
-      y: save.y,
+      animationGroupName: 'af-pirate-red',
     });
   }
 
   extractSave(): SavePlayer {
     return new SavePlayer(
-      this.entity.x,
-      this.entity.y,
-      this.entity.facing
+      this.entity.animationGroupName,
     );
   }
 
