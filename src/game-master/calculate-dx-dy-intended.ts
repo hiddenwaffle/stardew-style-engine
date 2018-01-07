@@ -134,9 +134,11 @@ function headTowardsTarget(world: World, entity: Entity) {
  * Convert the given number to 1 or -1, or 0 if given 0.
  */
 function to1(value: number): number {
-  if (value === 0) {
-    return 0;
+  if (value < 0) {
+    return -1;
+  } else if (value > 0) {
+    return 1;
   } else {
-    return value / Math.abs(value);
+    return 0;
   }
 }
