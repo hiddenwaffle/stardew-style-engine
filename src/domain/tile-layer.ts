@@ -13,6 +13,8 @@ export class TileLayer {
 
   readonly tiles: number[];
 
+  readonly fringe: boolean;
+
   readonly clickCall: string;
   readonly mouseoverPointerType: PointerType;
 
@@ -32,6 +34,8 @@ export class TileLayer {
     {
       // Prevent null pointer errors
       const properties = layer.properties || {};
+
+      this.fringe = properties.fringe || false;
 
       [this.clickCall, this.mouseoverPointerType] = parseClickProperties(properties);
 
