@@ -24,6 +24,7 @@ import {
 import { nextId } from 'src/session/id-generator';
 import { PointerType } from 'src/ui/pointer';
 import { MovementPlan } from 'src/domain/movement';
+import { SaveEntity } from 'src/session/save';
 
 class CallTimer {
   private readonly call: ScriptCall;
@@ -59,6 +60,7 @@ class CallTimer {
 export class Entity {
   private _id: number;
   name: string;
+
   x: number;
   y: number;
   dxIntended: number;
@@ -86,7 +88,8 @@ export class Entity {
 
   constructor(args: any) {
     this._id = args.id || nextId();
-    this.name = args.name || 'UNKNOWN';
+    this.name = args.name || 'UNKNOWN_' + this._id; // TODO: UNKNOWN_* cannot be saved and restored.
+
     this.x = args.x || 100;
     this.y = args.y || 100;
     this.dxIntended = args.dxIntended || 0;
@@ -123,6 +126,12 @@ export class Entity {
     this.animationFrameTime = args.animationFrameTime || 0;
 
     this._movementPlan = new MovementPlan(args.movementType);
+  }
+
+  start(save: SaveEntity) {
+    this.x = save.x || this.x;
+    this.y = save.y || this.y;
+    this.facing = asDirection(save.facing) || this.facing;
   }
 
   step() {
@@ -242,6 +251,15 @@ export class Entity {
       right2  > left1   &&
       top2    < bottom1 &&
       bottom2 > top1
+    );
+  }
+
+  extractSave(): SaveEntity {
+    return new SaveEntity(
+      this.name,
+      this.x,
+      this.y,
+      this.facing,
     );
   }
 

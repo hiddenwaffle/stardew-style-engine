@@ -1,16 +1,18 @@
 import { Direction } from 'src/domain/direction';
 
-// export class SaveEntity {
-//   x: number;
-//   y: number;
-//   facing: string;
+export class SaveEntity {
+  name: string;
+  x: number;
+  y: number;
+  facing: string;
 
-//   constructor(x?: number, y?: number, facing?: Direction) {
-//     this.x = x || 100; // TODO: Default is an arbitary number
-//     this.y = y || 100; // TODO: Default is an arbitrary number
-//     this.facing = Direction[facing] || Direction[Direction.Left];
-//   }
-// }
+  constructor(name: string, x?: number, y?: number, facing?: Direction) {
+    this.name = name;
+    this.x = x || 100; // TODO: Default is an arbitary number
+    this.y = y || 100; // TODO: Default is an arbitrary number
+    this.facing = Direction[facing] || Direction[Direction.Left];
+  }
+}
 
 export class SaveStaticMap {
   mapId: string;
@@ -35,9 +37,15 @@ export class SavePlayer {
 export class SaveWorld {
   staticMap: SaveStaticMap;
   player: SavePlayer;
+  entities: SaveEntity[];
 
-  constructor(staticMap?: SaveStaticMap, player?: SavePlayer) {
+  constructor(
+    staticMap?: SaveStaticMap,
+    player?: SavePlayer,
+    entities?: SaveEntity[]
+  ) {
     this.staticMap = staticMap || new SaveStaticMap();
     this.player = player || new SavePlayer();
+    this.entities = entities || [];
   }
 }

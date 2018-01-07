@@ -1,5 +1,5 @@
 import { log } from 'src/log';
-import { SaveWorld } from 'src/session/save';
+import { SaveWorld, SaveEntity } from 'src/session/save';
 import { Player } from './player';
 import { Entity } from './entity';
 import { StaticMap } from './static-map';
@@ -17,21 +17,37 @@ import { Tileset } from 'src/domain/tileset';
 import { tokenize } from 'src/script';
 
 export class World {
-  private readonly initialMapId: string;
-  private readonly _entities: Map<number, Entity>;
   player: Player;
+
+  private readonly _entities: Map<number, Entity>;
+  private readonly initialEntityStates: SaveEntity[];
+
   staticMap: StaticMap;
+  private readonly initialMapId: string;
 
   constructor(save: SaveWorld) {
-    this._entities = new Map();
-    // TODO: Fill the entities from save file?
-    this.initialMapId = save.staticMap.mapId;
     this.player = new Player(save.player);
+
+    this._entities = new Map();
+    this.initialEntityStates = save.entities;
+
     this.staticMap = null;
+    this.initialMapId = save.staticMap.mapId;
   }
 
   async start() {
     await this.switchMap(this.initialMapId);
+    for (const save of this.initialEntityStates) {
+      const entity = Array.from(this._entities.values()).find((entityCandidate) => {
+        return entityCandidate.name === save.name;
+      });
+      if (entity) {
+        entity.start(save);
+      }
+    }
+    // Array.from(this._entities.values()).forEach((entity) => {
+    //   entity.start(this)
+    // });
   }
 
   step() {
@@ -131,9 +147,14 @@ export class World {
   }
 
   extractSave(): SaveWorld {
+    const entityStates = Array.from(this._entities.values()).map((entity) => {
+      return entity.extractSave();
+    });
+
     return new SaveWorld(
       this.staticMap.extractSave(),
       this.player.extractSave(),
+      entityStates,
     );
   }
 
