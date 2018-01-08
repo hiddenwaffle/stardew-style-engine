@@ -1,18 +1,20 @@
 import { Direction } from 'src/domain/direction';
 
-/**
- * TOOD: Maybe extract the defaults out to better comprehend the initial state.
- */
+// TODO: Maybe extract the defaults out to better comprehend the initial state.
+
 export class SaveEntity {
   name: string;
   x: number;
   y: number;
   facing: string;
 
+  /**
+   * floor() improves the readability of the save file.
+   */
   constructor(name: string, x?: number, y?: number, facing?: Direction) {
     this.name = name;
-    this.x = x || 100; // TODO: Default is an arbitary number
-    this.y = y || 100; // TODO: Default is an arbitrary number
+    this.x = Math.floor(x) || 100; // TODO: Default is an arbitary number
+    this.y = Math.floor(y) || 100; // TODO: Default is an arbitrary number
     this.facing = Direction[facing] || Direction[Direction.Left];
   }
 }
