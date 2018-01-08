@@ -41,7 +41,6 @@ function rawToSaveWorld(raw: string): SaveWorld {
     const [headerBase64, payloadBase64] = raw.split('.');
     const headerJson = atob(headerBase64);
     const header = JSON.parse(headerJson);
-    log('info', 'Save Version:', header.version);
 
     if (header.version !== SAVE_VERSION) {
       // TODO: This is where version migrations might occur.
