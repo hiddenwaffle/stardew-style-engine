@@ -9,7 +9,6 @@ import {
   SaveWorld,
   SavePlayer,
 } from './save';
-import { environment } from './environment';
 import { persistence } from './persistence';
 
 class StageManager {
@@ -21,9 +20,7 @@ class StageManager {
 
   async start() {
     const save = persistence.load();
-    if (environment.development) {
-      log('info', 'localstorage => StageManager#start()', JSON.stringify(save, null, 2));
-    }
+    log('info', 'localstorage => StageManager#start()', JSON.stringify(save, null, 2));
     await this.applySave(save);
     render.start();
   }
@@ -40,14 +37,10 @@ class StageManager {
     // CRITICAL: Prevent attempting to save while still initializing.
     if (gameState.state === State.Ready) {
       const save = this.extractSave();
-      if (environment.development) {
-        log('info', 'StageManager#stop() => localStorage', JSON.stringify(save));
-      }
+      log('info', 'StageManager#stop() => localStorage', JSON.stringify(save));
       persistence.save(save);
     } else {
-      if (environment.development) {
-        log('info', 'StageManager#stop(): World is not initialized; skipping persist.');
-      }
+      log('info', 'StageManager#stop(): World is not initialized; skipping persist.');
     }
   }
 
