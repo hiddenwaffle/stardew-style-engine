@@ -178,6 +178,17 @@ export class StaticMap {
         const hint = new ObjectHint(object);
         this.objectHints.push(hint);
       }
+      // Warn if there are any duplicate object hint names
+      {
+        const duplicates = this.objectHints.reduce((acc, hint) => {
+          if (acc.has(hint.name)) {
+            log('warn', `Duplicate ObjectHint "${hint.name}" detected`);
+          } else {
+            acc.add(hint.name);
+          }
+          return acc;
+        }, new Set<string>());
+      }
     }
   }
 
