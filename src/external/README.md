@@ -20,7 +20,7 @@ Uncropped file's SHA-256: 63849a9305dd8e53b115ecdfcd4d247226c9b8f08f33c010047d0f
 
 ## redshrike.png
 
-THis image was downloaded from https://opengameart.org/content/16x16-indoor-rpg-tileset-the-baseline on January 7, 2018.
+THis image was downloaded from https://opengameart.org/content/16x16-indoor-rpg-tileset-the-baseline on January 7, 2018. Minor alteration was made by re-texturing, rotating, and offsetting the tiles to line up in a 16x16 grid.
 
 CC BY 3.0 Art by Stephen Challener (Redshrike). Commissioned by OpenGameArt.org (http://opengameart.org)
 
