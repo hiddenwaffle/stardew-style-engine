@@ -33,6 +33,8 @@ import wall     from 'src/external/DawnLike/Objects/Wall.png';
 
 import antifarea from 'src/external/antifarea_18x20chars.png';
 
+import redshrike from 'src/external/redshrike.png';
+
 import metacolors  from 'src/external/metacolors.png';
 
 export class SheetConfig {
@@ -104,6 +106,8 @@ class ImageLoader {
     this.configs.set('Wall.png',    genConfig(wall));
 
     this.configs.set('antifarea_18x20chars.png',   genConfig(antifarea, 18, 20));
+
+    this.configs.set('redshrike.png', genConfig(redshrike));
 
     this.configs.set('metacolors.png', genConfig(metacolors));
   }
