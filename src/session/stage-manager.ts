@@ -19,7 +19,7 @@ class StageManager {
   }
 
   async start() {
-    const save = persistence.load();
+    const save = persistence.loadAndClean();
     log('info', 'localstorage => StageManager#start()', JSON.stringify(save, null, 2));
     await this.applySave(save);
     render.start();

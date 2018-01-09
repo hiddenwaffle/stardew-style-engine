@@ -1,26 +1,31 @@
 import { log } from 'src/log';
 import { World } from 'src/domain/world';
 import {
-  SAVE_KEY,
+  SAVE_WORLD_KEY,
   SAVE_VERSION,
+  ALLOWED_LOCAL_STORAGE_KEYS,
 } from 'src/constants';
 import { SaveWorld } from './save';
 
 function loadFromLocalStorage(): string {
-  return localStorage.getItem(SAVE_KEY);
+  return localStorage.getItem(SAVE_WORLD_KEY);
 }
 
 class Persistence {
   /**
    * Reverse steps of save(), but also ensures save file exists.
    */
-  load(): SaveWorld {
+  loadAndClean(): SaveWorld {
     let raw = loadFromLocalStorage();
     if (!raw) {
       // Persist a pristine world and then load it back in.
       this.save(new SaveWorld());
       raw = loadFromLocalStorage();
     }
+
+    // Clean after load because migrations might rename keys.
+    cleanUnknownKeys();
+
     return rawToSaveWorld(raw);
   }
 
@@ -29,7 +34,7 @@ class Persistence {
    */
   save(save: SaveWorld) {
     const raw = saveWorldToRaw(save);
-    localStorage.setItem(SAVE_KEY, raw);
+    localStorage.setItem(SAVE_WORLD_KEY, raw);
   }
 }
 
@@ -66,4 +71,18 @@ function saveWorldToRaw(save: SaveWorld): string {
   const payloadJson = JSON.stringify(save);
   const payloadBase64 = btoa(payloadJson);
   return `${headerBase64}.${payloadBase64}`;
+}
+
+/**
+ * TODO: Dangerous method because it affects domain-wide storage.
+ */
+function cleanUnknownKeys() {
+  const unknownKeys = Object.keys(localStorage).map((key) => {
+    return !ALLOWED_LOCAL_STORAGE_KEYS.includes(key) ? key : null;
+  })
+  .filter(key => key !== null)
+  .forEach((key) => {
+    console.log('Removing from localStorage:', key);
+    localStorage.removeItem(key);
+  });
 }
