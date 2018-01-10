@@ -28,10 +28,10 @@ export const FONT_BASE_SIZE = 5.25 * UPSCALE;
  */
 export const SAVE_VERSION = 3;
 export const SAVE_WORLD_KEY = 'simplicity-world';
-export const SAVE_STATS_KEY = 'simplicity-stats';
+export const SAVE_STATE_KEY = 'simplicity-state';
 export const ALLOWED_LOCAL_STORAGE_KEYS = [
   SAVE_WORLD_KEY,
-  SAVE_STATS_KEY,
+  SAVE_STATE_KEY,
   'loglevel:webpack-dev-server',  // Webpack
 ];
 

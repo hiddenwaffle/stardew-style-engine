@@ -8,6 +8,7 @@ import { render } from 'src/render/render';
 import {
   SaveWorld,
   SavePlayer,
+  SaveState,
 } from './save';
 import { persistence } from './persistence';
 
@@ -19,9 +20,10 @@ class StageManager {
   }
 
   async start() {
-    const save = persistence.loadAndClean();
-    log('info', 'localstorage => StageManager#start()', JSON.stringify(save, null, 2));
-    await this.applySave(save);
+    const [saveWorld, saveState] = persistence.loadAndClean();
+    log('info', 'saveWorld', JSON.stringify(saveWorld, null, 2));
+    log('info', 'saveState', JSON.stringify(saveState, null, 2));
+    await this.applySave(saveWorld, saveState);
     render.start();
   }
 
@@ -36,22 +38,24 @@ class StageManager {
     render.stop();
     // CRITICAL: Prevent attempting to save while still initializing.
     if (gameState.state === State.Ready) {
-      const save = this.extractSave();
-      log('info', 'StageManager#stop() => localStorage', JSON.stringify(save));
-      persistence.save(save);
+      const [saveWorld, saveState] = this.extractSave();
+      persistence.save(saveWorld, saveState);
     } else {
       log('info', 'StageManager#stop(): World is not initialized; skipping persist.');
     }
   }
 
-  private async applySave(save: SaveWorld) {
-    this.world = new World(save);
+  private async applySave(saveWorld: SaveWorld, saveState: SaveState) {
+    this.world = new World(saveWorld);
+    console.log('TODO: use saveState'); // TODO: Yeah do that
     await this.world.start();
   }
 
-  private extractSave(): SaveWorld {
-    const save = this.world.extractSave();
-    return save;
+  private extractSave(): [SaveWorld, SaveState] {
+    const saveWorld = this.world.extractSave();
+    console.log('TODO: use saveState'); // TODO: Yeah do that
+    const saveState = new SaveState(); // TODO: <--------------------- extract
+    return [saveWorld, saveState];
   }
 }
 

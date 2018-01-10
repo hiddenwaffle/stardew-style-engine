@@ -50,3 +50,7 @@ export class SaveWorld {
     this.entities = entities || [];
   }
 }
+
+export class SaveState {
+  //
+}
