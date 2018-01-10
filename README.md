@@ -1,8 +1,9 @@
 # Simplicity
 
 * See ./src/external/ for copy of original asset files.
-* Uses DawnBringer's [DawnLike](https://opengameart.org/content/dawnlike-16x16-universal-rogue-like-tileset-v181) tile pack.
-* Also uses Antifarea's [16x18 RPG Sprites](https://opengameart.org/content/18x20-characters-walkattackcast-spritesheet).
+    * Uses DawnBringer's [DawnLike](https://opengameart.org/content/dawnlike-16x16-universal-rogue-like-tileset-v181) tile pack.
+    * Antifarea's [16x18 RPG Sprites](https://opengameart.org/content/18x20-characters-walkattackcast-spritesheet).
+    * Redshrike's [Indoor RPG Tileset](https://opengameart.org/content/16x16-indoor-rpg-tileset-the-baseline)
 
 ## Getting Started
 * Engine development requires only [Node.js](https://nodejs.org).
