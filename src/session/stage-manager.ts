@@ -11,12 +11,15 @@ import {
   SaveState,
 } from './save';
 import { persistence } from './persistence';
+import { DomainState } from 'src/domain/domain-state';
 
 class StageManager {
   private world: World;
+  private state: DomainState;
 
   constructor() {
     this.world = null;
+    this.state = null;
   }
 
   async start() {
@@ -47,14 +50,13 @@ class StageManager {
 
   private async applySave(saveWorld: SaveWorld, saveState: SaveState) {
     this.world = new World(saveWorld);
-    console.log('TODO: use saveState'); // TODO: Yeah do that
+    this.state = new DomainState(saveState); // TODO: Ordering is not intuitive - this must come before world.start()?
     await this.world.start();
   }
 
   private extractSave(): [SaveWorld, SaveState] {
     const saveWorld = this.world.extractSave();
-    console.log('TODO: use saveState'); // TODO: Yeah do that
-    const saveState = new SaveState(); // TODO: <--------------------- extract
+    const saveState = this.state.extractSave();
     return [saveWorld, saveState];
   }
 }
