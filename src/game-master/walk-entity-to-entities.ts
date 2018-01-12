@@ -9,13 +9,13 @@ import { Entity } from 'src/domain/entity';
  */
 export function walkEntityToEntities(world: World, entity: Entity): WalkResult {
   const walkResult = new WalkResult(world);
-  const collisionSecondaryEntityIds: number[] = [];
+  const collisionOtherEntityIds: number[] = [];
   const [left, right, top, bottom] = entity.calculateBoundingBox();
   for (const other of world.entities) {
     if (entity.id !== other.id) {
       const [leftOther, rightOther, topOther, bottomOther] = other.calculateBoundingBox();
       if (other.overlap(left, right, top, bottom)) {
-        collisionSecondaryEntityIds.push(other.id);
+        collisionOtherEntityIds.push(other.id);
         if (other.entityToEntityCollisionCall) {
           const call = new ScriptCall(
             other.entityToEntityCollisionCall,
@@ -29,6 +29,6 @@ export function walkEntityToEntities(world: World, entity: Entity): WalkResult {
       }
     }
   }
-  entity.clearCallTimersNotInSecondaryEntityIds(collisionSecondaryEntityIds);
+  entity.clearCallTimersNotInSecondaryEntityIds(collisionOtherEntityIds);
   return walkResult;
 }
