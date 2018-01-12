@@ -1,14 +1,16 @@
+import { StaticMap } from 'src/domain/static-map';
+
 import start  from 'src/external/map/start.map.json';
 import town   from 'src/external/map/town.map.json';
 import cave   from 'src/external/map/cave.map.json';
 // TODO: More maps
 
 class MapLoader {
-  private readonly rawMaps: Map<string, any>;
+  private readonly maps: Map<string, StaticMap>;
   private readonly paths: Map<string, string>;
 
   constructor() {
-    this.rawMaps = new Map();
+    this.maps = new Map();
 
     this.paths = new Map();
     this.paths.set('start', start);
@@ -16,18 +18,19 @@ class MapLoader {
     this.paths.set('cave',  cave);
   }
 
-  fetch(mapId: string): Promise<any> {
+  fetch(mapId: string): Promise<StaticMap> {
     return new Promise((resolve, reject) => {
       const path = this.paths.get(mapId);
-      const rawMap = this.rawMaps.get(path);
-      if (rawMap) {
-        resolve(rawMap);
+      const map = this.maps.get(path);
+      if (map) {
+        resolve(map);
       } else {
         fetch(path).then((response) => {
           return response.json();
-        }).then((fetchedRawMap: any) => {
-          this.rawMaps.set(path, fetchedRawMap);
-          resolve(fetchedRawMap);
+        }).then((rawMap) => {
+          const newMap = new StaticMap(mapId, rawMap);
+          this.maps.set(path, newMap);
+          resolve(newMap);
         }); // TODO: Handle error?
       }
     });

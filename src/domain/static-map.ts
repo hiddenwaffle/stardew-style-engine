@@ -1,4 +1,4 @@
-import { SaveStaticMap } from 'src/session/save';
+import { SaveStaticMap, SaveEntity } from 'src/session/save';
 import { log } from 'src/log';
 import { TileLayer } from './tile-layer';
 import { CollisionLayer } from './collision-layer';
@@ -70,10 +70,11 @@ export class StaticMap {
   width: number;
   height: number;
 
+  private readonly _entities: Map<number, Entity>;
+
   tileLayers: TileLayer[];
   collisionLayers: CollisionLayer[];
   entrances: MapEntrance[];
-  objectHints: ObjectHint[];
   readonly blinkGroups: Map<string, BlinkGroup>;
 
   tilesets: Tileset[];
@@ -85,10 +86,11 @@ export class StaticMap {
     this.width = rawMap && rawMap.width;
     this.height = rawMap.height;
 
+    this._entities = new Map();
+
     this.tileLayers = [];
     this.collisionLayers = [];
     this.entrances = [];
-    this.objectHints = [];
     rawMap.layers.forEach((layer: any) => {
       this.parseAndAddLayers(layer);
     });
@@ -109,6 +111,18 @@ export class StaticMap {
     }
   }
 
+  start(initialEntityStates: SaveEntity[]) {
+    // Apply save file to the entities created by switchMap()
+    for (const save of initialEntityStates) {
+      const entity = Array.from(this._entities.values()).find((entityCandidate) => {
+        return entityCandidate.name === save.name;
+      });
+      if (entity) {
+        entity.start(save);
+      }
+    }
+  }
+
   step() {
     for (const group of Array.from(this.blinkGroups.values())) {
       group.step();
@@ -118,6 +132,24 @@ export class StaticMap {
   extractSave(): SaveStaticMap {
     // These are static so there is not much to save.
     return new SaveStaticMap(this.id);
+  }
+
+  setEntity(entity: Entity) {
+    this._entities.set(entity.id, entity);
+  }
+
+  getEntity(id: number) {
+    return this._entities.get(id);
+  }
+
+  get entities() {
+    return Array.from(this._entities.values());
+  }
+
+  entitiesSortedByY(): Entity[] {
+    return this.entities.sort((a, b) => {
+      return a.y - b.y;
+    });
   }
 
   private parseAndAddLayers(layer: any) {
@@ -174,13 +206,14 @@ export class StaticMap {
 
   private parseAndAddObjectHints(layer: any) {
     if (layer.objects) {
+      const objectHints: ObjectHint[] = [];
       for (const object of layer.objects) {
         const hint = new ObjectHint(object);
-        this.objectHints.push(hint);
+        objectHints.push(hint);
       }
       // Warn if there are any duplicate object hint names
       {
-        const duplicates = this.objectHints.reduce((acc, hint) => {
+        const duplicates = objectHints.reduce((acc, hint) => {
           if (acc.has(hint.name)) {
             log('warn', `Duplicate ObjectHint "${hint.name}" detected`);
           } else {
@@ -188,6 +221,10 @@ export class StaticMap {
           }
           return acc;
         }, new Set<string>());
+      }
+      for (const objectHint of objectHints) {
+        const entity = objectHintToEntity(objectHint);
+        this._entities.set(entity.id, entity);
       }
     }
   }
@@ -217,4 +254,22 @@ function determineBlinkGroups(layers: TileLayer[]): Map<string, BlinkGroup> {
     group.start();
   }
   return groups;
+}
+
+function objectHintToEntity(hint: ObjectHint): Entity {
+  const entity = new Entity({
+    animationGroupName: hint.animationGroupName,
+    clickCall: hint.clickCall,
+    defaultTile: hint.defaultTile,
+    entityToEntityCollisionCall: hint.collisionCall,
+    entityToEntityCollisionCallInterval: hint.collisionCallInterval,
+    hidden: hint.hidden,
+    mouseoverPointerType: hint.mouseoverPointerType,
+    movementType: hint.movementType,
+    name: hint.name,
+    pushable: hint.pushable,
+    x: hint.x,
+    y: hint.y,
+  });
+  return entity;
 }

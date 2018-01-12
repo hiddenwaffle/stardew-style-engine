@@ -18,8 +18,6 @@ import { tokenize } from 'src/script';
 
 export class World {
   player: Player;
-
-  private readonly _entities: Map<number, Entity>;
   private readonly initialEntityStates: SaveEntity[];
 
   staticMap: StaticMap;
@@ -28,7 +26,6 @@ export class World {
   constructor(save: SaveWorld) {
     this.player = new Player(save.player);
 
-    this._entities = new Map();
     this.initialEntityStates = save.entities;
 
     this.staticMap = null;
@@ -37,16 +34,7 @@ export class World {
 
   async start() {
     await this.switchMap(this.initialMapId);
-
-    // Apply save file to the entities created by switchMap()
-    for (const save of this.initialEntityStates) {
-      const entity = Array.from(this._entities.values()).find((entityCandidate) => {
-        return entityCandidate.name === save.name;
-      });
-      if (entity) {
-        entity.start(save);
-      }
-    }
+    this.staticMap.start(this.initialEntityStates);
   }
 
   step() {
@@ -58,19 +46,13 @@ export class World {
   async switchMap(mapId: string, entranceName?: string) {
     gameState.switch(State.SwitchingMap);
 
-    const [staticMap, entities] = await fetchMapEntitiesAndPrepareImages(
+    const staticMap = await fetchMapAndPrepareImages(
       mapId,
       this.player,
     );
 
     // Replace the map.
     this.staticMap = staticMap;
-
-    // Replace the entities.
-    this._entities.clear();
-    for (const entity of entities) {
-      this._entities.set(entity.id, entity);
-    }
 
     // Replace the location of the player.
     if (entranceName) {
@@ -87,28 +69,19 @@ export class World {
 
     gameState.switch(State.Ready);
 
-    backgroundLoadKnownMapTransitions(staticMap, entities);
+    backgroundLoadKnownMapTransitions(staticMap);
 
     if (this.staticMap.startCall) {
       new ScriptCall(this.staticMap.startCall).execute(this);
     }
   }
 
-  /**
-   * Ensures that the entity added to the map has a unique ID.
-   */
-  addEntity(entity: Entity) {
-    this._entities.set(entity.id, entity);
-  }
-
   getEntity(id: number) {
-    return this._entities.get(id);
+    return this.staticMap.getEntity(id);
   }
 
   entitiesSortedByY(): Entity[] {
-    return Array.from(this._entities.values()).sort((a, b) => {
-      return a.y - b.y;
-    });
+    return this.staticMap.entitiesSortedByY();
   }
 
   recalculatePointer(x: number, y: number) {
@@ -146,7 +119,7 @@ export class World {
   }
 
   extractSave(): SaveWorld {
-    const entityStates = Array.from(this._entities.values()).map((entity) => {
+    const entityStates = this.staticMap.entities.map((entity) => {
       return entity.extractSave();
     });
 
@@ -158,7 +131,7 @@ export class World {
   }
 
   get entities(): Entity[] {
-    return Array.from(this._entities.values());
+    return this.staticMap ? this.staticMap.entities : [];
   }
 
   /**
@@ -193,32 +166,19 @@ export class World {
   }
 }
 
-async function fetchMapEntitiesAndPrepareImages(
-  mapId: string,
-  player?: Player,
-): Promise<[StaticMap, Entity[]]> {
-  const [staticMap, entities] = await fetchMapAndEntities(mapId);
+async function fetchMapAndPrepareImages(mapId: string, player?: Player): Promise<StaticMap> {
+  const staticMap = await fetchMapAndEntities(mapId);
   if (player) {
-    // TODO: Is this a good place for this?
-    entities.push(player.entity); // Do not forget the player, if given.
+    // TODO: Is this a good place for adding the entity?
+    // Notice that this won't add a duplicate player entity because it is a set operation.
+    staticMap.setEntity(player.entity); // Do not forget the player, if given.
   }
-  await prepareImages(staticMap.tilesets, entities);
-  return [staticMap, entities];
+  await prepareImages(staticMap.tilesets, staticMap.entities);
+  return staticMap;
 }
 
-async function fetchMapAndEntities(mapId: string): Promise<[StaticMap, Entity[]]> {
-  const staticMap = await fetchMap(mapId);
-  const entities = objectHintsToEntities(staticMap.objectHints);
-  return [staticMap, entities];
-}
-
-async function fetchMap(mapId: string): Promise<StaticMap> {
-  return new Promise<StaticMap>((resolve, reject) => {
-    mapLoader.fetch(mapId).then((rawMap: any) => {
-      resolve(new StaticMap(mapId, rawMap));
-    });
-    // TODO: Handle error?
-  });
+async function fetchMapAndEntities(mapId: string): Promise<StaticMap> {
+  return await mapLoader.fetch(mapId);
 }
 
 async function prepareImages(tilesets: Tileset[], entities: Entity[]) {
@@ -235,32 +195,6 @@ async function prepareImages(tilesets: Tileset[], entities: Entity[]) {
     Array.from(entitiesRawImagePaths),
   );
   await imageLoader.prepareAll(rawImagePaths);
-}
-
-function objectHintsToEntities(hints: ObjectHint[]): Entity[] {
-  const entities: Entity[] = [];
-  for (const hint of hints) {
-    entities.push(objectHintToEntity(hint));
-  }
-  return entities;
-}
-
-function objectHintToEntity(hint: ObjectHint): Entity {
-  const entity = new Entity({
-    animationGroupName: hint.animationGroupName,
-    clickCall: hint.clickCall,
-    defaultTile: hint.defaultTile,
-    entityToEntityCollisionCall: hint.collisionCall,
-    entityToEntityCollisionCallInterval: hint.collisionCallInterval,
-    hidden: hint.hidden,
-    mouseoverPointerType: hint.mouseoverPointerType,
-    movementType: hint.movementType,
-    name: hint.name,
-    pushable: hint.pushable,
-    x: hint.x,
-    y: hint.y,
-  });
-  return entity;
 }
 
 /**
@@ -289,7 +223,7 @@ function forEachPromise(items: any, fn: any) {
  * if the game initiates a switchMap() while image loads are occurring
  * in the async calls in this function.
  */
-function backgroundLoadKnownMapTransitions(staticMap: StaticMap, entities: Entity[]) {
+function backgroundLoadKnownMapTransitions(staticMap: StaticMap) {
   const mapIds: Set<string> = new Set();
 
   findMapId(staticMap.startCall, mapIds); // Unlikely, but here for completeness.
@@ -303,14 +237,14 @@ function backgroundLoadKnownMapTransitions(staticMap: StaticMap, entities: Entit
     findMapId(layer.collisionCall, mapIds);
   }
 
-  for (const entity of entities) {
+  for (const entity of staticMap.entities) {
     findMapId(entity.clickCall, mapIds);
     findMapId(entity.entityToEntityCollisionCall, mapIds);
   }
 
   // Sequential because the image cache will prevent duplicate requests.
   // log('info', 'Map transition precaching started', Date.now());
-  forEachPromise(Array.from(mapIds.values()), fetchMapEntitiesAndPrepareImages).then(() => {
+  forEachPromise(Array.from(mapIds.values()), fetchMapAndPrepareImages).then(() => {
     // log('info', 'Map transition precaching completed', Date.now());
   });
 }
