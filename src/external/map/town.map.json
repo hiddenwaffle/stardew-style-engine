@@ -74,7 +74,7 @@
          "name":"@entrances",
          "objects":[
                 {
-                 "gid":844,
+                 "gid":2331,
                  "height":16,
                  "id":1,
                  "name":"bottom",
@@ -86,7 +86,7 @@
                  "y":224.667
                 }, 
                 {
-                 "gid":844,
+                 "gid":2331,
                  "height":16,
                  "id":2,
                  "name":"right",
@@ -98,7 +98,7 @@
                  "y":137.667
                 }, 
                 {
-                 "gid":844,
+                 "gid":2331,
                  "height":16,
                  "id":3,
                  "name":"left",
@@ -120,40 +120,44 @@
          "name":"exits",
          "objects":[
                 {
-                 "gid":844,
+                 "gid":2334,
                  "height":16,
                  "id":4,
                  "name":"example-portal-out-1",
                  "properties":
                     {
                      "collisionCall":"global.switchMap start center",
+                     "collisionOverlapType":"Eclipse",
                      "hidden":true
                     },
                  "propertytypes":
                     {
                      "collisionCall":"string",
+                     "collisionOverlapType":"string",
                      "hidden":"bool"
                     },
                  "rotation":0,
                  "type":"",
                  "visible":true,
                  "width":16,
-                 "x":63.6667,
-                 "y":80.6667
+                 "x":64,
+                 "y":96
                 }, 
                 {
-                 "gid":844,
+                 "gid":2334,
                  "height":16,
                  "id":5,
                  "name":"example-portal-out-2",
                  "properties":
                     {
                      "collisionCall":"global.switchMap start center",
+                     "collisionOverlapType":"Eclipse",
                      "hidden":true
                     },
                  "propertytypes":
                     {
                      "collisionCall":"string",
+                     "collisionOverlapType":"string",
                      "hidden":"bool"
                     },
                  "rotation":0,
@@ -161,29 +165,31 @@
                  "visible":true,
                  "width":16,
                  "x":352,
-                 "y":80.3333
+                 "y":96
                 }, 
                 {
-                 "gid":844,
+                 "gid":2334,
                  "height":16,
                  "id":6,
                  "name":"example-portal-out-3",
                  "properties":
                     {
                      "collisionCall":"global.switchMap cave left",
+                     "collisionOverlapType":"Eclipse",
                      "hidden":true
                     },
                  "propertytypes":
                     {
                      "collisionCall":"string",
+                     "collisionOverlapType":"string",
                      "hidden":"bool"
                     },
                  "rotation":0,
                  "type":"",
                  "visible":true,
                  "width":16,
-                 "x":224.333,
-                 "y":80
+                 "x":224,
+                 "y":96
                 }],
          "opacity":1,
          "type":"objectgroup",

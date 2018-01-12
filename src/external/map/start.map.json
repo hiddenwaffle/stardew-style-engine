@@ -220,15 +220,13 @@
                     {
                      "collisionCall":"global.switchMap town bottom",
                      "collisionOverlapType":"Eclipse",
-                     "hidden":false,
-                     "pushable":false
+                     "hidden":true
                     },
                  "propertytypes":
                     {
                      "collisionCall":"string",
                      "collisionOverlapType":"string",
-                     "hidden":"bool",
-                     "pushable":"bool"
+                     "hidden":"bool"
                     },
                  "rotation":0,
                  "type":"",
