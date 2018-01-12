@@ -68,7 +68,7 @@ export class ScriptCall {
    * is supposed to represent a single "thing" rather than tiles of "things".
    */
   get key() {
-    return `${this.name}|${this.primaryEntityId}|${this.secondaryEntityId}` +
+    return `${this.name}|${this.primaryEntityId}|${this.secondaryEntityId}|` +
            `${this.tileLayerName}`;
   }
 }
