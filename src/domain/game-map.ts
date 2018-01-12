@@ -1,4 +1,4 @@
-import { SaveStaticMap, SaveEntity } from 'src/session/save';
+import { SaveGameMap, SaveEntity } from 'src/session/save';
 import { log } from 'src/log';
 import { TileLayer } from './tile-layer';
 import { CollisionLayer } from './collision-layer';
@@ -65,7 +65,7 @@ class BlinkGroup {
   }
 }
 
-export class StaticMap {
+export class GameMap {
   id: string;
   width: number;
   height: number;
@@ -129,9 +129,9 @@ export class StaticMap {
     }
   }
 
-  extractSave(): SaveStaticMap {
+  extractSave(): SaveGameMap {
     // These are static so there is not much to save.
-    return new SaveStaticMap(this.id);
+    return new SaveGameMap(this.id);
   }
 
   setEntity(entity: Entity) {

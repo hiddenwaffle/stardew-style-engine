@@ -42,7 +42,7 @@ function createNewTarget(world: World, entity: Entity) {
   const tracker = new TileTracker(entity.xtile, entity.ytile);
 
   for (const track of tracker.allTracks) {
-    for (const layer of world.staticMap.collisionLayers) {
+    for (const layer of world.gameMap.collisionLayers) {
       // Determine if collision is an actual tile, or a map boundary.
       const [tileValue, _mapBoundary] = determineTileValueOrMapBoundary(track.x, track.y, layer);
 

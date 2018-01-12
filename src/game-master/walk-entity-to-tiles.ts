@@ -16,7 +16,7 @@ import { convertXYToIndex, determineTileValueOrMapBoundary } from 'src/math';
 
 export function walkEntityToTiles(world: World, entity: Entity): WalkResult {
   const walkResult = new WalkResult(world);
-  if (world && world.staticMap) {
+  if (world && world.gameMap) {
     movement(world, entity, walkResult);
     calls(world, entity, walkResult);
   }
@@ -24,7 +24,7 @@ export function walkEntityToTiles(world: World, entity: Entity): WalkResult {
 }
 
 function movement(world: World, entity: Entity, walkResult: WalkResult) {
-  if (!world || !world.staticMap) {
+  if (!world || !world.gameMap) {
     return;
   }
 
@@ -46,7 +46,7 @@ function movement(world: World, entity: Entity, walkResult: WalkResult) {
   const tracker = new TileTracker(entity.xtile, entity.ytile);
 
   for (const track of tracker.allTracks) {
-    for (const layer of world.staticMap.collisionLayers) {
+    for (const layer of world.gameMap.collisionLayers) {
       const [tileValue, mapBoundary] = determineTileValueOrMapBoundary(track.x, track.y, layer);
 
       // Collision possible only if the tile value is a positive number.
@@ -110,7 +110,7 @@ function movement(world: World, entity: Entity, walkResult: WalkResult) {
 
 function calls(world: World, entity: Entity, walkResult: WalkResult) {
   const collisionTileLayers: string[] = [];
-  for (const layer of world.staticMap.collisionLayers) {
+  for (const layer of world.gameMap.collisionLayers) {
     const [tileValue, mapBoundary] = determineTileValueOrMapBoundary(entity.xtile, entity.ytile, layer);
     if (tileValue > 0) { // Overlap possible only if the tile value is a positive number.
       collisionTileLayers.push(layer.name);

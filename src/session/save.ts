@@ -19,7 +19,7 @@ export class SaveEntity {
   }
 }
 
-export class SaveStaticMap {
+export class SaveGameMap {
   mapId: string;
 
   constructor(mapId?: string) {
@@ -37,16 +37,16 @@ export class SavePlayer {
 
 export class SaveWorld {
   player: SavePlayer;
-  staticMap: SaveStaticMap;
+  gameMap: SaveGameMap;
   entities: SaveEntity[];
 
   constructor(
     player?: SavePlayer,
-    staticMap?: SaveStaticMap,
+    gameMap?: SaveGameMap,
     entities?: SaveEntity[]
   ) {
     this.player = player || new SavePlayer();
-    this.staticMap = staticMap || new SaveStaticMap();
+    this.gameMap = gameMap || new SaveGameMap();
     this.entities = entities || [];
   }
 }

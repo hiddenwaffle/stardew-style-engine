@@ -15,7 +15,7 @@ import { Tileset } from 'src/domain/tileset';
 import { World } from 'src/domain/world';
 import { pointer } from 'src/ui/pointer';
 import { Player } from 'src/domain/player';
-import { StaticMap } from 'src/domain/static-map';
+import { GameMap } from 'src/domain/game-map';
 
 function determineImageAndCoordinate(tilesets: Tileset[], tile: number): [Sheet, number, number] {
   let sheet: Sheet = null;
@@ -57,17 +57,17 @@ export const render = new Render();
 function renderWorld(world: World) {
   ctxBack.clearRect(0, 0, canvasBack.width, canvasBack.height);
   if (world) {
-    const { staticMap, player } = world;
-    if (staticMap) {
-      renderTileLayers(false, staticMap, player);
+    const { gameMap, player } = world;
+    if (gameMap) {
+      renderTileLayers(false, gameMap, player);
       renderEntities(world);
-      renderTileLayers(true, staticMap, player);
+      renderTileLayers(true, gameMap, player);
     }
   }
 }
 
-function renderTileLayers(fringe: boolean, staticMap: StaticMap, player: Player) {
-  for (const tileLayer of staticMap.tileLayers) {
+function renderTileLayers(fringe: boolean, gameMap: GameMap, player: Player) {
+  for (const tileLayer of gameMap.tileLayers) {
     if (tileLayer.hidden) {
       continue;
     }
@@ -81,7 +81,7 @@ function renderTileLayers(fringe: boolean, staticMap: StaticMap, player: Player)
     for (const tile of tileLayer.tiles) {
       if (tile !== 0) {
         const [sheet, sourceX, sourceY] = determineImageAndCoordinate(
-          staticMap.tilesets,
+          gameMap.tilesets,
           tile,
         );
         if (sheet) {
@@ -159,7 +159,7 @@ function renderEntities(world: World) {
       }
     } else {
       [sheet, sourceX, sourceY] = determineImageAndCoordinate(
-        world.staticMap.tilesets,
+        world.gameMap.tilesets,
         entity.defaultTile,
       );
     }
