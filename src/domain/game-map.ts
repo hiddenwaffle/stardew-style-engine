@@ -211,24 +211,22 @@ export class GameMap {
 
   private parseAndAddObjectHints(layer: any) {
     if (layer.objects) {
-      const objectHints: ObjectHint[] = [];
+      const entities: Entity[] = [];
       for (const object of layer.objects) {
         const hint = new ObjectHint(object);
-        objectHints.push(hint);
+        const entity = objectHintToEntity(hint);
+        entities.push(entity);
       }
-      // Warn if there are any duplicate object hint names
-      {
-        const duplicates = objectHints.reduce((acc, hint) => {
-          if (acc.has(hint.name)) {
-            log('warn', `Duplicate ObjectHint "${hint.name}" detected`);
-          } else {
-            acc.add(hint.name);
-          }
-          return acc;
-        }, new Set<string>());
-      }
-      for (const objectHint of objectHints) {
-        const entity = objectHintToEntity(objectHint);
+      // Warn if there are any duplicate entity names
+      const duplicates = entities.reduce((acc, entity) => {
+        if (acc.has(entity.name)) {
+          log('warn', `Duplicate Entity name "${entity.name}" detected`);
+        } else {
+          acc.add(entity.name);
+        }
+        return acc;
+      }, new Set<string>());
+      for (const entity of entities) {
         this._entities.set(entity.id, entity);
       }
     }
