@@ -12,7 +12,6 @@ import {
   PointerType,
   pointer,
 } from 'src/ui/pointer';
-import { ObjectHint } from 'src/domain/object-hint';
 import { Tileset } from 'src/domain/tileset';
 import { tokenize } from 'src/script';
 
