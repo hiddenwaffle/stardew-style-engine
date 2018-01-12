@@ -1,7 +1,7 @@
 export const enum State {
-  Initializing,
-  Ready,
-  SwitchingMap,
+  Initializing  = 1,
+  Ready         = 2,
+  SwitchingMap  = 3,
 }
 
 class GameState {

@@ -1,14 +1,14 @@
 export const enum Key {
-  Left,
-  Up,
-  Down,
-  Right,
-  Walk,
-  Pause,
+  Left    = 1,
+  Up      = 2,
+  Down    = 3,
+  Right   = 4,
+  Walk    = 5,
+  Pause   = 6,
   // Rest of these are special directives
-  Other,
-  Ignore,
-  Prevent,
+  Other   = 7,
+  Ignore  = 8,
+  Prevent = 9,
 }
 
 const enum State {

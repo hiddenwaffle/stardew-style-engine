@@ -1,5 +1,5 @@
 export enum EventType {
-  ExampleEvent,
+  ExampleEvent = 1,
 }
 
 export abstract class AbstractEvent {

@@ -5,9 +5,9 @@ import {
 } from './direction';
 
 export enum MovementType {
-  Stationary,
-  Player,
-  Wander,
+  Stationary = 1,
+  Player     = 2,
+  Wander     = 3,
 }
 
 export function asMovementType(value: string): MovementType {

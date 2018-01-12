@@ -5,8 +5,8 @@ import {
 import { getInverseScale } from 'src/session/scale';
 
 export const enum Button {
-  Left,
-  Right,
+  Left  = 1,
+  Right = 2,
 }
 
 class Mouse {
