@@ -28,7 +28,7 @@ export function walkEntityToEntities(world: World, entity: Entity): WalkResult {
         }
       }
     }
-    entity.clearCallTimersNotInSecondaryEntityIds(collisionSecondaryEntityIds);
   }
+  entity.clearCallTimersNotInSecondaryEntityIds(collisionSecondaryEntityIds);
   return walkResult;
 }
