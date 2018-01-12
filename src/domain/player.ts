@@ -10,9 +10,9 @@ export class Player {
 
   constructor(save: SavePlayer) {
     this.entity = new Entity({
+      animationGroupName: 'af-pirate-red',
       name: PLAYER_ENTITY_NAME,
       pushable: true,
-      animationGroupName: 'af-pirate-red',
     });
   }
 

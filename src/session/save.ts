@@ -43,7 +43,7 @@ export class SaveWorld {
   constructor(
     player?: SavePlayer,
     gameMap?: SaveGameMap,
-    entities?: SaveEntity[]
+    entities?: SaveEntity[],
   ) {
     this.player = player || new SavePlayer();
     this.gameMap = gameMap || new SaveGameMap();

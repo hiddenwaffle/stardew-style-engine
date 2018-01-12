@@ -205,8 +205,8 @@ async function prepareImages(tilesets: Tileset[], entities: Entity[]) {
  * @returns {Promise}
  */
 function forEachPromise(items: any, fn: any) {
-  return items.reduce(function (promise: any, item: any) {
-    return promise.then(function () {
+  return items.reduce((promise: any, item: any) => {
+    return promise.then(() => {
       return fn(item);
     });
   }, Promise.resolve());

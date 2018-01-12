@@ -16,14 +16,14 @@ class Persistence {
     let rawWorld = loadWorld();
     if (!rawWorld) {
       // Persist a pristine world and then load it back in.
-      saveWorld(new SaveWorld());
+      doSaveWorld(new SaveWorld());
       rawWorld = loadWorld();
     }
 
     let rawState = loadState();
     if (!rawState) {
       // Persist a pristine state and then load it back in.
-      saveState(new SaveState());
+      doSaveState(new SaveState());
       rawState = loadState();
     }
 
@@ -37,8 +37,8 @@ class Persistence {
   }
 
   save(theSaveWorld: SaveWorld, theSaveState: SaveState) {
-    saveWorld(theSaveWorld);
-    saveState(theSaveState);
+    doSaveWorld(theSaveWorld);
+    doSaveState(theSaveState);
   }
 }
 
@@ -60,11 +60,11 @@ function rawToSaveState(raw: string): SaveState {
   return <SaveState> rawToObj(raw) || new SaveState();
 }
 
-function saveWorld(saveWorld: SaveWorld) {
+function doSaveWorld(saveWorld: SaveWorld) {
   localStorage.setItem(SAVE_WORLD_KEY, objToRaw(saveWorld));
 }
 
-function saveState(saveState: SaveState) {
+function doSaveState(saveState: SaveState) {
   localStorage.setItem(SAVE_STATE_KEY, objToRaw(saveState));
 }
 
@@ -75,9 +75,9 @@ function cleanUnknownKeys() {
   const unknownKeys = Object.keys(localStorage).map((key) => {
     return !ALLOWED_LOCAL_STORAGE_KEYS.includes(key) ? key : null;
   })
-  .filter(key => key !== null)
+  .filter((key) => key !== null)
   .forEach((key) => {
-    console.log('Removing from localStorage:', key);
+    log('warn', 'Removing from localStorage:', key);
     localStorage.removeItem(key);
   });
 }
