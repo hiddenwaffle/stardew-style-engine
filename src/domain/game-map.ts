@@ -213,8 +213,7 @@ export class GameMap {
     if (layer.objects) {
       const entities: Entity[] = [];
       for (const object of layer.objects) {
-        const hint = new ObjectHint(object);
-        const entity = objectHintToEntity(hint);
+        const entity = objectToEntity(object);
         entities.push(entity);
       }
       // Warn if there are any duplicate entity names
@@ -259,7 +258,8 @@ function determineBlinkGroups(layers: TileLayer[]): Map<string, BlinkGroup> {
   return groups;
 }
 
-function objectHintToEntity(hint: ObjectHint): Entity {
+function objectToEntity(object: any): Entity {
+  const hint = new ObjectHint(object);
   const entity = new Entity({
     animationGroupName: hint.animationGroupName,
     clickCall: hint.clickCall,
