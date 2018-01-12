@@ -25,6 +25,7 @@ import { nextId } from 'src/session/id-generator';
 import { PointerType } from 'src/ui/pointer';
 import { MovementPlan } from 'src/domain/movement';
 import { SaveEntity } from 'src/session/save';
+import { OverlapType } from 'src/domain/overlap-type';
 
 class CallTimer {
   private readonly call: ScriptCall;
@@ -71,6 +72,7 @@ export class Entity {
   boundingHeight: number;
   pushable: boolean;
 
+  entityToEntityCollisionOverlapType: OverlapType;
   entityToEntityCollisionCall: string;
   entityToEntityCollisionCallInterval: number;
   clickCall: string;
@@ -100,6 +102,7 @@ export class Entity {
     this.boundingHeight = TARGET_FIELD_TILE_SIZE - 4;
     this.pushable = args.pushable || false;
 
+    this.entityToEntityCollisionOverlapType = args.entityToEntityCollisionOverlapType || OverlapType.Overlap;
     this.entityToEntityCollisionCall = args.entityToEntityCollisionCall || null;
     this.entityToEntityCollisionCallInterval = args.entityToEntityCollisionCallInterval || Number.MAX_SAFE_INTEGER;
     this.clickCall = args.clickCall || null;
@@ -252,6 +255,21 @@ export class Entity {
       top2    < bottom1 &&
       bottom2 > top1
     );
+  }
+
+  /**
+   * https://stackoverflow.com/a/21220004
+   * Like overlap() but returns true if the entities are overlapping by a percentage.
+   */
+  eclipse(
+    left1: number, right1: number, top1: number, bottom1: number, pct: number
+  ): boolean {
+    const [left2, right2, top2, bottom2] = this.calculateBoundingBox();
+    const otherArea = (right1 - left1) * (bottom1 - top1);
+    const thisArea  = (right2 - left2) * (bottom2 - top2);
+    const intersectionArea = Math.max(0, Math.min(right1, right2) - Math.max(left1, left2)) * Math.max(0, Math.min(bottom1, bottom2) - Math.max(top1, top2));
+    const denominator = otherArea + thisArea - intersectionArea;
+    return (intersectionArea / (denominator || 0.001)) > pct;
   }
 
   extractSave(): SaveEntity {

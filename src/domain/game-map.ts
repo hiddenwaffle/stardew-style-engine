@@ -264,6 +264,7 @@ function objectHintToEntity(hint: ObjectHint): Entity {
     animationGroupName: hint.animationGroupName,
     clickCall: hint.clickCall,
     defaultTile: hint.defaultTile,
+    entityToEntityCollisionOverlapType: hint.collisionOverlapType,
     entityToEntityCollisionCall: hint.collisionCall,
     entityToEntityCollisionCallInterval: hint.collisionCallInterval,
     hidden: hint.hidden,

@@ -6,15 +6,23 @@ import {
   MovementType,
   asMovementType,
 } from 'src/domain/movement';
+import {
+  asOverlapType,
+  OverlapType,
+} from 'src/domain/overlap-type';
 
 export class ObjectHint {
   readonly name: string;
+
   readonly x: number;
   readonly y: number;
   readonly width: number;
   readonly height: number;
+
+  readonly collisionOverlapType: OverlapType;
   readonly collisionCall: string;
   readonly collisionCallInterval: number;
+
   readonly clickCall: string;
   readonly mouseoverPointerType: PointerType;
   readonly defaultTile: number;
@@ -42,6 +50,7 @@ export class ObjectHint {
       const properties = object.properties || {};
 
       // TODO: This mirrors collision-layer.ts
+      this.collisionOverlapType = asOverlapType(properties.collisionOverlapType) || OverlapType.Overlap;
       this.collisionCall = properties.collisionCall || null;
       if (properties.collisionCallInterval) {
         this.collisionCallInterval = properties.collisionCallInterval;
