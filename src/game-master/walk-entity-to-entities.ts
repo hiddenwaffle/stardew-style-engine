@@ -18,7 +18,7 @@ export function walkEntityToEntities(world: World, entity: Entity): WalkResult {
       if (other.overlap(left, right, top, bottom)) {
         // Check if eclipse is required to count as a collision.
         if (other.entityToEntityCollisionOverlapType === OverlapType.Eclipse &&
-            !other.eclipse(left, right, top, bottom, 0.75)) {
+            !other.eclipse(left, right, top, bottom, 0.75)) { // 75% is the highest recommended.
           continue;
         }
 
