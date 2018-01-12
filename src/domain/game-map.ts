@@ -111,14 +111,14 @@ export class GameMap {
     }
   }
 
-  start(initialEntityStates: SaveEntity[]) {
+  start(save: SaveGameMap) {
     // Apply save file to the entities created by switchMap()
-    for (const save of initialEntityStates) {
+    for (const saveEntity of save.entities) {
       const entity = Array.from(this._entities.values()).find((entityCandidate) => {
-        return entityCandidate.name === save.name;
+        return entityCandidate.name === saveEntity.name;
       });
       if (entity) {
-        entity.start(save);
+        entity.start(saveEntity);
       }
     }
   }
@@ -130,8 +130,13 @@ export class GameMap {
   }
 
   extractSave(): SaveGameMap {
-    // These are static so there is not much to save.
-    return new SaveGameMap(this.id);
+    const entityStates = this.entities.map((entity) => {
+      return entity.extractSave();
+    });
+    return new SaveGameMap(
+      this.id,
+      entityStates,
+    );
   }
 
   setEntity(entity: Entity) {

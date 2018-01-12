@@ -21,9 +21,11 @@ export class SaveEntity {
 
 export class SaveGameMap {
   mapId: string;
+  entities: SaveEntity[];
 
-  constructor(mapId?: string) {
+  constructor(mapId?: string, entities?: SaveEntity[]) {
     this.mapId = mapId || 'start'; // Start map should be named 'start'.
+    this.entities = entities || [];
   }
 }
 
@@ -38,16 +40,13 @@ export class SavePlayer {
 export class SaveWorld {
   player: SavePlayer;
   gameMap: SaveGameMap;
-  entities: SaveEntity[];
 
   constructor(
     player?: SavePlayer,
     gameMap?: SaveGameMap,
-    entities?: SaveEntity[],
   ) {
     this.player = player || new SavePlayer();
     this.gameMap = gameMap || new SaveGameMap();
-    this.entities = entities || [];
   }
 }
 

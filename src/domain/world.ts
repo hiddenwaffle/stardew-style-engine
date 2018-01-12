@@ -1,5 +1,9 @@
 import { log } from 'src/log';
-import { SaveWorld, SaveEntity } from 'src/session/save';
+import {
+  SaveGameMap,
+  SaveWorld,
+  SavePlayer,
+} from 'src/session/save';
 import { Player } from './player';
 import { Entity } from './entity';
 import { GameMap } from './game-map';
@@ -17,23 +21,16 @@ import { tokenize } from 'src/script';
 
 export class World {
   player: Player;
-  private readonly initialEntityStates: SaveEntity[];
-
   gameMap: GameMap;
-  private readonly initialMapId: string;
 
-  constructor(save: SaveWorld) {
-    this.player = new Player(save.player);
-
-    this.initialEntityStates = save.entities;
-
+  constructor(savePlayer: SavePlayer) {
+    this.player = new Player(savePlayer);
     this.gameMap = null;
-    this.initialMapId = save.gameMap.mapId;
   }
 
-  async start() {
-    await this.switchMap(this.initialMapId);
-    this.gameMap.start(this.initialEntityStates);
+  async start(saveGameMap: SaveGameMap) {
+    await this.switchMap(saveGameMap.mapId);
+    this.gameMap.start(saveGameMap);
   }
 
   step() {
@@ -118,14 +115,9 @@ export class World {
   }
 
   extractSave(): SaveWorld {
-    const entityStates = this.gameMap.entities.map((entity) => {
-      return entity.extractSave();
-    });
-
     return new SaveWorld(
       this.player.extractSave(),
       this.gameMap.extractSave(),
-      entityStates,
     );
   }
 

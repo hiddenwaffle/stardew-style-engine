@@ -49,9 +49,9 @@ class StageManager {
   }
 
   private async applySave(saveWorld: SaveWorld, saveState: SaveState) {
-    this.world = new World(saveWorld);
+    this.world = new World(saveWorld.player);
     this.state = new DomainState(saveState); // TODO: Ordering is not intuitive - this must come before world.start()?
-    await this.world.start();
+    await this.world.start(saveWorld.gameMap);
   }
 
   private extractSave(): [SaveWorld, SaveState] {
