@@ -45,44 +45,60 @@
          "y":0
         }, 
         {
-         "data":[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1905, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-         "height":16,
-         "name":"@collision-stairs-down",
+         "draworder":"topdown",
+         "name":"exits",
+         "objects":[
+                {
+                 "gid":1914,
+                 "height":16,
+                 "id":13,
+                 "name":"stairs-up",
+                 "properties":
+                    {
+                     "collisionCall":"global.switchMap town right",
+                     "collisionOverlapType":"Eclipse",
+                     "hidden":true
+                    },
+                 "propertytypes":
+                    {
+                     "collisionCall":"string",
+                     "collisionOverlapType":"string",
+                     "hidden":"bool"
+                    },
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":16,
+                 "x":16,
+                 "y":32
+                }, 
+                {
+                 "gid":1916,
+                 "height":16,
+                 "id":14,
+                 "name":"stairs-down",
+                 "properties":
+                    {
+                     "collisionCall":"global.switchMap town left",
+                     "collisionOverlapType":"Eclipse",
+                     "hidden":true
+                    },
+                 "propertytypes":
+                    {
+                     "collisionCall":"string",
+                     "collisionOverlapType":"string",
+                     "hidden":"bool"
+                    },
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":16,
+                 "x":160,
+                 "y":32
+                }],
          "opacity":1,
-         "properties":
-            {
-             "collisionCall":"global.switchMap town left",
-             "passthrough":true
-            },
-         "propertytypes":
-            {
-             "collisionCall":"string",
-             "passthrough":"bool"
-            },
-         "type":"tilelayer",
+         "type":"objectgroup",
          "visible":true,
-         "width":12,
-         "x":0,
-         "y":0
-        }, 
-        {
-         "data":[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1908, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-         "height":16,
-         "name":"@collision-stairs-up",
-         "opacity":1,
-         "properties":
-            {
-             "collisionCall":"global.switchMap town right",
-             "passthrough":true
-            },
-         "propertytypes":
-            {
-             "collisionCall":"string",
-             "passthrough":"bool"
-            },
-         "type":"tilelayer",
-         "visible":true,
-         "width":12,
          "x":0,
          "y":0
         }, 
@@ -127,7 +143,7 @@
          "x":0,
          "y":0
         }],
- "nextobjectid":13,
+ "nextobjectid":15,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.0.3",

@@ -212,7 +212,7 @@
                  "y":240
                 }, 
                 {
-                 "gid":844,
+                 "gid":3229,
                  "height":16,
                  "id":48,
                  "name":"to-town-misaligned",
@@ -304,7 +304,7 @@
          "name":"@entrances",
          "objects":[
                 {
-                 "gid":844,
+                 "gid":3218,
                  "height":16,
                  "id":47,
                  "name":"center",
