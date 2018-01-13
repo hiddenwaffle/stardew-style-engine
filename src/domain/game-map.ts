@@ -120,13 +120,21 @@ export class GameMap {
   }
 
   start(save: SaveGameMap) {
+    // Before applying save, see if the file hash (in filename) has changed.
+    const mapChanged = this.filename !== save.filename;
+
     // Apply save file to the entities created by switchMap()
     for (const saveEntity of save.entities) {
       const entity = Array.from(this._entities.values()).find((entityCandidate) => {
         return entityCandidate.name === saveEntity.name;
       });
       if (entity) {
-        entity.start(saveEntity);
+        // Only apply the save to this entity if it is the player or the map did not change.
+        if (entity.name === '@player' || !mapChanged) {
+          entity.start(saveEntity);
+        } else {
+          log('warn', `${entity.name} skipped applying SaveEntity due to map change`);
+        }
       }
     }
   }
