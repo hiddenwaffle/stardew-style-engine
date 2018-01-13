@@ -67,6 +67,12 @@ class BlinkGroup {
 
 export class GameMap {
   id: string;
+  /**
+   * This should only be used for checking if the map
+   * hash changed. If so, then "reset"* the NPCs related to
+   * a map.
+   * TODO: *Determine what "reset" means.
+   */
   filename: string;
   width: number;
   height: number;

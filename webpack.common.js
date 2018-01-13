@@ -8,13 +8,6 @@ const CleanWebpackPlugin = require('clean-webpack-plugin');
  */
 const worldDirectory = 'world';
 
-const fileLoaderConfig = {
-  loader: 'file-loader',
-  options: {
-    name: `${worldDirectory}/${process.env.NODE_ENV === 'production' ? '[hash].[ext]' : '[path][name].[ext]'}`
-  }
-};
-
 module.exports = {
   entry: {
     bundle: './src/index.ts',
@@ -35,16 +28,31 @@ module.exports = {
       },
       {
         test: /\.png$/,
-        use: fileLoaderConfig
+        use: {
+          loader: 'file-loader',
+          options: {
+            name: `${worldDirectory}/${process.env.NODE_ENV === 'production' ? '[hash].[ext]' : '[path][name].[ext]'}`
+          }
+        }
       },
       {
         test: /\.webm$/,
-        use: fileLoaderConfig
+        use: {
+          loader: 'file-loader',
+          options: {
+            name: `${worldDirectory}/${process.env.NODE_ENV === 'production' ? '[hash].[ext]' : '[path][name].[ext]'}`
+          }
+        }
       },
       {
         // Lazy load *.map.json files instead of inlining them.
         test: /\.map\.json$/,
-        use: fileLoaderConfig
+        use: {
+          loader: 'file-loader',
+          options: {
+            name: `${worldDirectory}/${process.env.NODE_ENV === 'production' ? '[hash].[ext]' : '[path][name].[hash].[ext]'}`
+          }
+        }
       }
     ]
   },
