@@ -1,5 +1,4 @@
 import { log } from 'src/log';
-import { Entity } from 'src/domain/entity';
 
 import {
   exit,
