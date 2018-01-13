@@ -1,4 +1,5 @@
 import { log } from 'src/log';
+import { onlyFilename } from 'src/app-utils';
 import { DEFAULT_FIELD_TILE_SIZE } from 'src/constants';
 
 import player0  from 'src/external/DawnLike/Characters/Player0.png';
@@ -169,7 +170,3 @@ class ImageLoader {
 }
 
 export const imageLoader = new ImageLoader();
-
-function onlyFilename(path: string) {
-  return path.replace(/.*\//, '');
-}

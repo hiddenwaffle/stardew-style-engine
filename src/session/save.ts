@@ -21,12 +21,12 @@ export class SaveEntity {
 
 export class SaveGameMap {
   mapId: string;
-  filePath: string;
+  filename: string;
   entities: SaveEntity[];
 
-  constructor(mapId?: string, filePath?: string, entities?: SaveEntity[]) {
+  constructor(mapId?: string, filename?: string, entities?: SaveEntity[]) {
     this.mapId = mapId || 'start'; // Start map should be named 'start'.
-    this.filePath = filePath || 'unknown';
+    this.filename = filename || '__unknown__'; // TODO: Does default value matter?
     this.entities = entities || [];
   }
 }

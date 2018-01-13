@@ -6,6 +6,7 @@ import { Tileset } from './tileset';
 import { Entity } from './entity';
 import { MapEntrance } from './map-entrance';
 import { timer } from 'src/session/timer';
+import { onlyFilename } from 'src/app-utils';
 
 class BlinkGroup {
   private readonly layers: TileLayer[];
@@ -66,7 +67,7 @@ class BlinkGroup {
 
 export class GameMap {
   id: string;
-  filePath: string;
+  filename: string;
   width: number;
   height: number;
 
@@ -83,7 +84,7 @@ export class GameMap {
 
   constructor(mapId: string, filePath: string, rawMap: any) {
     this.id = mapId;
-    this.filePath = filePath;
+    this.filename = onlyFilename(filePath);
     this.width = rawMap && rawMap.width;
     this.height = rawMap.height;
 
@@ -138,7 +139,7 @@ export class GameMap {
     });
     return new SaveGameMap(
       this.id,
-      this.filePath,
+      this.filename,
       entityStates,
     );
   }
