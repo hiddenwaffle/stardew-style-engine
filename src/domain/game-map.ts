@@ -5,7 +5,6 @@ import { CollisionLayer } from './collision-layer';
 import { Tileset } from './tileset';
 import { Entity } from './entity';
 import { MapEntrance } from './map-entrance';
-import { ObjectHint } from './object-hint';
 import { timer } from 'src/session/timer';
 
 class BlinkGroup {
@@ -213,8 +212,7 @@ export class GameMap {
     if (layer.objects) {
       const entities: Entity[] = [];
       for (const object of layer.objects) {
-        const entity = objectToEntity(object);
-        entities.push(entity);
+        entities.push(new Entity(object));
       }
       // Warn if there are any duplicate entity names
       const duplicates = entities.reduce((acc, entity) => {
@@ -256,81 +254,4 @@ function determineBlinkGroups(layers: TileLayer[]): Map<string, BlinkGroup> {
     group.start();
   }
   return groups;
-}
-
-function objectToEntity(object: any): Entity {
-  const hint = new ObjectHint(object);
-
-  // readonly name: string;
-
-  // readonly x: number;
-  // readonly y: number;
-  // readonly width: number;
-  // readonly height: number;
-
-  // readonly collisionOverlapType: OverlapType;
-  // readonly collisionCall: string;
-  // readonly collisionCallInterval: number;
-
-  // readonly clickCall: string;
-  // readonly mouseoverPointerType: PointerType;
-  // readonly defaultTile: number;
-  // readonly hidden: boolean;
-  // readonly pushable: boolean;
-  // readonly animationGroupName: string;
-  // readonly facing: string;
-  // readonly movementType: MovementType;
-
-  // this.name = object.name;
-  // this.defaultTile = object.gid;
-
-  // // (See map-entrance.ts)
-  // // x needs to be aligned to the center,
-  // // y is already aligned to the bottom.
-  // this.x = (object.x + object.width / 2) * UPSCALE;
-  // this.y = object.y * UPSCALE;
-  // this.width = object.width * UPSCALE;
-  // this.height = object.width * UPSCALE;
-
-  // // Read properties
-  // {
-  //   // Prevent null pointer errors.
-  //   const properties = object.properties || {};
-
-  //   // TODO: This mirrors collision-layer.ts
-  //   this.collisionOverlapType = asOverlapType(properties.collisionOverlapType) || OverlapType.Overlap;
-  //   this.collisionCall = properties.collisionCall || null;
-  //   if (properties.collisionCallInterval) {
-  //     this.collisionCallInterval = properties.collisionCallInterval;
-  //   } else {
-  //     this.collisionCallInterval = Number.MAX_SAFE_INTEGER; // It gets called once, in practice.
-  //   }
-
-  //   [this.clickCall, this.mouseoverPointerType] = parseClickProperties(properties);
-
-  //   this.hidden = properties.hidden;
-  //   this.pushable = properties.pushable || false;
-  //   this.facing = properties.facing || Direction.Down;
-
-  //   this.animationGroupName = properties.animationGroupName || null;
-
-  //   this.movementType = asMovementType(properties.movementType) || MovementType.Stationary;
-  // }
-
-  const entity = new Entity({
-    animationGroupName: hint.animationGroupName,
-    clickCall: hint.clickCall,
-    defaultTile: hint.defaultTile,
-    entityToEntityCollisionCall: hint.collisionCall,
-    entityToEntityCollisionCallInterval: hint.collisionCallInterval,
-    entityToEntityCollisionOverlapType: hint.collisionOverlapType,
-    hidden: hint.hidden,
-    mouseoverPointerType: hint.mouseoverPointerType,
-    movementType: hint.movementType,
-    name: hint.name,
-    pushable: hint.pushable,
-    x: hint.x,
-    y: hint.y,
-  });
-  return entity;
 }

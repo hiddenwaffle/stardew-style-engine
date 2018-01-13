@@ -23,9 +23,13 @@ import {
 } from './direction';
 import { nextId } from 'src/session/id-generator';
 import { PointerType } from 'src/ui/pointer';
-import { MovementPlan } from 'src/domain/movement';
+import { MovementPlan, asMovementType, MovementType } from 'src/domain/movement';
 import { SaveEntity } from 'src/session/save';
-import { OverlapType } from 'src/domain/overlap-type';
+import {
+  asOverlapType,
+  OverlapType,
+} from 'src/domain/overlap-type';
+import { parseClickProperties } from './parse-click-properties';
 
 class CallTimer {
   private readonly call: ScriptCall;
@@ -88,47 +92,59 @@ export class Entity {
 
   private _movementPlan: MovementPlan;
 
-  constructor(args: any) {
-    this._id = args.id || nextId();
-    this.name = args.name || 'UNKNOWN_' + this._id; // TODO: UNKNOWN_* cannot be saved and restored.
+  constructor(object: any) {
+    this._id = object.id || nextId();
+    this.name = object.name || 'UNKNOWN_' + this._id; // TODO: UNKNOWN_* cannot be saved and restored.
 
-    this.x = args.x || 100;
-    this.y = args.y || 100;
-    this.dxIntended = args.dxIntended || 0;
-    this.dyIntended = args.dyIntended || 0;
-    this.facing = asDirection(args.facing) || Direction.Down;
-    this.speed = args.speed || 90 * UPSCALE; // TODO: Variable speed entities
-    this.boundingWidth = TARGET_FIELD_TILE_SIZE - 4;
-    this.boundingHeight = TARGET_FIELD_TILE_SIZE - 4;
-    this.pushable = args.pushable || false;
+    // (See map-entrance.ts)
+    // x needs to be aligned to the center,
+    // y is already aligned to the bottom.
+    this.x = (object.x + object.width / 2) * UPSCALE;
+    this.y = object.y || 100;
 
-    this.entityToEntityCollisionOverlapType = args.entityToEntityCollisionOverlapType || OverlapType.Overlap;
-    this.entityToEntityCollisionCall = args.entityToEntityCollisionCall || null;
-    this.entityToEntityCollisionCallInterval = args.entityToEntityCollisionCallInterval || Number.MAX_SAFE_INTEGER;
-    this.clickCall = args.clickCall || null;
-    this.mouseoverPointerType = args.mouseoverPointerType || PointerType.Default;
-    this.callTimers = new Map();
+    this.dxIntended = object.dxIntended || 0;
+    this.dyIntended = object.dyIntended || 0;
 
-    this.hidden = args.hidden || false;
-    this.defaultTile = args.defaultTile || 0; // TODO: Any better default value for this?
-    if (args.animationGroupName) {
-      this.animationGroup = entityAnimationGroupManager.get(args.animationGroupName);
-    } else {
-      this.animationGroup = null;
-    }
-    if (this.animationGroup) {
-      if (args.initialAnimationName) {
-        this.animation = this.animationGroup.get(args.initialAnimationName);
+    {
+      // Prevent null pointer errors.
+      const properties = object.properties || {};
+
+      this.facing = asDirection(properties.facing) || Direction.Down;
+      this.speed = properties.speed || 90 * UPSCALE; // TODO: Variable speed entities
+      this.boundingWidth = TARGET_FIELD_TILE_SIZE - 4;
+      this.boundingHeight = TARGET_FIELD_TILE_SIZE - 4;
+      this.pushable = properties.pushable || false;
+
+      // TODO: This mirrors collision-layer.ts
+      this.entityToEntityCollisionOverlapType = asOverlapType(properties.collisionOverlapType) || OverlapType.Overlap;
+      this.entityToEntityCollisionCall = properties.collisionCall || null;
+      // Use of 'MAX_SAFE_INTEGER' here means that it gets called only once, in practice.
+      this.entityToEntityCollisionCallInterval = properties.collisionCallInterval || Number.MAX_SAFE_INTEGER;
+      [this.clickCall, this.mouseoverPointerType] = parseClickProperties(properties);
+      this.callTimers = new Map();
+
+      this.hidden = properties.hidden || false;
+      this.defaultTile = properties.defaultTile || 0; // TODO: Any better default value for this?
+      if (properties.animationGroupName) {
+        this.animationGroup = entityAnimationGroupManager.get(properties.animationGroupName);
       } else {
-        this.animation = this.animationGroup.get();
+        this.animationGroup = null;
       }
-    } else {
-      this.animation = null;
-    }
-    this.animationFrameIndex = args.animationFrameIndex || 0;
-    this.animationFrameTime = args.animationFrameTime || 0;
+      if (this.animationGroup) {
+        if (properties.initialAnimationName) {
+          this.animation = this.animationGroup.get(properties.initialAnimationName);
+        } else {
+          this.animation = this.animationGroup.get();
+        }
+      } else {
+        this.animation = null;
+      }
+      this.animationFrameIndex = properties.animationFrameIndex || 0;
+      this.animationFrameTime = properties.animationFrameTime || 0;
 
-    this._movementPlan = new MovementPlan(args.movementType);
+      const movementType = asMovementType(properties.movementType) || MovementType.Stationary;
+      this._movementPlan = new MovementPlan(movementType);
+    }
   }
 
   start(save: SaveEntity) {
