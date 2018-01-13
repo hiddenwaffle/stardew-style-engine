@@ -50,7 +50,8 @@ module.exports = {
         use: {
           loader: 'file-loader',
           options: {
-            name: `${worldDirectory}/${process.env.NODE_ENV === 'production' ? '[hash].[ext]' : '[path][name].[hash].[ext]'}`
+            // Notice that the name includes a hash in non-production mode to detect map changes.
+            name: `${worldDirectory}/${process.env.NODE_ENV === 'production' ? '[hash].[ext]' : '[path][hash:hex:5]___[name].[ext]'}`
           }
         }
       }
