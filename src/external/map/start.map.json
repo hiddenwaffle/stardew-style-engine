@@ -221,12 +221,12 @@
                  "properties":
                     {
                      "collisionCall":"global.switchMap town bottom",
-                     "mixin":"exit"
+                     "mixins":"exit"
                     },
                  "propertytypes":
                     {
                      "collisionCall":"string",
-                     "mixin":"string"
+                     "mixins":"string"
                     },
                  "rotation":0,
                  "type":"",
