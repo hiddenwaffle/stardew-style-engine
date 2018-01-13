@@ -30,6 +30,7 @@ import {
   OverlapType,
 } from 'src/domain/overlap-type';
 import { parseClickProperties } from './parse-click-properties';
+import { mergeMixins } from 'src/external/mixin';
 
 class CallTimer {
   private readonly call: ScriptCall;
@@ -108,8 +109,8 @@ export class Entity {
     this.dyIntended = object.dyIntended || 0;
 
     {
-      // Prevent null pointer errors.
-      const properties = object.properties || {};
+      // Parse mixins, if any.
+      const properties = mergeMixins(object.properties);
 
       this.facing = asDirection(properties.facing) || Direction.Down;
       this.speed = properties.speed || 90 * UPSCALE; // TODO: Variable speed entities
