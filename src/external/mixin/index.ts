@@ -2,7 +2,6 @@ import { log } from 'src/log';
 import { Entity } from 'src/domain/entity';
 
 import {
-  entrance,
   exit,
 } from './global';
 
@@ -15,7 +14,6 @@ import {
  */
 const mixins: Map<string, EntityMixin> = [
   // global
-  entrance,
   exit,
   // testing
   dragon,

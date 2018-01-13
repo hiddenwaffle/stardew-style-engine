@@ -221,14 +221,12 @@
                  "properties":
                     {
                      "collisionCall":"global.switchMap town bottom",
-                     "collisionOverlapType":"Eclipse",
-                     "hidden":true
+                     "mixin":"exit"
                     },
                  "propertytypes":
                     {
                      "collisionCall":"string",
-                     "collisionOverlapType":"string",
-                     "hidden":"bool"
+                     "mixin":"string"
                     },
                  "rotation":0,
                  "type":"",
@@ -332,7 +330,7 @@
         {
          "columns":21,
          "firstgid":1,
-         "image":"..\/DawnLike\/Objects\/Floor.png",
+         "image":"..\/image\/DawnLike\/Objects\/Floor.png",
          "imageheight":624,
          "imagewidth":336,
          "margin":0,
@@ -345,7 +343,7 @@
         {
          "columns":20,
          "firstgid":820,
-         "image":"..\/DawnLike\/Objects\/Wall.png",
+         "image":"..\/image\/DawnLike\/Objects\/Wall.png",
          "imageheight":816,
          "imagewidth":320,
          "margin":0,
@@ -358,7 +356,7 @@
         {
          "columns":8,
          "firstgid":1840,
-         "image":"..\/DawnLike\/Objects\/Ground0.png",
+         "image":"..\/image\/DawnLike\/Objects\/Ground0.png",
          "imageheight":112,
          "imagewidth":128,
          "margin":0,
@@ -371,7 +369,7 @@
         {
          "columns":12,
          "firstgid":1896,
-         "image":"..\/DawnLike\/Objects\/Tree1.png",
+         "image":"..\/image\/DawnLike\/Objects\/Tree1.png",
          "imageheight":576,
          "imagewidth":192,
          "margin":0,
@@ -384,7 +382,7 @@
         {
          "columns":8,
          "firstgid":2328,
-         "image":"..\/DawnLike\/Objects\/Door0.png",
+         "image":"..\/image\/DawnLike\/Objects\/Door0.png",
          "imageheight":96,
          "imagewidth":128,
          "margin":0,
@@ -397,7 +395,7 @@
         {
          "columns":8,
          "firstgid":2376,
-         "image":"..\/DawnLike\/Items\/Scroll.png",
+         "image":"..\/image\/DawnLike\/Items\/Scroll.png",
          "imageheight":96,
          "imagewidth":128,
          "margin":0,
@@ -410,7 +408,7 @@
         {
          "columns":8,
          "firstgid":2424,
-         "image":"..\/DawnLike\/Objects\/Pit0.png",
+         "image":"..\/image\/DawnLike\/Objects\/Pit0.png",
          "imageheight":512,
          "imagewidth":128,
          "margin":0,
@@ -423,7 +421,7 @@
         {
          "columns":8,
          "firstgid":2680,
-         "image":"..\/DawnLike\/Objects\/Effect0.png",
+         "image":"..\/image\/DawnLike\/Objects\/Effect0.png",
          "imageheight":416,
          "imagewidth":128,
          "margin":0,
@@ -436,7 +434,7 @@
         {
          "columns":8,
          "firstgid":2888,
-         "image":"..\/DawnLike\/Objects\/Effect1.png",
+         "image":"..\/image\/DawnLike\/Objects\/Effect1.png",
          "imageheight":416,
          "imagewidth":128,
          "margin":0,
@@ -449,7 +447,7 @@
         {
          "columns":8,
          "firstgid":3096,
-         "image":"..\/DawnLike\/Characters\/Player0.png",
+         "image":"..\/image\/DawnLike\/Characters\/Player0.png",
          "imageheight":240,
          "imagewidth":128,
          "margin":0,
@@ -462,7 +460,7 @@
         {
          "columns":8,
          "firstgid":3216,
-         "image":"..\/metacolors.png",
+         "image":"..\/image\/metacolors.png",
          "imageheight":32,
          "imagewidth":128,
          "margin":0,

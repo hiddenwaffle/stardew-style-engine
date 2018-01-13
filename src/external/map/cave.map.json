@@ -56,14 +56,12 @@
                  "properties":
                     {
                      "collisionCall":"global.switchMap town right",
-                     "collisionOverlapType":"Eclipse",
-                     "hidden":true
+                     "mixins":"exit"
                     },
                  "propertytypes":
                     {
                      "collisionCall":"string",
-                     "collisionOverlapType":"string",
-                     "hidden":"bool"
+                     "mixins":"string"
                     },
                  "rotation":0,
                  "type":"",
@@ -80,14 +78,12 @@
                  "properties":
                     {
                      "collisionCall":"global.switchMap town left",
-                     "collisionOverlapType":"Eclipse",
-                     "hidden":true
+                     "mixins":"exit"
                     },
                  "propertytypes":
                     {
                      "collisionCall":"string",
-                     "collisionOverlapType":"string",
-                     "hidden":"bool"
+                     "mixins":"string"
                     },
                  "rotation":0,
                  "type":"",
@@ -152,7 +148,7 @@
         {
          "columns":21,
          "firstgid":1,
-         "image":"..\/DawnLike\/Objects\/Floor.png",
+         "image":"..\/image\/DawnLike\/Objects\/Floor.png",
          "imageheight":624,
          "imagewidth":336,
          "margin":0,
@@ -165,7 +161,7 @@
         {
          "columns":9,
          "firstgid":820,
-         "image":"..\/DawnLike\/Objects\/Ore0.png",
+         "image":"..\/image\/DawnLike\/Objects\/Ore0.png",
          "imageheight":112,
          "imagewidth":144,
          "margin":0,
@@ -178,7 +174,7 @@
         {
          "columns":20,
          "firstgid":883,
-         "image":"..\/DawnLike\/Objects\/Wall.png",
+         "image":"..\/image\/DawnLike\/Objects\/Wall.png",
          "imageheight":816,
          "imagewidth":320,
          "margin":0,
@@ -191,7 +187,7 @@
         {
          "columns":8,
          "firstgid":1903,
-         "image":"..\/metacolors.png",
+         "image":"..\/image\/metacolors.png",
          "imageheight":32,
          "imagewidth":128,
          "margin":0,
@@ -204,7 +200,7 @@
         {
          "columns":8,
          "firstgid":1919,
-         "image":"..\/redshrike.png",
+         "image":"..\/image\/redshrike.png",
          "imageheight":192,
          "imagewidth":128,
          "margin":0,
