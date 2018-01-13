@@ -99,7 +99,7 @@ export class Entity {
     // (See map-entrance.ts)
     // x needs to be aligned to the center,
     // y is already aligned to the bottom.
-    this.x = (object.x + object.width / 2) * UPSCALE;
+    this.x = ((object.x + object.width / 2) * UPSCALE) || 100;
     this.y = object.y || 100;
 
     this.dxIntended = object.dxIntended || 0;
