@@ -194,7 +194,8 @@
                      "clickCall-talk":"global.narrate Hello, I am a dragon.",
                      "collisionCall":"global.sayOuch",
                      "collisionCallInterval":1000,
-                     "movementType":"Wander"
+                     "movementType":"Wander",
+                     "saveable":true
                     },
                  "propertytypes":
                     {
@@ -202,7 +203,8 @@
                      "clickCall-talk":"string",
                      "collisionCall":"string",
                      "collisionCallInterval":"int",
-                     "movementType":"string"
+                     "movementType":"string",
+                     "saveable":"bool"
                     },
                  "rotation":0,
                  "type":"",
@@ -246,7 +248,8 @@
                      "clickCall-talk":"global.narrate Hello, I am a dragon.",
                      "collisionCall":"global.sayOuch",
                      "collisionCallInterval":1000,
-                     "movementType":"Wander"
+                     "movementType":"Wander",
+                     "saveable":true
                     },
                  "propertytypes":
                     {
@@ -254,7 +257,8 @@
                      "clickCall-talk":"string",
                      "collisionCall":"string",
                      "collisionCallInterval":"int",
-                     "movementType":"string"
+                     "movementType":"string",
+                     "saveable":"bool"
                     },
                  "rotation":0,
                  "type":"",
@@ -274,7 +278,8 @@
                      "clickCall-talk":"global.narrate Hello, I am a dragon.",
                      "collisionCall":"global.sayOuch",
                      "collisionCallInterval":1000,
-                     "movementType":"Stationary"
+                     "movementType":"Stationary",
+                     "saveable":true
                     },
                  "propertytypes":
                     {
@@ -282,7 +287,8 @@
                      "clickCall-talk":"string",
                      "collisionCall":"string",
                      "collisionCallInterval":"int",
-                     "movementType":"string"
+                     "movementType":"string",
+                     "saveable":"bool"
                     },
                  "rotation":0,
                  "type":"",

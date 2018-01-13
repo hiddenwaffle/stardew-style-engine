@@ -76,6 +76,8 @@ export class Entity {
   boundingHeight: number;
   pushable: boolean;
 
+  saveable: boolean;
+
   entityToEntityCollisionOverlapType: OverlapType;
   entityToEntityCollisionCall: string;
   entityToEntityCollisionCallInterval: number;
@@ -114,6 +116,8 @@ export class Entity {
       this.boundingWidth = TARGET_FIELD_TILE_SIZE - 4;
       this.boundingHeight = TARGET_FIELD_TILE_SIZE - 4;
       this.pushable = properties.pushable || false;
+
+      this.saveable = properties.saveable || false;
 
       // TODO: This mirrors collision-layer.ts
       this.entityToEntityCollisionOverlapType = asOverlapType(properties.collisionOverlapType) || OverlapType.Overlap;

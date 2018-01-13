@@ -13,6 +13,7 @@ export class Player {
       name: PLAYER_ENTITY_NAME,
       properties: {
         pushable: true,
+        saveable: true,
         animationGroupName: 'af-pirate-red',
       }
     });

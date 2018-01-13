@@ -66,6 +66,7 @@ class BlinkGroup {
 
 export class GameMap {
   id: string;
+  filePath: string;
   width: number;
   height: number;
 
@@ -80,8 +81,9 @@ export class GameMap {
 
   readonly startCall: string;
 
-  constructor(mapId: string, rawMap: any) {
+  constructor(mapId: string, filePath: string, rawMap: any) {
     this.id = mapId;
+    this.filePath = filePath;
     this.width = rawMap && rawMap.width;
     this.height = rawMap.height;
 
@@ -129,11 +131,14 @@ export class GameMap {
   }
 
   extractSave(): SaveGameMap {
-    const entityStates = this.entities.map((entity) => {
+    const entityStates = this.entities.filter((entity) => {
+      return entity.saveable;
+    }).map((entity) => {
       return entity.extractSave();
     });
     return new SaveGameMap(
       this.id,
+      this.filePath,
       entityStates,
     );
   }

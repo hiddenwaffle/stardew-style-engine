@@ -28,7 +28,7 @@ class MapLoader {
         fetch(path).then((response) => {
           return response.json();
         }).then((rawMap) => {
-          const newMap = new GameMap(mapId, rawMap);
+          const newMap = new GameMap(mapId, path, rawMap);
           this.maps.set(path, newMap);
           resolve(newMap);
         }); // TODO: Handle error?
