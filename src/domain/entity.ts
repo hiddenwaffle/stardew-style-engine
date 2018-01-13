@@ -262,7 +262,7 @@ export class Entity {
    * Like overlap() but returns true if the entities are overlapping by a percentage.
    */
   eclipse(
-    left1: number, right1: number, top1: number, bottom1: number, pct: number
+    left1: number, right1: number, top1: number, bottom1: number, pct: number,
   ): boolean {
     const [left2, right2, top2, bottom2] = this.calculateBoundingBox();
     const otherArea = (right1 - left1) * (bottom1 - top1);
