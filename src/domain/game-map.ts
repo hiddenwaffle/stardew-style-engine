@@ -7,6 +7,7 @@ import { Entity } from './entity';
 import { MapEntrance } from './map-entrance';
 import { timer } from 'src/session/timer';
 import { onlyFilename } from 'src/app-utils';
+import { PLAYER_ENTITY_NAME } from 'src/constants';
 
 class BlinkGroup {
   private readonly layers: TileLayer[];
@@ -130,7 +131,7 @@ export class GameMap {
       });
       if (entity) {
         // Only apply the save to this entity if it is the player or the map did not change.
-        if (entity.name === '@player' || !mapChanged) {
+        if (entity.name === PLAYER_ENTITY_NAME || !mapChanged) {
           entity.start(saveEntity);
         } else {
           log('warn', `${entity.name} skipped applying SaveEntity due to map change`);
