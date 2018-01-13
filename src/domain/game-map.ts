@@ -6,7 +6,7 @@ import { Tileset } from './tileset';
 import { Entity } from './entity';
 import { MapEntrance } from './map-entrance';
 import { timer } from 'src/session/timer';
-import { onlyFilename } from 'src/app-utils';
+import { onlyFilename } from 'src/utility/file-utility';
 import { PLAYER_ENTITY_NAME } from 'src/constants';
 
 class BlinkGroup {
