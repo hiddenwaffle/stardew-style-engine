@@ -1,7 +1,4 @@
-import { log } from 'src/log';
-import { ScriptCall } from 'src/game-master/script-call';
 import {
-  determineDxDy,
   Direction,
 } from 'src/domain/direction';
 

@@ -1,4 +1,4 @@
-import { SaveGameMap, SaveEntity } from 'src/session/save';
+import { SaveGameMap } from 'src/session/save';
 import { log } from 'src/log';
 import { TileLayer } from './tile-layer';
 import { CollisionLayer } from './collision-layer';
@@ -236,7 +236,7 @@ export class GameMap {
         entities.push(new Entity(object));
       }
       // Warn if there are any duplicate entity names
-      const duplicates = entities.reduce((acc, entity) => {
+      entities.reduce((acc, entity) => {
         if (acc.has(entity.name)) {
           log('warn', `Duplicate Entity name "${entity.name}" detected`);
         } else {
@@ -262,7 +262,6 @@ function determineBlinkGroups(layers: TileLayer[]): Map<string, BlinkGroup> {
   for (const layer of layers) {
     const name = layer.blinkGroup;
     if (name) {
-      const wait = layer.blinkWait;
       let group = groups.get(name);
       if (!group) {
         group = new BlinkGroup();

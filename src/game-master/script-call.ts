@@ -81,6 +81,7 @@ export class ScriptCallBatch {
   }
 
   execute(world: World) {
+    // tslint:disable-next-line:no-unused-variable
     for (const [key, scriptCall] of Array.from(this.scriptCalls)) {
       scriptCall.execute(world);
     }

@@ -5,7 +5,7 @@ import {
 } from './global';
 
 import {
-  dragon
+  dragon,
 } from './testing';
 
 /**

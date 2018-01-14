@@ -3,5 +3,5 @@ export const exit = {
   properties: {
     collisionOverlapType: 'Eclipse',
     hidden: true,
-  }
-}
+  },
+};

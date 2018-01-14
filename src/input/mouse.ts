@@ -1,6 +1,5 @@
 import {
   canvasScaled,
-  narrationContainer,
 } from 'src/ui/elements';
 import { getInverseScale } from 'src/session/scale';
 

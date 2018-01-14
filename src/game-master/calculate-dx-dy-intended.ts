@@ -8,13 +8,12 @@ import { timer } from 'src/session/timer';
 import {
   calculateFacing,
   Direction,
-  DirectionsOfFreedom,
   determineDxDy,
 } from 'src/domain/direction';
 import { tryAnimationSwitch } from './try-animation-switch';
 import { TARGET_FIELD_TILE_SIZE } from 'src/constants';
 import { TileTracker } from 'src/game-master/tile-tracker';
-import { convertXYToIndex, determineTileValueOrMapBoundary } from 'src/math';
+import { determineTileValueOrMapBoundary } from 'src/math';
 
 export function calculateDxDyIntended(world: World, entity: Entity) {
   switch (entity.movementPlan.type) {
@@ -44,6 +43,7 @@ function createNewTarget(world: World, entity: Entity) {
   for (const track of tracker.allTracks) {
     for (const layer of world.gameMap.collisionLayers) {
       // Determine if collision is an actual tile, or a map boundary.
+      // tslint:disable-next-line:no-unused-variable
       const [tileValue, _mapBoundary] = determineTileValueOrMapBoundary(track.x, track.y, layer);
 
       // Collision possible only if the tile value is a positive number.

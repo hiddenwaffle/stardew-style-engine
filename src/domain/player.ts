@@ -1,7 +1,6 @@
 import {
   SavePlayer,
 } from 'src/session/save';
-import { Direction } from 'src/domain/direction';
 import { Entity } from './entity';
 import { PLAYER_ENTITY_NAME } from 'src/constants';
 
@@ -15,7 +14,7 @@ export class Player {
         pushable: true,
         saveable: true,
         animationGroupName: 'af-pirate-red',
-      }
+      },
     });
   }
 

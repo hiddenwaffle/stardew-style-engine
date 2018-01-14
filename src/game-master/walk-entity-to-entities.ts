@@ -14,7 +14,6 @@ export function walkEntityToEntities(world: World, entity: Entity): WalkResult {
   const [left, right, top, bottom] = entity.calculateBoundingBox();
   for (const other of world.entities) {
     if (entity.id !== other.id) {
-      const [leftOther, rightOther, topOther, bottomOther] = other.calculateBoundingBox();
       if (other.overlap(left, right, top, bottom)) {
         // Check if eclipse is required to count as a collision.
         if (other.entityToEntityCollisionOverlapType === OverlapType.Eclipse &&

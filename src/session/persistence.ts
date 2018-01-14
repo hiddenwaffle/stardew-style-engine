@@ -1,5 +1,4 @@
 import { log } from 'src/log';
-import { World } from 'src/domain/world';
 import {
   SAVE_WORLD_KEY,
   SAVE_WORLD_VERSION,
@@ -73,7 +72,7 @@ function doSaveState(saveState: SaveState) {
  * TODO: Dangerous method because it affects domain-wide storage.
  */
 function cleanUnknownKeys() {
-  const unknownKeys = Object.keys(localStorage).map((key) => {
+  Object.keys(localStorage).map((key) => {
     return !ALLOWED_LOCAL_STORAGE_KEYS.includes(key) ? key : null;
   })
   .filter((key) => key !== null)

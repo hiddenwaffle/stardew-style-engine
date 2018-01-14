@@ -1,10 +1,5 @@
 import { World } from 'src/domain/world';
-import { Entity } from 'src/domain/entity';
-import {
-  calculateFacing,
-  Direction,
-  DirectionsOfFreedom,
-} from 'src/domain/direction';
+import { calculateFacing } from 'src/domain/direction';
 import { walkEntityToTiles } from './walk-entity-to-tiles';
 import { walkEntityToEntities } from './walk-entity-to-entities';
 import { calculateDxDyIntended } from './calculate-dx-dy-intended';

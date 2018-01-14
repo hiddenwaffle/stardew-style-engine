@@ -17,7 +17,8 @@
         "one-variable-per-declaration": false,
         "no-string-literal": false,
         "array-type": false,
-        "object-literal-sort-keys": false
+        "object-literal-sort-keys": false,
+        "no-unused-variable": true
     },
     "rulesDirectory": []
 }

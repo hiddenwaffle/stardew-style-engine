@@ -1,4 +1,3 @@
-import { log } from 'src/log';
 import {
   TARGET_FIELD_TILE_SIZE,
   UPSCALE,
@@ -11,10 +10,6 @@ import {
   determineCurrentAnimationCoordinates,
 } from 'src/domain/entity-animation';
 import { entityAnimationGroupManager } from 'src/session/entity-animation-group-manager';
-import {
-  Sheet,
-  imageLoader,
-} from 'src/session/image-loader';
 import {
   Direction,
   asDirection,
@@ -288,7 +283,9 @@ export class Entity {
     const [left2, right2, top2, bottom2] = this.calculateBoundingBox();
     const otherArea = (right1 - left1) * (bottom1 - top1);
     const thisArea  = (right2 - left2) * (bottom2 - top2);
-    const intersectionArea = Math.max(0, Math.min(right1, right2) - Math.max(left1, left2)) * Math.max(0, Math.min(bottom1, bottom2) - Math.max(top1, top2));
+    const intersectionArea =
+      Math.max(0, Math.min( right1,  right2) - Math.max(left1, left2)) *
+      Math.max(0, Math.min(bottom1, bottom2) - Math.max( top1,  top2));
     const denominator = otherArea + thisArea - intersectionArea;
     return (intersectionArea / (denominator || 0.001)) > pct;
   }

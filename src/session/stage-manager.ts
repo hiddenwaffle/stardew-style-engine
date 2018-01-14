@@ -1,13 +1,10 @@
 import { log } from 'src/log';
 import { World } from 'src/domain/world';
 import { State, gameState } from 'src/session/game-state';
-import { GameMap } from 'src/domain/game-map';
-import { Player } from 'src/domain/player';
 import { gameMaster } from 'src/game-master/game-master';
 import { render } from 'src/render/render';
 import {
   SaveWorld,
-  SavePlayer,
   SaveState,
 } from './save';
 import { persistence } from './persistence';

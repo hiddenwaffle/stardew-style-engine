@@ -14,14 +14,14 @@ export enum PointerType {
  */
 class Pointer {
   private currentType: PointerType;
-  private lastType: PointerType;
+  // private lastType: PointerType; // TODO: Necessary? Delete?
   private typeChanged: boolean;
 
   overEntityId: number;
 
   constructor() {
     this.currentType = PointerType.Default;
-    this.lastType = PointerType.Default;
+    // this.lastType = PointerType.Default;
     this.typeChanged = false;
 
     this.overEntityId = null;
@@ -29,7 +29,7 @@ class Pointer {
 
   setType(type: PointerType) {
     if (this.currentType !== type) {
-      this.lastType = this.currentType;
+      // this.lastType = this.currentType;
       this.currentType = type;
       this.typeChanged = true;
     }

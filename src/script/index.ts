@@ -1,6 +1,6 @@
 import { log } from 'src/log';
 import { ScriptCallContext } from 'src/game-master/script-call';
-import { ScriptHandler, ScriptNamespace } from './script-namespace';
+import { ScriptNamespace } from './script-namespace';
 import { global } from './global';
 
 class Script {

@@ -1,9 +1,3 @@
-import { log } from 'src/log';
-import {
-  determineDirection,
-  Direction,
-} from './direction';
-
 export enum MovementType {
   Stationary = 1,
   Player     = 2,

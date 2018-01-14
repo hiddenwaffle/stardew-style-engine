@@ -1,6 +1,5 @@
 import { log } from 'src/log';
 import { EntityAnimationGroup } from 'src/domain/entity-animation';
-import { imageLoader } from 'src/session/image-loader';
 import { antifarea } from './antifarea';
 import { dawnLike } from './dawn-like';
 

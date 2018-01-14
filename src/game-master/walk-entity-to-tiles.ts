@@ -12,7 +12,7 @@ import { CollisionLayer } from 'src/domain/collision-layer';
 import {
   TileTracker,
 } from './tile-tracker';
-import { convertXYToIndex, determineTileValueOrMapBoundary } from 'src/math';
+import { determineTileValueOrMapBoundary } from 'src/math';
 
 export function walkEntityToTiles(world: World, entity: Entity): WalkResult {
   const walkResult = new WalkResult(world);
@@ -111,6 +111,7 @@ function movement(world: World, entity: Entity, walkResult: WalkResult) {
 function calls(world: World, entity: Entity, walkResult: WalkResult) {
   const collisionTileLayers: string[] = [];
   for (const layer of world.gameMap.collisionLayers) {
+    // tslint:disable-next-line:no-unused-variable
     const [tileValue, mapBoundary] = determineTileValueOrMapBoundary(entity.xtile, entity.ytile, layer);
     if (tileValue > 0) { // Overlap possible only if the tile value is a positive number.
       collisionTileLayers.push(layer.name);

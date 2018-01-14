@@ -1,6 +1,5 @@
-import { log } from 'src/log';
 import { ScriptCallContext } from 'src/game-master/script-call';
-import { ScriptHandler, ScriptNamespace } from 'src/script/script-namespace';
+import { ScriptNamespace } from 'src/script/script-namespace';
 import { switchMap } from './switch-map';
 import { narrator } from 'src/text/narrator';
 
