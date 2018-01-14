@@ -2,8 +2,9 @@ import { log } from 'src/log';
 import { World } from 'src/domain/world';
 import {
   SAVE_WORLD_KEY,
+  SAVE_WORLD_VERSION,
   SAVE_STATE_KEY,
-  SAVE_VERSION,
+  SAVE_STATE_VERSION,
   ALLOWED_LOCAL_STORAGE_KEYS,
 } from 'src/constants';
 import { SaveWorld, SaveState } from './save';
@@ -53,19 +54,19 @@ function loadState(): string {
 }
 
 function rawToSaveWorld(raw: string): SaveWorld {
-  return <SaveWorld> rawToObj(raw) || new SaveWorld();
+  return <SaveWorld> rawToObj(raw, SAVE_WORLD_VERSION) || new SaveWorld();
 }
 
 function rawToSaveState(raw: string): SaveState {
-  return <SaveState> rawToObj(raw) || new SaveState();
+  return <SaveState> rawToObj(raw, SAVE_STATE_VERSION) || new SaveState();
 }
 
 function doSaveWorld(saveWorld: SaveWorld) {
-  localStorage.setItem(SAVE_WORLD_KEY, objToRaw(saveWorld));
+  localStorage.setItem(SAVE_WORLD_KEY, objToRaw(saveWorld, SAVE_WORLD_VERSION));
 }
 
 function doSaveState(saveState: SaveState) {
-  localStorage.setItem(SAVE_STATE_KEY, objToRaw(saveState));
+  localStorage.setItem(SAVE_STATE_KEY, objToRaw(saveState, SAVE_STATE_VERSION));
 }
 
 /**
@@ -82,9 +83,9 @@ function cleanUnknownKeys() {
   });
 }
 
-function objToRaw(obj: any): string {
+function objToRaw(obj: any, currentVersion: number): string {
   const headerJson = JSON.stringify({
-    version: SAVE_VERSION,
+    version: currentVersion,
   });
   const headerBase64 = btoa(headerJson);
   const payloadJson = JSON.stringify(obj);
@@ -92,14 +93,14 @@ function objToRaw(obj: any): string {
   return `${headerBase64}.${payloadBase64}`;
 }
 
-function rawToObj(raw: string): any {
+function rawToObj(raw: string, currentVersion: number): any {
   let save: any;
   try {
     const [headerBase64, payloadBase64] = raw.split('.');
     const headerJson = atob(headerBase64);
     const header = JSON.parse(headerJson);
 
-    if (header.version !== SAVE_VERSION) {
+    if (header.version !== currentVersion) {
       // TODO: This is where version migrations might occur.
       // TODO: Instead, for now, just throw an error so it resets the world.
       throw Error('Does not match');
