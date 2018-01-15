@@ -21,7 +21,7 @@ export function drawTargetBox(
   ctx.fillStyle = toRGBA(color);
 
   const padding = 1.5 * UPSCALE;
-  const lineWidth = UPSCALE;
+  const lineWidth = 1 * UPSCALE;
   const lineLength = 4 * UPSCALE;
 
   const leftEdge = x - padding;
