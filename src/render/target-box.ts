@@ -41,7 +41,7 @@ export function drawTargetBox(
 
   // Bottom Right
   ctx.fillRect(rightEdge - lineWidth, bottomEdge,              -lineLength + lineWidth,  lineWidth); // Bottom
-  ctx.fillRect(rightEdge - lineWidth, bottomEdge + lineWidth,   lineWidth,  -lineLength); // Right
+  ctx.fillRect(rightEdge - lineWidth, bottomEdge + lineWidth,   lineWidth,              -lineLength); // Right
 }
 
 function toRGBA(color: TargetBoxColor) {
