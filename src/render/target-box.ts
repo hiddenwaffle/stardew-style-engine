@@ -1,3 +1,5 @@
+import { UPSCALE } from "src/constants";
+
 // import { timer } from 'src/session/timer';
 // TODO: Use easing functions for the first time here.
 
@@ -18,9 +20,9 @@ export function drawTargetBox(
 ) {
   ctx.fillStyle = toRGBA(color);
 
-  const padding = 6;
-  const lineWidth = 4;
-  const lineLength = 16;
+  const padding = 1.5 * UPSCALE;
+  const lineWidth = UPSCALE;
+  const lineLength = 4 * UPSCALE;
 
   const leftEdge = x - padding;
   const rightEdge = x + width + padding;
