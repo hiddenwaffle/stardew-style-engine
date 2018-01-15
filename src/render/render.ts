@@ -257,6 +257,19 @@ function renderEntities(world: World) {
           destination3Y,
           targetTileWidth,
           targetTileHeight,
+          1.5,
+        );
+      }
+      // TODO: Make better and animated?
+      if (pointer.selectedEntityId === entity.id) {
+        drawTargetBox(
+          TargetBoxColor.Yellow,
+          ctxBack,
+          destination3X,
+          destination3Y,
+          targetTileWidth,
+          targetTileHeight,
+          1.25,
         );
       }
     }

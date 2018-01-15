@@ -5,6 +5,7 @@ import { UPSCALE } from "src/constants";
 
 export enum TargetBoxColor {
   Cyan = 1,
+  Yellow = 2,
 }
 
 /**
@@ -17,10 +18,11 @@ export function drawTargetBox(
   y: number,
   width: number,
   height: number,
+  givenPadding: number,
 ) {
   ctx.fillStyle = toRGBA(color);
 
-  const padding = 1.5 * UPSCALE;
+  const padding = givenPadding * UPSCALE;
   const lineWidth = 1 * UPSCALE;
   const lineLength = 4 * UPSCALE;
 
@@ -47,16 +49,19 @@ export function drawTargetBox(
 }
 
 function toRGBA(color: TargetBoxColor) {
-  let red = 255;
-  let green = 255;
-  let blue = 255;
-  let alpha = 1.0;
+  let red = 0;
+  let green = 0;
+  let blue = 0;
+  let alpha = 0.8;
+
   if (color === TargetBoxColor.Cyan) {
-    red = 0;
     green = 255;
     blue = 255;
-    alpha = 0.8;
+  } else if (color === TargetBoxColor.Yellow) {
+    red = 255;
+    green = 255;
   }
   // TODO: Other colors
+
   return `rgba(${red}, ${green}, ${blue}, ${alpha})`;
 }

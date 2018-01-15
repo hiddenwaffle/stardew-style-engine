@@ -100,6 +100,13 @@ export class World {
    */
   executeClick(x: number, y: number, alt: boolean) {
     const [entity, tileLayer] = this.calculateTopMostFromPoint(x, y);
+
+    if (entity && entity.targetable) {
+      pointer.selectedEntityId = pointer.overEntityId;
+    } else {
+      pointer.selectedEntityId = null;
+    }
+
     if (entity && entity.clickCall) {
       new ScriptCall(
         entity.clickCall,

@@ -11,9 +11,10 @@ export class Player {
     this.entity = new Entity({
       name: PLAYER_ENTITY_NAME,
       properties: {
+        animationGroupName: 'af-pirate-red',
         pushable: true,
         saveable: true,
-        animationGroupName: 'af-pirate-red',
+        targetable: true,
       },
     });
   }

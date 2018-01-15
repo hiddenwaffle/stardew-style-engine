@@ -190,21 +190,11 @@
                  "name":"dragon3",
                  "properties":
                     {
-                     "animationGroupName":"dl-player-7-12",
-                     "clickCall-talk":"global.narrate Hello, I am a dragon.",
-                     "collisionCall":"global.sayOuch",
-                     "collisionCallInterval":1000,
-                     "movementType":"Wander",
-                     "saveable":true
+                     "mixins":"dragon"
                     },
                  "propertytypes":
                     {
-                     "animationGroupName":"string",
-                     "clickCall-talk":"string",
-                     "collisionCall":"string",
-                     "collisionCallInterval":"int",
-                     "movementType":"string",
-                     "saveable":"bool"
+                     "mixins":"string"
                     },
                  "rotation":0,
                  "type":"",
@@ -242,21 +232,11 @@
                  "name":"dragon2",
                  "properties":
                     {
-                     "animationGroupName":"dl-player-7-12",
-                     "clickCall-talk":"global.narrate Hello, I am a dragon.",
-                     "collisionCall":"global.sayOuch",
-                     "collisionCallInterval":1000,
-                     "movementType":"Wander",
-                     "saveable":true
+                     "mixins":"dragon"
                     },
                  "propertytypes":
                     {
-                     "animationGroupName":"string",
-                     "clickCall-talk":"string",
-                     "collisionCall":"string",
-                     "collisionCallInterval":"int",
-                     "movementType":"string",
-                     "saveable":"bool"
+                     "mixins":"string"
                     },
                  "rotation":0,
                  "type":"",

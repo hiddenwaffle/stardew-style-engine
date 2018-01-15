@@ -7,5 +7,6 @@ export const dragon = {
     'collisionCallInterval': 1000,
     'movementType': 'Wander',
     'saveable': true,
+    'targetable': true,
   },
 };

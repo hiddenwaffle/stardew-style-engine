@@ -18,6 +18,7 @@ class Pointer {
   private typeChanged: boolean;
 
   overEntityId: number;
+  selectedEntityId: number;
 
   constructor() {
     this.currentType = PointerType.Default;
@@ -25,6 +26,7 @@ class Pointer {
     this.typeChanged = false;
 
     this.overEntityId = null;
+    this.selectedEntityId = null;
   }
 
   setType(type: PointerType) {
