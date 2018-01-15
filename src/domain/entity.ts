@@ -26,6 +26,8 @@ import {
 } from 'src/domain/overlap-type';
 import { parseClickProperties } from './parse-click-properties';
 import { mergeMixins } from 'src/external/mixin';
+import { imageLoader } from 'src/session/image-loader';
+import { calculateInitialImageSize } from 'src/math/calculate-initial-image-size';
 
 class CallTimer {
   private readonly call: ScriptCall;
@@ -88,6 +90,10 @@ export class Entity {
   animationFrameIndex: number;
   animationFrameTime: number;
 
+  // These are determined by either the first animation groups frame or the bounding box.
+  initialImageWidth: number;
+  initialImageHeight: number;
+
   private _movementPlan: MovementPlan;
 
   constructor(object: any) {
@@ -144,6 +150,11 @@ export class Entity {
 
       const movementType = asMovementType(properties.movementType) || MovementType.Stationary;
       this._movementPlan = new MovementPlan(movementType);
+
+      // "Guess" the image size from the animationGroup.
+      [this.initialImageWidth, this.initialImageHeight] = calculateInitialImageSize(this.animationGroup);
+      this.initialImageWidth = this.initialImageWidth || this.boundingWidth;
+      this.initialImageHeight = this.initialImageHeight || this.boundingHeight;
     }
   }
 
@@ -247,12 +258,41 @@ export class Entity {
   }
 
   calculateBoundingBox(): [number, number, number, number] {
-    // Calculate bounding box -- center x to middle and y to bottom.
+    // Center x to middle and y to bottom.
     const left    = this.x - this.boundingWidth / 2;
     const right   = this.x + this.boundingWidth / 2;
     const top     = this.y - this.boundingHeight;
     const bottom  = this.y + 1; // +1 to prevent entity's y to be on a solid tile directly below the entity.
     return [left, right, top, bottom];
+  }
+
+  calculateImageBox(): [number, number, number, number] {
+    // Center x to middle and y to bottom.
+    const left    = this.x - this.initialImageWidth / 2;
+    const right   = this.x + this.initialImageWidth / 2;
+    const top     = this.y - this.initialImageHeight;
+    const bottom  = this.y;
+    return [left, right, top, bottom];
+  }
+
+  overlapBoundingBox(
+    left1: number, right1: number, top1: number, bottom1: number,
+  ): boolean {
+    const [left2, right2, top2, bottom2] = this.calculateBoundingBox();
+    return this.overlap(
+      left1, right1, top1, bottom1,
+      left2, right2, top2, bottom2,
+    )
+  }
+
+  overlapImage(
+    left1: number, right1: number, top1: number, bottom1: number,
+  ): boolean {
+    const [left2, right2, top2, bottom2] = this.calculateImageBox();
+    return this.overlap(
+      left1, right1, top1, bottom1,
+      left2, right2, top2, bottom2,
+    )
   }
 
   /**
@@ -263,8 +303,8 @@ export class Entity {
    */
   overlap(
     left1: number, right1: number, top1: number, bottom1: number,
+    left2: number, right2: number, top2: number, bottom2: number,
   ): boolean {
-    const [left2, right2, top2, bottom2] = this.calculateBoundingBox();
     return (
       left2   < right1  &&
       right2  > left1   &&

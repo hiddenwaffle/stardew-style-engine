@@ -140,7 +140,7 @@ export class World {
   private calculateTopMostEntityFromPoint(x: number, y: number): Entity {
     const entities = this.entitiesSortedByY().reverse();
     const overlapEntity = entities.find((entity) => {
-      return entity.overlap(x, x, y, y);
+      return entity.overlapImage(x, x, y, y);
     });
     return overlapEntity || null;
   }

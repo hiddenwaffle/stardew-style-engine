@@ -153,6 +153,11 @@ class ImageLoader {
     return this.sheets.get(filename);
   }
 
+  getConfig(rawImagePath: string): SheetConfig {
+    const filename = onlyFilename(rawImagePath);
+    return this.configs.get(filename);
+  }
+
   private retrieve(filename: string, config: SheetConfig): Promise<{}> {
     return new Promise((resolve, reject) => {
       const image = <HTMLImageElement> document.createElement('img');
