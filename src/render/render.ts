@@ -221,36 +221,28 @@ function renderEntities(world: World) {
       }
 
       // // TODO: Remove this debug
-      // ctxBack.strokeStyle = 'yellow';
+      // {
+      //   const destinationX4 = destinationX - entity.boundingWidth / 2;
+      //   const destinationY4 = destinationY - entity.boundingHeight;
+      //   const destination5X = destinationX4 + FIELD_TARGET_WIDTH  / 2;
+      //   const destination5Y = destinationY4 + FIELD_TARGET_HEIGHT / 2;
+      //   debugStrokeRect(
+      //     ctxBack,
+      //     'cyan',
+      //     destination5X, destination5Y,
+      //     entity.boundingWidth, entity.boundingHeight + 1, // Notice the +1 (see collision response code)
+      //   );
+      // }
+
+      // // TODO: Remove this debug
       // debugStrokeRect(
       //   ctxBack,
-      //   destination3X, destination3Y,
-      //   targetTileWidth, targetTileHeight,
+      //   'yellow',
+      //   ((entity.xtile * TARGET_FIELD_TILE_SIZE) - world.player.x) + FIELD_TARGET_WIDTH  / 2,
+      //   ((entity.ytile * TARGET_FIELD_TILE_SIZE) - world.player.y) + FIELD_TARGET_HEIGHT / 2,
+      //   TARGET_FIELD_TILE_SIZE,
+      //   TARGET_FIELD_TILE_SIZE,
       // );
-
-      // TODO: Remove this debug
-      ctxBack.strokeStyle = 'cyan';
-      const destinationX4 = destinationX - entity.boundingWidth / 2;
-      const destinationY4 = destinationY - entity.boundingHeight;
-      const destination5X = destinationX4 + FIELD_TARGET_WIDTH  / 2;
-      const destination5Y = destinationY4 + FIELD_TARGET_HEIGHT / 2;
-      debugStrokeRect(
-        ctxBack,
-        destination5X, destination5Y,
-        entity.boundingWidth, entity.boundingHeight + 1, // Notice the +1 (see collision response code)
-      );
-
-      // TODO: Remove this debug
-      {
-        ctxBack.strokeStyle = 'yellow';
-        debugStrokeRect(
-          ctxBack,
-          ((entity.xtile * TARGET_FIELD_TILE_SIZE) - world.player.x) + FIELD_TARGET_WIDTH  / 2,
-          ((entity.ytile * TARGET_FIELD_TILE_SIZE) - world.player.y) + FIELD_TARGET_HEIGHT / 2,
-          TARGET_FIELD_TILE_SIZE,
-          TARGET_FIELD_TILE_SIZE,
-        );
-      }
 
       // TODO: Make better and animated?
       if (pointer.overEntityId === entity.id) {
@@ -269,8 +261,9 @@ function renderEntities(world: World) {
 /**
  * Draws a box only if in development mode.
  */
-function debugStrokeRect(ctx: CanvasRenderingContext2D, x: number, y: number, w: number, h: number) {
+function debugStrokeRect(ctx: CanvasRenderingContext2D, color: string, x: number, y: number, w: number, h: number) {
   if (environment.development) {
+    ctxBack.strokeStyle = color;
     ctx.strokeRect(x, y, w, h);
   }
 }
