@@ -16,6 +16,10 @@ import { World } from 'src/domain/world';
 import { pointer } from 'src/ui/pointer';
 import { Player } from 'src/domain/player';
 import { GameMap } from 'src/domain/game-map';
+import {
+  TargetBoxColor,
+  drawTargetBox,
+} from './target-box';
 
 function determineImageAndCoordinate(tilesets: Tileset[], tile: number): [Sheet, number, number] {
   let sheet: Sheet = null;
@@ -246,8 +250,9 @@ function renderEntities(world: World) {
 
       // TODO: Make better and animated?
       if (pointer.overEntityId === entity.id) {
-        ctxBack.strokeStyle = 'cyan';
-        ctxBack.strokeRect(
+        drawTargetBox(
+          TargetBoxColor.Cyan,
+          ctxBack,
           destination3X,
           destination3Y,
           targetTileWidth,
