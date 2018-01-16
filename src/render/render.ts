@@ -64,8 +64,14 @@ function renderWorld(world: World) {
     const { gameMap, player } = world;
     if (gameMap) {
       renderTileLayers(false, gameMap, player);
-      renderEntities(world);
+      const [drawHighlightFn, drawTargetFn] = renderEntities(world);
       renderTileLayers(true, gameMap, player);
+      if (drawHighlightFn) {
+        drawHighlightFn();
+      }
+      if (drawTargetFn) {
+        drawTargetFn();
+      }
     }
   }
 }
@@ -142,8 +148,11 @@ function renderTileLayers(fringe: boolean, gameMap: GameMap, player: Player) {
   }
 }
 
-function renderEntities(world: World) {
+function renderEntities(world: World): [() => void, () => void] {
   const entities = world.entitiesSortedByY();
+
+  let drawHighlightFn = null;
+  let drawTargetFn = null;
 
   // Entity coordinates are already upscaled
   entities.forEach((entity) => {
@@ -250,30 +259,36 @@ function renderEntities(world: World) {
 
       // TODO: Make better and animated?
       if (pointer.overEntityId === entity.id) {
-        drawTargetBox(
-          TargetBoxColor.Cyan,
-          ctxBack,
-          destination3X,
-          destination3Y,
-          targetTileWidth,
-          targetTileHeight,
-          1.5,
-        );
+        drawHighlightFn = () => {
+          drawTargetBox(
+            TargetBoxColor.Cyan,
+            ctxBack,
+            destination3X,
+            destination3Y,
+            targetTileWidth,
+            targetTileHeight,
+            1.5,
+          );
+        }
       }
       // TODO: Make better and animated?
       if (pointer.selectedEntityId === entity.id) {
-        drawTargetBox(
-          TargetBoxColor.Yellow,
-          ctxBack,
-          destination3X,
-          destination3Y,
-          targetTileWidth,
-          targetTileHeight,
-          1.25,
-        );
+        drawTargetFn = () => {
+          drawTargetBox(
+            TargetBoxColor.Yellow,
+            ctxBack,
+            destination3X,
+            destination3Y,
+            targetTileWidth,
+            targetTileHeight,
+            1.25,
+          );
+        }
       }
     }
   });
+
+  return [drawHighlightFn, drawTargetFn];
 }
 
 /**
