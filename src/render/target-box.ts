@@ -18,18 +18,18 @@ export function drawTargetBox(
   y: number,
   width: number,
   height: number,
-  givenPadding: number,
+  padding: number,
 ) {
   ctx.fillStyle = toRGBA(color);
 
-  const padding = givenPadding * UPSCALE;
+  const boxPadding = padding * UPSCALE;
   const lineWidth = 1 * UPSCALE;
   const lineLength = 4 * UPSCALE;
 
-  const leftEdge = x - padding;
-  const rightEdge = x + width + padding;
-  const topEdge = y - padding;
-  const bottomEdge = y + height + padding;
+  const leftEdge = x - boxPadding;
+  const rightEdge = x + width + boxPadding;
+  const topEdge = y - boxPadding;
+  const bottomEdge = y + height + boxPadding;
 
   // Top Left
   ctx.fillRect(leftEdge, topEdge, lineLength, lineWidth); // Top
