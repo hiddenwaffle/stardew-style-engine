@@ -18,8 +18,8 @@ import { Player } from 'src/domain/player';
 import { GameMap } from 'src/domain/game-map';
 import {
   TargetBoxColor,
-  drawTargetBox,
-} from './target-box';
+  TargetBoxes,
+} from './target-boxes';
 
 function determineImageAndCoordinate(tilesets: Tileset[], tile: number): [Sheet, number, number] {
   let sheet: Sheet = null;
@@ -39,6 +39,12 @@ function determineImageAndCoordinate(tilesets: Tileset[], tile: number): [Sheet,
 }
 
 class Render {
+  private readonly targetBoxes: TargetBoxes;
+
+  constructor() {
+    this.targetBoxes = new TargetBoxes();
+  }
+
   start() {
     //
   }
@@ -49,7 +55,7 @@ class Render {
 
   step(world: World) {
     if (gameState.state === State.Ready) {
-      renderWorld(world);
+      renderWorld(world, this.targetBoxes);
     } else if (gameState.state === State.SwitchingMap) {
       // Draw loading animation
     }
@@ -58,20 +64,16 @@ class Render {
 
 export const render = new Render();
 
-function renderWorld(world: World) {
+function renderWorld(world: World, targetBoxes: TargetBoxes) {
   ctxBack.clearRect(0, 0, canvasBack.width, canvasBack.height);
   if (world) {
     const { gameMap, player } = world;
     if (gameMap) {
+      targetBoxes.reset();
       renderTileLayers(false, gameMap, player);
-      const [drawHighlightFn, drawTargetFn] = renderEntities(world);
+      renderEntities(world, targetBoxes);
       renderTileLayers(true, gameMap, player);
-      if (drawHighlightFn) {
-        drawHighlightFn();
-      }
-      if (drawTargetFn) {
-        drawTargetFn();
-      }
+      targetBoxes.draw(ctxBack);
     }
   }
 }
@@ -148,11 +150,11 @@ function renderTileLayers(fringe: boolean, gameMap: GameMap, player: Player) {
   }
 }
 
-function renderEntities(world: World): [() => void, () => void] {
+function renderEntities(
+  world: World,
+  targetBoxes: TargetBoxes,
+) {
   const entities = world.entitiesSortedByY();
-
-  let drawHighlightFn = null;
-  let drawTargetFn = null;
 
   // Entity coordinates are already upscaled
   entities.forEach((entity) => {
@@ -257,38 +259,24 @@ function renderEntities(world: World): [() => void, () => void] {
       //   TARGET_FIELD_TILE_SIZE,
       // );
 
-      // TODO: Make better and animated?
       if (pointer.overEntityId === entity.id) {
-        drawHighlightFn = () => {
-          drawTargetBox(
-            TargetBoxColor.Cyan,
-            ctxBack,
-            destination3X,
-            destination3Y,
-            targetTileWidth,
-            targetTileHeight,
-            1.5,
-          );
-        }
+        targetBoxes.overTargetBox.show(
+          destination3X,
+          destination3Y,
+          targetTileWidth,
+          targetTileHeight,
+        );
       }
-      // TODO: Make better and animated?
       if (pointer.selectedEntityId === entity.id) {
-        drawTargetFn = () => {
-          drawTargetBox(
-            TargetBoxColor.Yellow,
-            ctxBack,
-            destination3X,
-            destination3Y,
-            targetTileWidth,
-            targetTileHeight,
-            1.25,
-          );
-        }
+        targetBoxes.selectedTargetBox.show(
+          destination3X,
+          destination3Y,
+          targetTileWidth,
+          targetTileHeight,
+        );
       }
     }
   });
-
-  return [drawHighlightFn, drawTargetFn];
 }
 
 /**

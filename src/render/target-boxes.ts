@@ -8,12 +8,84 @@ export enum TargetBoxColor {
   Yellow = 2,
 }
 
+export class TargetBoxes {
+  readonly overTargetBox: TargetBox;
+  readonly selectedTargetBox: TargetBox;
+
+  constructor() {
+    this.overTargetBox = new TargetBox(TargetBoxColor.Cyan, 1.5);
+    this.selectedTargetBox = new TargetBox(TargetBoxColor.Yellow, 1.25);
+  }
+
+  reset() {
+    this.overTargetBox.reset();
+    this.selectedTargetBox.reset();
+  }
+
+  draw(ctx: CanvasRenderingContext2D) {
+    this.overTargetBox.draw(ctx);
+    this.selectedTargetBox.draw(ctx);
+  }
+}
+
+class TargetBox {
+  private visible: boolean;
+  private readonly color: TargetBoxColor;
+  private readonly padding: number;
+  private x: number;
+  private y: number;
+  private width: number;
+  private height: number;
+
+  /**
+   * x, y should already be upscaled.
+   * Other values will be upscaled on draw.
+   */
+  constructor(
+    color: TargetBoxColor,
+    padding: number,
+  ) {
+    this.visible = false;
+    this.color = color;
+    this.padding = padding;
+  }
+
+  reset() {
+    this.visible = false;
+  }
+
+  show(x: number, y: number, width: number, height: number) {
+    this.visible = true;
+    this.x = x;
+    this.y = y;
+    this.width = width;
+    this.height = height;
+  }
+
+  /**
+   * TODO: Make better and animated?
+   */
+  draw(ctx: CanvasRenderingContext2D) {
+    if (this.visible) {
+      drawTargetBox(
+        ctx,
+        this.color,
+        this.x,
+        this.y,
+        this.width,
+        this.height,
+        this.padding,
+      );
+    }
+  }
+}
+
 /**
  * x, y are upper-left coordinates of the box.
  */
-export function drawTargetBox(
-  color: TargetBoxColor,
+function drawTargetBox(
   ctx: CanvasRenderingContext2D,
+  color: TargetBoxColor,
   x: number,
   y: number,
   width: number,
