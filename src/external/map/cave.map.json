@@ -100,6 +100,36 @@
         }, 
         {
          "draworder":"topdown",
+         "name":"dragons",
+         "objects":[
+                {
+                 "gid":2134,
+                 "height":16,
+                 "id":15,
+                 "name":"dragon1",
+                 "properties":
+                    {
+                     "mixins":"dragon"
+                    },
+                 "propertytypes":
+                    {
+                     "mixins":"string"
+                    },
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":16,
+                 "x":112,
+                 "y":192
+                }],
+         "opacity":1,
+         "type":"objectgroup",
+         "visible":true,
+         "x":0,
+         "y":0
+        }, 
+        {
+         "draworder":"topdown",
          "name":"@entrances",
          "objects":[
                 {
@@ -139,7 +169,7 @@
          "x":0,
          "y":0
         }],
- "nextobjectid":15,
+ "nextobjectid":16,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.0.3",
@@ -207,6 +237,19 @@
          "name":"redshrike",
          "spacing":0,
          "tilecount":96,
+         "tileheight":16,
+         "tilewidth":16
+        }, 
+        {
+         "columns":8,
+         "firstgid":2015,
+         "image":"..\/image\/DawnLike\/Characters\/Player0.png",
+         "imageheight":240,
+         "imagewidth":128,
+         "margin":0,
+         "name":"Player0",
+         "spacing":0,
+         "tilecount":120,
          "tileheight":16,
          "tilewidth":16
         }],
