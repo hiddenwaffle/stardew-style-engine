@@ -12,13 +12,11 @@ class Mouse {
   private _xclient: number;
   private _yclient: number;
   private _leftClick: boolean;
-  private _rightClick: boolean;
 
   constructor() {
     this._xclient = 0;
     this._yclient = 0;
     this._leftClick = false;
-    this._rightClick = false;
   }
 
   start() {
@@ -29,18 +27,12 @@ class Mouse {
     canvasScaled.addEventListener('click', (event) => {
       this._leftClick = true;
     });
-    canvasScaled.addEventListener('contextmenu', (event) => {
-      event.preventDefault();
-      this._rightClick = true;
-    });
   }
 
-  handleClick(): [boolean, boolean] {
+  handleClick(): boolean {
     const leftClick = this._leftClick;
-    const rightClick = this._rightClick;
     this._leftClick = false;
-    this._rightClick = false;
-    return [leftClick, rightClick];
+    return leftClick;
   }
 
   /**

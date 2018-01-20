@@ -53,9 +53,9 @@ function handleMouse() {
   const [xlogical, ylogical] = mouse.xy;
   gameMaster.setLogicalMouseAt(xlogical, ylogical);
 
-  const [leftClick, rightClick] = mouse.handleClick();
-  if (leftClick || rightClick) {
-    gameMaster.setLogicalClickedAt(xlogical, ylogical, rightClick);
+  const click = mouse.handleClick();
+  if (click) {
+    gameMaster.setLogicalClickedAt(xlogical, ylogical);
   } else {
     // "Clears" click if there was one in the previous step() iteration.
     gameMaster.setLogicalClickedAt();

@@ -27,7 +27,6 @@ class GameMaster {
    * If the mouse was clicked, and where.
    */
   private clicked: boolean;
-  private rightClick: boolean;
   private xclick: number;
   private yclick: number;
 
@@ -40,7 +39,6 @@ class GameMaster {
     this.ymouse = -1;
 
     this.clicked = false;
-    this.rightClick = false;
     this.xclick = -1;
     this.yclick = -1;
   }
@@ -84,7 +82,7 @@ class GameMaster {
 
     if (this.clicked) {
       const [x, y] = camera.logicalToWorld(this.xclick, this.yclick);
-      world.executeClick(x, y, this.rightClick);
+      world.executeClick(x, y);
     }
 
     tryAnimationSwitch(world.player.entity, this.walk);
@@ -103,9 +101,8 @@ class GameMaster {
     this.ymouse = y;
   }
 
-  setLogicalClickedAt(x?: number, y?: number, rightClick?: boolean) {
+  setLogicalClickedAt(x?: number, y?: number) {
     this.clicked = x && y ? true : false;
-    this.rightClick = rightClick || false;
     this.xclick = x || 0;
     this.yclick = y || 0;
   }

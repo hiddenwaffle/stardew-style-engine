@@ -96,9 +96,8 @@ export class World {
 
   /**
    * Determine which entity or tile layer, if any, receives the click.
-   * TODO: Use alt for something?
    */
-  executeClick(x: number, y: number, alt: boolean) {
+  executeClick(x: number, y: number) {
     const [entity, tileLayer] = this.calculateTopMostFromPoint(x, y);
 
     if (entity && entity.targetable) {
