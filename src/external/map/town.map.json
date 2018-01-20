@@ -108,6 +108,18 @@
                  "width":16,
                  "x":0,
                  "y":128
+                }, 
+                {
+                 "gid":2322,
+                 "height":16,
+                 "id":7,
+                 "name":"outside-room",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":16,
+                 "x":352,
+                 "y":112
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -148,7 +160,7 @@
                  "name":"example-portal-out-2",
                  "properties":
                     {
-                     "collisionCall":"global.switchMap start center",
+                     "collisionCall":"global.switchMap room front",
                      "mixins":"exit"
                     },
                  "propertytypes":
@@ -191,7 +203,7 @@
          "x":0,
          "y":0
         }],
- "nextobjectid":7,
+ "nextobjectid":8,
  "orientation":"orthogonal",
  "properties":
     {

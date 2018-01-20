@@ -6,6 +6,7 @@ import {
 
 import {
   dragon,
+  roomResident,
 } from './testing';
 
 /**
@@ -16,6 +17,7 @@ const mixins: Map<string, EntityMixin> = [
   exit,
   // testing
   dragon,
+  roomResident,
 ].reduce((map, mixin) => {
   map.set(mixin.mixinId, mixin);
   return map;

@@ -10,3 +10,14 @@ export const dragon = {
     'targetable': true,
   },
 };
+
+export const roomResident = {
+  mixinId: 'room-resident',
+  properties: {
+    'animationGroupName': 'af-royalty-dress',
+    'clickCall-talk': 'global.narrate What are you doing in my house?',
+    'movementType': 'Wander',
+    'saveable': true,
+    'targetable': true,
+  },
+};
