@@ -1,3 +1,8 @@
+import {
+  eventBus,
+  EventType
+} from 'src/event/event-bus';
+
 /**
  * Values correspond to CSS mouse cursor options.
  */
@@ -27,6 +32,10 @@ class Pointer {
 
     this.overEntityId = null;
     this.selectedEntityId = null;
+
+    eventBus.register(EventType.CancelEvent, () => {
+      pointer.selectedEntityId = null;
+    });
   }
 
   setType(type: PointerType) {

@@ -4,6 +4,7 @@ export const enum Key {
   Down    = 3,
   Right   = 4,
   Walk    = 5,
+  Cancel  = 100,
   Pause   = 6,
   // Rest of these are special directives
   Other   = 7,
@@ -109,10 +110,12 @@ class Keyboard {
       case 16:    // shift
         key = Key.Walk;
         break;
+      case 27:    // esc
+        key = Key.Cancel;
+        break;
 
       // Pause ---------------------------------------------------------
       case 80: // 'p'
-      case 27: // esc
       case 13: // enter key
         key = Key.Pause;
         break;
@@ -171,6 +174,10 @@ class Keyboard {
         break;
       case Key.Pause:
         this.setState(Key.Pause, state);
+        preventDefault = true;
+        break;
+      case Key.Cancel:
+        this.setState(Key.Cancel, state);
         preventDefault = true;
         break;
       // TODO: Maybe add a debug key here ('f')

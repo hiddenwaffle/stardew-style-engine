@@ -1,6 +1,13 @@
 import { gameMaster } from 'src/game-master/game-master';
 import { keyboard, Key } from './keyboard';
 import { mouse } from './mouse';
+import {
+  eventBus,
+  EventType,
+} from 'src/event/event-bus';
+import {
+  CancelEvent
+} from 'src/event/cancel-event';
 
 class Controller {
   /**
@@ -47,6 +54,10 @@ function handleKeyboard() {
 
   const walk = keyboard.isDown(Key.Walk);
   gameMaster.setPlayerIntendedDirection(dx, dy, walk);
+
+  if(keyboard.isDownAndUnhandled(Key.Cancel)) {
+    eventBus.fire(new CancelEvent());
+  }
 }
 
 function handleMouse() {
