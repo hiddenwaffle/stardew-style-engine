@@ -48,6 +48,12 @@ class GameMaster {
       return;
     }
 
+    // Better to handle input before movement occurs, each frame.
+    if (this.clicked) {
+      const [x, y] = camera.logicalToWorld(this.xclick, this.yclick);
+      world.executeClick(x, y);
+    }
+
     world.step();
 
     {
@@ -79,11 +85,6 @@ class GameMaster {
       world.player.entity.facing,
       world.player.entity.directionsOfFreedom,
     );
-
-    if (this.clicked) {
-      const [x, y] = camera.logicalToWorld(this.xclick, this.yclick);
-      world.executeClick(x, y);
-    }
 
     tryAnimationSwitch(world.player.entity, this.walk);
 
