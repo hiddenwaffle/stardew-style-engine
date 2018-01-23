@@ -1,28 +1,16 @@
 import { GameMap } from 'src/domain/game-map';
-
-import start  from 'src/external/map/start.map.json';
-import town   from 'src/external/map/town.map.json';
-import cave   from 'src/external/map/cave.map.json';
-import room   from 'src/external/map/room.map.json';
-// TODO: More maps
+import { paths } from 'src/external/meta/map-meta';
 
 class MapLoader {
   private readonly maps: Map<string, GameMap>;
-  private readonly paths: Map<string, string>;
 
   constructor() {
     this.maps = new Map();
-
-    this.paths = new Map();
-    this.paths.set('start', start);
-    this.paths.set('town',  town);
-    this.paths.set('cave',  cave);
-    this.paths.set('room',  room);
   }
 
   fetch(mapId: string): Promise<GameMap> {
     return new Promise((resolve, reject) => {
-      const path = this.paths.get(mapId);
+      const path = paths.get(mapId);
       const map = this.maps.get(path);
       if (map) {
         resolve(map);

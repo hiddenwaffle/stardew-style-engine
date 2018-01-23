@@ -1,5 +1,5 @@
 import { environment } from 'src/session/environment';
-import { Sheet, imageLoader } from 'src/session/image-loader';
+import { imageLoader } from 'src/session/image-loader';
 import { State, gameState } from 'src/session/game-state';
 import {
   ctxBack,
@@ -20,6 +20,7 @@ import {
   TargetBoxColor,
   TargetBoxes,
 } from './target-boxes';
+import { Sheet } from 'src/render/sheet';
 
 function determineImageAndCoordinate(tilesets: Tileset[], tile: number): [Sheet, number, number] {
   let sheet: Sheet = null;
