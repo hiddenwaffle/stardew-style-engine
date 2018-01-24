@@ -12,7 +12,8 @@ module.exports = {
   entry: {
     bundle: './src/index.ts',
     vendor: [
-      '@tweenjs/tween.js'
+      '@tweenjs/tween.js',
+      'easystarjs'
     ]
   },
   module: {
