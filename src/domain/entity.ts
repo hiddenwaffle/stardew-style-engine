@@ -18,7 +18,7 @@ import {
 } from './direction';
 import { nextId } from 'src/session/id-generator';
 import { PointerType } from 'src/ui/pointer';
-import { MovementPlan, asMovementType, MovementType } from 'src/domain/movement';
+import { MovementPlan, asMovementType, MovementType, parseMovementTileXYs } from 'src/domain/movement';
 import { SaveEntity } from 'src/session/save';
 import {
   asOverlapType,
@@ -153,7 +153,8 @@ export class Entity {
       this.animationFrameTime = properties.animationFrameTime || 0;
 
       const movementType = asMovementType(properties.movementType) || MovementType.Stationary;
-      this._movementPlan = new MovementPlan(movementType);
+      const movementTargets = parseMovementTileXYs(properties.movementTileXYs) || [];
+      this._movementPlan = new MovementPlan(movementType, movementTargets);
 
       // "Guess" the image size from the animationGroup.
       [this.initialImageWidth, this.initialImageHeight] = calculateInitialImageSize(this.animationGroup);

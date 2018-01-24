@@ -1,7 +1,6 @@
 import { World } from 'src/domain/world';
 import { Entity } from 'src/domain/entity';
 import {
-  MovementType,
   MovementTarget,
 } from 'src/domain/movement';
 import { timer } from 'src/session/timer';
@@ -10,30 +9,17 @@ import {
   Direction,
   determineDxDy,
 } from 'src/domain/direction';
-import { tryAnimationSwitch } from './try-animation-switch';
+import { tryAnimationSwitch } from 'src/game-master/try-animation-switch';
 import { TARGET_FIELD_TILE_SIZE } from 'src/constants';
 import { TileTracker } from 'src/game-master/tile-tracker';
 import { determineTileValueOrMapBoundary } from 'src/math';
 
-export function calculateDxDyIntended(world: World, entity: Entity) {
-  switch (entity.movementPlan.type) {
-    case MovementType.Wander:
-      advanceWander(world, entity);
-      break;
-    case MovementType.Player:
-    case MovementType.Stationary:
-    default:
-      // Do nothing
-  }
-}
-
-function advanceWander(world: World, entity: Entity) {
+export function wander(world: World, entity: Entity) {
   const plan = entity.movementPlan;
   if (plan.targets.length === 0) {
     createNewTarget(world, entity);
-  } else {
-    headTowardsTarget(world, entity);
   }
+  headTowardsTarget(world, entity);
 }
 
 function createNewTarget(world: World, entity: Entity) {
@@ -74,8 +60,6 @@ function createNewTarget(world: World, entity: Entity) {
   const ytileTarget = entity.ytile + dytile;
 
   const target = new MovementTarget(
-    entity.x,
-    entity.y,
     xtileTarget * TARGET_FIELD_TILE_SIZE + (TARGET_FIELD_TILE_SIZE / 2),
     // The -2 is to prevent overlap with adjacent tiles: -1 (above) + -1 (below) = -2.
     // Otherwise, xtile/ytile can end up pointed to a solid tile even
@@ -90,6 +74,13 @@ function createNewTarget(world: World, entity: Entity) {
 function headTowardsTarget(world: World, entity: Entity) {
   const plan = entity.movementPlan;
   const target = plan.targets[0];
+  if (!target) {
+    return;
+  }
+
+  if (!target.initialized) {
+    target.initialize(entity.x, entity.y);
+  }
 
   // Determine the direction needed to travel from point A to point B.
   const dxstart = to1(target.x - target.xstart);

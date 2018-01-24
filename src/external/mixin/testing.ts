@@ -16,7 +16,8 @@ export const roomResident = {
   properties: {
     'animationGroupName': 'af-royalty-dress',
     'clickCall-talk': 'global.narrate What are you doing in my house?',
-    'movementType': 'Wander',
+    'movementType': 'Patrol',
+    'movementTileXYs': '2 2, 13 9',
     'saveable': true,
     'targetable': true,
   },

@@ -92,18 +92,6 @@
                 {
                  "gid":3319,
                  "height":20,
-                 "id":2,
-                 "name":"",
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":18,
-                 "x":208,
-                 "y":144
-                }, 
-                {
-                 "gid":3319,
-                 "height":20,
                  "id":4,
                  "name":"room-resident",
                  "properties":
