@@ -50,7 +50,7 @@ export function patrol(world: World, entity: Entity) {
 
 function headTowardsTarget(world: World, entity: Entity) {
   const plan = entity.movementPlan;
-  const target = plan.targets[0];
+  const target = plan.currentTarget;
   if (!target) {
     return;
   }
@@ -93,7 +93,7 @@ function headTowardsTarget(world: World, entity: Entity) {
        target.wait = false;
      }
     } else {
-      plan.targets.shift();
+      plan.setCurrentTargetComplete();
     }
   }
 }

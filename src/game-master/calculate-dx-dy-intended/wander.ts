@@ -16,7 +16,7 @@ import { determineTileValueOrMapBoundary } from 'src/math';
 
 export function wander(world: World, entity: Entity) {
   const plan = entity.movementPlan;
-  if (plan.targets.length === 0) {
+  if (!plan.currentTarget) {
     createNewTarget(world, entity);
   }
   headTowardsTarget(world, entity);
@@ -68,12 +68,12 @@ function createNewTarget(world: World, entity: Entity) {
     wait,
     ttl,
   );
-  plan.targets.push(target);
+  plan.addTarget(target);
 }
 
 function headTowardsTarget(world: World, entity: Entity) {
   const plan = entity.movementPlan;
-  const target = plan.targets[0];
+  const target = plan.currentTarget;
   if (!target) {
     return;
   }
@@ -116,7 +116,7 @@ function headTowardsTarget(world: World, entity: Entity) {
        target.wait = false;
      }
     } else {
-      plan.targets.shift();
+      plan.setCurrentTargetComplete();
     }
   }
 }

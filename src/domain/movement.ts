@@ -85,7 +85,7 @@ export class MovementTarget {
 
 export class MovementPlan {
   readonly type: MovementType;
-  readonly targets: MovementTarget[];
+  private readonly targets: MovementTarget[];
   readonly finishedCall: string;
 
   constructor(
@@ -96,5 +96,17 @@ export class MovementPlan {
     this.type = type || MovementType.Stationary;
     this.targets = targets;
     this.finishedCall = finishedCall || null;
+  }
+
+  addTarget(target: MovementTarget) {
+    this.targets.push(target);
+  }
+
+  setCurrentTargetComplete() {
+    this.targets.shift();
+  }
+
+  get currentTarget(): MovementTarget {
+    return this.targets[0];
   }
 }
