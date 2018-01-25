@@ -11,10 +11,6 @@ npm install       # or: yarn install
 npm run dev       # or: yarn run dev
 ```
 
-## Unit Testing
-* See [Unit Testing Node Applications With TypeScript Using Mocha and Chai](https://journal.artfuldev.com/unit-testing-node-applications-with-typescript-using-mocha-and-chai-384ef05f32b2) for information about why the unit testing environment is set up the way it is.
-* --watch flag does not always pick up changes correctly, particuarly with class and method signature changes.
-
 ## Integration Testing
 * Need a test that ensures that save file won't get corrupted if exiting while still initializing.
 
