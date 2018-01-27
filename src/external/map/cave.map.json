@@ -157,7 +157,7 @@
          "opacity":1,
          "properties":
             {
-             "leftCall":"global.switchMap start center"
+             "leftCall":"global.switchMap town outside-cave"
             },
          "propertytypes":
             {
