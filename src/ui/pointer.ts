@@ -1,5 +1,6 @@
 import {
   eventBus,
+  EventType,
 } from 'src/event/event-bus';
 
 /**
