@@ -1,4 +1,3 @@
-import { environment } from 'src/session/environment';
 import { imageLoader } from 'src/session/image-loader';
 import { State, gameState } from 'src/session/game-state';
 import {
@@ -17,7 +16,6 @@ import { pointer } from 'src/ui/pointer';
 import { Player } from 'src/domain/player';
 import { GameMap } from 'src/domain/game-map';
 import {
-  TargetBoxColor,
   TargetBoxes,
 } from './target-boxes';
 import { Sheet } from 'src/render/sheet';
@@ -280,12 +278,12 @@ function renderEntities(
   });
 }
 
-/**
- * Draws a box only if in development mode.
- */
-function debugStrokeRect(ctx: CanvasRenderingContext2D, color: string, x: number, y: number, w: number, h: number) {
-  if (environment.development) {
-    ctxBack.strokeStyle = color;
-    ctx.strokeRect(x, y, w, h);
-  }
-}
+// /**
+//  * Draws a box only if in development mode.
+//  */
+// function debugStrokeRect(ctx: CanvasRenderingContext2D, color: string, x: number, y: number, w: number, h: number) {
+//   if (environment.development) {
+//     ctxBack.strokeStyle = color;
+//     ctx.strokeRect(x, y, w, h);
+//   }
+// }

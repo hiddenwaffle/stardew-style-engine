@@ -34,7 +34,7 @@ export function parseMovementTileXYs(raw: string): MovementTarget[] {
       log('warn', 'Received an unexpected number of X, Y arguments', raw);
       return null;
     }
-  }).filter(value => value !== null);
+  }).filter((value) => value !== null);
 }
 
 export class MovementTarget {
@@ -91,7 +91,7 @@ export class MovementPlan {
   constructor(
     type: MovementType,
     targets: MovementTarget[],
-    finishedCall?: string
+    finishedCall?: string,
   ) {
     this.type = type || MovementType.Stationary;
     this.targets = targets;

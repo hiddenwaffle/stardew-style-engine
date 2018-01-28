@@ -9,7 +9,7 @@ import { imageLoader } from 'src/session/image-loader';
  * TODO: Maybe use the "defaultTile" if given?
  */
 export function calculateInitialImageSize(
-  group: EntityAnimationGroup
+  group: EntityAnimationGroup,
 ): [number, number] {
   if (!group) {
     return [null, null];

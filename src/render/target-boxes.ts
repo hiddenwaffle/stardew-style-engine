@@ -124,7 +124,7 @@ function toRGBA(color: TargetBoxColor) {
   let red = 0;
   let green = 0;
   let blue = 0;
-  let alpha = 0.8;
+  const alpha = 0.8;
 
   if (color === TargetBoxColor.Cyan) {
     green = 255;

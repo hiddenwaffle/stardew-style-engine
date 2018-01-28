@@ -2,7 +2,6 @@ import {
   SheetConfig,
   genConfig,
 } from 'src/render/sheet';
-import { DEFAULT_FIELD_TILE_SIZE } from 'src/constants';
 
 import player0    from 'src/external/image/DawnLike/Characters/Player0.png';
 import player1    from 'src/external/image/DawnLike/Characters/Player1.png';

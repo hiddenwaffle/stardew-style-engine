@@ -1,6 +1,5 @@
 import { log } from 'src/log';
 import { onlyFilename } from 'src/utility/file-utility';
-import { DEFAULT_FIELD_TILE_SIZE } from 'src/constants';
 import {
   Sheet,
   SheetConfig,

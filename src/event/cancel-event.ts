@@ -1,6 +1,6 @@
 import {
   EventType,
-  AbstractEvent
+  AbstractEvent,
 } from './event-bus';
 
 export class CancelEvent extends AbstractEvent {

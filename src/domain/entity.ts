@@ -26,7 +26,6 @@ import {
 } from 'src/domain/overlap-type';
 import { parseClickProperties } from './parse-click-properties';
 import { mergeMixins } from 'src/external/mixin';
-import { imageLoader } from 'src/session/image-loader';
 import { calculateInitialImageSize } from 'src/math/calculate-initial-image-size';
 
 class CallTimer {
@@ -287,7 +286,7 @@ export class Entity {
     return this.overlap(
       left1, right1, top1, bottom1,
       left2, right2, top2, bottom2,
-    )
+    );
   }
 
   overlapImage(
@@ -297,7 +296,7 @@ export class Entity {
     return this.overlap(
       left1, right1, top1, bottom1,
       left2, right2, top2, bottom2,
-    )
+    );
   }
 
   /**

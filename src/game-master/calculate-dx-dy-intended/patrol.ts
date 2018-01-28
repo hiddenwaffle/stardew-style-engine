@@ -1,18 +1,18 @@
 import { World } from 'src/domain/world';
 import { Entity } from 'src/domain/entity';
-import {
-  MovementTarget,
-} from 'src/domain/movement';
+// import {
+//   MovementTarget,
+// } from 'src/domain/movement';
 import { timer } from 'src/session/timer';
 import {
   calculateFacing,
-  Direction,
-  determineDxDy,
+  // Direction,
+//   determineDxDy,
 } from 'src/domain/direction';
 import { tryAnimationSwitch } from 'src/game-master/try-animation-switch';
-import { TARGET_FIELD_TILE_SIZE } from 'src/constants';
-import { TileTracker } from 'src/game-master/tile-tracker';
-import { determineTileValueOrMapBoundary } from 'src/math';
+// import { TARGET_FIELD_TILE_SIZE } from 'src/constants';
+// import { TileTracker } from 'src/game-master/tile-tracker';
+// import { determineTileValueOrMapBoundary } from 'src/math';
 
 export function patrol(world: World, entity: Entity) {
   // const plan = entity.movementPlan;
